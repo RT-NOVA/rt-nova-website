@@ -1,0 +1,61 @@
+brand:
+  title: Rawlings Tigers NOVA
+  subtitle: Northern Virginia Baseball
+  text: Player development, competitive preparation, and a family-first travel baseball experience for Northern Virginia athletes.
+columns:
+  - title: Quick Links
+    links:
+      - name: About Us
+        url: /about/
+      - name: Teams
+        url: /teams/
+      - name: Coaches
+        url: /coaches/
+      - name: Accolades
+        url: /accolades/
+      - name: Family Hub
+        url: /family-hub/
+  - title: Resources
+    links:
+      - name: Tryouts
+        url: /tryouts/
+      - name: Player Development
+        url: /player-development/
+      - name: Become A Tiger
+        url: /become-a-tiger/
+      - name: Watch Now
+        url: /watch-now/
+      - name: Coaching Opportunities
+        url: /coaching-opportunities/
+  - title: Support
+    links:
+      - name: Sponsors
+        url: /sponsors/
+      - name: Booster Club
+        url: /booster-club/
+      - name: Fundraisers
+        url: /family-hub/
+      - name: Contact
+        url: mailto:rawlingstigersnova@gmail.com
+      - name: Icon Credits
+        url: /credits/
+social:
+  - name: Instagram
+    icon: instagram
+    label: Instagram
+    url: https://instagram.com/rawlingstigersnova/
+  - name: Facebook
+    icon: facebook
+    label: Facebook
+    url: https://www.facebook.com/rawlingstigersNOVA/
+  - name: X
+    icon: x
+    label: X
+    url: https://x.com/TigersNOVA
+  - name: YouTube
+    icon: youtube
+    label: YouTube
+    url: https://www.youtube.com/@RawlingsTigersNOVA/
+bottom:
+  copyright: Rawlings Tigers NOVA. All rights reserved.
+  credit: Built with Hugo for Cloudflare Pages.

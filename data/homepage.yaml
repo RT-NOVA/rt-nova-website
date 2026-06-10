@@ -1,0 +1,72 @@
+hero:
+  kicker: Rawlings Tigers NOVA Baseball
+  title_lines:
+    - Develop.
+    - Compete.
+    - Represent NOVA.
+  intro: A Northern Virginia travel baseball program built around player development, competitive preparation, team culture, and a better experience for families.
+  primary:
+    label: View Teams
+    url: /teams/
+  secondary:
+    label: Register for Tryouts
+    url: /tryouts/
+  image: /images/teamlinkt/homepage-team-hero.png
+pillars:
+  - title: Player Development
+    text: Skill work, baseball IQ, preparation, and accountability.
+    icon: baseball-bat
+  - title: Competitive Teams
+    text: Travel baseball seasons built around growth and meaningful competition.
+    icon: podium-winner
+  - title: Professional Coaching
+    text: Clear communication, practice planning, and development standards.
+    icon: team-idea
+  - title: NOVA Family
+    text: Proudly serving Woodbridge, Dumfries, Montclair, and Northern Virginia.
+    icon: baseball-glove
+why:
+  kicker: Why Rawlings Tigers NOVA?
+  title: Built for the player, the team, and the family.
+  intro: "A cleaner program model for families: understand the teams, meet the coaches, register for tryouts, follow accomplishments, and support the organization from one place."
+  cards:
+    - title: Player Development
+      text: Age-appropriate instruction, baseball IQ, practice standards, and accountability that help players keep improving.
+      icon: baseball-bat
+    - title: Team-First Culture
+      text: Competitive teams built around effort, communication, preparation, and representing NOVA the right way.
+      icon: team-idea
+    - title: Family Experience
+      text: Easier access to schedules, tryouts, coaches, watch links, family resources, sponsors, and Booster Club support.
+      icon: baseball-glove
+    - title: Program Pride
+      text: Accolades, player highlights, and team achievements presented in a way that celebrates the players and the organization.
+      icon: american-shield
+proof:
+  - value: 10U–14U
+    label: Travel baseball teams
+  - value: NOVA
+    label: Northern Virginia roots
+  - value: Rawlings Tigers
+    label: National program identity
+  - value: 501(c)(3)
+    label: Booster Club support
+development:
+  kicker: Player Development
+  title: Built around growth, competition, and protecting the player's love for the game.
+  items:
+    - title: Development-first coaching
+      text: Practice plans, game preparation, fundamentals, and baseball IQ are treated as part of the same player-development path.
+    - title: Competitive but age-appropriate
+      text: Players are challenged through meaningful tournaments and team expectations without losing sight of long-term growth.
+    - title: Team and family alignment
+      text: Clear communication, shared standards, and family resources help keep players supported on and off the field.
+connect:
+  title: Stay connected.
+  text: Follow teams, view tryout updates, connect with coaches, and support the program through sponsors and family resources.
+  primary:
+    label: Team Central
+    url: /teams/
+  secondary:
+    label: Family Hub
+    url: /family-hub/

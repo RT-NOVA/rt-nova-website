@@ -1,0 +1,37 @@
+{{- $name := . | default "baseball-bat" -}}
+{{- $aliases := dict
+  "x" "twitter-x"
+  "twitter" "twitter-x"
+  "baseball" "baseball-bat"
+  "baseball-bat" "baseball-bat"
+  "bat" "baseball-bat"
+  "glove" "baseball-glove"
+  "baseball-glove" "baseball-glove"
+  "graph-up-arrow" "baseball-bat"
+  "bullseye" "baseball-bat"
+  "trophy" "podium-winner"
+  "award" "podium-winner"
+  "podium" "podium-winner"
+  "podium-winner" "podium-winner"
+  "clipboard" "team-idea"
+  "clipboard-check" "team-idea"
+  "team" "team-idea"
+  "team-idea" "team-idea"
+  "people" "team-idea"
+  "family" "baseball-glove"
+  "house-heart" "baseball-glove"
+  "homeplate" "baseball-glove"
+  "shield" "american-shield"
+  "shield-check" "american-shield"
+  "program-pride" "american-shield"
+-}}
+{{- $icon := index $aliases $name | default $name -}}
+{{- $gameIconPath := printf "assets/icons/game-icons/%s.svg" $icon -}}
+{{- $bootstrapPath := printf "assets/icons/bootstrap/%s.svg" $icon -}}
+{{- if fileExists $gameIconPath -}}
+  {{- readFile $gameIconPath | safeHTML -}}
+{{- else if fileExists $bootstrapPath -}}
+  {{- readFile $bootstrapPath | safeHTML -}}
+{{- else -}}
+  {{- readFile "assets/icons/game-icons/baseball-bat.svg" | safeHTML -}}
+{{- end -}}

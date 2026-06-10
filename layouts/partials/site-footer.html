@@ -1,0 +1,37 @@
+{{ $footer := hugo.Data.footer }}
+<footer class="site-footer site-footer--twelve" role="contentinfo">
+  <div class="rt-shell--wide site-footer__inner">
+    <div class="site-footer__brand-block">
+      <a class="footer-brand" href="/" aria-label="Rawlings Tigers NOVA home">
+        <img src="/images/teamlinkt/rawlings-tigers-nova-round-logo.png" alt="Rawlings Tigers Northern Virginia" class="footer-brand__logo">
+      </a>
+      <p>{{ $footer.brand.text }}</p>
+    </div>
+
+    <div class="site-footer__link-area">
+      {{ range $footer.columns }}
+      <nav class="site-footer__nav" aria-label="{{ .title }}">
+        <h3>{{ .title }}</h3>
+        {{ range .links }}
+          <a href="{{ .url }}">{{ .name }}</a>
+        {{ end }}
+      </nav>
+      {{ end }}
+      <div class="site-footer__social-block" aria-label="Social links">
+        <h3>Follow</h3>
+        <div class="site-footer__socials">
+          {{ range $footer.social }}
+            <a href="{{ .url }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
+              {{ partial "icon.html" .icon }}
+            </a>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rt-shell--wide site-footer__bottom">
+    <span>© {{ now.Format "2006" }} {{ $footer.bottom.copyright }}</span>
+    <span>{{ $footer.bottom.credit }}</span>
+  </div>
+</footer>
