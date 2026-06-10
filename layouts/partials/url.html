@@ -1,6 +1,9 @@
 {{- $url := . -}}
 {{- if or (hasPrefix $url "http://") (hasPrefix $url "https://") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") (hasPrefix $url "#") -}}
 {{- $url -}}
+{{- else if eq $url "/" -}}
+{{- "/" | relURL -}}
 {{- else -}}
-{{- $url | relURL -}}
+{{- $clean := strings.TrimPrefix "/" $url -}}
+{{- $clean | relURL -}}
 {{- end -}}
