@@ -2,8 +2,8 @@
 <footer class="site-footer site-footer--twelve" role="contentinfo">
   <div class="rt-shell--wide site-footer__inner">
     <div class="site-footer__brand-block">
-      <a class="footer-brand" href="/" aria-label="Rawlings Tigers NOVA home">
-        <img src="/images/teamlinkt/rawlings-tigers-nova-round-logo.png" alt="Rawlings Tigers Northern Virginia" class="footer-brand__logo">
+      <a class="footer-brand" href="{{ partial "url.html" "/" }}" aria-label="Rawlings Tigers NOVA home">
+        <img src="{{ partial "url.html" "/images/teamlinkt/rawlings-tigers-nova-round-logo.png" }}" alt="Rawlings Tigers Northern Virginia" class="footer-brand__logo">
       </a>
       <p>{{ $footer.brand.text }}</p>
     </div>
@@ -13,7 +13,7 @@
       <nav class="site-footer__nav" aria-label="{{ .title }}">
         <h3>{{ .title }}</h3>
         {{ range .links }}
-          <a href="{{ .url }}">{{ .name }}</a>
+          <a href="{{ partial "url.html" .url }}">{{ .name }}</a>
         {{ end }}
       </nav>
       {{ end }}
@@ -21,7 +21,7 @@
         <h3>Follow</h3>
         <div class="site-footer__socials">
           {{ range $footer.social }}
-            <a href="{{ .url }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
+            <a href="{{ partial "url.html" .url }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
               {{ partial "icon.html" .icon }}
             </a>
           {{ end }}

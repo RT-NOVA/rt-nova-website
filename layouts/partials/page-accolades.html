@@ -20,13 +20,13 @@
           {{ with .banners }}
           <h4>Tournament Banners</h4>
           <div class="rt-image-grid rt-image-grid--banners">
-            {{ range . }}<figure>{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener">{{ end }}<img src="{{ .image }}" alt="{{ .alt }}" loading="lazy">{{ if .link }}</a>{{ end }}<figcaption>{{ .alt }}</figcaption></figure>{{ end }}
+            {{ range . }}<figure>{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener">{{ end }}<img src="{{ partial "url.html" .image }}" alt="{{ .alt }}" loading="lazy">{{ if .link }}</a>{{ end }}<figcaption>{{ .alt }}</figcaption></figure>{{ end }}
           </div>
           {{ end }}
           {{ with .highlights }}
           <h4>Player Highlights</h4>
           <div class="rt-image-grid rt-image-grid--highlights">
-            {{ range . }}<figure>{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener">{{ end }}<img src="{{ .image }}" alt="{{ .alt }}" loading="lazy">{{ if .link }}</a>{{ end }}<figcaption>{{ .alt }}</figcaption></figure>{{ end }}
+            {{ range . }}<figure>{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener">{{ end }}<img src="{{ partial "url.html" .image }}" alt="{{ .alt }}" loading="lazy">{{ if .link }}</a>{{ end }}<figcaption>{{ .alt }}</figcaption></figure>{{ end }}
           </div>
           {{ end }}
         </article>

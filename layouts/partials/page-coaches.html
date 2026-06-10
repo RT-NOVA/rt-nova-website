@@ -18,7 +18,7 @@
           {{ range .coaches }}
           {{ $coach := . }}
           <article class="rt-coach-card {{ if in (lower $coach.role) "head" }}is-head{{ end }}">
-            {{ with $coach.photo }}<img class="rt-coach-photo" src="{{ . }}" alt="{{ $coach.name }}">{{ end }}
+            {{ with $coach.photo }}<img class="rt-coach-photo" src="{{ partial "url.html" . }}" alt="{{ $coach.name }}">{{ end }}
             <span class="rt-role">{{ $coach.role }}</span>
             <h4>{{ $coach.name }}</h4>
             {{ with $coach.bio }}<details class="rt-bio"><summary>Coach Bio</summary><p>{{ . }}</p></details>{{ end }}

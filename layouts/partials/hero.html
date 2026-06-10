@@ -6,7 +6,7 @@
       {{ with .intro }}<p class="rt-lead">{{ . }}</p>{{ end }}
       {{ with .actions }}
       <div class="rt-action-row">
-        {{ range . }}<a class="rt-btn {{ .class }}" href="{{ .url }}">{{ .label }}</a>{{ end }}
+        {{ range . }}<a class="rt-btn {{ .class }}" href="{{ partial "url.html" .url }}">{{ .label }}</a>{{ end }}
       </div>
       {{ end }}
     </div>

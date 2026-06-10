@@ -25,11 +25,11 @@
           </div>
           <h3>{{ $team.name }}</h3>
           <div class="rt-person-inline">
-            {{ with $team.coach_photo }}<img src="{{ . }}" alt="{{ $team.head_coach }}">{{ end }}
+            {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}">{{ end }}
             <span><small>{{ $team.coach_role }}</small><strong>{{ $team.head_coach }}</strong></span>
           </div>
           <div class="rt-link-row">
-            {{ range $team.links }}<a href="{{ .url }}">{{ .label }}</a>{{ else }}<span class="rt-muted">Team links coming soon</span>{{ end }}
+            {{ range $team.links }}<a href="{{ partial "url.html" .url }}">{{ .label }}</a>{{ else }}<span class="rt-muted">Team links coming soon</span>{{ end }}
           </div>
         </article>
         {{ end }}

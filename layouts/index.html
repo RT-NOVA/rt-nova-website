@@ -2,7 +2,7 @@
 {{ $home := hugo.Data.homepage }}
 <section class="home-hero">
   <div class="home-hero__media" aria-hidden="true">
-    <img src="{{ $home.hero.image }}" alt="">
+    <img src="{{ partial "url.html" $home.hero.image }}" alt="">
   </div>
   <div class="rt-shell home-hero__inner">
     <div class="home-hero__copy">
@@ -10,8 +10,8 @@
       <h1>{{ range $i, $line := $home.hero.title_lines }}<span>{{ $line }}</span>{{ end }}</h1>
       <p class="home-hero__lead">{{ $home.hero.intro }}</p>
       <div class="rt-action-row">
-        <a class="rt-btn rt-btn--orange" href="{{ $home.hero.primary.url }}">{{ $home.hero.primary.label }}</a>
-        <a class="rt-btn rt-btn--ghost" href="{{ $home.hero.secondary.url }}">{{ $home.hero.secondary.label }}</a>
+        <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" $home.hero.primary.url }}">{{ $home.hero.primary.label }}</a>
+        <a class="rt-btn rt-btn--ghost" href="{{ partial "url.html" $home.hero.secondary.url }}">{{ $home.hero.secondary.label }}</a>
       </div>
     </div>
   </div>
