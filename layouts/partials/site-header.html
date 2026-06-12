@@ -1,6 +1,6 @@
-{{ $mainNav := default (slice) hugo.Data.navigation.main }}
-{{ $utilityNav := default (slice) hugo.Data.navigation.utility }}
-{{ $socialNav := default (slice) hugo.Data.footer.social }}
+{{ $mainNav := default (slice) .Site.Data.navigation.main }}
+{{ $utilityNav := default (slice) .Site.Data.navigation.utility }}
+{{ $socialNav := default (slice) .Site.Data.footer.social }}
 <header class="site-header site-header--twelve" role="banner">
   <div class="site-header__bar rt-shell--wide">
     <a class="site-brand site-brand--image" href="{{ partial "url.html" "/" }}" aria-label="Rawlings Tigers NOVA home">

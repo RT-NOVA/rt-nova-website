@@ -1,4 +1,4 @@
-{{ $data := hugo.Data.teams }}
+{{ $data := .Site.Data.teams }}
 {{ partial "hero.html" (dict "kicker" "Team Central" "title" .Title "intro" $data.intro "actions" (slice (dict "label" "Tryouts" "url" "/tryouts/" "class" "rt-btn-primary") (dict "label" "View Coaches" "url" "/coaches/" "class" "rt-btn-outline"))) }}
 <section class="rt-section">
   <div class="rt-container rt-section-heading">

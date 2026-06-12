@@ -1,6 +1,7 @@
 name = "rt-nova"
 compatibility_date = "2026-06-12"
 workers_dev = true
+preview_urls = true
 
 [build]
 command = "./build.sh"

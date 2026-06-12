@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $home := hugo.Data.homepage }}
+{{ $home := .Site.Data.homepage }}
 <section class="home-hero">
   <div class="home-hero__media" aria-hidden="true">
     <img src="{{ partial "url.html" $home.hero.image }}" alt="">

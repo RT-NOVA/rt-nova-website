@@ -1,4 +1,4 @@
-{{ $data := hugo.Data.tryouts }}
+{{ $data := .Site.Data.tryouts }}
 {{ partial "hero.html" (dict "kicker" $data.season "title" $data.title "intro" $data.intro "actions" (slice (dict "label" "Register" "url" $data.registration_url "class" "rt-btn-primary") (dict "label" "View FAQ" "url" "#tryout-faq" "class" "rt-btn-outline"))) }}
 <section class="rt-proof-strip rt-proof-strip--light">
   <div class="rt-container rt-proof-grid">
