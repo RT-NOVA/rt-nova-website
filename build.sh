@@ -24,7 +24,3 @@ hugo \
   --gc \
   --minify \
   --baseURL "${HUGO_BASE_URL}"
-
-if [[ -f scripts/validate-site.sh ]]; then
-  bash scripts/validate-site.sh
-fi

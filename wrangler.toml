@@ -1,0 +1,9 @@
+name = "rt-nova"
+compatibility_date = "2026-06-12"
+
+[build]
+command = "./build.sh"
+
+[assets]
+directory = "./public"
+not_found_handlings = "404-page"
