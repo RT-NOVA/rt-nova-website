@@ -29,20 +29,11 @@
   </div>
 </section>
 
-<section class="rt-section rt-section--white">
+<section class="rt-section rt-section--white home-statement">
   <div class="rt-shell section-intro section-intro--center">
     <p class="rt-kicker rt-kicker--dark">{{ $home.why.kicker }}</p>
     <h2>{{ $home.why.title }}</h2>
     <p>{{ $home.why.intro }}</p>
-  </div>
-  <div class="rt-shell rt-grid rt-grid--4">
-    {{ range $home.why.cards }}
-    <article class="nova-card nova-card--icon">
-      <span class="rt-line-icon rt-line-icon--orange" aria-hidden="true">{{ partial "icon.html" .icon }}</span>
-      <h3>{{ .title }}</h3>
-      <p>{{ .text }}</p>
-    </article>
-    {{ end }}
   </div>
 </section>
 
@@ -54,15 +45,23 @@
   </div>
 </section>
 
-<section class="rt-section rt-section--cream">
-  <div class="rt-shell split-feature">
+<section class="rt-section rt-section--cream social-feature">
+  <div class="rt-shell split-feature social-feature__layout">
     <div>
-      <p class="rt-kicker rt-kicker--dark">{{ $home.development.kicker }}</p>
-      <h2>{{ $home.development.title }}</h2>
+      <p class="rt-kicker rt-kicker--dark">{{ $home.social.kicker }}</p>
+      <h2>{{ $home.social.title }}</h2>
+      <p>{{ $home.social.text }}</p>
     </div>
-    <div class="feature-list">
-      {{ range $home.development.items }}
-      <div><strong>{{ .title }}</strong><span>{{ .text }}</span></div>
+    <div class="social-card-grid">
+      {{ range $home.social.channels }}
+      <a class="social-card" href="{{ .url }}" target="_blank" rel="noopener">
+        <span class="social-card__icon" aria-hidden="true">{{ partial "icon.html" .icon }}</span>
+        <span class="social-card__body">
+          <strong>{{ .title }}</strong>
+          <em>{{ .label }}</em>
+          <span>{{ .text }}</span>
+        </span>
+      </a>
       {{ end }}
     </div>
   </div>
@@ -75,8 +74,8 @@
       <p>{{ $home.connect.text }}</p>
     </div>
     <div class="rt-action-row">
-      <a class="rt-btn rt-btn--light" href="{{ $home.connect.primary.url }}">{{ $home.connect.primary.label }}</a>
-      <a class="rt-btn rt-btn--ghost-light" href="{{ $home.connect.secondary.url }}">{{ $home.connect.secondary.label }}</a>
+      <a class="rt-btn rt-btn--light" href="{{ partial "url.html" $home.connect.primary.url }}">{{ $home.connect.primary.label }}</a>
+      <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" $home.connect.secondary.url }}">{{ $home.connect.secondary.label }}</a>
     </div>
   </div>
 </section>

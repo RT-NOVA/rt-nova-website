@@ -498,3 +498,116 @@
   .site-brand--image .site-brand__wordmark{display:none;}
   .site-brand--image .site-brand__logo{width:52px;height:52px;}
 }
+
+/* Homepage cleanup: simpler statement section and social follow cards. */
+.home-statement{
+  padding-block:clamp(2.75rem,5vw,4.75rem);
+}
+.home-statement .section-intro{
+  margin-bottom:0;
+}
+.home-statement .section-intro p:last-child{
+  max-width:820px;
+  margin-inline:auto;
+  font-size:clamp(1rem,1.5vw,1.16rem);
+}
+.social-feature__layout{
+  align-items:center;
+}
+.social-feature__layout > div:first-child p:not(.rt-kicker){
+  color:var(--rt-muted);
+  font-weight:650;
+  max-width:560px;
+}
+.social-card-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+}
+.social-card{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1rem;
+  min-height:220px;
+  padding:1.35rem;
+  background:#fff;
+  border:1px solid var(--rt-line);
+  border-bottom:6px solid var(--rt-orange);
+  box-shadow:var(--rt-shadow-soft);
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.social-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--rt-shadow);
+  border-color:#ffc7a7;
+}
+.social-card__icon{
+  width:58px;
+  height:58px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--rt-orange-dark);
+  background:var(--rt-orange-soft);
+  border:2px solid rgba(246,95,22,.25);
+}
+.social-card__icon svg{
+  width:34px;
+  height:34px;
+  display:block;
+}
+.social-card__body{
+  display:grid;
+  gap:.45rem;
+}
+.social-card strong{
+  font-family:var(--rt-display);
+  text-transform:uppercase;
+  font-size:1.7rem;
+  line-height:.95;
+  color:var(--rt-navy);
+}
+.social-card em{
+  color:var(--rt-orange-dark);
+  font-style:normal;
+  font-size:.76rem;
+  font-weight:950;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.social-card span span{
+  color:var(--rt-muted);
+  font-size:.95rem;
+  font-weight:650;
+}
+@media (max-width:900px){
+  .social-card-grid{
+    grid-template-columns:1fr;
+  }
+}
+@media (max-width:700px){
+  .social-card{
+    grid-template-columns:1fr;
+    min-height:0;
+  }
+}
+
+/* Homepage pillar icons: force downloaded mono SVGs to inherit the site orange.
+   Some SVG Repo files include hardcoded black fills, so override them here. */
+.program-strip__item .rt-line-icon{
+  color:var(--rt-orange);
+}
+.program-strip__item .rt-line-icon svg,
+.program-strip__item .rt-line-icon svg *{
+  color:currentColor;
+}
+.program-strip__item .rt-line-icon svg :is(path,circle,rect,polygon,ellipse,line,polyline){
+  fill:currentColor !important;
+  stroke:currentColor !important;
+}
+.program-strip__item .rt-line-icon svg [fill="none"]{
+  fill:none !important;
+}
+.program-strip__item .rt-line-icon svg [stroke="none"]{
+  stroke:none !important;
+}

@@ -16,3 +16,5 @@ Icons may have been resized, recolored, optimized, or simplified for local Hugo 
 - `american-shield.svg` — American Shield, Game-icons.net, CC BY 3.0
 
 Do not remove the `/credits/` page or footer link unless a different attribution method is provided.
+
+Additional custom local SVG icons were created for this site: rising-player, crossed-bats, whistle, and home-plate.

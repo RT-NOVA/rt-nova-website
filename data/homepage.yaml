@@ -3,70 +3,62 @@ hero:
   title_lines:
     - Develop.
     - Compete.
-    - Represent NOVA.
+    - Represent.
   intro: A Northern Virginia travel baseball program built around player development, competitive preparation, team culture, and a better experience for families.
   primary:
     label: View Teams
     url: /teams/
   secondary:
-    label: Register for Tryouts
-    url: /tryouts/
+    label: Become A Tiger
+    url: /become-a-tiger/
   image: /images/teamlinkt/homepage-team-hero.png
 pillars:
   - title: Player Development
-    text: Skill work, baseball IQ, preparation, and accountability.
-    icon: baseball-bat
+    text: Skill work, baseball IQ, confidence, and accountability.
+    icon: rising-player
   - title: Competitive Teams
-    text: Travel baseball seasons built around growth and meaningful competition.
-    icon: podium-winner
+    text: Age-level teams built around growth and meaningful competition.
+    icon: crossed-bats
   - title: Professional Coaching
-    text: Clear communication, practice planning, and development standards.
-    icon: team-idea
-  - title: NOVA Family
+    text: Clear instruction, organized practices, and development standards.
+    icon: whistle
+  - title: Home Base
     text: Proudly serving Woodbridge, Dumfries, Montclair, and Northern Virginia.
-    icon: baseball-glove
+    icon: home-plate
 why:
   kicker: Why Rawlings Tigers NOVA?
-  title: Built for the player, the team, and the family.
-  intro: "A cleaner program model for families: understand the teams, meet the coaches, register for tryouts, follow accomplishments, and support the organization from one place."
-  cards:
-    - title: Player Development
-      text: Age-appropriate instruction, baseball IQ, practice standards, and accountability that help players keep improving.
-      icon: baseball-bat
-    - title: Team-First Culture
-      text: Competitive teams built around effort, communication, preparation, and representing NOVA the right way.
-      icon: team-idea
-    - title: Family Experience
-      text: Easier access to schedules, tryouts, coaches, watch links, family resources, sponsors, and Booster Club support.
-      icon: baseball-glove
-    - title: Program Pride
-      text: Accolades, player highlights, and team achievements presented in a way that celebrates the players and the organization.
-      icon: american-shield
+  title: Built around growth, competition, and love for the game.
+  intro: "We focus on better practices, smarter game preparation, accountable teammates, clear communication, and a travel baseball experience families can understand."
 proof:
   - value: 10U–14U
-    label: Travel baseball teams
-  - value: NOVA
-    label: Northern Virginia roots
+    label: Team age groups
+  - value: Northern Virginia
+    label: Local program roots
   - value: Rawlings Tigers
-    label: National program identity
+    label: National brand
   - value: 501(c)(3)
     label: Booster Club support
-development:
-  kicker: Player Development
-  title: Built around growth, competition, and protecting the player's love for the game.
-  items:
-    - title: Development-first coaching
-      text: Practice plans, game preparation, fundamentals, and baseball IQ are treated as part of the same player-development path.
-    - title: Competitive but age-appropriate
-      text: Players are challenged through meaningful tournaments and team expectations without losing sight of long-term growth.
-    - title: Team and family alignment
-      text: Clear communication, shared standards, and family resources help keep players supported on and off the field.
+social:
+  kicker: Follow Along
+  title: Team updates & highlights
+  text: Follow along for team photos, player highlights, tryout updates, and program announcements.
+  channels:
+    - title: Instagram
+      text: Photos, reels, team moments, player highlights, and quick program updates from around the organization.
+      icon: instagram
+      label: Follow on Instagram
+      url: https://instagram.com/rawlingstigersnova/
+    - title: Facebook
+      text: Organization news, team updates, tryout information, family reminders, and community announcements.
+      icon: facebook
+      label: Follow on Facebook
+      url: https://www.facebook.com/rawlingstigersNOVA/
 connect:
   title: Stay connected.
   text: Follow teams, view tryout updates, connect with coaches, and support the program through sponsors and family resources.
   primary:
-    label: Team Central
-    url: /teams/
+    label: Become A Tiger
+    url: /become-a-tiger/
   secondary:
     label: Family Hub
     url: /family-hub/

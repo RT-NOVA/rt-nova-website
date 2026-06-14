@@ -17,13 +17,13 @@ main:
   - name: Sponsors
     url: /sponsors/
     weight: 60
+  - name: Family Hub
+    url: /family-hub/
+    weight: 70
 utility:
   - name: Watch Now
     url: /watch-now/
     weight: 10
-  - name: Family Hub
-    url: /family-hub/
-    weight: 20
   - name: Contact
     url: mailto:rawlingstigersnova@gmail.com
     weight: 30

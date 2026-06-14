@@ -2,33 +2,62 @@
 {{- $aliases := dict
   "x" "twitter-x"
   "twitter" "twitter-x"
+
+  "player-development" "helmet-2-svgrepo-com"
+  "rising-player" "helmet-2-svgrepo-com"
+  "helmet" "helmet-2-svgrepo-com"
+  "helmet-2" "helmet-2-svgrepo-com"
+  "helmet-2-svgrepo-com" "helmet-2-svgrepo-com"
+
+  "competitive-teams" "bat-4-svgrepo-com"
+  "crossed-bats" "bat-4-svgrepo-com"
+  "baseball-bat" "bat-4-svgrepo-com"
+  "bat" "bat-4-svgrepo-com"
+  "bat-4" "bat-4-svgrepo-com"
+  "bat-4-svgrepo-com" "bat-4-svgrepo-com"
+
+  "professional-coaching" "whistle-1-svgrepo-com"
+  "whistle" "whistle-1-svgrepo-com"
+  "whistle-1" "whistle-1-svgrepo-com"
+  "whistle-1-svgrepo-com" "whistle-1-svgrepo-com"
+
+  "home-base" "baseball-stadium-1-svgrepo-com"
+  "homeplate" "baseball-stadium-1-svgrepo-com"
+  "home-plate" "baseball-stadium-1-svgrepo-com"
+  "baseball-stadium" "baseball-stadium-1-svgrepo-com"
+  "baseball-stadium-1" "baseball-stadium-1-svgrepo-com"
+  "baseball-stadium-1-svgrepo-com" "baseball-stadium-1-svgrepo-com"
+
   "baseball" "baseball-bat"
-  "baseball-bat" "baseball-bat"
-  "bat" "baseball-bat"
   "glove" "baseball-glove"
   "baseball-glove" "baseball-glove"
-  "graph-up-arrow" "baseball-bat"
-  "bullseye" "baseball-bat"
-  "trophy" "podium-winner"
-  "award" "podium-winner"
-  "podium" "podium-winner"
-  "podium-winner" "podium-winner"
-  "clipboard" "team-idea"
-  "clipboard-check" "team-idea"
-  "team" "team-idea"
-  "team-idea" "team-idea"
-  "people" "team-idea"
-  "family" "baseball-glove"
-  "house-heart" "baseball-glove"
-  "homeplate" "baseball-glove"
+  "graph-up-arrow" "helmet-2-svgrepo-com"
+  "bullseye" "bat-4-svgrepo-com"
+  "trophy" "bat-4-svgrepo-com"
+  "award" "bat-4-svgrepo-com"
+  "podium" "bat-4-svgrepo-com"
+  "podium-winner" "bat-4-svgrepo-com"
+  "clipboard" "whistle-1-svgrepo-com"
+  "clipboard-check" "whistle-1-svgrepo-com"
+  "team" "baseball-stadium-1-svgrepo-com"
+  "team-idea" "baseball-stadium-1-svgrepo-com"
+  "people" "baseball-stadium-1-svgrepo-com"
+  "family" "baseball-stadium-1-svgrepo-com"
+  "house-heart" "baseball-stadium-1-svgrepo-com"
   "shield" "american-shield"
   "shield-check" "american-shield"
   "program-pride" "american-shield"
 -}}
 {{- $icon := index $aliases $name | default $name -}}
+{{- $svgRepoPath := printf "assets/icons/svgrepo-icooon-mono/%s.svg" $icon -}}
+{{- $iconParkPath := printf "assets/icons/iconpark-solid/%s.svg" $icon -}}
 {{- $gameIconPath := printf "assets/icons/game-icons/%s.svg" $icon -}}
 {{- $bootstrapPath := printf "assets/icons/bootstrap/%s.svg" $icon -}}
-{{- if fileExists $gameIconPath -}}
+{{- if fileExists $svgRepoPath -}}
+  {{- readFile $svgRepoPath | safeHTML -}}
+{{- else if fileExists $iconParkPath -}}
+  {{- readFile $iconParkPath | safeHTML -}}
+{{- else if fileExists $gameIconPath -}}
   {{- readFile $gameIconPath | safeHTML -}}
 {{- else if fileExists $bootstrapPath -}}
   {{- readFile $bootstrapPath | safeHTML -}}
