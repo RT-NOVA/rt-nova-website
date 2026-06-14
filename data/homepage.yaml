@@ -12,23 +12,26 @@ hero:
     label: Become A Tiger
     url: /become-a-tiger/
   image: /images/teamlinkt/homepage-team-hero.png
+
 pillars:
   - title: Player Development
     text: Skill work, baseball IQ, confidence, and accountability.
-    icon: rising-player
+    icon: helmet-2-svgrepo-com
   - title: Competitive Teams
     text: Age-level teams built around growth and meaningful competition.
-    icon: crossed-bats
+    icon: bat-4-svgrepo-com
   - title: Professional Coaching
     text: Clear instruction, organized practices, and development standards.
-    icon: whistle
+    icon: whistle-1-svgrepo-com
   - title: Home Base
     text: Proudly serving Woodbridge, Dumfries, Montclair, and Northern Virginia.
-    icon: home-plate
+    icon: baseball-stadium-1-svgrepo-com
+
 why:
   kicker: Why Rawlings Tigers NOVA?
   title: Built around growth, competition, and love for the game.
-  intro: "We focus on better practices, smarter game preparation, accountable teammates, clear communication, and a travel baseball experience families can understand."
+  intro: We focus on better practices, smarter game preparation, accountable teammates, clear communication, and a travel baseball experience families can understand.
+
 proof:
   - value: 10U–14U
     label: Team age groups
@@ -38,6 +41,7 @@ proof:
     label: National brand
   - value: 501(c)(3)
     label: Booster Club support
+
 social:
   kicker: Follow Along
   title: Team updates & highlights
@@ -53,6 +57,7 @@ social:
       icon: facebook
       label: Follow on Facebook
       url: https://www.facebook.com/rawlingstigersNOVA/
+
 connect:
   title: Stay connected.
   text: Follow teams, view tryout updates, connect with coaches, and support the program through sponsors and family resources.

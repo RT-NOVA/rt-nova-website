@@ -1,13 +1,15 @@
-{{- $name := . | default "baseball-bat" -}}
+{{- $name := . | default "bat-4-svgrepo-com" -}}
 {{- $aliases := dict
   "x" "twitter-x"
   "twitter" "twitter-x"
 
   "player-development" "helmet-2-svgrepo-com"
+  "rising-player" "helmet-2-svgrepo-com"
   "helmet" "helmet-2-svgrepo-com"
   "helmet-2" "helmet-2-svgrepo-com"
 
   "competitive-teams" "bat-4-svgrepo-com"
+  "crossed-bats" "bat-4-svgrepo-com"
   "baseball-bat" "bat-4-svgrepo-com"
   "bat" "bat-4-svgrepo-com"
   "bat-4" "bat-4-svgrepo-com"
@@ -17,24 +19,9 @@
   "whistle-1" "whistle-1-svgrepo-com"
 
   "home-base" "baseball-stadium-1-svgrepo-com"
-  "homeplate" "baseball-stadium-1-svgrepo-com"
   "home-plate" "baseball-stadium-1-svgrepo-com"
   "baseball-stadium" "baseball-stadium-1-svgrepo-com"
   "baseball-stadium-1" "baseball-stadium-1-svgrepo-com"
-
-  "graph-up-arrow" "helmet-2-svgrepo-com"
-  "bullseye" "bat-4-svgrepo-com"
-  "trophy" "bat-4-svgrepo-com"
-  "award" "bat-4-svgrepo-com"
-  "podium" "bat-4-svgrepo-com"
-  "podium-winner" "bat-4-svgrepo-com"
-  "clipboard" "whistle-1-svgrepo-com"
-  "clipboard-check" "whistle-1-svgrepo-com"
-  "team" "baseball-stadium-1-svgrepo-com"
-  "team-idea" "baseball-stadium-1-svgrepo-com"
-  "people" "baseball-stadium-1-svgrepo-com"
-  "family" "baseball-stadium-1-svgrepo-com"
-  "house-heart" "baseball-stadium-1-svgrepo-com"
 -}}
 
 {{- $icon := index $aliases $name | default $name -}}
