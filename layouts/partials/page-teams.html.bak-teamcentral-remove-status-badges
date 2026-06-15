@@ -1,0 +1,123 @@
+{{ $data := .Site.Data.teams }}
+{{ $defaultSeason := $data.default_season | default "2027" }}
+{{ partial "hero.html" (dict "kicker" "Team Central" "title" .Title "intro" $data.intro "actions" (slice (dict "label" "Become A Tiger" "url" "/become-a-tiger/" "class" "rt-btn-primary") (dict "label" "View Coaches" "url" "/coaches/" "class" "rt-btn-outline")) "show_card" false) }}
+
+<section class="rt-section rt-team-central rt-team-central--dashboard">
+  <div class="rt-container rt-team-central__intro rt-team-central__intro--compact">
+    <p class="rt-eyebrow rt-eyebrow--dark">Current & Upcoming Teams</p>
+    <h2>Team Central</h2>
+    <p>Choose a season to view active and upcoming Rawlings Tigers NOVA teams.</p>
+    <p class="rt-season-helper">Rawlings Tigers NOVA seasons run fall through spring.</p>
+  </div>
+
+  <div class="rt-container">
+    <section class="rt-season-dashboard" aria-label="Team Central season dashboard">
+      <header class="rt-season-dashboard__top rt-season-dashboard__top--toggle">
+        <div>
+          <span class="rt-eyebrow rt-eyebrow--dark">Season</span>
+          <h3>Select Season</h3>
+        </div>
+
+        <div class="rt-season-toggle" role="tablist" aria-label="Select team season">
+          {{ range $data.seasons }}
+            {{ $isDefault := eq .id $defaultSeason }}
+            <button class="rt-season-toggle__button" type="button" role="tab" data-season-trigger="{{ .id }}" aria-selected="{{ if $isDefault }}true{{ else }}false{{ end }}">
+              <span>{{ .status }}</span>
+              <strong>{{ .label }}</strong>
+            </button>
+          {{ end }}
+        </div>
+      </header>
+
+      <div class="rt-season-panels" data-team-season-panels>
+        {{ range $data.seasons }}
+          <section class="rt-season-panel rt-season-panel--dashboard" data-season-panel="{{ .id }}" {{ if ne .id $defaultSeason }}hidden{{ end }}>
+            <div class="rt-season-dashboard__summary rt-season-dashboard__summary--simple">
+              <div>
+                <span class="rt-badge rt-badge--{{ lower .status }}">{{ .status }}</span>
+                <h2>{{ .label }}</h2>
+                <p>{{ .cycle }}</p>
+              </div>
+            </div>
+
+            <div class="rt-season-dashboard__terms">
+              {{ with .spring }}
+                {{ partial "team-table-term.html" (dict "term" .) }}
+              {{ end }}
+
+              {{ with .fall }}
+                {{ partial "team-table-term.html" (dict "term" .) }}
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="rt-section rt-section--white rt-team-join-band rt-team-join-band--compact">
+  <div class="rt-container rt-team-join-band__inner">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">Looking for a team?</p>
+      <h2>Interested in an upcoming roster?</h2>
+      <p>Tell us about your player and a coach will follow up with the best current or upcoming team fit.</p>
+    </div>
+    <div class="rt-action-row">
+      <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
+      <a class="rt-btn rt-btn--ghost-light rt-btn--dark-outline" href="{{ partial "url.html" "/tryouts/" }}">Tryouts</a>
+    </div>
+  </div>
+</section>
+
+{{ with $data.past_seasons }}
+<section class="rt-section rt-team-archive rt-team-archive--compact">
+  <div class="rt-container">
+    <details class="rt-archive-compact">
+      <summary>
+        <span>
+          <small>Past Seasons</small>
+          <strong>View archived team history</strong>
+        </span>
+      </summary>
+      <div class="rt-archive-compact__list">
+        {{ range . }}
+          <div class="rt-archive-compact__item">
+            <strong>{{ .label }}</strong>
+            <span>{{ .cycle }}</span>
+          </div>
+        {{ end }}
+      </div>
+    </details>
+  </div>
+</section>
+{{ end }}
+
+<script>
+(function () {
+  var triggers = document.querySelectorAll('[data-season-trigger]');
+  var panels = document.querySelectorAll('[data-season-panel]');
+  if (!triggers.length || !panels.length) return;
+
+  function showSeason(value) {
+    panels.forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-season-panel') !== value;
+    });
+
+    triggers.forEach(function (trigger) {
+      var selected = trigger.getAttribute('data-season-trigger') === value;
+      trigger.setAttribute('aria-selected', selected ? 'true' : 'false');
+      trigger.classList.toggle('is-active', selected);
+    });
+  }
+
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      showSeason(trigger.getAttribute('data-season-trigger'));
+    });
+  });
+
+  var active = document.querySelector('[data-season-trigger][aria-selected="true"]') || triggers[0];
+  showSeason(active.getAttribute('data-season-trigger'));
+})();
+</script>

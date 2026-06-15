@@ -7,32 +7,41 @@
   {{ end }}
 {{ end }}
 {{ $defaultSeason := $seasonScratch.Get "defaultSeason" }}
+{{ partial "hero.html" (dict "kicker" "Team Central" "title" .Title "intro" $data.intro "actions" (slice (dict "label" "Become A Tiger" "url" "/become-a-tiger/" "class" "rt-btn-primary") (dict "label" "View Coaches" "url" "/coaches/" "class" "rt-btn-outline")) "show_card" false) }}
 
-{{ partial "hero.html" (dict "kicker" "Teams" "title" .Title "intro" $data.intro "show_card" false) }}
+<section class="rt-section rt-team-central rt-team-central--dashboard rt-team-central--clean-table rt-team-central--final-cleanup">
+  <div class="rt-container rt-team-central__intro rt-team-central__intro--compact">
+    <h2>Team Central</h2>
+    <p>Choose a season to view active and upcoming Rawlings Tigers NOVA teams.</p>
+    <p class="rt-season-helper">Rawlings Tigers NOVA seasons run fall through spring.</p>
+  </div>
 
-<section class="rt-section rt-team-central rt-team-central--dashboard rt-team-central--clean-table rt-team-central--final-cleanup rt-team-central--inline-toggle">
   <div class="rt-container">
     <section class="rt-season-dashboard rt-season-dashboard--clean" aria-label="Team Central season dashboard">
+      <header class="rt-season-dashboard__top rt-season-dashboard__top--toggle rt-season-dashboard__top--clean">
+        <div>
+          <h3>Select Season</h3>
+        </div>
+        <div class="rt-season-toggle" role="tablist" aria-label="Select team season">
+          {{ range $data.seasons }}
+            {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") }}
+              <button class="rt-season-toggle__button{{ if eq .id $defaultSeason }} is-active{{ end }}" type="button" role="tab" aria-selected="{{ if eq .id $defaultSeason }}true{{ else }}false{{ end }}" data-season-button="{{ .id }}">
+                <span>{{ .status }}</span>
+                <strong>{{ .label }}</strong>
+              </button>
+            {{ end }}
+          {{ end }}
+        </div>
+      </header>
+
       <div class="rt-season-panels" data-team-season-panels>
         {{ range $data.seasons }}
           {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") (eq .id $defaultSeason) }}
             <section class="rt-season-panel rt-season-panel--dashboard" data-season-panel="{{ .id }}" {{ if ne .id $defaultSeason }}hidden{{ end }}>
               <div class="rt-season-dashboard__summary rt-season-dashboard__summary--simple rt-season-dashboard__summary--clean">
-                <div class="rt-season-dashboard__summary-copy">
+                <div>
                   <h2>{{ .label }}</h2>
                   <p>{{ .cycle }}</p>
-                  <p class="rt-season-dashboard__helper">Choose a season to view active and upcoming Rawlings Tigers NOVA teams.</p>
-                </div>
-
-                <div class="rt-season-toggle" role="tablist" aria-label="Select team season">
-                  {{ range $data.seasons }}
-                    {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") }}
-                      <button class="rt-season-toggle__button{{ if eq .id $defaultSeason }} is-active{{ end }}" type="button" role="tab" aria-selected="{{ if eq .id $defaultSeason }}true{{ else }}false{{ end }}" data-season-button="{{ .id }}">
-                        <span>{{ .status }}</span>
-                        <strong>{{ .label }}</strong>
-                      </button>
-                    {{ end }}
-                  {{ end }}
                 </div>
               </div>
 

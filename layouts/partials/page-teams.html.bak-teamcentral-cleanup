@@ -1,0 +1,195 @@
+{{ $data := .Site.Data.teams }}
+{{ $defaultSeason := $data.default_season | default "2027" }}
+{{ partial "hero.html" (dict "kicker" "Team Central" "title" .Title "intro" $data.intro "actions" (slice (dict "label" "Become A Tiger" "url" "/become-a-tiger/" "class" "rt-btn-primary") (dict "label" "View Coaches" "url" "/coaches/" "class" "rt-btn-outline"))) }}
+
+<section class="rt-section rt-team-central">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Current & Upcoming Teams</p>
+    <h2>Select a baseball season.</h2>
+    <p>{{ $data.season_note }}</p>
+  </div>
+
+  <div class="rt-container">
+    <section class="rt-season-selector-card" aria-label="Season selector">
+      <div>
+        <span class="rt-eyebrow rt-eyebrow--dark">Season</span>
+        <h3>Team Central</h3>
+        <p>Choose a season to view active and upcoming Rawlings Tigers NOVA teams.</p>
+      </div>
+      <label class="rt-season-select-label" for="team-season-select">
+        <span>Show season</span>
+        <select id="team-season-select" class="rt-season-select">
+          {{ range $data.seasons }}
+            <option value="{{ .id }}" {{ if eq .id $defaultSeason }}selected{{ end }}>{{ .label }} — {{ .cycle }}</option>
+          {{ end }}
+        </select>
+      </label>
+    </section>
+
+    <div class="rt-season-panels" data-team-season-panels>
+      {{ range $data.seasons }}
+        {{ $season := . }}
+        <section class="rt-season-panel" data-season-panel="{{ .id }}" {{ if ne .id $defaultSeason }}hidden{{ end }}>
+          <header class="rt-season-panel__head">
+            <div>
+              <span class="rt-badge rt-badge--{{ lower .status }}">{{ .status }}</span>
+              <h2>{{ .label }}</h2>
+              <p>{{ .cycle }}</p>
+            </div>
+            <p>{{ .summary }}</p>
+          </header>
+
+          {{ with .spring }}
+          <section class="rt-team-term">
+            <div class="rt-team-term__head">
+              <div>
+                <span class="rt-eyebrow rt-eyebrow--dark">Spring</span>
+                <h3>{{ .label }}</h3>
+              </div>
+              <span class="rt-badge rt-badge--{{ lower .status }}">{{ .status }}</span>
+            </div>
+            {{ if gt (len .teams) 0 }}
+              <div class="rt-card-grid rt-card-grid--3">
+                {{ range .teams }}
+                  {{ $team := . }}
+                  <article class="rt-team-card rt-team-card--central">
+                    <div class="rt-team-card__top">
+                      <span class="rt-badge rt-badge--{{ lower $team.status }}">{{ $team.status }}</span>
+                      <span class="rt-team-record">{{ $team.record }}</span>
+                    </div>
+                    <h3>{{ $team.name }}</h3>
+                    <div class="rt-person-inline">
+                      {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}">{{ end }}
+                      <span><small>{{ $team.coach_role }}</small><strong>{{ $team.head_coach }}</strong></span>
+                    </div>
+                    <div class="rt-link-row">
+                      {{ range $team.links }}<a href="{{ partial "url.html" .url }}">{{ .label }}</a>{{ else }}<span class="rt-muted">Team links coming soon</span>{{ end }}
+                    </div>
+                  </article>
+                {{ end }}
+              </div>
+            {{ else }}
+              <div class="rt-empty-team-note">
+                <strong>{{ .empty_text | default "Teams coming soon." }}</strong>
+                <span>Interested families can use Become A Tiger to connect with the program.</span>
+              </div>
+            {{ end }}
+          </section>
+          {{ end }}
+
+          {{ with .fall }}
+          <section class="rt-team-term">
+            <div class="rt-team-term__head">
+              <div>
+                <span class="rt-eyebrow rt-eyebrow--dark">Fall</span>
+                <h3>{{ .label }}</h3>
+              </div>
+              <span class="rt-badge rt-badge--{{ lower .status }}">{{ .status }}</span>
+            </div>
+            {{ if gt (len .teams) 0 }}
+              <div class="rt-card-grid rt-card-grid--3">
+                {{ range .teams }}
+                  {{ $team := . }}
+                  <article class="rt-team-card rt-team-card--central">
+                    <div class="rt-team-card__top">
+                      <span class="rt-badge rt-badge--{{ lower $team.status }}">{{ $team.status }}</span>
+                      <span class="rt-team-record">{{ $team.record }}</span>
+                    </div>
+                    <h3>{{ $team.name }}</h3>
+                    <div class="rt-person-inline">
+                      {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}">{{ end }}
+                      <span><small>{{ $team.coach_role }}</small><strong>{{ $team.head_coach }}</strong></span>
+                    </div>
+                    <div class="rt-link-row">
+                      {{ range $team.links }}<a href="{{ partial "url.html" .url }}">{{ .label }}</a>{{ else }}<span class="rt-muted">Team links coming soon</span>{{ end }}
+                    </div>
+                  </article>
+                {{ end }}
+              </div>
+            {{ else }}
+              <div class="rt-empty-team-note"><strong>Teams coming soon.</strong></div>
+            {{ end }}
+          </section>
+          {{ end }}
+        </section>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="rt-section rt-section--white rt-team-join-band">
+  <div class="rt-container rt-team-join-band__inner">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">Looking for a team?</p>
+      <h2>Interested in an upcoming roster?</h2>
+      <p>Tell us about your player and a coach will follow up with the best current or upcoming team fit.</p>
+    </div>
+    <div class="rt-action-row">
+      <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
+      <a class="rt-btn rt-btn--ghost-light rt-btn--dark-outline" href="{{ partial "url.html" "/tryouts/" }}">Tryouts</a>
+    </div>
+  </div>
+</section>
+
+{{ with $data.past_seasons }}
+<section class="rt-section rt-team-archive">
+  <div class="rt-container">
+    <details class="rt-archive-details">
+      <summary>
+        <span>Past Seasons</span>
+        <strong>View archived team history</strong>
+      </summary>
+      <div class="rt-archive-list">
+        {{ range . }}
+          <section class="rt-archive-season">
+            <h3>{{ .label }}</h3>
+            <p>{{ .cycle }}</p>
+            {{ range .groups }}
+              <h4>{{ .label }}</h4>
+              <div class="rt-card-grid rt-card-grid--3">
+                {{ range .teams }}
+                  {{ $team := . }}
+                  <article class="rt-team-card rt-team-card--archive">
+                    <div class="rt-team-card__top">
+                      <span class="rt-badge rt-badge--past">Past</span>
+                      <span class="rt-team-record">{{ $team.record }}</span>
+                    </div>
+                    <h3>{{ $team.name }}</h3>
+                    <div class="rt-person-inline">
+                      {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}">{{ end }}
+                      <span><small>{{ $team.coach_role }}</small><strong>{{ $team.head_coach }}</strong></span>
+                    </div>
+                    <div class="rt-link-row">
+                      {{ range $team.links }}<a href="{{ partial "url.html" .url }}">{{ .label }}</a>{{ else }}<span class="rt-muted">Archive links coming soon</span>{{ end }}
+                    </div>
+                  </article>
+                {{ end }}
+              </div>
+            {{ end }}
+          </section>
+        {{ end }}
+      </div>
+    </details>
+  </div>
+</section>
+{{ end }}
+
+<script>
+(function () {
+  var select = document.getElementById('team-season-select');
+  var panels = document.querySelectorAll('[data-season-panel]');
+  if (!select || !panels.length) return;
+
+  function showSeason(value) {
+    panels.forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-season-panel') !== value;
+    });
+  }
+
+  select.addEventListener('change', function () {
+    showSeason(select.value);
+  });
+
+  showSeason(select.value);
+})();
+</script>

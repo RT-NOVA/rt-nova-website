@@ -1,0 +1,50 @@
+{{ $term := .term }}
+<section class="rt-team-term rt-team-term--dashboard rt-team-term--final-cleanup">
+  <div class="rt-team-term__head rt-team-term__head--dashboard rt-team-term__head--clean">
+    <div>
+      <h3>{{ $term.label }}</h3>
+    </div>
+  </div>
+
+  {{ if gt (len $term.teams) 0 }}
+    <div class="rt-team-table rt-team-table--dashboard rt-team-table--clean" role="table" aria-label="{{ $term.label }} teams">
+      <div class="rt-team-table__head" role="row">
+        <span role="columnheader">Team</span>
+        <span role="columnheader">Head Coach</span>
+        <span role="columnheader">Record</span>
+        <span role="columnheader">Team Links</span>
+      </div>
+      <div class="rt-team-table__body">
+        {{ range sort $term.teams "sort_order" "asc" }}
+          {{ $team := . }}
+          <article class="rt-team-row" role="row">
+            <div class="rt-team-row__team" role="cell" data-label="Team">
+              <strong>{{ $team.name }}</strong>
+            </div>
+            <div class="rt-team-row__coach" role="cell" data-label="Head Coach">
+              {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}">{{ end }}
+              <span>
+                <small>{{ $team.coach_role | default "Head Coach" }}</small>
+                <strong>{{ $team.head_coach }}</strong>
+              </span>
+            </div>
+            <div class="rt-team-row__record" role="cell" data-label="Record">
+              <strong>{{ $team.record | default "—" }}</strong>
+            </div>
+            <div class="rt-team-row__links" role="cell" data-label="Team Links">
+              {{ range $team.links }}
+                <a href="{{ partial "url.html" .url }}">{{ .label }}</a>
+              {{ else }}
+                <span class="rt-muted">Links coming soon</span>
+              {{ end }}
+            </div>
+          </article>
+        {{ end }}
+      </div>
+    </div>
+  {{ else }}
+    <div class="rt-empty-team-note rt-empty-team-note--dashboard">
+      <strong>{{ $term.empty_text | default "Teams coming soon." }}</strong>
+    </div>
+  {{ end }}
+</section>

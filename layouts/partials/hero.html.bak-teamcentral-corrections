@@ -10,12 +10,10 @@
       </div>
       {{ end }}
     </div>
-    {{ if ne .show_card false }}
     <div class="rt-page-hero__card" aria-hidden="true">
       <span>NOVA</span>
       <strong>Rawlings Tigers</strong>
       <em>Develop • Compete • Represent</em>
     </div>
-    {{ end }}
   </div>
 </section>
