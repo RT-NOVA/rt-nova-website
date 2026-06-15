@@ -1,18 +1,18 @@
-{{ $footer := hugo.Data.footer }}
+{{ $footer := .Site.Data.footer }}
 <footer class="site-footer site-footer--twelve site-footer--rt-clean" role="contentinfo">
-  <div class="rt-shell--wide site-footer__inner site-footer__inner--rt-clean">
-    <div class="site-footer__brand-block site-footer__brand-block--logo-only">
+  <div class="rt-shell--wide site-footer__inner site-footer__inner--simple">
+    <div class="site-footer__brand-block">
       <a class="footer-brand" href="{{ partial "url.html" "/" }}" aria-label="Rawlings Tigers NOVA home">
         <img src="{{ partial "url.html" "/images/teamlinkt/rawlings-tigers-nova-round-logo.png" }}" alt="Rawlings Tigers Northern Virginia" class="footer-brand__logo">
       </a>
     </div>
 
-    <nav class="site-footer__nav site-footer__resources" aria-label="Resources">
-      <h3>{{ $footer.resources.title | default "Resources" }}</h3>
-      {{ with $footer.resources.primary }}
-        <a class="site-footer__primary-link" href="{{ partial "url.html" .url }}">{{ .name }}</a>
+    <nav class="site-footer__nav site-footer__nav--resources" aria-label="Resources">
+      <h3>{{ $footer.resources.title }}</h3>
+      {{ range $footer.resources.links }}
+        <a class="{{ if .highlight }}site-footer__standout-link{{ end }}" href="{{ partial "url.html" .url }}">{{ .name }}</a>
       {{ end }}
-      <div class="site-footer__socials site-footer__socials--under-resources" aria-label="Social links">
+      <div class="site-footer__socials" aria-label="Social links">
         {{ range $footer.social }}
           <a href="{{ partial "url.html" .url }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
             {{ partial "icon.html" .icon }}
@@ -21,14 +21,12 @@
       </div>
     </nav>
 
-    <section class="site-footer__nav site-footer__contact" aria-label="Contact">
-      <h3>{{ $footer.contact.title | default "Contact" }}</h3>
-      <div class="site-footer__contact-details">
-        <p class="site-footer__contact-role">{{ $footer.contact.role }}</p>
-        <p class="site-footer__contact-name">{{ $footer.contact.name }}</p>
-        <p><span>Phone:</span> <a href="{{ $footer.contact.phone_url }}">{{ $footer.contact.phone }}</a></p>
-        <p><span>Email:</span> <a href="{{ $footer.contact.email_url }}">{{ $footer.contact.email }}</a></p>
-      </div>
+    <section class="site-footer__contact" aria-label="Contact">
+      <h3>{{ $footer.contact.title }}</h3>
+      <p class="site-footer__director-role">{{ $footer.contact.role }}</p>
+      <p class="site-footer__director-name">{{ $footer.contact.name }}</p>
+      <p class="site-footer__contact-line"><span>Phone:</span> <a href="{{ $footer.contact.phone_url }}">{{ $footer.contact.phone }}</a></p>
+      <p class="site-footer__contact-line"><span>Email:</span> <a href="{{ $footer.contact.email_url }}">{{ $footer.contact.email }}</a></p>
     </section>
   </div>
 

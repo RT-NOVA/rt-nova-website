@@ -3,9 +3,10 @@ brand:
   subtitle: Northern Virginia Baseball
 resources:
   title: Resources
-  primary:
-    name: Become A Tiger
-    url: /become-a-tiger/
+  links:
+    - name: Become A Tiger
+      url: /become-a-tiger/
+      highlight: true
 contact:
   title: Contact
   role: Area Director

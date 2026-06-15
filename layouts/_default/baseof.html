@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Summary }}{{ . | plainify }}{{ else }}{{ site.Params.description }}{{ end }}">
-
-  {{ $mainCSS := resources.Get "css/main.css" | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $mainCSS.RelPermalink }}" integrity="{{ $mainCSS.Data.Integrity }}">
+  {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
   {{ with resources.Get "css/social-hub.css" }}
     {{ $socialHubCSS := . | minify | fingerprint }}
@@ -18,6 +17,11 @@
     {{ $footerCleanupCSS := . | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $footerCleanupCSS.RelPermalink }}" integrity="{{ $footerCleanupCSS.Data.Integrity }}">
   {{ end }}
+
+  {{ with resources.Get "css/responsive-polish.css" }}
+    {{ $responsiveCSS := . | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $responsiveCSS.RelPermalink }}" integrity="{{ $responsiveCSS.Data.Integrity }}">
+  {{ end }}
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -27,6 +31,6 @@
   </main>
   {{ partial "site-footer.html" . }}
   {{ $js := resources.Get "js/main.js" | minify | fingerprint }}
-  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+  <script src="{{ $js.RelPermalink }}" defer></script>
 </body>
 </html>
