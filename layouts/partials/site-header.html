@@ -1,6 +1,6 @@
 {{ $mainNav := default (slice) .Site.Data.navigation.main }}
 {{ $utilityNav := default (slice) .Site.Data.navigation.utility }}
-{{ $socialNav := where (default (slice) .Site.Data.footer.social) "name" "in" (slice "Instagram" "Facebook") }}
+
 <header class="site-header site-header--twelve" role="banner">
   <div class="site-header__bar rt-shell--wide">
     <a class="site-brand site-brand--image" href="{{ partial "url.html" "/" }}" aria-label="Rawlings Tigers NOVA home">
@@ -22,18 +22,23 @@
       {{ range sort $mainNav "weight" }}
         <a href="{{ partial "url.html" .url }}">{{ .name }}</a>
       {{ end }}
+
       {{ range sort $utilityNav "weight" }}
         <a class="site-nav__utility" href="{{ partial "url.html" .url }}">{{ .name }}</a>
       {{ end }}
+
       <a class="site-nav__mobile-cta" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
     </nav>
 
     <div class="site-header__actions" aria-label="Social and signup links">
-      {{ range $socialNav }}
-        <a class="site-social-icon" href="{{ partial "url.html" .url }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
-          {{ partial "icon.html" .icon }}
-        </a>
-      {{ end }}
+      <a class="site-social-icon" href="https://instagram.com/rawlingstigersnova/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+        {{ partial "icon.html" "instagram" }}
+      </a>
+
+      <a class="site-social-icon" href="https://www.facebook.com/rawlingstigersNOVA/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+        {{ partial "icon.html" "facebook" }}
+      </a>
+
       <a class="site-header-cta" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
     </div>
   </div>

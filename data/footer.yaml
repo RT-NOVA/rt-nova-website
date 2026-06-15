@@ -1,42 +1,19 @@
 brand:
   title: Rawlings Tigers NOVA
   subtitle: Northern Virginia Baseball
-  text: Player development, competitive preparation, and a family-first travel baseball experience for Northern Virginia athletes.
-columns:
-  - title: Program
-    links:
-      - name: About Us
-        url: /about/
-      - name: Teams
-        url: /teams/
-      - name: Coaches
-        url: /coaches/
-      - name: Accolades
-        url: /accolades/
-      - name: Family Hub
-        url: /family-hub/
-  - title: Players
-    links:
-      - name: Tryouts
-        url: /tryouts/
-      - name: Player Development
-        url: /player-development/
-      - name: Become A Tiger
-        url: /become-a-tiger/
-      - name: Watch Now
-        url: /watch-now/
-  - title: Support
-    links:
-      - name: Sponsors
-        url: /sponsors/
-      - name: Booster Club
-        url: /booster-club/
-      - name: Fundraisers
-        url: /family-hub/
-      - name: Contact
-        url: mailto:rawlingstigersnova@gmail.com
-      - name: Icon Credits
-        url: /credits/
+resources:
+  title: Resources
+  primary:
+    name: Become A Tiger
+    url: /become-a-tiger/
+contact:
+  title: Contact
+  role: Area Director
+  name: Chris Cheshire
+  phone: "(540) 748-5300"
+  phone_url: "tel:+15407485300"
+  email: rawlingstigersnova@gmail.com
+  email_url: "mailto:rawlingstigersnova@gmail.com"
 social:
   - name: Instagram
     icon: instagram
@@ -56,4 +33,7 @@ social:
     url: https://www.youtube.com/@RawlingsTigersNOVA/
 bottom:
   copyright: Rawlings Tigers NOVA. All rights reserved.
-  credit: Built with Hugo for Cloudflare Workers.
+  credit: Built with Hugo.
+  links:
+    - name: Icon Credits
+      url: /credits/

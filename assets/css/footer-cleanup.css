@@ -1,0 +1,211 @@
+/* RT NOVA simplified Twelve-style footer overrides */
+.site-footer--rt-clean .site-footer__inner--rt-clean{
+  display:grid;
+  grid-template-columns:minmax(220px, 0.85fr) minmax(220px, 1fr) minmax(320px, 1.15fr);
+  align-items:center;
+  gap:clamp(2.25rem,5vw,5.5rem);
+  padding-top:clamp(3.75rem,6vw,5.25rem);
+  padding-bottom:clamp(3.25rem,5vw,4.75rem);
+}
+
+.site-footer--rt-clean .site-footer__brand-block,
+.site-footer--rt-clean .site-footer__brand-block--logo-only{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  max-width:none;
+}
+
+.site-footer--rt-clean .footer-brand{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.site-footer--rt-clean .footer-brand__logo{
+  width:clamp(180px, 15vw, 260px) !important;
+  max-width:none !important;
+  height:auto !important;
+  display:block;
+}
+
+.site-footer--rt-clean .site-footer__nav h3{
+  margin:0 0 1.35rem;
+  color:#fff;
+  font-size:clamp(1.55rem,2.1vw,2.25rem);
+  line-height:1;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.site-footer--rt-clean .site-footer__primary-link{
+  display:inline-block;
+  color:#fff;
+  font-size:.95rem;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  text-decoration:underline;
+  text-decoration-color:var(--rt-orange);
+  text-decoration-thickness:2px;
+  text-underline-offset:8px;
+}
+
+.site-footer--rt-clean .site-footer__primary-link:hover{
+  color:var(--rt-orange);
+}
+
+.site-footer--rt-clean .site-footer__socials--under-resources{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  margin-top:1.65rem;
+}
+
+.site-footer--rt-clean .site-footer__socials--under-resources a{
+  width:34px;
+  height:34px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#fff;
+  color:#050505;
+  transition:transform .18s ease, background .18s ease, color .18s ease;
+}
+
+.site-footer--rt-clean .site-footer__socials--under-resources a:hover{
+  transform:translateY(-2px);
+  background:var(--rt-orange);
+  color:#fff;
+}
+
+.site-footer--rt-clean .site-footer__socials--under-resources svg{
+  width:16px;
+  height:16px;
+}
+
+.site-footer--rt-clean .site-footer__contact-details{
+  color:rgba(255,255,255,.78);
+  font-size:.98rem;
+  line-height:1.55;
+}
+
+.site-footer--rt-clean .site-footer__contact-details p{
+  margin:.18rem 0;
+}
+
+.site-footer--rt-clean .site-footer__contact-role{
+  margin-bottom:.45rem !important;
+  color:rgba(255,255,255,.56);
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+}
+
+.site-footer--rt-clean .site-footer__contact-name{
+  margin-bottom:.55rem !important;
+  color:#fff;
+  font-size:1.05rem;
+  font-weight:800;
+}
+
+.site-footer--rt-clean .site-footer__contact-details span{
+  color:rgba(255,255,255,.72);
+}
+
+.site-footer--rt-clean .site-footer__contact-details a{
+  color:rgba(255,255,255,.86);
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:5px;
+  text-decoration-color:rgba(255,255,255,.28);
+}
+
+.site-footer--rt-clean .site-footer__contact-details a:hover{
+  color:#fff;
+  text-decoration-color:var(--rt-orange);
+}
+
+.site-footer--rt-clean .site-footer__bottom-left{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.55rem;
+}
+
+.site-footer--rt-clean .site-footer__utility-links{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+}
+
+.site-footer--rt-clean .site-footer__utility-links a{
+  color:rgba(255,255,255,.72);
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+  text-decoration-color:rgba(255,255,255,.3);
+}
+
+.site-footer--rt-clean .site-footer__utility-links a:hover{
+  color:#fff;
+  text-decoration-color:var(--rt-orange);
+}
+
+@media (max-width:900px){
+  .site-footer--rt-clean .site-footer__inner--rt-clean{
+    grid-template-columns:1fr;
+    align-items:flex-start;
+    gap:2.5rem;
+  }
+
+  .site-footer--rt-clean .footer-brand__logo{
+    width:180px !important;
+  }
+}
+
+@media (max-width:700px){
+  .site-footer--rt-clean .site-footer__bottom-left{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+
+/* Tighter footer headings and inline contact rows */
+.site-footer--rt-clean .site-footer__contact-details p:not(.site-footer__contact-role):not(.site-footer__contact-name){
+  display:flex;
+  align-items:baseline;
+  gap:.4rem;
+  margin:.22rem 0;
+}
+
+.site-footer--rt-clean .site-footer__contact-details p:not(.site-footer__contact-role):not(.site-footer__contact-name) span{
+  display:inline;
+  min-width:auto;
+}
+
+.site-footer--rt-clean .site-footer__contact-details p:not(.site-footer__contact-role):not(.site-footer__contact-name) a{
+  display:inline;
+}
+
+@media (max-width:700px){
+  .site-footer--rt-clean .site-footer__contact-details p:not(.site-footer__contact-role):not(.site-footer__contact-name){
+    display:block;
+  }
+}
+
+/* Make the Become A Tiger footer link stand out with a clear orange underline. */
+.site-footer--rt-clean .site-footer__primary-link{
+  color:#fff;
+  text-decoration:none;
+  border-bottom:3px solid var(--rt-orange);
+  padding-bottom:.28rem;
+}
+
+.site-footer--rt-clean .site-footer__primary-link:hover{
+  color:var(--rt-orange);
+  border-bottom-color:#fff;
+}
