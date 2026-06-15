@@ -2,6 +2,7 @@
 set -euo pipefail
 
 # Hugo version used for Cloudflare builds.
+#test
 # Cloudflare can also set HUGO_VERSION as an environment variable, but this
 # script will verify the version and install the requested Linux binary when
 # the build image provides an older Hugo.
