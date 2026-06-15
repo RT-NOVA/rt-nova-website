@@ -2,7 +2,6 @@
 set -euo pipefail
 
 # Hugo version used for Cloudflare builds.
-#test
 # Cloudflare can also set HUGO_VERSION as an environment variable, but this
 # script will verify the version and install the requested Linux binary when
 # the build image provides an older Hugo.
@@ -11,7 +10,7 @@ HUGO_VERSION="${HUGO_VERSION:-0.163.0}"
 PROJECT_NAME="rt-nova"
 
 PRODUCTION_BASE_URL="${PRODUCTION_BASE_URL:-https://rawlingstigersnova.org/}"
-PREVIEW_BASE_URL="${PREVIEW_BASE_URL:-https://rt-nova.workers.dev/}"
+PREVIEW_BASE_URL="${PREVIEW_BASE_URL:-https://website.rawlingstigersnova.workers.dev/}"
 
 BRANCH="${WORKERS_CI_BRANCH:-${CF_PAGES_BRANCH:-${CF_BRANCH:-}}}"
 
