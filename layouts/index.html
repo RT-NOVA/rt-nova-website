@@ -47,8 +47,23 @@
 </section>
 
 <section class="rt-section rt-section--cream social-hub">
-  {{ $updates := where .Site.RegularPages "Section" "social-hub" }}
-  {{ $updates = $updates.ByDate.Reverse }}
+  {{/*
+    Homepage Social Hub feed.
+    Source 1: content/social-hub/*.md
+    Source 2: content/news/*.md where show_on_home_social: true
+
+    This lets a news article appear on the homepage without creating a duplicate
+    social-hub card. Set hide_from_home_social: true on any older duplicate
+    social-hub markdown cards that have been replaced by a real news article.
+  */}}
+  {{ $socialPosts := where .Site.RegularPages "Section" "social-hub" }}
+  {{ $socialPosts = where $socialPosts "Params.hide_from_home_social" "!=" true }}
+  {{ $newsPosts := where .Site.RegularPages "Section" "news" }}
+  {{ $newsPosts = where $newsPosts "Params.show_on_home_social" true }}
+  {{ $updates := slice }}
+  {{ range $socialPosts }}{{ $updates = $updates | append . }}{{ end }}
+  {{ range $newsPosts }}{{ $updates = $updates | append . }}{{ end }}
+  {{ $updates = sort $updates "Date" "desc" }}
 
   <div class="rt-shell social-hub__layout social-hub__layout--feed">
     <div class="social-hub__intro social-hub__intro--center">
@@ -80,11 +95,13 @@
           */}}
           {{ $destination := $post.RelPermalink }}
           {{ $external := false }}
+          {{ $isNews := eq $post.Section "news" }}
           {{ with $post.Params.link }}{{ $destination = . }}{{ end }}
           {{ with $post.Params.external_url }}{{ $destination = . }}{{ end }}
           {{ if or (hasPrefix $destination "http://") (hasPrefix $destination "https://") }}{{ $external = true }}{{ end }}
 
           {{ $platform := $post.Params.platform | default $post.Params.type | default "RT NOVA" }}
+          {{ if and $isNews (not $post.Params.platform) (not $post.Params.type) }}{{ $platform = "Team News" }}{{ end }}
           {{ $platformKey := lower $platform }}
           {{ $platformIcon := "baseball-stadium-1" }}
           {{ if in $platformKey "instagram" }}{{ $platformIcon = "instagram" }}{{ end }}
@@ -117,7 +134,7 @@
               </div>
 
               <div class="social-feed-card__caption">
-                {{ with $post.Params.caption }}{{ . }}{{ else }}{{ $post.Title }}{{ end }}
+                {{ with $post.Params.caption }}{{ . }}{{ else }}{{ with $post.Params.excerpt }}{{ . }}{{ else }}{{ $post.Title }}{{ end }}{{ end }}
               </div>
 
               {{ if $imgSrc }}
@@ -132,7 +149,7 @@
 
               <div class="social-feed-card__footer">
                 <span>{{ $platform }}</span>
-                <span>{{ with $post.Params.button }}{{ . }}{{ else }}View post{{ end }}</span>
+                <span>{{ with $post.Params.button }}{{ . }}{{ else }}{{ if $isNews }}Read Article{{ else }}View post{{ end }}{{ end }}</span>
               </div>
             </a>
           </article>
