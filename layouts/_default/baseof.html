@@ -13,7 +13,12 @@
     <link rel="stylesheet" href="{{ $socialHubCSS.RelPermalink }}" integrity="{{ $socialHubCSS.Data.Integrity }}">
   {{ end }}
 
-  {{ with resources.Get "css/news.css" }}
+    {{ with resources.Get "css/team-central.css" }}
+    {{ $teamCentralCSS := . | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $teamCentralCSS.RelPermalink }}" integrity="{{ $teamCentralCSS.Data.Integrity }}">
+  {{ end }}
+
+{{ with resources.Get "css/news.css" }}
     {{ $newsCSS := . | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $newsCSS.RelPermalink }}" integrity="{{ $newsCSS.Data.Integrity }}">
   {{ end }}

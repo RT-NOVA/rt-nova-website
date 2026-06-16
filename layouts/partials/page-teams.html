@@ -10,46 +10,44 @@
 
 {{ partial "hero.html" (dict "kicker" "Teams" "title" .Title "intro" $data.intro "show_card" false) }}
 
-<section class="rt-section rt-team-central rt-team-central--dashboard rt-team-central--clean-table rt-team-central--final-cleanup rt-team-central--inline-toggle">
+<section class="rt-section rt-team-central rt-team-central--open-flow">
   <div class="rt-container">
-    <section class="rt-season-dashboard rt-season-dashboard--clean" aria-label="Team Central season dashboard">
-      <div class="rt-season-panels" data-team-season-panels>
-        {{ range $data.seasons }}
-          {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") (eq .id $defaultSeason) }}
-            <section class="rt-season-panel rt-season-panel--dashboard" data-season-panel="{{ .id }}" {{ if ne .id $defaultSeason }}hidden{{ end }}>
-              <div class="rt-season-dashboard__summary rt-season-dashboard__summary--simple rt-season-dashboard__summary--clean">
-                <div class="rt-season-dashboard__summary-copy">
-                  <h2>{{ .label }}</h2>
-                  <p>{{ .cycle }}</p>
-                  <p class="rt-season-dashboard__helper">Choose a season to view active and upcoming Rawlings Tigers NOVA teams.</p>
-                </div>
-
-                <div class="rt-season-toggle" role="tablist" aria-label="Select team season">
-                  {{ range $data.seasons }}
-                    {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") }}
-                      <button class="rt-season-toggle__button{{ if eq .id $defaultSeason }} is-active{{ end }}" type="button" role="tab" aria-selected="{{ if eq .id $defaultSeason }}true{{ else }}false{{ end }}" data-season-button="{{ .id }}">
-                        <span>{{ .status }}</span>
-                        <strong>{{ .label }}</strong>
-                      </button>
-                    {{ end }}
-                  {{ end }}
-                </div>
-              </div>
-
-              <div class="rt-season-dashboard__terms rt-season-dashboard__terms--clean">
-                {{ with .spring }}
-                  {{ partial "team-table-term.html" (dict "term" .) }}
-                {{ end }}
-
-                {{ with .fall }}
-                  {{ partial "team-table-term.html" (dict "term" .) }}
-                {{ end }}
-              </div>
-            </section>
-          {{ end }}
+    <div class="rt-team-season-nav" aria-label="Team season selector">
+      {{ range $data.seasons }}
+        {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") }}
+          <button class="rt-team-season-nav__button{{ if eq .id $defaultSeason }} is-active{{ end }}" type="button" data-season-button="{{ .id }}" aria-pressed="{{ if eq .id $defaultSeason }}true{{ else }}false{{ end }}">
+            <span>{{ .id }}</span>
+            <small>{{ .status }}</small>
+          </button>
         {{ end }}
-      </div>
-    </section>
+      {{ end }}
+    </div>
+
+    <div class="rt-team-season-panels" data-team-season-panels>
+      {{ range $data.seasons }}
+        {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") (eq .id $defaultSeason) }}
+          <section class="rt-team-season-panel" data-season-panel="{{ .id }}" {{ if ne .id $defaultSeason }}hidden{{ end }}>
+            <header class="rt-team-season-heading">
+              <p class="rt-eyebrow rt-eyebrow--dark">{{ .status }} Season</p>
+              <div class="rt-team-season-heading__row">
+                <h2>{{ .label }}</h2>
+                <p>{{ .cycle }}</p>
+              </div>
+            </header>
+
+            <div class="rt-team-terms-open">
+              {{ with .spring }}
+                {{ partial "team-table-term.html" (dict "term" .) }}
+              {{ end }}
+
+              {{ with .fall }}
+                {{ partial "team-table-term.html" (dict "term" .) }}
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      {{ end }}
+    </div>
   </div>
 </section>
 
@@ -80,7 +78,7 @@
     buttons.forEach(function (button) {
       var active = button.getAttribute('data-season-button') === value;
       button.classList.toggle('is-active', active);
-      button.setAttribute('aria-selected', active ? 'true' : 'false');
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
   }
 
