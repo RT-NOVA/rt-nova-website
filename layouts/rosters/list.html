@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ with resources.Get "css/rosters.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+{{ partial "hero.html" (dict "kicker" "Team Rosters" "title" .Title "intro" "Browse Rawlings Tigers NOVA roster pages by team and season." "show_card" false) }}
+<section class="rt-section rt-roster-list">
+  <div class="rt-container">
+    <div class="rt-roster-list__grid">
+      {{ range .Pages.ByDate.Reverse }}
+        <article class="rt-roster-list-card">
+          <p class="rt-roster-list-card__meta">{{ .Params.season }} · {{ .Params.term }}</p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <p>{{ .Params.summary | default .Summary }}</p>
+          <a class="rt-roster-list-card__link" href="{{ .RelPermalink }}">View Roster</a>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
