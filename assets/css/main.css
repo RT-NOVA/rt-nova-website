@@ -3345,3 +3345,17 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
 .rt-season-dashboard__helper::after {
   content: none !important;
 }
+
+/* Homepage program strip: force the four card icons orange only */
+.program-strip .rt-line-icon {
+  color: var(--brand, #f15a24) !important;
+}
+
+.program-strip .rt-line-icon svg,
+.program-strip .rt-line-icon svg *,
+.program-strip .rt-line-icon .st0 {
+  fill: var(--brand, #f15a24) !important;
+  stroke: none !important;
+  color: var(--brand, #f15a24) !important;
+  opacity: 1 !important;
+}
