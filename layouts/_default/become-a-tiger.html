@@ -1,0 +1,61 @@
+{{ define "main" }}
+{{ with resources.Get "css/become-a-tiger.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ $jotformID := .Params.jotform_id | default "261354423024043" }}
+{{ $jotformURL := .Params.jotform_url | default (printf "https://form.jotform.com/%s" $jotformID) }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Become A Tiger"
+  "title" .Title
+  "intro" (.Params.hero_intro | default "Tell us about your player and a Rawlings Tigers NOVA coach will follow up with the best current or upcoming team fit.")
+  "show_card" false
+) }}
+
+<section class="rt-section rt-become-page">
+  <div class="rt-container rt-become-page__inner">
+
+    <section class="rt-become-readiness" aria-label="Registration steps">
+      <ol class="rt-become-checklist">
+        <li>
+          <span class="rt-become-checklist__number">01</span>
+          <div>
+            <h2>Select Evaluation Age</h2>
+            <p>Choose the player’s competition age group for the upcoming season.</p>
+          </div>
+        </li>
+        <li>
+          <span class="rt-become-checklist__number">02</span>
+          <div>
+            <h2>Complete Player Info</h2>
+            <p>Provide accurate player and parent/guardian contact information.</p>
+          </div>
+        </li>
+        <li>
+          <span class="rt-become-checklist__number">03</span>
+          <div>
+            <h2>Submit Registration</h2>
+            <p>You will receive confirmation once the form has been submitted.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <div class="rt-become-confirmation" role="note">
+      <p>After submitting, you should receive a confirmation email letting you know your registration was received.</p>
+    </div>
+
+    <section class="rt-jotform-section" aria-label="Become A Tiger registration form">
+      <div class="rt-jotform-frame">
+        <iframe
+          id="JotFormIFrame-{{ $jotformID }}"
+          title="Rawlings Tigers NOVA Player Registration"
+          src="{{ $jotformURL }}"
+          allow="geolocation; microphone; camera; fullscreen; payment"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+  </div>
+</section>
+{{ end }}
