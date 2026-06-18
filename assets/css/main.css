@@ -3359,3 +3359,17 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
   color: var(--brand, #f15a24) !important;
   opacity: 1 !important;
 }
+
+/* Dark outline button for light/cream sections */
+.rt-btn-outline-dark {
+  border-color: #07101f;
+  color: #07101f;
+  background: transparent;
+}
+
+.rt-btn-outline-dark:hover,
+.rt-btn-outline-dark:focus-visible {
+  background: #07101f;
+  border-color: #07101f;
+  color: #fff;
+}

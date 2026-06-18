@@ -1,17 +1,11 @@
-# Social Hub Page Fix Patch
+# About Page Refresh Patch
 
-This patch fixes the broken Social Hub page/tab update by:
+This patch updates `/about/` to use content adapted from the old TeamLinkt About page while keeping the current Rawlings Tigers NOVA Hugo site layout/classes.
 
-- creating `layouts/social-hub/list.html`
-- making `content/social-hub/_index.md` render the `/social-hub/` section page
-- fixing homepage pager selectors so only 3 cards show at a time
-- adding reusable `layouts/partials/social-hub-card.html`
-- keeping `/social-hub/` sorted newest-to-oldest with tabs for All, Team News, Facebook, and Instagram
-- adding a cleanup script for misplaced folders from the previous patch
+Files included:
 
-After unzipping, run:
+- `content/about.md`
+- `layouts/partials/page-about.html`
+- `scripts/apply-about-page-refresh.py`
 
-```bash
-python3 scripts/apply-social-hub-page-fix.py
-hugo server -D --disableFastRender
-```
+Run the script after extraction so `layouts/_default/single.html` is updated safely without overwriting unrelated template changes.
