@@ -1,15 +1,38 @@
-# Sponsorship Opportunities Refresh Patch
+# Tryout Schedule Clean Session + Directions Patch
 
-This patch renames the sponsorship page from `/sponsors/` to `/sponsorship-opportunities/` and refreshes the content using the old TeamLinkt sponsorship page as the content source while preserving the new Hugo site look and feel.
+This replaces the boxed/badge treatment for `Open Evaluation` and `Formal Tryout` with a cleaner text label and small dot.
+
+It also adds a clickable directions icon for each schedule row.
+
+## Visual behavior
+
+- Open Evaluation: orange dot + orange text
+- Formal Tryout: navy dot + navy text
+- Directions: compact map icon on the far right of the row
+
+## Directions behavior
+
+The directions icon opens Google Maps using the session location.
+
+If a session ever needs a custom map link, add this optional field to that session in `data/tryouts.yaml`:
+
+```yaml
+directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
+```
 
 ## Apply
 
 ```bash
-unzip -o ~/Desktop/rt-nova-sponsorship-opportunities-refresh-patch.zip -d .
-python3 scripts/apply-sponsorship-opportunities-refresh.py
+cd /Users/smbambling/Documents/personal/git/github/rt-nova-website
+
+unzip -o ~/Desktop/rt-nova-tryout-clean-sessions-directions-patch.zip -d .
+
+python3 scripts/apply-tryout-clean-sessions-directions.py
+
 hugo server -D --disableFastRender
 ```
 
-## Updated references
+## Files modified by script
 
-Current sponsorship CTAs and nav links now point to `/sponsorship-opportunities/`. The `/sponsors/` path is intentionally left available for a future sponsor showcase page.
+- `layouts/partials/page-tryouts.html`
+- `assets/css/tryouts.css`

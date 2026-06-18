@@ -1,51 +1,202 @@
 {{ $data := hugo.Data.tryouts }}
-{{ partial "hero.html" (dict "kicker" $data.season "title" $data.title "intro" $data.intro "actions" (slice (dict "label" "Register" "url" $data.registration_url "class" "rt-btn-primary") (dict "label" "View FAQ" "url" "#tryout-faq" "class" "rt-btn-outline"))) }}
-<section class="rt-proof-strip rt-proof-strip--light">
+{{ with resources.Get "css/tryouts.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ partial "hero.html" (dict
+  "kicker" ($data.season | default "Tryouts")
+  "title" ($data.title | default .Title)
+  "intro" ($data.intro | default "Rawlings Tigers NOVA tryouts are open for players looking for a competitive travel baseball environment focused on development, preparation, and team culture.")
+  "show_card" false
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light" aria-label="Tryout quick facts">
   <div class="rt-container rt-proof-grid">
-    {{ range $data.evaluation_areas }}<div><strong>{{ . }}</strong><span>Evaluation focus area</span></div>{{ end }}
+    {{ range $data.quick_facts }}
+      <div><strong>{{ .label }}</strong><span>{{ .value }}</span></div>
+    {{ else }}
+      <div><strong>Ages</strong><span>Rising 10U–14U</span></div>
+      <div><strong>Format</strong><span>Formal / Open Evaluations</span></div>
+      <div class="rt-tryout-fact-private"><strong>Private</strong><span>Available by Request</span></div>
+      <div><strong>Focus</strong><span>Development + Fit</span></div>
+    {{ end }}
   </div>
 </section>
-<section class="rt-section">
-  <div class="rt-container rt-section-heading">
-    <p class="rt-eyebrow rt-eyebrow--dark">Evaluation Schedule</p>
-    <h2>Tryout groups and sessions.</h2>
+
+<section class="rt-section rt-section--cream rt-tryout-review-section">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Tryout Overview</p>
+    <h2>What coaches review.</h2>
+    <p>Coaches review baseball skills, athletic movement, coachability, effort, communication, and how players compete in a team setting.</p>
   </div>
-  <div class="rt-container rt-card-grid rt-card-grid--2">
-  {{ range $data.groups }}
-    <article class="rt-tryout-card">
-      <div class="rt-tryout-card__head">
-        <h3>{{ .age_group }}</h3>
-        <span>{{ .coach }}</span>
-      </div>
-      <div class="rt-session-list">
-        {{ range .sessions }}
-        <div class="rt-session">
-          <span class="rt-badge rt-badge--active">{{ .type }}</span>
-          <strong>{{ .date }}</strong>
-          <span>{{ .time }}</span>
-          <span>{{ .location }}</span>
+
+  <div class="rt-container rt-tryout-review-grid rt-tryout-review-grid--full" aria-label="Tryout evaluation areas">
+    {{ range $data.evaluation_areas }}
+      <article class="rt-tryout-eval-card">
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--white rt-tryout-schedule-section">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Tryout / Evaluation</p>
+    <h2>Schedule Dates</h2>
+    <p class="tryout-schedule-intro">
+      Players only need to attend one open evaluation unless a coach requests a follow-up.<br>
+      Private tryouts may be available upon request.
+    </p>
+  </div>
+
+  <div class="rt-container">
+    {{ with $data.age_chart }}
+      <details class="rt-tryout-age-chart">
+        <summary>
+          <span>
+            <strong>Find your player’s age group</strong>
+            <em>{{ .note | default "Confirm the correct rising age group before registering." }}</em>
+          </span>
+          <b>View Chart</b>
+        </summary>
+
+        <div class="rt-tryout-age-table" role="table" aria-label="{{ .title | default "Baseball age chart" }}">
+          <div class="rt-tryout-age-table__head" role="row">
+            <span role="columnheader">Age Group</span>
+            <span role="columnheader">Birth Date Range</span>
+          </div>
+          {{ range .rows }}
+            <div class="rt-tryout-age-table__row" role="row">
+              <strong role="cell">{{ .age_group }}</strong>
+              <span role="cell">{{ .birth_window }}</span>
+            </div>
+          {{ end }}
         </div>
-        {{ end }}
-      </div>
-    </article>
-  {{ end }}
+      </details>
+    {{ end }}
+
+    <div class="rt-tryout-groups" aria-label="Rawlings Tigers NOVA tryout schedule by age group">
+      {{ range $data.groups }}
+        <section class="rt-tryout-group" aria-labelledby="tryout-group-{{ .age_group | urlize }}">
+          <header class="rt-tryout-group__head">
+            <div>
+              <p class="rt-eyebrow rt-eyebrow--dark">Age Group</p>
+              <h3 id="tryout-group-{{ .age_group | urlize }}">{{ .age_group }}</h3>
+            </div>
+            {{ with .coach }}
+              <div class="rt-tryout-group__coach">
+                <small>Coach</small>
+                <strong>{{ . }}</strong>
+              </div>
+            {{ end }}
+          </header>
+
+          <div class="rt-tryout-table rt-tryout-table--grouped" role="table" aria-label="{{ .age_group }} tryout schedule">
+            <div class="rt-tryout-table__head" role="row">
+              <span role="columnheader">Session</span>
+              <span role="columnheader">Date</span>
+              <span role="columnheader">Time</span>
+              <span role="columnheader" class="rt-tryout-location-map-head"><span>Location</span><span>Map</span></span>
+            </div>
+            {{ range .sessions }}
+              <article class="rt-tryout-table__row" role="row">
+                {{ $sessionType := .type | default "Evaluation" }}
+
+                {{ $sessionTypeLower := lower $sessionType }}
+
+                {{ $sessionClass := "rt-tryout-session-type" }}
+
+                {{ if in $sessionTypeLower "formal" }}{{ $sessionClass = printf "%s rt-tryout-session-type--formal" $sessionClass }}{{ else if in $sessionTypeLower "open" }}{{ $sessionClass = printf "%s rt-tryout-session-type--open" $sessionClass }}{{ end }}
+
+                {{ $sessionType := .type | default "Evaluation" }}
+
+
+                {{ $sessionTypeLower := lower $sessionType }}
+
+
+                {{ $sessionClass := "rt-tryout-session-type" }}
+
+
+                {{ if in $sessionTypeLower "open" }}{{ $sessionClass = printf "%s rt-tryout-session-type--open" $sessionClass }}{{ else if in $sessionTypeLower "formal" }}{{ $sessionClass = printf "%s rt-tryout-session-type--formal" $sessionClass }}{{ end }}
+
+
+                <div role="cell" data-label="Session">
+
+
+                  <span class="{{ $sessionClass }}">{{ $sessionType }}</span>
+
+
+                </div>
+                <div role="cell" data-label="Date"><span>{{ .date }}</span></div>
+                <div role="cell" data-label="Time"><span>{{ .time }}</span></div>
+                {{ $directionsUrl := .directions_url | default (printf "https://www.google.com/maps/search/?api=1&query=%s" (.location | urlquery)) }}
+
+                <div role="cell" data-label="Location">
+
+                  <span class="rt-tryout-location-wrap">
+
+                    <span>{{ .location }}</span>
+
+                    <a class="rt-tryout-directions-link" href="{{ $directionsUrl }}" target="_blank" rel="noopener" aria-label="Get directions to {{ .location }}">
+
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                        <path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"></path>
+
+                        <path d="M9 3v15"></path>
+
+                        <path d="M15 6v15"></path>
+
+                      </svg>
+
+                      <span class="rt-sr-only">Directions</span>
+
+                    </a>
+
+                  </span>
+
+                </div>
+              </article>
+            {{ else }}
+              <article class="rt-tryout-table__row" role="row">
+                <div role="cell" data-label="Session"><span>Schedule coming soon.</span></div>
+                <div role="cell" data-label="Date"><span>—</span></div>
+                <div role="cell" data-label="Time"><span>—</span></div>
+                <div role="cell" data-label="Location"><span>—</span></div>
+              </article>
+            {{ end }}
+          </div>
+        </section>
+      {{ else }}
+        <div class="rt-tryout-empty">Tryout schedule details are coming soon.</div>
+      {{ end }}
+    </div>
   </div>
 </section>
-{{ with $data.age_chart_image }}
-<section class="rt-section rt-section--tight">
-  <div class="rt-container rt-section-heading">
-    <p class="rt-eyebrow rt-eyebrow--dark">Age Chart</p>
-    <h2>Confirm your player’s baseball age.</h2>
+
+<section id="tryout-faq" class="rt-section rt-section--cream">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Frequently Asked Questions</p>
+    <h2>FAQ</h2>
   </div>
-  <div class="rt-container rt-media-card"><img src="{{ partial "url.html" . }}" alt="{{ $data.age_chart_alt }}" loading="lazy"></div>
+
+  <div class="rt-container rt-tryout-faq-list">
+    {{ range $data.faq }}
+      <details class="rt-tryout-faq-item">
+        <summary>{{ .question }}</summary>
+        <p>{{ .answer }}</p>
+      </details>
+    {{ end }}
+  </div>
 </section>
-{{ end }}
-<section id="tryout-faq" class="rt-section">
-  <div class="rt-container rt-section-heading">
-    <p class="rt-eyebrow rt-eyebrow--dark">FAQ</p>
-    <h2>Common tryout questions.</h2>
-  </div>
-  <div class="rt-container rt-faq-list">
-    {{ range $data.faq }}<details class="rt-faq"><summary>{{ .question }}</summary><p>{{ .answer }}</p></details>{{ end }}
+
+<section class="rt-section rt-section--dark">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow">Become a Tiger</p>
+    <h2>Ready to be evaluated?</h2>
+    <p>Complete the player interest form and a Rawlings Tigers NOVA coach will follow up with the best current or upcoming team fit.</p>
+    <div class="rt-action-row rt-action-row--center">
+      <a class="rt-btn rt-btn-primary" href="{{ partial "url.html" ($data.registration_url | default "/become-a-tiger/") }}">Become a Tiger</a>
+      <a class="rt-btn rt-btn--light" href="mailto:rawlingstigersnova@gmail.com">Contact Us</a>
+    </div>
   </div>
 </section>

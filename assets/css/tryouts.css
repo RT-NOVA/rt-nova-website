@@ -1,0 +1,518 @@
+/* Tryouts page scoped layout */
+.rt-tryout-review-section .rt-section-heading {
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+
+.rt-tryout-review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.rt-tryout-review-grid--full {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rt-tryout-eval-card {
+  background: #fff;
+  border: 1px solid rgba(7, 16, 31, .12);
+  box-shadow: var(--rt-shadow-soft);
+  padding: clamp(1.1rem, 2.4vw, 1.5rem);
+}
+
+.rt-tryout-eval-card h3 {
+  margin: 0 0 .55rem;
+  color: var(--rt-navy);
+  font-family: var(--rt-font-display);
+  font-size: 1.35rem;
+  letter-spacing: .04em;
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.rt-tryout-eval-card p {
+  margin: 0;
+  color: var(--rt-muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.rt-tryout-age-chart {
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid rgba(7, 16, 31, .12);
+  background: #fff;
+  box-shadow: var(--rt-shadow-soft);
+}
+
+.rt-tryout-age-chart summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  padding: 1rem 1.15rem;
+  list-style: none;
+}
+
+.rt-tryout-age-chart summary::-webkit-details-marker { display: none; }
+
+.rt-tryout-age-chart summary span {
+  display: grid;
+  gap: .15rem;
+}
+
+.rt-tryout-age-chart summary strong {
+  color: var(--rt-navy);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.rt-tryout-age-chart summary em {
+  color: var(--rt-muted);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.rt-tryout-age-chart summary b {
+  white-space: nowrap;
+  border: 1px solid rgba(7, 16, 31, .14);
+  padding: .45rem .7rem;
+  color: var(--rt-navy);
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.rt-tryout-age-table {
+  border-top: 1px solid rgba(7, 16, 31, .1);
+}
+
+.rt-tryout-age-table__head,
+.rt-tryout-age-table__row {
+  display: grid;
+  grid-template-columns: minmax(120px, .35fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: .85rem 1.15rem;
+}
+
+.rt-tryout-age-table__head {
+  background: var(--rt-navy);
+  color: #fff;
+}
+
+.rt-tryout-age-table__head span {
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.rt-tryout-age-table__row {
+  border-bottom: 1px solid rgba(7, 16, 31, .1);
+}
+
+.rt-tryout-age-table__row:last-child { border-bottom: 0; }
+
+.rt-tryout-age-table__row strong {
+  color: var(--rt-navy);
+  font-weight: 950;
+}
+
+.rt-tryout-age-table__row span {
+  color: var(--rt-muted);
+  font-weight: 750;
+}
+
+.rt-tryout-groups {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.rt-tryout-group {
+  display: grid;
+  gap: 1rem;
+}
+
+.rt-tryout-group__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(7, 16, 31, .12);
+  padding-bottom: .85rem;
+}
+
+.rt-tryout-group__head h3 {
+  margin: 0;
+  color: var(--rt-navy);
+  font-family: var(--rt-font-display);
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  letter-spacing: .14em;
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.rt-tryout-group__coach {
+  display: grid;
+  gap: .15rem;
+  text-align: right;
+}
+
+.rt-tryout-group__coach small {
+  color: var(--rt-orange);
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.rt-tryout-group__coach strong {
+  color: var(--rt-navy);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.rt-tryout-table {
+  border-top: 1px solid rgba(7, 16, 31, .12);
+  border-bottom: 1px solid rgba(7, 16, 31, .12);
+}
+
+.rt-tryout-table__head,
+.rt-tryout-table__row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.8fr .9fr 1.4fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.rt-tryout-table__head {
+  padding: .85rem 0;
+  border-bottom: 2px solid rgba(7, 16, 31, .18);
+  color: var(--rt-muted);
+}
+
+.rt-tryout-table__head span {
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.rt-tryout-table__row {
+  min-height: 4.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(7, 16, 31, .1);
+}
+
+.rt-tryout-table__row:last-child { border-bottom: 0; }
+
+.rt-tryout-table__row strong {
+  color: var(--rt-navy);
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.rt-tryout-table__row span {
+  color: var(--rt-muted);
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.rt-tryout-empty {
+  padding: 1rem;
+  border: 1px solid rgba(7, 16, 31, .12);
+  background: #fff;
+  color: var(--rt-muted);
+  font-weight: 800;
+  text-align: center;
+}
+
+.rt-tryout-faq-list {
+  display: grid;
+  gap: .75rem;
+  max-width: 980px;
+}
+
+.rt-tryout-faq-item {
+  border: 1px solid rgba(7, 16, 31, .12);
+  background: #fff;
+  box-shadow: var(--rt-shadow-soft);
+}
+
+.rt-tryout-faq-item summary {
+  cursor: pointer;
+  padding: 1rem 1.15rem;
+  color: var(--rt-navy);
+  font-weight: 950;
+}
+
+.rt-tryout-faq-item p {
+  margin: 0;
+  padding: 0 1.15rem 1.15rem;
+  color: var(--rt-muted);
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .rt-tryout-review-grid,
+  .rt-tryout-review-grid--full {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rt-tryout-table__head {
+    display: none;
+  }
+
+  .rt-tryout-table {
+    display: grid;
+    gap: .8rem;
+    border: 0;
+  }
+
+  .rt-tryout-table__row {
+    grid-template-columns: 1fr;
+    gap: .35rem;
+    min-height: 0;
+    padding: 1rem;
+    border: 1px solid rgba(7, 16, 31, .12);
+    background: #fff;
+    box-shadow: var(--rt-shadow-soft);
+  }
+
+  .rt-tryout-table__row div {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: .75rem;
+  }
+
+  .rt-tryout-table__row div::before {
+    content: attr(data-label);
+    color: var(--rt-orange);
+    font-size: .68rem;
+    font-weight: 950;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 760px) {
+  .rt-tryout-review-grid,
+  .rt-tryout-review-grid--full {
+    grid-template-columns: 1fr;
+  }
+
+  .rt-tryout-group__head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .rt-tryout-group__coach {
+    text-align: left;
+  }
+
+  .rt-tryout-table__row div {
+    grid-template-columns: 1fr;
+    gap: .15rem;
+  }
+
+  .rt-tryout-age-chart summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .rt-tryout-age-table__head {
+    display: none;
+  }
+
+  .rt-tryout-age-table__row {
+    grid-template-columns: 1fr;
+    gap: .2rem;
+  }
+}
+
+/* Important tryout schedule note */
+
+
+
+/* Cleaner Schedule Dates intro text */
+
+/* Cleaner Schedule Dates intro text */
+
+/* Schedule Dates intro text */
+
+/* Schedule Dates intro text */
+.tryout-schedule-intro {
+  max-width: 860px;
+  margin: 1rem auto 0;
+  color: var(--rt-orange) !important;
+  font-weight: 900;
+  line-height: 1.45;
+  text-align: center;
+}
+
+
+/* Add a compact Directions column to the tryout schedule table. */
+.rt-tryout-schedule-table [role="row"],
+.rt-tryout-schedule-grid [role="row"],
+.rt-tryout-schedule-header,
+.rt-tryout-schedule-row {
+  grid-template-columns: minmax(150px, .9fr) minmax(230px, 1.45fr) minmax(135px, .75fr) minmax(280px, 1.65fr) 72px;
+}
+
+@media (max-width: 980px) {
+}
+
+
+/* Five-column schedule table: Session / Date / Time / Location / Directions */
+.rt-tryout-schedule-table [role="row"],
+.rt-tryout-schedule-grid [role="row"],
+.rt-tryout-schedule-header,
+.rt-tryout-schedule-row {
+  grid-template-columns: minmax(150px, .9fr) minmax(230px, 1.45fr) minmax(135px, .75fr) minmax(280px, 1.65fr) 72px;
+}
+
+@media (max-width: 980px) {
+}
+
+/* Clean tryout session labels and inline directions icon */
+.rt-tryout-session-type {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--rt-navy);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rt-tryout-session-type::before {
+  content: "";
+  width: .45rem;
+  height: .45rem;
+  border-radius: 999px;
+  background: currentColor;
+  flex: 0 0 auto;
+}
+
+.rt-tryout-session-type--open {
+  color: var(--rt-orange) !important;
+}
+
+.rt-tryout-session-type--formal {
+  color: var(--rt-navy) !important;
+}
+
+.rt-tryout-location-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+}
+
+.rt-tryout-directions-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid rgba(245, 91, 32, .35);
+  background: #fff;
+  color: var(--rt-orange);
+  text-decoration: none;
+  flex: 0 0 auto;
+  transition: border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.rt-tryout-directions-link:hover,
+.rt-tryout-directions-link:focus-visible {
+  border-color: var(--rt-orange);
+  color: var(--rt-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(245, 91, 32, .16);
+}
+
+.rt-tryout-directions-link svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Split Location / Map header alignment */
+.rt-tryout-location-map-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rt-tryout-location-map-head span:last-child {
+  min-width: 2rem;
+  text-align: center;
+}
+
+.rt-tryout-location-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .85rem;
+  width: 100%;
+}
+
+.rt-tryout-location-wrap > span:first-child {
+  min-width: 0;
+}
+
+.rt-tryout-directions-link {
+  margin-left: auto;
+}
+
+/* Highlight Private quick fact */
+
+.rt-tryout-quick-facts strong,
+
+.rt-tryout-quick-facts span {
+
+  transition: color .18s ease;
+
+}
+
+.rt-tryout-quick-facts div:nth-child(3) strong,
+
+.rt-tryout-quick-facts div:nth-child(3) span {
+
+  color: var(--rt-orange);
+
+}
+
+
+/* Highlight Private quick fact */
+.rt-tryout-fact-private strong,
+.rt-tryout-fact-private span {
+  color: var(--rt-orange) !important;
+}
+
+/* Highlight Private quick fact in Tryouts proof strip */
+
+.rt-proof-strip .rt-proof-strip__inner .rt-tryout-fact-private strong,
+
+.rt-proof-strip .rt-proof-strip__inner .rt-tryout-fact-private span {
+
+  color: var(--rt-orange) !important;
+
+}
+
