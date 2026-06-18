@@ -10,7 +10,7 @@ main:
       - name: Booster Club
         url: /booster-club/
       - name: Sponsorship Opportunities
-        url: /sponsors/
+        url: /sponsorship-opportunities/
   - name: Teams
     children:
       - name: Team Central

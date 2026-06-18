@@ -3435,3 +3435,88 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
 
 }
 
+/* Sponsorship opportunities page */
+.rt-card-grid--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.sponsor-package-grid .rt-package-card {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  min-height: 245px;
+}
+
+.rt-package-card--featured {
+  border-color: #ffc7a7;
+  box-shadow: 0 20px 45px rgba(242, 101, 34, .18);
+}
+
+.sponsor-benefits-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid var(--rt-line);
+  box-shadow: var(--rt-shadow-soft);
+}
+
+.sponsor-benefits-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.sponsor-benefits-table th,
+.sponsor-benefits-table td {
+  padding: .95rem;
+  border-bottom: 1px solid var(--rt-line);
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 850;
+}
+
+.sponsor-benefits-table thead th {
+  background: var(--rt-navy);
+  color: #fff;
+  font-family: var(--rt-display);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  line-height: 1.05;
+}
+
+.sponsor-benefits-table thead span {
+  color: var(--rt-orange);
+  font-family: var(--rt-font);
+  font-size: .78rem;
+  letter-spacing: .02em;
+}
+
+.sponsor-benefits-table tbody th {
+  text-align: left;
+  color: var(--rt-navy);
+}
+
+.sponsor-benefits-table tbody td {
+  color: var(--rt-muted);
+}
+
+.sponsor-tax-note {
+  margin-top: 1rem;
+}
+
+.sponsor-tax-note p {
+  color: var(--rt-muted);
+  font-weight: 800;
+  text-align: center;
+}
+
+@media (max-width: 1180px) {
+  .rt-card-grid--5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .rt-card-grid--5 {
+    grid-template-columns: 1fr;
+  }
+}

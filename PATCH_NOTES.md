@@ -1,18 +1,15 @@
-# Booster Club Refresh Patch
+# Sponsorship Opportunities Refresh Patch
 
-This patch refreshes `/booster-club/` using content from the old TeamLinkt Booster Club page while keeping the current Hugo site look and feel.
+This patch renames the sponsorship page from `/sponsors/` to `/sponsorship-opportunities/` and refreshes the content using the old TeamLinkt sponsorship page as the content source while preserving the new Hugo site look and feel.
 
-Files included:
-
-```text
-content/booster-club.md
-layouts/partials/page-booster-club.html
-docs/BOOSTER_CLUB_README.md
-scripts/apply-booster-club-refresh.py
-```
-
-Run the apply script after unzipping:
+## Apply
 
 ```bash
-python3 scripts/apply-booster-club-refresh.py
+unzip -o ~/Desktop/rt-nova-sponsorship-opportunities-refresh-patch.zip -d .
+python3 scripts/apply-sponsorship-opportunities-refresh.py
+hugo server -D --disableFastRender
 ```
+
+## Updated references
+
+Current sponsorship CTAs and nav links now point to `/sponsorship-opportunities/`. The `/sponsors/` path is intentionally left available for a future sponsor showcase page.

@@ -1,0 +1,81 @@
+intro: Partner with Rawlings Tigers NOVA baseball to support player development, facilities, tournament travel, and community programs. Your contribution helps keep youth baseball strong in Northern Virginia.
+nonprofit_note: NOVA Tigers Booster Club is a 501(c)(3) organization. Donations are tax-deductible, and EIN information is available upon request.
+contact:
+  phone: "(540) 748-5300"
+  phone_url: "tel:+15407485300"
+  email: novatigersboosterclub@gmail.com
+proof:
+  - label: Organization
+    value: NOVA Tigers Booster Club
+  - label: Status
+    value: 501(c)(3) Non-Profit
+  - label: Support
+    value: Player Development
+  - label: Region
+    value: Northern Virginia
+why:
+  - title: Reach Local Baseball Families
+    text: Amplify your brand with families across the NOVA baseball community, local events, and tournament circuits.
+  - title: Support Player Development
+    text: Help players access training resources, competitive opportunities, equipment, and a strong team-first environment.
+  - title: Be Recognized
+    text: Sponsors can receive recognition through banners, social media, team events, and custom collaboration opportunities.
+impact:
+  - Training facilities, equipment, and field rentals
+  - Tournament fees and travel costs
+  - Player scholarships and family assistance opportunities
+  - Community programs and team operations
+packages:
+  - name: Single
+    amount: "$250"
+    features:
+      - Sponsor plaque / framed team picture
+      - Social media recognition, 1 post
+  - name: Double
+    amount: "$500"
+    features:
+      - All Single benefits
+      - Team banner logo placement
+      - Additional social post
+  - name: Triple
+    amount: "$750"
+    features:
+      - All Double benefits
+      - Monthly social mentions in-season
+  - name: Home Run
+    amount: "$1,000"
+    featured: true
+    features:
+      - All Triple benefits
+      - Player spotlight with your logo
+  - name: Grand Slam
+    amount: "$2,000+"
+    features:
+      - All Home Run benefits
+      - Premium placement on banners and media
+      - Custom collaboration opportunities
+benefits:
+  - name: Sponsor Plaque / Framed Team Picture
+    single: "✓"
+    double: "✓"
+    triple: "✓"
+    home_run: "✓"
+    grand_slam: "✓"
+  - name: Player Spotlight with Sponsor Logo
+    single: "—"
+    double: "—"
+    triple: "—"
+    home_run: "✓"
+    grand_slam: "✓"
+  - name: Team Banner with Logo
+    single: "—"
+    double: "✓"
+    triple: "✓"
+    home_run: "✓"
+    grand_slam: "✓"
+  - name: Social Media Posts
+    single: "1 per season"
+    double: "2 per season"
+    triple: "3 per season"
+    home_run: "Monthly"
+    grand_slam: "Monthly + featured"

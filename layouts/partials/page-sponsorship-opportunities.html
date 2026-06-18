@@ -1,0 +1,134 @@
+{{ $data := hugo.Data.sponsorship_opportunities }}
+{{ partial "hero.html" (dict
+  "kicker" "NOVA Tigers Booster Club"
+  "title" .Title
+  "intro" $data.intro
+  "actions" (slice
+    (dict "label" "Email Booster Club" "url" (printf "mailto:%s" $data.contact.email) "class" "rt-btn-primary")
+    (dict "label" "Call" "url" $data.contact.phone_url "class" "rt-btn-outline")
+  )
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light" aria-label="Sponsorship quick facts">
+  <div class="rt-container rt-proof-grid">
+    {{ range $data.proof }}
+      <div><strong>{{ .label }}</strong><span>{{ .value }}</span></div>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section">
+  <div class="rt-container split-feature">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">Why Sponsor the Tigers?</p>
+      <h2>Support local players, families, and community baseball.</h2>
+      <p class="rt-muted">Sponsorship helps Rawlings Tigers NOVA provide a stronger baseball experience for players while giving local businesses and families a visible way to support the program.</p>
+      <p class="rt-muted">{{ $data.nonprofit_note }}</p>
+    </div>
+    <div class="feature-list">
+      {{ range $data.why }}
+        <div>
+          <strong>{{ .title }}</strong>
+          <span>{{ .text }}</span>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="rt-section rt-section--white">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Where Support Goes</p>
+    <h2>Sponsorship supports the full program.</h2>
+    <p>Contributions help offset the costs that come with operating a competitive, development-focused travel baseball program in Northern Virginia.</p>
+  </div>
+  <div class="rt-container rt-card-grid rt-card-grid--4">
+    {{ range $i, $item := $data.impact }}
+      <article class="rt-feature-card">
+        <span class="rt-feature-card__icon">{{ printf "%02d" (add $i 1) }}</span>
+        <strong>{{ $item }}</strong>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--cream">
+  <div class="rt-container rt-section-heading">
+    <p class="rt-eyebrow rt-eyebrow--dark">Sponsorship Levels</p>
+    <h2>Choose the level that best fits your business or family contribution.</h2>
+    <p>Each package includes meaningful recognition while directly supporting Rawlings Tigers NOVA players, teams, and program needs.</p>
+  </div>
+  <div class="rt-container rt-card-grid rt-card-grid--5 sponsor-package-grid">
+    {{ range $data.packages }}
+      <article class="rt-package-card{{ if .featured }} rt-package-card--featured{{ end }}">
+        {{ if .featured }}<span class="rt-badge rt-badge--active">Popular</span>{{ end }}
+        <span class="rt-price">{{ .amount }}</span>
+        <h3>{{ .name }}</h3>
+        <ul>{{ range .features }}<li>{{ . }}</li>{{ end }}</ul>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--white">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Benefit Comparison</p>
+    <h2>Compare recognition across sponsorship levels.</h2>
+    <p>Benefits can also be customized for larger partnerships or special program support opportunities.</p>
+  </div>
+  <div class="rt-container sponsor-benefits-wrap">
+    <table class="sponsor-benefits-table">
+      <thead>
+        <tr>
+          <th>Benefit</th>
+          <th>Single<br><span>$250</span></th>
+          <th>Double<br><span>$500</span></th>
+          <th>Triple<br><span>$750</span></th>
+          <th>Home Run<br><span>$1,000</span></th>
+          <th>Grand Slam<br><span>$2,000+</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $data.benefits }}
+          <tr>
+            <th>{{ .name }}</th>
+            <td>{{ .single }}</td>
+            <td>{{ .double }}</td>
+            <td>{{ .triple }}</td>
+            <td>{{ .home_run }}</td>
+            <td>{{ .grand_slam }}</td>
+          </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+  <div class="rt-container sponsor-tax-note">
+    <p>{{ $data.nonprofit_note }}</p>
+  </div>
+</section>
+
+<section class="rt-section rt-section--dark">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow">Become a Sponsor</p>
+    <h2>Ready to support Rawlings Tigers NOVA?</h2>
+    <p>Contact the NOVA Tigers Booster Club to discuss sponsorship levels, banner placement, social recognition, and custom collaboration opportunities.</p>
+  </div>
+  <div class="rt-container rt-card-grid rt-card-grid--2">
+    <article class="rt-feature-card rt-feature-card--dark">
+      <span class="rt-feature-card__icon">Email</span>
+      <strong>Booster Club Email</strong>
+      <small>Use email for sponsorship questions, custom partnership ideas, and getting your business connected with the program.</small>
+      <div class="rt-card-contact">
+        <a href="mailto:{{ $data.contact.email }}">{{ $data.contact.email }}</a>
+      </div>
+    </article>
+    <article class="rt-feature-card rt-feature-card--dark">
+      <span class="rt-feature-card__icon">Phone</span>
+      <strong>Booster Club Phone</strong>
+      <small>Call or text to discuss package options, recognition benefits, or special sponsorship opportunities.</small>
+      <div class="rt-card-contact">
+        <span>{{ $data.contact.phone }}</span>
+      </div>
+    </article>
+  </div>
+</section>
