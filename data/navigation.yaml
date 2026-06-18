@@ -1,29 +1,30 @@
 main:
+  - name: Home
+    url: /
+  - name: About
+    children:
+      - name: Who we are
+        url: /about/
+      - name: Family Hub
+        url: /family-hub/
+      - name: Booster Club
+        url: /booster-club/
+      - name: Sponsorship Opportunities
+        url: /sponsors/
   - name: Teams
-    url: /teams/
-    weight: 10
+    children:
+      - name: Team Central
+        url: /teams/
+      - name: Accolades
+        url: /accolades/
+      - name: Coaches
+        url: /coaches/
+      - name: Schedules
+        url: /schedules/
+
   - name: Tryouts
     url: /tryouts/
-    weight: 20
-  - name: Coaches
-    url: /coaches/
-    weight: 30
-  - name: Player Development
-    url: /player-development/
-    weight: 40
-  - name: Accolades
-    url: /accolades/
-    weight: 50
-  - name: Sponsors
-    url: /sponsors/
-    weight: 60
-  - name: Family Hub
-    url: /family-hub/
-    weight: 70
+
 utility:
-  - name: Watch Now
-    url: /watch-now/
-    weight: 10
-  - name: Contact
-    url: mailto:rawlingstigersnova@gmail.com
-    weight: 30
+  - name: Join Our Staff
+    url: /coaching-opportunities/

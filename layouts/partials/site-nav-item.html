@@ -1,0 +1,41 @@
+{{- $item := .item -}}
+{{- $level := default 0 .level -}}
+{{- $id := .id -}}
+{{- $children := default (slice) $item.children -}}
+{{- $hasChildren := gt (len $children) 0 -}}
+
+{{- if and $hasChildren (eq $level 0) -}}
+  <div class="rt-nav__item rt-nav__item--folder" data-rt-nav-item>
+    <button class="rt-nav__trigger" type="button" aria-expanded="false" aria-controls="{{ $id }}" data-rt-nav-trigger>
+      <span>{{ $item.name }}</span>
+      <span class="rt-nav__plus" aria-hidden="true">+</span>
+    </button>
+    <div id="{{ $id }}" class="rt-nav__dropdown" hidden data-rt-nav-panel>
+      <div class="rt-nav__dropdown-inner">
+        {{- with $item.url }}
+          <a class="rt-nav__dropdown-link rt-nav__dropdown-link--overview" href="{{ partial "url.html" . }}">{{ $item.name }} Overview</a>
+        {{- end }}
+        {{- range $childIndex, $child := $children }}
+          {{- partial "site-nav-item.html" (dict "item" $child "level" 1 "id" (printf "%s-%d" $id $childIndex)) -}}
+        {{- end }}
+      </div>
+    </div>
+  </div>
+{{- else if $hasChildren -}}
+  <div class="rt-nav__dropdown-group">
+    {{- with $item.url }}
+      <a class="rt-nav__dropdown-heading" href="{{ partial "url.html" . }}">{{ $item.name }}</a>
+    {{- else }}
+      <span class="rt-nav__dropdown-heading">{{ $item.name }}</span>
+    {{- end }}
+    <div class="rt-nav__dropdown-sublist">
+      {{- range $childIndex, $child := $children }}
+        {{- partial "site-nav-item.html" (dict "item" $child "level" (add $level 1) "id" (printf "%s-%d" $id $childIndex)) -}}
+      {{- end }}
+    </div>
+  </div>
+{{- else if eq $level 0 -}}
+  <a class="rt-nav__link" href="{{ partial "url.html" $item.url }}">{{ $item.name }}</a>
+{{- else -}}
+  <a class="rt-nav__dropdown-link" href="{{ partial "url.html" $item.url }}">{{ $item.name }}</a>
+{{- end -}}
