@@ -3520,3 +3520,35 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
     grid-template-columns: 1fr;
   }
 }
+
+/* Team Central light consistency pass */
+.rt-team-proof-strip {
+  background: #fff;
+}
+
+.rt-team-proof-strip .rt-proof-grid strong {
+  color: var(--rt-navy);
+}
+
+.rt-team-proof-strip .rt-proof-grid span {
+  color: var(--rt-muted);
+}
+
+.rt-team-central--open-flow {
+  padding-top: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.rt-team-central--open-flow .rt-team-season-nav {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+
+.rt-team-season-heading {
+  margin-bottom: clamp(2.1rem, 4vw, 3rem);
+}
+
+@media (max-width: 720px) {
+  .rt-team-proof-strip .rt-proof-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
