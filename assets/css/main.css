@@ -3373,3 +3373,20 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
   border-color: #07101f;
   color: #fff;
 }
+/* Family Hub page refinements */
+.family-resource-grid .rt-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+}
+.family-resource-grid .rt-info-card .rt-text-link {
+  margin-top: auto;
+}
+.family-offers-list strong {
+  font-family: var(--rt-display);
+  font-size: 1.45rem;
+  letter-spacing: .04em;
+}
+.family-resource-card .rt-badge {
+  align-self: flex-start;
+}

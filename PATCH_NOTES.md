@@ -1,11 +1,17 @@
-# About Page Refresh Patch
+# Family Hub Refresh Patch
 
-This patch updates `/about/` to use content adapted from the old TeamLinkt About page while keeping the current Rawlings Tigers NOVA Hugo site layout/classes.
+Updates `/family-hub/` to use a custom Hugo partial matching the current RT NOVA site look and feel while adapting content from the old Family Hub page.
 
-Files included:
+Changed files:
 
-- `content/about.md`
-- `layouts/partials/page-about.html`
-- `scripts/apply-about-page-refresh.py`
+- `content/family-hub.md`
+- `layouts/_default/single.html`
+- `layouts/partials/page-family-hub.html`
+- `assets/css/main.css`
+- `docs/FAMILY_HUB_README.md`
 
-Run the script after extraction so `layouts/_default/single.html` is updated safely without overwriting unrelated template changes.
+Run:
+
+```bash
+hugo server -D --disableFastRender
+```
