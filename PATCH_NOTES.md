@@ -1,17 +1,18 @@
-# Family Hub Refresh Patch
+# Booster Club Refresh Patch
 
-Updates `/family-hub/` to use a custom Hugo partial matching the current RT NOVA site look and feel while adapting content from the old Family Hub page.
+This patch refreshes `/booster-club/` using content from the old TeamLinkt Booster Club page while keeping the current Hugo site look and feel.
 
-Changed files:
+Files included:
 
-- `content/family-hub.md`
-- `layouts/_default/single.html`
-- `layouts/partials/page-family-hub.html`
-- `assets/css/main.css`
-- `docs/FAMILY_HUB_README.md`
+```text
+content/booster-club.md
+layouts/partials/page-booster-club.html
+docs/BOOSTER_CLUB_README.md
+scripts/apply-booster-club-refresh.py
+```
 
-Run:
+Run the apply script after unzipping:
 
 ```bash
-hugo server -D --disableFastRender
+python3 scripts/apply-booster-club-refresh.py
 ```

@@ -7,7 +7,9 @@
   {{ else if eq $template "accolades" }}{{ partial "page-accolades.html" . }}
   {{ else if eq $template "about" }}{{ partial "page-about.html" . }}
   {{ else if eq $template "family-hub" }}{{ partial "page-family-hub.html" . }}
-  {{ else }}
+  {{ else if eq .File.BaseFileName "booster-club" }}
+  {{ partial "page-booster-club.html" . }}
+{{ else }}
     {{ partial "hero.html" (dict "kicker" "Rawlings Tigers NOVA" "title" .Title "intro" .Summary) }}
     <article class="rt-section">
       <div class="rt-container rt-prose-card">

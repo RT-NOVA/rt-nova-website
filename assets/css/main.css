@@ -3390,3 +3390,48 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
 .family-resource-card .rt-badge {
   align-self: flex-start;
 }
+
+/* Booster Club action/contact card refinements */
+
+.rt-card-action {
+
+  margin-top: 1.25rem;
+
+}
+
+.rt-card-contact {
+
+  display: grid;
+
+  gap: .35rem;
+
+  margin-top: 1.25rem;
+
+  font-size: .95rem;
+
+  font-weight: 800;
+
+}
+
+.rt-card-contact a {
+
+  color: var(--rt-orange);
+
+  text-decoration: none;
+
+}
+
+.rt-card-contact a:hover,
+
+.rt-card-contact a:focus-visible {
+
+  text-decoration: underline;
+
+}
+
+.rt-card-contact span {
+
+  color: rgba(255, 255, 255, .82);
+
+}
+
