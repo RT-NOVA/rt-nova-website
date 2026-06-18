@@ -1,0 +1,75 @@
+{{/*
+  Homepage Social Hub unified feed.
+
+  Combines:
+  - content/social-hub/*.md, except items with hide_from_home_social: true
+  - content/news/*.md where show_on_home_social: true
+
+  Homepage ordering:
+  - pin_to_home_social: true items first, newest to oldest
+  - unpinned items after that, newest to oldest
+  - visible 3 at a time using assets/js/social-hub.js
+*/}}
+{{ $home := hugo.Data.homepage }}
+<section class="rt-section rt-section--cream social-hub">
+  {{ $socialPosts := where site.RegularPages "Section" "social-hub" }}
+  {{ $socialPosts = where $socialPosts "Params.hide_from_home_social" "!=" true }}
+  {{ $newsPosts := where site.RegularPages "Section" "news" }}
+  {{ $newsPosts = where $newsPosts "Params.show_on_home_social" true }}
+  {{ $updates := slice }}
+  {{ range $socialPosts }}{{ $updates = $updates | append . }}{{ end }}
+  {{ range $newsPosts }}{{ $updates = $updates | append . }}{{ end }}
+
+  {{ $pinnedUpdates := where $updates "Params.pin_to_home_social" true }}
+  {{ $unpinnedUpdates := where $updates "Params.pin_to_home_social" "!=" true }}
+  {{ $pinnedUpdates = sort $pinnedUpdates "Date" "desc" }}
+  {{ $unpinnedUpdates = sort $unpinnedUpdates "Date" "desc" }}
+  {{ $orderedUpdates := slice }}
+  {{ range $pinnedUpdates }}{{ $orderedUpdates = $orderedUpdates | append . }}{{ end }}
+  {{ range $unpinnedUpdates }}{{ $orderedUpdates = $orderedUpdates | append . }}{{ end }}
+  {{ $updates = $orderedUpdates }}
+
+  <div class="rt-shell social-hub__layout social-hub__layout--feed">
+    <div class="social-hub__intro social-hub__intro--center">
+      <p class="rt-kicker rt-kicker--dark">{{ $home.social.kicker }}</p>
+      <h2>{{ $home.social.title }}</h2>
+      <p>{{ $home.social.text }}</p>
+      <div class="social-hub__buttons" aria-label="Social Hub links">
+        {{ range $home.social.buttons }}
+        <a class="social-hub__button" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">{{ partial "icon.html" .icon }}</span>
+          {{ .label }}
+        </a>
+        {{ end }}
+        <a class="social-hub__button social-hub__button--outline" href="{{ partial "url.html" "/social-hub/" }}">View All Updates</a>
+      </div>
+    </div>
+
+    {{ if $updates }}
+    {{ $hasMore := gt (len $updates) 3 }}
+    <div class="social-feed" aria-label="Social Hub updates" data-social-hub-pager data-social-feed-page-size="3">
+      <div class="social-feed-grid">
+        {{ range $i, $post := $updates }}
+          {{ partial "social-hub-card.html" (dict "post" $post "hidden" (ge $i 3)) }}
+        {{ end }}
+      </div>
+      {{ if $hasMore }}
+      <div class="social-feed__pager" aria-label="Social Hub pagination">
+        <button class="social-feed__pager-button" type="button" data-social-hub-prev>Previous</button>
+        <span class="social-feed__pager-status" aria-live="polite" data-social-hub-status>Showing 1-3 of {{ len $updates }}</span>
+        <button class="social-feed__pager-button" type="button" data-social-hub-next>Next</button>
+      </div>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="social-hub__empty">
+      <p>{{ $home.social.empty_text }}</p>
+    </div>
+    {{ end }}
+  </div>
+
+  {{ with resources.Get "js/social-hub.js" }}
+    {{ $socialHubJS := . | minify | fingerprint }}
+    <script src="{{ $socialHubJS.RelPermalink }}" defer integrity="{{ $socialHubJS.Data.Integrity }}"></script>
+  {{ end }}
+</section>

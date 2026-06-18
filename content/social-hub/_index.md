@@ -1,6 +1,5 @@
 ---
 title: "Social Hub"
-build:
-  render: never
-  list: always
+description: "Latest Rawlings Tigers NOVA team news, Facebook posts, and Instagram highlights."
+summary: "Latest Rawlings Tigers NOVA team news, Facebook posts, and Instagram highlights."
 ---

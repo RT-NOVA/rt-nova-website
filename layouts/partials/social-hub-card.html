@@ -1,0 +1,72 @@
+{{ $post := .post }}
+{{ $isNews := eq $post.Section "news" }}
+{{ $destination := $post.RelPermalink }}
+{{ $external := false }}
+{{ with $post.Params.link }}{{ $destination = . }}{{ end }}
+{{ with $post.Params.external_url }}{{ $destination = . }}{{ end }}
+{{ if or (hasPrefix $destination "http://") (hasPrefix $destination "https://") }}{{ $external = true }}{{ end }}
+
+{{ $platform := $post.Params.platform | default $post.Params.type | default "RT NOVA" }}
+{{ if and $isNews (not $post.Params.platform) (not $post.Params.type) }}{{ $platform = "Team News" }}{{ end }}
+{{ $platformKey := lower $platform }}
+{{ $platformIcon := "baseball-stadium-1" }}
+{{ $sourceType := $post.Params.source_type | default "" }}
+{{ if eq $sourceType "" }}
+  {{ if in $platformKey "facebook" }}
+    {{ $sourceType = "facebook" }}
+  {{ else if in $platformKey "instagram" }}
+    {{ $sourceType = "instagram" }}
+  {{ else }}
+    {{ $sourceType = "team-news" }}
+  {{ end }}
+{{ end }}
+{{ $sourceType = lower (replace $sourceType " " "-") }}
+{{ if in $platformKey "instagram" }}{{ $platformIcon = "instagram" }}{{ end }}
+{{ if in $platformKey "facebook" }}{{ $platformIcon = "facebook" }}{{ end }}
+
+{{ $image := $post.Params.image }}
+{{ $imageFit := $post.Params.image_fit | default "contain" }}
+{{ $imgSrc := "" }}
+{{ $imgExternal := false }}
+{{ with $image }}
+  {{ $imgSrc = . }}
+  {{ if or (hasPrefix . "http://") (hasPrefix . "https://") }}
+    {{ $imgExternal = true }}
+  {{ else }}
+    {{ $imgSrc = partial "url.html" . }}
+  {{ end }}
+{{ end }}
+
+<article class="social-feed-card" data-social-card data-social-type="{{ $sourceType }}"{{ with .hidden }} hidden{{ end }}>
+  <a class="social-feed-card__link" href="{{ $destination }}" {{ if $external }}target="_blank" rel="noopener noreferrer"{{ end }} aria-label="{{ $post.Title }}">
+    <div class="social-feed-card__top">
+      <div class="social-feed-card__avatar" aria-hidden="true">
+        <span>{{ with $post.Params.avatar_text }}{{ . }}{{ else }}RT{{ end }}</span>
+      </div>
+      <div class="social-feed-card__account">
+        <strong>{{ with $post.Params.account }}{{ . }}{{ else }}Rawlings Tigers NOVA{{ end }}</strong>
+        <span>{{ $post.Date.Format "Jan 2, 2006" }}</span>
+      </div>
+      <span class="social-feed-card__platform social-feed-card__platform--{{ $sourceType }}" aria-label="{{ $platform }}">{{ partial "icon.html" $platformIcon }}</span>
+    </div>
+
+    <div class="social-feed-card__caption">
+      {{ with $post.Params.caption }}{{ . }}{{ else }}{{ with $post.Params.excerpt }}{{ . }}{{ else }}{{ $post.Title }}{{ end }}{{ end }}
+    </div>
+
+    {{ if $imgSrc }}
+    <div class="social-feed-card__image social-feed-card__image--fit-{{ $imageFit }}">
+      <img loading="lazy" decoding="async" src="{{ if $imgExternal }}{{ $imgSrc | safeURL }}{{ else }}{{ $imgSrc }}{{ end }}" alt="{{ with $post.Params.image_alt }}{{ . }}{{ else }}{{ $post.Title }}{{ end }}"{{ if $imgExternal }} referrerpolicy="no-referrer"{{ end }}>
+    </div>
+    {{ else }}
+    <div class="social-feed-card__image social-feed-card__image--placeholder">
+      <span>{{ $post.Title }}</span>
+    </div>
+    {{ end }}
+
+    <div class="social-feed-card__footer">
+      <span>{{ $platform }}</span>
+      <span>{{ with $post.Params.button }}{{ . }}{{ else }}{{ if $isNews }}Read Article{{ else }}View post{{ end }}{{ end }}</span>
+    </div>
+  </a>
+</article>

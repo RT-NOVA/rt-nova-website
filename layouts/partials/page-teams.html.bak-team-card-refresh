@@ -1,4 +1,4 @@
-{{ $data := .Site.Data.teams }}
+{{ $data := hugo.Data.teams }}
 {{ $defaultSeason := $data.default_season | default "2027" }}
 {{ partial "hero.html" (dict "kicker" "Team Central" "title" .Title "intro" $data.intro "actions" (slice (dict "label" "Become A Tiger" "url" "/become-a-tiger/" "class" "rt-btn-primary") (dict "label" "View Coaches" "url" "/coaches/" "class" "rt-btn-outline")) "show_card" false) }}
 

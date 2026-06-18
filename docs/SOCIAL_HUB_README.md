@@ -1,119 +1,214 @@
-# Social Hub Updates
+# Social Hub Content Guide
 
-The home page Social Hub is powered by Markdown files in:
+The Social Hub is now managed from Hugo content instead of hardcoded homepage cards.
+
+The homepage shows the ordered Social Hub feed three cards at a time. The `/social-hub/` page shows the full archive with tabs:
+
+```text
+All | Team News | Facebook | Instagram
+```
+
+Local/outside news is included under **Team News** for now.
+
+---
+
+## Content sources
+
+Social Hub cards come from two places:
 
 ```text
 content/social-hub/
+content/news/
 ```
 
-Each Markdown file becomes one Social Hub card. The home page shows the **3 newest posts first**. If there are more than 3 posts, visitors can click **Load more**.
+Use `content/social-hub/` for quick Facebook or Instagram cards that link off-site.
 
-Posts are ordered by the `date:` field in the Markdown front matter, newest first. The filename does not control the order, but using a date in the filename makes files easier to manage.
+Use `content/news/` for team-news style articles, recaps, announcements, or local coverage you want to treat as team news.
 
-## Simple post template
-
-```markdown
 ---
-title: "Short title for the card"
-date: 2026-06-15
-platform: "Facebook"
-account: "Rawlings Tigers NOVA"
-link: "https://www.facebook.com/..."
-button: "View on Facebook"
-image: "images/social/example.jpg"
-caption: "Short text shown on the card."
-build:
-  render: never
-  list: always
+
+## Homepage behavior
+
+The homepage Social Hub uses this order:
+
+1. Items with `pin_to_home_social: true`, newest to oldest.
+2. Remaining items, newest to oldest.
+3. Only three cards are visible at a time.
+4. The Previous/Next buttons switch between groups of three without making the page longer.
+
+Pinned items affect the homepage only. The `/social-hub/` archive stays sorted by date.
+
 ---
-```
 
-## Fields
+## Archive behavior
 
-| Field | Required? | What it does |
-|---|---:|---|
-| `title` | Yes | Card title and internal Hugo title. |
-| `date` | Yes | Controls sort order. Newest dates show first. |
-| `platform` | Yes | Free-form label. Recommended: `Instagram`, `Facebook`, `Team News`, or `Program Update`. Also controls the small upper-right platform icon. |
-| `account` | Yes | Account/team name shown at the top of the card. |
-| `link` | Yes | Where the card/button sends visitors. Can be Facebook, Instagram, a news article, or an internal page. |
-| `button` | Yes | Button/action text, such as `View on Facebook`, `View on Instagram`, `Read article`, or `Learn more`. |
-| `image` | Yes | Preview image. Best: local image under `static/images/social/`. Direct external image URLs are supported but may expire. |
-| `caption` | Yes | Short text shown on the card. |
-| `image_alt` | No | Accessibility text for the image. If omitted, the template uses `title`. |
-| `image_fit` | No | Use `contain` to show the full image or `cover` to fill/crop. Default is `contain`. |
-| `build` | Yes | Hugo setting. Keep this exactly as shown so the item appears on the homepage but does not generate its own page. |
-
-## Recommended image workflow
-
-Best long-term approach:
-
-1. Save the image or screenshot into:
+The `/social-hub/` page is generated from:
 
 ```text
-static/images/social/
+content/social-hub/_index.md
+layouts/social-hub/list.html
 ```
 
-2. Reference it like this:
+The archive page is sorted newest to oldest by `date`.
+
+Tabs filter by the normalized item type:
+
+```text
+All       = every Social Hub item
+Team News = news articles and team-created updates
+Facebook  = Facebook cards
+Instagram = Instagram cards
+```
+
+---
+
+## Add a Facebook card
+
+Create a markdown file under `content/social-hub/`:
+
+```text
+content/social-hub/2026-06-15-11u-facebook-photo.md
+```
+
+Example:
 
 ```yaml
-image: "images/social/my-post-image.jpg"
-```
-
-Direct Facebook/Instagram CDN image URLs can work for testing, but they can expire or stop hotlinking. Local images are more reliable for the public website.
-
-## Examples
-
-### Facebook
-
-```markdown
 ---
-title: "11U Team Update"
+title: "11U Team Facebook Photo"
 date: 2026-06-15
 platform: "Facebook"
 account: "Rawlings Tigers NOVA 11U"
-link: "https://www.facebook.com/photo?fbid=122128820241194215&set=a.122108161857194215"
+link: "https://www.facebook.com/..."
 button: "View on Facebook"
-image: "images/social/11u-facebook-photo.jpg"
-caption: "11U team update from Facebook."
+image: "/images/social/11u-facebook-photo.jpg"
+image_alt: "Rawlings Tigers NOVA 11U team photo"
+caption: "11U team update from Facebook. Tap through to view the full post."
 build:
   render: never
   list: always
 ---
 ```
 
-### Instagram
+Keep `build.render: never` for Facebook cards that should appear in the Social Hub but should not create their own page.
 
-```markdown
+---
+
+## Add an Instagram card
+
+Create a markdown file under `content/social-hub/`:
+
+```text
+content/social-hub/2026-06-14-instagram-highlight.md
+```
+
+Example:
+
+```yaml
 ---
 title: "Instagram Player Highlight"
 date: 2026-06-14
 platform: "Instagram"
 account: "@rawlingstigersnova"
-link: "https://www.instagram.com/p/DZGMdrojkoZ/"
+link: "https://www.instagram.com/..."
 button: "View on Instagram"
-image: "images/social/player-highlight.jpg"
-caption: "Player highlight from Rawlings Tigers NOVA."
+image: "/images/social/instagram-highlight.jpg"
+image_alt: "Rawlings Tigers NOVA Instagram player highlight"
+caption: "Player highlight from Rawlings Tigers NOVA on Instagram."
 build:
   render: never
   list: always
 ---
 ```
 
-### Team News / article
+---
 
-```markdown
+## Add a Team News item
+
+Create a markdown file under `content/news/`:
+
+```text
+content/news/2026-06-20-13u-black-runner-up.md
+```
+
+Example:
+
+```yaml
 ---
-title: "11U Black Brings Home Championship"
-date: 2025-09-07
-platform: "Team News"
-account: "Rawlings Tigers NOVA"
-link: "https://rawlingstigersnova.com/leagues/NewsItem/28092/35799"
-button: "Read article"
-image: "images/social/11u-black-champions.jpeg"
-caption: "11U Black battled through the weekend and brought home another championship."
-build:
-  render: never
-  list: always
+title: "13U Black Earns Runner-Up Finish"
+date: 2026-06-20
+show_on_home_social: true
+badge: "Runner-Up"
+team: "13U Black"
+image: "/images/news/13u-black-runner-up.jpg"
+image_alt: "Rawlings Tigers NOVA 13U Black runner-up team photo"
+excerpt: "13U Black battled through the weekend and earned a runner-up finish."
 ---
+
+Write the full article body here.
+```
+
+Set `show_on_home_social: true` when the article should appear in the homepage Social Hub and on the `/social-hub/` archive.
+
+Do not use `build.render: never` for real team-news articles unless you do not want Hugo to create the article page.
+
+---
+
+## Pin an item to the homepage
+
+Add this to any Social Hub or News item:
+
+```yaml
+pin_to_home_social: true
+```
+
+Multiple pinned items sort by date, newest first.
+
+If fewer than three items are pinned, the newest unpinned items fill the remaining homepage slots.
+
+---
+
+## Hide an item
+
+Hide a `content/social-hub/` card from the homepage:
+
+```yaml
+hide_from_home_social: true
+```
+
+Hide a `content/social-hub/` card from the `/social-hub/` archive:
+
+```yaml
+hide_from_social_hub: true
+```
+
+For `content/news/` items, remove or set this to false if it should not appear in the Social Hub:
+
+```yaml
+show_on_home_social: false
+```
+
+---
+
+## Do not place assets/layouts under content
+
+Global Hugo files should not live under `content/`.
+
+Wrong:
+
+```text
+content/news/assets/js/social-hub.js
+content/news/layouts/index.html
+```
+
+Correct:
+
+```text
+assets/js/social-hub.js
+layouts/social-hub/list.html
+```
+
+If a previous patch created misplaced folders, remove them:
+
+```bash
+python3 scripts/apply-social-hub-page-fix.py
 ```

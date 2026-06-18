@@ -9,8 +9,8 @@
 {{ .Content | safeCSS }}
 </style>
 {{- end }}
-{{- $mainNav := default (slice) .Site.Data.navigation.main -}}
-{{- $utilityNav := default (slice) .Site.Data.navigation.utility -}}
+{{- $mainNav := default (slice) hugo.Data.navigation.main -}}
+{{- $utilityNav := default (slice) hugo.Data.navigation.utility -}}
 <header class="rt-header" role="banner" data-rt-header>
   <div class="rt-header__inner rt-shell--wide">
     <a class="rt-header-brand" href="{{ partial "url.html" "/" }}" aria-label="Rawlings Tigers NOVA home">

@@ -1,0 +1,47 @@
+{{ define "main" }}
+{{ $socialPosts := where site.RegularPages "Section" "social-hub" }}
+{{ $socialPosts = where $socialPosts "Params.hide_from_social_hub" "!=" true }}
+{{ $newsPosts := where site.RegularPages "Section" "news" }}
+{{ $newsPosts = where $newsPosts "Params.show_on_home_social" true }}
+{{ $updates := slice }}
+{{ range $socialPosts }}{{ $updates = $updates | append . }}{{ end }}
+{{ range $newsPosts }}{{ $updates = $updates | append . }}{{ end }}
+{{ $updates = sort $updates "Date" "desc" }}
+
+<section class="rt-section rt-section--white social-hub-page" data-social-hub-tabs>
+  <div class="rt-shell">
+    <div class="section-intro section-intro--center social-hub-page__intro">
+      <p class="rt-kicker rt-kicker--dark">Rawlings Tigers NOVA</p>
+      <h1>{{ .Title }}</h1>
+      <p>{{ with .Params.description }}{{ . }}{{ else }}Browse the latest Rawlings Tigers NOVA team news, Facebook posts, and Instagram highlights.{{ end }}</p>
+    </div>
+
+    <div class="social-hub-tabs" role="tablist" aria-label="Filter Social Hub posts">
+      <button class="social-hub-tabs__button is-active" type="button" role="tab" aria-selected="true" data-social-filter="all">All</button>
+      <button class="social-hub-tabs__button" type="button" role="tab" aria-selected="false" data-social-filter="team-news">Team News</button>
+      <button class="social-hub-tabs__button" type="button" role="tab" aria-selected="false" data-social-filter="facebook">Facebook</button>
+      <button class="social-hub-tabs__button" type="button" role="tab" aria-selected="false" data-social-filter="instagram">Instagram</button>
+    </div>
+
+    {{ if $updates }}
+    <div class="social-feed social-feed--archive" aria-label="Social Hub archive">
+      <div class="social-feed-grid social-feed-grid--archive">
+        {{ range $updates }}
+          {{ partial "social-hub-card.html" (dict "post" .) }}
+        {{ end }}
+      </div>
+      <p class="social-hub-tabs__empty" data-social-empty hidden>No posts match this filter yet.</p>
+    </div>
+    {{ else }}
+    <div class="social-hub__empty">
+      <p>No Social Hub updates have been added yet.</p>
+    </div>
+    {{ end }}
+  </div>
+
+  {{ with resources.Get "js/social-hub.js" }}
+    {{ $socialHubJS := . | minify | fingerprint }}
+    <script src="{{ $socialHubJS.RelPermalink }}" defer integrity="{{ $socialHubJS.Data.Integrity }}"></script>
+  {{ end }}
+</section>
+{{ end }}
