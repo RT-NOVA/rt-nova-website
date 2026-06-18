@@ -1,99 +1,131 @@
 {{ define "main" }}
-{{ with resources.Get "css/rosters.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+  {{ with resources.Get "css/rosters.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 
-{{ $heroTitle := .Title }}
-{{ if and .Params.age_group .Params.division }}
-  {{ $heroTitle = printf "%s %s" .Params.age_group .Params.division }}
-{{ else if .Params.age_group }}
-  {{ $heroTitle = .Params.age_group }}
-{{ end }}
-
-{{ $heroIntro := "Team Roster" }}
-{{ with .Params.term }}
-  {{ $heroIntro = printf "%s Roster" . }}
-{{ end }}
-
-{{ partial "hero.html" (dict "kicker" "Roster" "title" $heroTitle "intro" $heroIntro "show_card" false) }}
-
-<section class="rt-section rt-roster-page rt-roster-page--open">
-  <div class="rt-container">
-    <div class="rt-roster-back-row">
-      <a href="{{ partial "url.html" "/teams/" }}">← Back to Team Central</a>
-    </div>
-
-    {{ with .Content }}
-      <div class="rt-roster-note">{{ . }}</div>
+  {{ $season := .Params.season | default "Rawlings Tigers NOVA" }}
+  {{ $term := .Params.term | default "" }}
+  {{ $age := .Params.age_group | default "Team" }}
+  {{ $division := .Params.division | default "" }}
+  {{ $record := .Params.record | default "—" }}
+  {{ $currentRosterURL := .RelPermalink }}
+  {{ with hugo.Data.teams.seasons }}
+    {{ range . }}
+      {{ range .terms }}
+        {{ range .teams }}
+          {{ $teamRecord := .record | default "—" }}
+          {{ range .links }}
+            {{ $label := lower (.label | default "") }}
+            {{ $url := partial "url.html" (.url | default "") }}
+            {{ if and (in $label "roster") (eq $url $currentRosterURL) }}
+              {{ $record = $teamRecord }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
     {{ end }}
+  {{ end }}
+  {{ $summary := .Params.summary | default "Rawlings Tigers NOVA roster and staff." }}
 
-    <section class="rt-roster-section rt-roster-section--players" aria-labelledby="roster-heading">
-      <div class="rt-roster-section__heading">
-        <p class="rt-roster-eyebrow">Players</p>
-        <h2 id="roster-heading">Roster</h2>
+  {{ partial "hero.html" (dict
+    "kicker" $season
+    "title" .Title
+    "intro" $summary
+    "show_card" false
+  ) }}
+
+  <section class="rt-proof-strip rt-proof-strip--light rt-roster-proof-strip" aria-label="Roster quick facts">
+    <div class="rt-container rt-proof-grid">
+      <div><strong>Season</strong><span>{{ $season }}</span></div>
+      <div><strong>Age Group</strong><span>{{ $age }}</span></div>
+      <div><strong>Division</strong><span>{{ if $division }}{{ $division }}{{ else }}—{{ end }}</span></div>
+      <div><strong>Record</strong><span>{{ $record }}</span></div>
+    </div>
+  </section>
+
+  <section class="rt-section rt-roster-page rt-roster-page--open">
+    <div class="rt-container">
+      <div class="rt-roster-back-row">
+        <a href="{{ partial "url.html" "/teams/" }}">← Back to Team Central</a>
       </div>
 
-      {{ with .Params.players }}
-        <div class="rt-roster-card-grid" aria-label="Player roster">
-          {{ range . }}
-            {{ $person := . }}
-            <article class="rt-roster-person-card">
-              <div class="rt-roster-person-card__media">
-                {{ with .image }}
-                  <img src="{{ . }}" alt="{{ $.Title }} player {{ $person.name }}" loading="lazy" decoding="async">
-                {{ else }}
-                  <div class="rt-roster-person-card__placeholder" aria-hidden="true">
-                    <span>{{ substr $person.name 0 1 }}</span>
-                  </div>
-                {{ end }}
-              </div>
-              <div class="rt-roster-person-card__body">
-                <h3>
-                  <span class="rt-roster-name">{{ .name }}</span>
-                  {{ with .number }}<span class="rt-roster-number">#{{ . }}</span>{{ end }}
-                </h3>
-                {{ with .positions }}<p>{{ . }}</p>{{ end }}
-              </div>
-            </article>
-          {{ end }}
-        </div>
-      {{ else }}
-        <div class="rt-roster-empty">Roster details coming soon.</div>
+      {{ with .Params.note }}
+        <div class="rt-roster-note">{{ . }}</div>
       {{ end }}
-    </section>
 
-    <section class="rt-roster-section rt-roster-section--staff" aria-labelledby="staff-heading">
-      <div class="rt-roster-section__heading">
-        <p class="rt-roster-eyebrow">Staff</p>
-        <h2 id="staff-heading">Coaches</h2>
+      <section class="rt-roster-section rt-roster-section--players" aria-labelledby="roster-heading">
+        <div class="rt-roster-section__heading">
+          <p class="rt-roster-eyebrow">Players</p>
+          <h2 id="roster-heading">Roster</h2>
+        </div>
+
+        {{ with .Params.players }}
+          <div class="rt-roster-card-grid" aria-label="Player roster">
+            {{ range . }}
+              <article class="rt-roster-person-card">
+                <div class="rt-roster-person-card__media">
+                  {{ with .photo }}
+                    <img src="{{ partial "url.html" . }}" alt="{{ $.name }}">
+                  {{ else }}
+                    <div class="rt-roster-person-card__placeholder" aria-hidden="true">
+                      {{ with .number }}#{{ . }}{{ else }}RT{{ end }}
+                    </div>
+                  {{ end }}
+                </div>
+                <div class="rt-roster-person-card__body">
+                  <div>
+                    <span class="rt-roster-name">{{ .name }}</span>
+                    {{ with .number }}<span class="rt-roster-number">#{{ . }}</span>{{ end }}
+                  </div>
+                  {{ with .positions }}<p>{{ . }}</p>{{ end }}
+                </div>
+              </article>
+            {{ end }}
+          </div>
+        {{ else }}
+          <div class="rt-roster-empty">Roster details coming soon.</div>
+        {{ end }}
+      </section>
+
+      <section class="rt-roster-section rt-roster-section--staff" aria-labelledby="staff-heading">
+        <div class="rt-roster-section__heading">
+          <p class="rt-roster-eyebrow">Staff</p>
+          <h2 id="staff-heading">Coaching Staff</h2>
+        </div>
+
+        {{ with .Params.staff }}
+          <div class="rt-roster-card-grid rt-roster-card-grid--staff" aria-label="Team staff">
+            {{ range . }}
+              <article class="rt-roster-person-card rt-roster-person-card--staff">
+                <div class="rt-roster-person-card__media">
+                  {{ with .photo }}
+                    <img src="{{ partial "url.html" . }}" alt="{{ $.name }}">
+                  {{ else }}
+                    <div class="rt-roster-person-card__placeholder" aria-hidden="true">RT</div>
+                  {{ end }}
+                </div>
+                <div class="rt-roster-person-card__body">
+                  <div>
+                    <span class="rt-roster-name">{{ .name }}</span>
+                  </div>
+                  {{ with .title }}<p>{{ . }}</p>{{ end }}
+                </div>
+              </article>
+            {{ end }}
+          </div>
+        {{ else }}
+          <div class="rt-roster-empty">Staff details coming soon.</div>
+        {{ end }}
+      </section>
+    </div>
+  </section>
+
+  <section class="rt-section rt-section--white rt-team-join-band rt-team-join-band--compact">
+    <div class="rt-container rt-team-join-band__inner">
+      <div>
+        <p class="rt-eyebrow rt-eyebrow--dark">Looking for a team?</p>
+        <h2>Interested in an upcoming roster?</h2>
+        <p>Tell us about your player and a coach will follow up with the best current or upcoming team fit.</p>
       </div>
-
-      {{ with .Params.staff }}
-        <div class="rt-roster-card-grid rt-roster-card-grid--staff" aria-label="Team staff">
-          {{ range . }}
-            {{ $person := . }}
-            <article class="rt-roster-person-card rt-roster-person-card--staff">
-              <div class="rt-roster-person-card__media">
-                {{ with .image }}
-                  <img src="{{ . }}" alt="{{ $.Title }} staff member {{ $person.name }}" loading="lazy" decoding="async">
-                {{ else }}
-                  <div class="rt-roster-person-card__placeholder" aria-hidden="true">
-                    <span>{{ substr $person.name 0 1 }}</span>
-                  </div>
-                {{ end }}
-              </div>
-              <div class="rt-roster-person-card__body">
-                <h3>
-                  <span class="rt-roster-name">{{ .name }}</span>
-                  {{ with .number }}<span class="rt-roster-number">#{{ . }}</span>{{ end }}
-                </h3>
-                {{ with .title }}<p>{{ . }}</p>{{ end }}
-              </div>
-            </article>
-          {{ end }}
-        </div>
-      {{ else }}
-        <div class="rt-roster-empty">Staff details coming soon.</div>
-      {{ end }}
-    </section>
-  </div>
-</section>
+      <a class="rt-btn rt-btn-primary" href="{{ partial "url.html" "/tryouts/" }}">Become a Tiger</a>
+    </div>
+  </section>
 {{ end }}

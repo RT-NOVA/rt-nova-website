@@ -3552,3 +3552,92 @@ body:has(.rt-team-central--dashboard) .rt-season-dashboard__terms {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Roster page consistency pass */
+.rt-roster-proof-strip {
+  background: #fff;
+}
+
+.rt-roster-proof-strip .rt-proof-grid strong {
+  color: var(--rt-navy);
+}
+
+.rt-roster-proof-strip .rt-proof-grid span {
+  color: var(--rt-muted);
+}
+
+.rt-roster-page-heading {
+  max-width: 860px;
+  margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+}
+
+.rt-roster-page-heading h2 {
+  margin: .25rem 0 .75rem;
+  color: var(--rt-navy);
+  font-family: var(--rt-font-display);
+  font-size: clamp(2.4rem, 6vw, 5.25rem);
+  letter-spacing: .14em;
+  line-height: .92;
+  text-transform: uppercase;
+}
+
+.rt-roster-page-heading p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--rt-muted);
+  font-weight: 750;
+}
+
+
+
+.rt-roster-action-row {
+  justify-content: center;
+  margin-top: 1.35rem;
+}
+
+.rt-roster-section {
+  margin-top: clamp(2.25rem, 5vw, 4rem);
+}
+
+.rt-roster-section__heading {
+  border-bottom: 1px solid rgba(7, 16, 31, .12);
+  margin-bottom: 1.5rem;
+  padding-bottom: .85rem;
+}
+
+.rt-roster-section__heading h2 {
+  color: var(--rt-navy);
+  font-family: var(--rt-font-display);
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  letter-spacing: .14em;
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.rt-roster-eyebrow {
+  margin: 0 0 .35rem;
+  color: var(--rt-orange);
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .rt-roster-proof-strip .rt-proof-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rt-roster-page-heading {
+    text-align: left;
+  }
+
+  .rt-roster-page-heading p {
+    margin-left: 0;
+  }
+
+  .rt-roster-action-row {
+    justify-content: flex-start;
+  }
+}
