@@ -26,12 +26,24 @@
 
 {{ $image := $post.Params.image }}
 {{ $imageFit := $post.Params.image_fit | default "contain" }}
+{{ $fallbackImage := $post.Params.fallback_image | default "" }}
 {{ $imgSrc := "" }}
 {{ $imgExternal := false }}
 {{ with $image }}
   {{ $imgSrc = . }}
   {{ if or (hasPrefix . "http://") (hasPrefix . "https://") }}
     {{ $imgExternal = true }}
+    {{ $lowerImg := lower . }}
+    {{ if or (in $lowerImg "fbcdn.net") (in $lowerImg "cdninstagram.com") }}
+      {{ if ne $fallbackImage "" }}
+        {{ $imgSrc = partial "url.html" $fallbackImage }}
+      {{ else if eq $sourceType "facebook" }}
+        {{ $imgSrc = partial "url.html" "/images/social/facebook-program-update.svg" }}
+      {{ else if eq $sourceType "instagram" }}
+        {{ $imgSrc = partial "url.html" "/images/social/instagram-team-moments.svg" }}
+      {{ end }}
+      {{ $imgExternal = false }}
+    {{ end }}
   {{ else }}
     {{ $imgSrc = partial "url.html" . }}
   {{ end }}
@@ -55,7 +67,7 @@
     </div>
 
     {{ if $imgSrc }}
-    <div class="social-feed-card__image social-feed-card__image--fit-{{ $imageFit }}">
+    <div class="social-feed-card__image social-feed-card__image--fit-{{ $imageFit }} social-feed-card__image--{{ $imageFit }}">
       <img loading="lazy" decoding="async" src="{{ if $imgExternal }}{{ $imgSrc | safeURL }}{{ else }}{{ $imgSrc }}{{ end }}" alt="{{ with $post.Params.image_alt }}{{ . }}{{ else }}{{ $post.Title }}{{ end }}"{{ if $imgExternal }} referrerpolicy="no-referrer"{{ end }}>
     </div>
     {{ else }}

@@ -1,38 +1,24 @@
-# Coaching Opportunities Cleanup v3 Patch
+# Social Hub Image Fit Fix Patch
 
-This patch makes the latest requested cleanup to `/coaching-opportunities/`.
+This patch fixes downloaded Social Hub images not sitting correctly inside their cards.
 
-## Changes
+## What it changes
 
-- Removes all hero buttons from the Coaching Opportunities hero:
-  - Apply Now
-  - Head Coach PDF
-  - Assistant Coach PDF
-- Removes the Start and Type/Paid Position sub-cards from Head Coach and Assistant Coach cards.
-- Removes Apply Now from the Head Coach and Assistant Coach cards.
-- Keeps the PDF download buttons on the role cards.
-- Removes the duplicate `Job Description Downloads / Download the role listings` section.
-- Keeps the white proof-strip text consistent, so `Compensation` and `Paid Positions` use the same neutral dark color as the other quick facts.
-- Differentiates role callouts:
-  - Head / Lead Role = orange treatment
-  - Assistant / Support Role = black/charcoal treatment
-- Differentiates Applies To pills:
-  - Head = orange
-  - Assistant = black/charcoal
-  - Both = cream/neutral
-
-## Navy verification
-
-The apply script checks the modified coaching files and fails if it introduces old navy values or the word `navy`.
+- Makes the Social Hub image wrapper use a stable 4:3 media area.
+- Ensures `image_fit: "cover"` fills the card cleanly.
+- Ensures `image_fit: "contain"` shows the whole image without cropping.
+- Sets the Instagram flyer/poster card to `image_fit: "contain"` so the full graphic is visible.
+- Keeps the Facebook team photo as `cover`, which is better for normal photo cards.
+- Verifies the changed files do not reintroduce the old navy values.
 
 ## Apply
 
 ```bash
 cd /Users/smbambling/Documents/personal/git/github/rt-nova-website
 
-unzip -o ~/Desktop/rt-nova-coaching-cleanup-v3-patch.zip -d .
+unzip -o ~/Desktop/rt-nova-social-hub-image-fit-fix-patch.zip -d .
 
-python3 scripts/apply-coaching-cleanup-v3.py
+python3 scripts/apply-social-hub-image-fit-fix.py
 
 hugo server -D --disableFastRender
 ```
@@ -43,7 +29,20 @@ Then hard refresh:
 Cmd + Shift + R
 ```
 
-## Files modified by script
+## How to choose image_fit
 
-- `layouts/partials/page-coaching-opportunities.html`
-- `assets/css/coaching-opportunities.css`
+Use this in Social Hub front matter:
+
+```yaml
+image_fit: "cover"
+```
+
+for normal photos that can crop slightly.
+
+Use:
+
+```yaml
+image_fit: "contain"
+```
+
+for flyers, posters, graphics, sponsor images, or anything where text/logos should not crop.

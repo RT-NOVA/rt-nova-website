@@ -212,3 +212,12 @@ If a previous patch created misplaced folders, remove them:
 ```bash
 python3 scripts/apply-social-hub-page-fix.py
 ```
+
+## Social Hub images
+
+For Facebook and Instagram cards, use local images under `static/images/social/` instead of direct CDN hotlinks. See `docs/SOCIAL_HUB_IMAGES.md` and run:
+
+```bash
+python3 scripts/social-hub-image-sync.py --dry-run
+python3 scripts/social-hub-image-sync.py
+```

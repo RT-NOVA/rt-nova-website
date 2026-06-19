@@ -1,4 +1,4 @@
-title: Northern Virginia Travel Baseball Tryouts
+title: Evaluations & Tryouts
 season: Fall 2026 Tryouts
 intro: Rawlings Tigers NOVA offers competitive travel baseball tryouts for rising 10U, 11U, 12U, 13U, and 14U players in Northern Virginia.
 registration_url: /become-a-tiger/
@@ -28,60 +28,48 @@ groups:
 - age_group: Rising 14U
   coach: 'Black: Chris Cheshire · Orange: Tim Jacoby'
   sessions:
-  - type: Open Evaluation
-    date: Tuesday, May 5, 12, 19, 26
-    time: 6:00–8:00 pm
-    location: Veterans Memorial Park, Baseball Field 4
-    directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
-  - type: Formal Tryout
-    date: Tuesday, June 9 & Thursday, June 11 2-Day Tryout
-    time: 6:00–8:00 pm
-    location: Veterans Memorial Park, Baseball Field 4
-    directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
+  - type: Private Tryout Upon Request
+    date: —
+    time: —
+    location: —
+  #- type: Open Evaluation
+  #  date: Tuesday, May 5, 12, 19, 26
+  #  time: 6:00–8:00 pm
+  #  location: Veterans Memorial Park, Baseball Field 4
+  #  directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
+  #- type: Formal Tryout
+  #  date: Tuesday, June 9 & Thursday, June 11 2-Day Tryout
+  #  time: 6:00–8:00 pm
+  #  location: Veterans Memorial Park, Baseball Field 4
+  #  directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
 - age_group: Rising 13U
   coach: Jose Acosta
   sessions:
-  - type: Open Evaluation
-    date: Wednesday, May 6, 13, 20, 27
-    time: 6:00–8:00 pm
-    location: Neabsco Eagles Park
-  - type: Formal Tryout
-    date: Wednesday, June 10
-    time: 6:00–8:00 pm
-    location: Neabsco Eagles Park
+  - type: Private Tryout Upon Request
+    date: —
+    time: —
+    location: —
 - age_group: Rising 12U
   coach: Ken Torres
   sessions:
-  - type: Open Evaluation
-    date: Tuesday, May 5, 12, 19, 26
-    time: 6:00–8:00 pm
-    location: Dale City Recreation Center, Baseball Field 2
-  - type: Formal Tryout
-    date: Tuesday, June 9
-    time: 6:00–8:00 pm
-    location: Dale City Recreation Center, Baseball Field 2
+  - type: Private Tryout Upon Request
+    date: —
+    time: —
+    location: —
 - age_group: Rising 11U
   coach: Jackson Hayes
   sessions:
-  - type: Open Evaluation
-    date: Friday, May 8, 22
-    time: 6:00–8:00 pm
-    location: Neabsco Eagles Park
-  - type: Formal Tryout
-    date: Monday, June 8
-    time: 6:00–8:00 pm
-    location: Neabsco Eagles Park
-#- age_group: Rising 10U
-#  coach: Brandon Cleveland
-#  sessions:
-#  - type: Open Evaluation
-#    date: Friday, May 8, 22
-#    time: 6:00–8:00 pm
-#    location: Neabsco Eagles Park
-#  - type: Formal Tryout
-#    date: Monday, June 8
-#    time: 6:00–8:00 pm
-#    location: Neabsco Eagles Park
+  - type: Private Tryout Upon Request
+    date: —
+    time: —
+    location: —
+- age_group: Rising 10U
+  coach: Brandon Cleveland
+  sessions:
+  - type: Private Tryout Upon Request
+    date: —
+    time: —
+    location: —
 age_chart:
   title: 2027 Baseball Age Chart
   note: Use the chart below to confirm the correct rising age group before registering.
