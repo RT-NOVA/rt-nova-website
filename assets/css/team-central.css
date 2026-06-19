@@ -519,3 +519,31 @@
   cursor: not-allowed !important;
   pointer-events: none !important;
 }
+
+/* Team Central column alignment fix
+   Keeps Record and Team Links aligned across Spring/Fall tables,
+   even when rows have different numbers of icons. */
+@media (min-width: 881px) {
+  .rt-team-list-row {
+    grid-template-columns: minmax(0, 1fr) minmax(24rem, 24rem);
+  }
+
+  .rt-team-list-row__meta {
+    display: grid;
+    grid-template-columns: 5.25rem minmax(17rem, 17rem);
+    align-items: center;
+    justify-content: end;
+    gap: 1.25rem;
+  }
+
+  .rt-team-list-row__record {
+    width: 5.25rem;
+    text-align: center;
+    justify-self: center;
+  }
+
+  .rt-team-icon-links {
+    width: 17rem;
+    justify-content: flex-end;
+  }
+}
