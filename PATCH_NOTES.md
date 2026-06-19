@@ -1,24 +1,21 @@
-# Social Hub Image Fit Fix Patch
+# Coaches Heading + Bio Cleanup Patch
 
-This patch fixes downloaded Social Hub images not sitting correctly inside their cards.
+## What changed
 
-## What it changes
-
-- Makes the Social Hub image wrapper use a stable 4:3 media area.
-- Ensures `image_fit: "cover"` fills the card cleanly.
-- Ensures `image_fit: "contain"` shows the whole image without cropping.
-- Sets the Instagram flyer/poster card to `image_fit: "contain"` so the full graphic is visible.
-- Keeps the Facebook team photo as `cover`, which is better for normal photo cards.
-- Verifies the changed files do not reintroduce the old navy values.
+- Keeps the current staff row/table flow.
+- Centers the section heading blocks on desktop/tablet.
+- Keeps the kicker / heading / note feel.
+- Keeps section heading size below hero scale so it better matches the other pages.
+- Replaces the boxed `Bio +` badge with a subtle inline text action.
+- Keeps `Bio +` wording, changing to `Bio −` when expanded.
+- Leaves the photo preview behavior unchanged.
 
 ## Apply
 
 ```bash
 cd /Users/smbambling/Documents/personal/git/github/rt-nova-website
 
-unzip -o ~/Desktop/rt-nova-social-hub-image-fit-fix-patch.zip -d .
-
-python3 scripts/apply-social-hub-image-fit-fix.py
+unzip -o ~/Desktop/rt-nova-coaches-heading-bio-cleanup-patch.zip -d .
 
 hugo server -D --disableFastRender
 ```
@@ -29,20 +26,9 @@ Then hard refresh:
 Cmd + Shift + R
 ```
 
-## How to choose image_fit
+## Verify
 
-Use this in Social Hub front matter:
-
-```yaml
-image_fit: "cover"
+```bash
+rg -n 'rt-coaches-bio-toggle|rt-coaches-block-head' assets/css/coaches.css
+rg -n 'navy|#061120|#0c1b2e|#07101f|#07111f|#080f1b|#0f172a' assets/css/coaches.css
 ```
-
-for normal photos that can crop slightly.
-
-Use:
-
-```yaml
-image_fit: "contain"
-```
-
-for flyers, posters, graphics, sponsor images, or anything where text/logos should not crop.

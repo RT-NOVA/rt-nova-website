@@ -1,33 +1,226 @@
 {{ $data := hugo.Data.coaches }}
-{{ partial "hero.html" (dict "kicker" "Coaching Staff" "title" .Title "intro" $data.intro "actions" (slice (dict "label" "Coaching Opportunities" "url" "/coaching-opportunities/" "class" "rt-btn-primary") (dict "label" "Team Central" "url" "/teams/" "class" "rt-btn-outline"))) }}
-<section class="rt-section">
-  <div class="rt-container rt-section-heading">
-    <p class="rt-eyebrow rt-eyebrow--dark">Staff Directory</p>
-    <h2>Coaches by season and team.</h2>
-  </div>
-  <div class="rt-container rt-stack">
-    {{ range $data.seasons }}
-    <section class="rt-season-block">
-      <div class="rt-season-head">
-        <div><span class="rt-eyebrow">Season</span><h2>{{ .name }}</h2></div>
+{{ with resources.Get "css/coaches.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Staff & Coaches"
+  "title" .Title
+  "intro" $data.intro
+  "show_card" false
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light rt-coaches-proof-strip" aria-label="Coaches quick facts">
+  <div class="rt-container rt-proof-grid">
+    {{ range $data.quick_facts }}
+      <div>
+        <strong>{{ .label }}</strong>
+        <span>{{ .value }}</span>
       </div>
-      {{ range .teams }}
-      <div class="rt-team-group">
-        <h3>{{ .name }}</h3>
-        <div class="rt-card-grid rt-card-grid--4">
-          {{ range .coaches }}
-          {{ $coach := . }}
-          <article class="rt-coach-card {{ if in (lower $coach.role) "head" }}is-head{{ end }}">
-            {{ with $coach.photo }}<img class="rt-coach-photo" src="{{ partial "url.html" . }}" alt="{{ $coach.name }}">{{ end }}
-            <span class="rt-role">{{ $coach.role }}</span>
-            <h4>{{ $coach.name }}</h4>
-            {{ with $coach.bio }}<details class="rt-bio"><summary>Coach Bio</summary><p>{{ . }}</p></details>{{ end }}
-          </article>
-          {{ end }}
-        </div>
-      </div>
-      {{ end }}
-    </section>
     {{ end }}
   </div>
 </section>
+
+<section class="rt-section rt-coaches-page">
+  <div class="rt-container">
+    <header class="rt-coaches-block-head">
+      <p class="rt-eyebrow rt-eyebrow--dark">Program Leadership</p>
+      <h2>Program leadership</h2>
+      <p>Program-wide direction, shared standards, and team-level coaching support.</p>
+    </header>
+
+    {{ with $data.leadership }}
+      {{ $leader := . }}
+      <article class="rt-coaches-leader-card">
+        <div class="rt-coaches-person rt-coaches-person--leader">
+          {{ with $leader.photo }}
+            <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $leader.name }}" data-coach-role="{{ $leader.role }}" aria-label="View larger photo of {{ $leader.name }}">
+              <span class="rt-coaches-avatar rt-coaches-avatar--leader">
+                <img src="{{ partial "url.html" . }}" alt="{{ $leader.name }}">
+              </span>
+            </button>
+          {{ else }}
+            <span class="rt-coaches-avatar rt-coaches-avatar--leader"><span>{{ substr $leader.name 0 1 }}</span></span>
+          {{ end }}
+          <span>
+            <small>{{ $leader.role }}</small>
+            <strong>{{ $leader.name }}</strong>
+          </span>
+        </div>
+        <p>{{ $leader.summary }}</p>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--white rt-coaches-page rt-coaches-page--white">
+  <div class="rt-container">
+    <header class="rt-coaches-block-head">
+      <p class="rt-eyebrow rt-eyebrow--dark">Team Coaching Staff</p>
+      <h2>Team coaching staff</h2>
+      <p>Head coach and assistant coaches.</p>
+    </header>
+
+    <div class="rt-coaches-staff-list" aria-label="Team coaching staff">
+      {{ range $data.team_staff }}
+        {{ $team := . }}
+        {{ $head := $team.head_coach }}
+        <article class="rt-coaches-staff-row">
+          <div class="rt-coaches-staff-row__team">
+            <span>Team</span>
+            <strong>{{ $team.team }}</strong>
+          </div>
+
+          <div class="rt-coaches-staff-row__head">
+            <span>Head Coach</span>
+            <details class="rt-coaches-head-details">
+              <summary>
+                <span class="rt-coaches-person">
+                  {{ with $head.photo }}
+                    <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $head.name }}" data-coach-role="Head Coach · {{ $team.team }}" aria-label="View larger photo of {{ $head.name }}">
+                      <span class="rt-coaches-avatar rt-coaches-avatar--mini">
+                        <img src="{{ partial "url.html" . }}" alt="{{ $head.name }}">
+                      </span>
+                    </button>
+                  {{ else }}
+                    <span class="rt-coaches-avatar rt-coaches-avatar--mini"><span>{{ substr $head.name 0 1 }}</span></span>
+                  {{ end }}
+                  <strong>{{ $head.name }}</strong>
+                  <span class="rt-coaches-bio-toggle" aria-hidden="true">Bio +</span>
+                </span>
+              </summary>
+              {{ with $head.bio }}
+                <p>{{ . }}</p>
+              {{ end }}
+            </details>
+          </div>
+
+          <div class="rt-coaches-staff-row__assistants">
+            <span>Assistant Coaches</span>
+            <div class="rt-coaches-assistant-list">
+              {{ if gt (len $team.assistant_coaches) 0 }}
+                {{ range $coach := $team.assistant_coaches }}
+                  <span class="rt-coaches-person">
+                    {{ with $coach.photo }}
+                      <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $coach.name }}" data-coach-role="Assistant Coach · {{ $team.team }}" aria-label="View larger photo of {{ $coach.name }}">
+                        <span class="rt-coaches-avatar rt-coaches-avatar--mini">
+                          <img src="{{ partial "url.html" . }}" alt="{{ $coach.name }}">
+                        </span>
+                      </button>
+                    {{ else }}
+                      <span class="rt-coaches-avatar rt-coaches-avatar--mini"><span>{{ substr $coach.name 0 1 }}</span></span>
+                    {{ end }}
+                    <strong>{{ $coach.name }}</strong>
+                  </span>
+                {{ end }}
+              {{ else }}
+                <strong class="rt-coaches-muted">—</strong>
+              {{ end }}
+            </div>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="rt-section rt-coaches-page">
+  <div class="rt-container">
+    <header class="rt-coaches-block-head">
+      <p class="rt-eyebrow rt-eyebrow--dark">Coaching Standards</p>
+      <h2>Shared standards across every team</h2>
+      <p>Development, communication, culture, and alignment.</p>
+    </header>
+
+    <section class="rt-coaches-standards-grid" aria-label="Coaching standards">
+      {{ range $data.standards }}
+        <article class="rt-coaches-standard-card">
+          <h3>{{ .title }}</h3>
+          <p>{{ .text }}</p>
+        </article>
+      {{ end }}
+    </section>
+  </div>
+</section>
+
+{{ with $data.cta }}
+<section class="rt-section rt-section--white rt-team-join-band rt-team-join-band--compact rt-coaches-join-band">
+  <div class="rt-container rt-team-join-band__inner">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">{{ .eyebrow }}</p>
+      <h2>{{ .title }}</h2>
+      <p>{{ .text }}</p>
+    </div>
+    <div class="rt-action-row">
+      <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" .primary_url }}">{{ .primary_label }}</a>
+      <a class="rt-btn rt-btn--ghost-light rt-btn--dark-outline" href="{{ partial "url.html" .secondary_url }}">{{ .secondary_label }}</a>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<div class="rt-coach-photo-modal" data-coach-photo-modal hidden>
+  <button class="rt-coach-photo-modal__backdrop" type="button" data-coach-photo-close aria-label="Close coach photo preview"></button>
+  <div class="rt-coach-photo-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="rt-coach-photo-modal-name">
+    <button class="rt-coach-photo-modal__close" type="button" data-coach-photo-close aria-label="Close coach photo preview">×</button>
+    <img class="rt-coach-photo-modal__image" src="" alt="" data-coach-photo-modal-image>
+    <div class="rt-coach-photo-modal__caption">
+      <strong id="rt-coach-photo-modal-name" data-coach-photo-modal-name></strong>
+      <span data-coach-photo-modal-role></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const modal = document.querySelector("[data-coach-photo-modal]");
+    if (!modal) return;
+
+    const image = modal.querySelector("[data-coach-photo-modal-image]");
+    const name = modal.querySelector("[data-coach-photo-modal-name]");
+    const role = modal.querySelector("[data-coach-photo-modal-role]");
+    const closeButtons = modal.querySelectorAll("[data-coach-photo-close]");
+    let lastTrigger = null;
+
+    const openModal = (trigger) => {
+      const src = trigger.getAttribute("data-coach-photo");
+      const coachName = trigger.getAttribute("data-coach-name") || "Coach";
+      const coachRole = trigger.getAttribute("data-coach-role") || "";
+      if (!src) return;
+
+      lastTrigger = trigger;
+      image.src = src;
+      image.alt = coachName;
+      name.textContent = coachName;
+      role.textContent = coachRole;
+      modal.hidden = false;
+      document.documentElement.classList.add("rt-coach-photo-modal-open");
+
+      const closeButton = modal.querySelector(".rt-coach-photo-modal__close");
+      if (closeButton) closeButton.focus({ preventScroll: true });
+    };
+
+    const closeModal = () => {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      image.src = "";
+      image.alt = "";
+      document.documentElement.classList.remove("rt-coach-photo-modal-open");
+      if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+    };
+
+    document.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-coach-photo]");
+      if (!trigger) return;
+      event.preventDefault();
+      event.stopPropagation();
+      openModal(trigger);
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModal();
+    });
+  })();
+</script>
