@@ -1,34 +1,38 @@
-# RT NOVA Navy Cleanup Final Pass
+# Coaching Opportunities Cleanup v3 Patch
 
-This patch does a broader cleanup than the first theme patch.
+This patch makes the latest requested cleanup to `/coaching-opportunities/`.
 
-## What it does
+## Changes
 
-- Scans active CSS files in `assets/css/*.css`.
-- Converts the main dark variables:
-  - `--rt-navy` to `#0b0b0d`
-  - `--rt-navy-2` to `#151515`
-- Replaces common hard-coded navy/slate colors and blue-tinted rgba shadows/overlays in served CSS files.
-- Adds stronger global overrides for:
-  - page heroes
-  - homepage hero overlay
-  - header
-  - footer
-  - dark sections
-  - Booster Club contact/CTA sections
-  - Sponsorship contact/CTA sections
-  - table headers
-  - Social Hub dark placeholders/buttons
-- Writes `NAVY_CLEANUP_AUDIT.md` with any remaining hard-coded old navy/blue values.
+- Removes all hero buttons from the Coaching Opportunities hero:
+  - Apply Now
+  - Head Coach PDF
+  - Assistant Coach PDF
+- Removes the Start and Type/Paid Position sub-cards from Head Coach and Assistant Coach cards.
+- Removes Apply Now from the Head Coach and Assistant Coach cards.
+- Keeps the PDF download buttons on the role cards.
+- Removes the duplicate `Job Description Downloads / Download the role listings` section.
+- Keeps the white proof-strip text consistent, so `Compensation` and `Paid Positions` use the same neutral dark color as the other quick facts.
+- Differentiates role callouts:
+  - Head / Lead Role = orange treatment
+  - Assistant / Support Role = black/charcoal treatment
+- Differentiates Applies To pills:
+  - Head = orange
+  - Assistant = black/charcoal
+  - Both = cream/neutral
+
+## Navy verification
+
+The apply script checks the modified coaching files and fails if it introduces old navy values or the word `navy`.
 
 ## Apply
 
 ```bash
 cd /Users/smbambling/Documents/personal/git/github/rt-nova-website
 
-unzip -o ~/Desktop/rt-nova-navy-cleanup-audit-patch.zip -d .
+unzip -o ~/Desktop/rt-nova-coaching-cleanup-v3-patch.zip -d .
 
-python3 scripts/apply-navy-cleanup-final-pass.py
+python3 scripts/apply-coaching-cleanup-v3.py
 
 hugo server -D --disableFastRender
 ```
@@ -39,10 +43,7 @@ Then hard refresh:
 Cmd + Shift + R
 ```
 
-## Verify
+## Files modified by script
 
-```bash
-rg -n "#061120|#0c1b2e|#07101f|#07111f|#080f1b|#0f172a|rgba\(6,\s*17,\s*32|rgba\(3,\s*10,\s*20|rgba\(8,\s*15,\s*27|rgba\(7,\s*16,\s*31" assets/css --glob "*.css"
-```
-
-It is okay if `var(--rt-navy)` still appears. The variable now points to near-black.
+- `layouts/partials/page-coaching-opportunities.html`
+- `assets/css/coaching-opportunities.css`

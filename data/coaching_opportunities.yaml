@@ -1,0 +1,96 @@
+intro: "Rawlings Tigers NOVA is looking for coaches who are passionate about player development, accountability, and building a positive, competitive team culture. If you love teaching the game and mentoring young athletes, we would love to hear from you."
+apply_url: "https://leagues.teamlinkt.com/leagues/AssociationForm/28092/6970d6f4bfdd5"
+contact_email: "rawlingstigersnova@gmail.com"
+contact_email_url: "mailto:rawlingstigersnova@gmail.com"
+
+proof:
+  - label: Location
+    value: Woodbridge / Dumfries / Montclair
+  - label: Roles
+    value: Head + Assistant Coaches
+  - label: Compensation
+    value: Paid Positions
+  - label: Commitment
+    value: In-Season + Off-Season
+
+roles:
+  - title: Head Coach
+    short_label: Head
+    badge: Lead Role
+    start: "August 2026 (2026-2027 Season)"
+    overview: "Leads team direction, culture, player development, staff alignment, and game execution."
+    download_label: "Download Head Coach Description"
+    download_url: "/downloads/coaching/head-coach-listing.pdf"
+    highlights:
+      - "Plan practices and weekly development priorities"
+      - "Manage games, tournaments, lineups, and in-game decisions"
+      - "Lead communication with families and organization leadership"
+      - "Mentor and coordinate Assistant Coaches"
+  - title: Assistant Coach
+    short_label: Assist
+    badge: Support Role
+    start: "Spring 2026 season or Fall 2026 Season"
+    overview: "Supports instruction, stations, small-group work, team standards, and in-game execution."
+    download_label: "Download Assistant Coach Description"
+    download_url: "/downloads/coaching/assistant-coach-listing.pdf"
+    highlights:
+      - "Run stations and teach fundamentals"
+      - "Support offense, defense, rotations, and game flow"
+      - "Reinforce effort, accountability, and positive team culture"
+      - "Collaborate closely with the Head Coach's team plan"
+
+comparison:
+  - role: Head Coach
+    primary_focus: "Team leadership, player development, practice planning, game strategy, staff coordination, and parent communication."
+    time_commitment: "In-season: 2 practices per week plus 10-14 tournaments. Off-season: 3 practices per week."
+    best_fit: "Coaches with leadership experience, strong baseball knowledge, and the ability to set a clear team culture."
+  - role: Assistant Coach
+    primary_focus: "Skill instruction, stations, small-group development, in-game support, and reinforcing team standards."
+    time_commitment: "In-season: 2 practices per week plus tournament support. Off-season: 3 practices per week."
+    best_fit: "Coaches who enjoy teaching fundamentals, supporting a team plan, and working directly with players."
+
+standards:
+  - title: Player Development
+    text: "Teach fundamentals, baseball IQ, situational awareness, and long-term growth."
+  - title: Positive Team Culture
+    text: "Build standards around effort, accountability, competitiveness, and respect."
+  - title: Professional Communication
+    text: "Communicate clearly with players, families, staff, and organization leadership."
+  - title: Consistency
+    text: "Be prepared, reliable, and committed during both the season and off-season."
+
+expectations:
+  - applies_to: Both
+    expectation: "Contribute to a disciplined, positive, development-focused team culture."
+  - applies_to: Both
+    expectation: "Coach practices, games, and tournaments while representing the organization professionally."
+  - applies_to: Both
+    expectation: "Support skill development through fundamentals, drills, and small-group instruction."
+  - applies_to: Both
+    expectation: "Communicate clearly and professionally with players, parents, and leadership."
+  - applies_to: Head
+    expectation: "Develop practice plans, manage game strategy, set priorities, and mentor Assistant Coaches."
+  - applies_to: Assist
+    expectation: "Support the Head Coach's plan, help run instruction, and assist with in-game coaching."
+  - applies_to: Both
+    expectation: "Prior baseball playing and/or coaching experience is required."
+  - applies_to: Both
+    expectation: "Must be located in or able to travel within Northern Virginia."
+
+support:
+  - title: Paid Position
+    text: "Compensation is based on experience, role, and organizational fit."
+  - title: Travel Support
+    text: "Hotels are covered by the team for travel tournaments."
+  - title: Program Resources
+    text: "Coaches receive support from organizational leadership and team resources."
+  - title: Growth Opportunity
+    text: "Opportunity to develop within a growing Rawlings Tigers NOVA program."
+
+application_steps:
+  - title: Review the role
+    text: "Download the Head Coach or Assistant Coach job description for role-specific responsibilities, qualifications, and expectations."
+  - title: Complete the coaching application
+    text: "Submit your coaching background, availability, role interest, and preferred age groups."
+  - title: Staff follow-up
+    text: "Our staff will review your submission and follow up with next steps."

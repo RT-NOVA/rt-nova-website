@@ -1,0 +1,177 @@
+{{ $data := hugo.Data.coaching_opportunities }}
+{{ with resources.Get "css/coaching-opportunities.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Join Our Staff"
+  "title" .Title
+  "intro" $data.intro
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light coaching-proof-strip" aria-label="Coaching quick facts">
+  <div class="rt-container rt-proof-grid">
+    {{ range $data.proof }}
+      <div><strong>{{ .label }}</strong><span>{{ .value }}</span></div>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--cream coaching-intro-section">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Open Coaching Roles</p>
+    <h2>Head Coach and Assistant Coach Opportunities</h2>
+    <p>We are currently seeking coaches for Head Coach and Assistant Coach opportunities. Both roles support the same program standards with different levels of responsibility.</p>
+  </div>
+  <div class="rt-container rt-card-grid rt-card-grid--2 coaching-role-grid">
+    {{ range $data.roles }}
+      {{ $roleTone := cond (in (lower .title) "assistant") "assist" "head" }}
+      <article class="coaching-role-card coaching-role-card--{{ $roleTone }}">
+        <div class="coaching-role-card__top">
+          <span class="coaching-role-card__badge">{{ .badge }}</span>
+          <span class="coaching-role-card__short">{{ .short_label }}</span>
+        </div>
+        <h3>{{ .title }}</h3>
+        <p>{{ .overview }}</p>
+        <ul>
+          {{ range .highlights }}<li>{{ . }}</li>{{ end }}
+        </ul>
+        <div class="rt-action-row coaching-role-card__actions">
+          <a class="rt-btn rt-btn-primary" href="{{ partial "url.html" $data.apply_url }}">Apply Now</a>
+          <a class="rt-btn coaching-btn-outline" href="{{ partial "url.html" .download_url }}">{{ .download_label }}</a>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--white">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Role Snapshot</p>
+    <h2>Quick comparison of coaching responsibilities.</h2>
+    <p>Use this comparison to understand which opportunity best fits your experience, coaching style, and availability.</p>
+  </div>
+  <div class="rt-container coaching-table-wrap">
+    <table class="coaching-table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Primary Focus</th>
+          <th>Time Commitment</th>
+          <th>Best Fit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $data.comparison }}
+          <tr>
+            <th>{{ .role }}</th>
+            <td>{{ .primary_focus }}</td>
+            <td>{{ .time_commitment }}</td>
+            <td>{{ .best_fit }}</td>
+          </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="rt-section rt-section--cream">
+  <div class="rt-container split-feature coaching-standards-split">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">What We Value</p>
+      <h2>Development-first, competitive, accountable, and player-centered.</h2>
+      <p class="rt-muted">Rawlings Tigers NOVA coaches are expected to teach the game the right way while helping players grow as teammates, competitors, and young people.</p>
+    </div>
+    <div class="feature-list coaching-standard-list">
+      {{ range $data.standards }}
+        <div>
+          <strong>{{ .title }}</strong>
+          <span>{{ .text }}</span>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="rt-section rt-section--white">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Responsibilities &amp; Qualifications</p>
+    <h2>Program expectations and role-specific duties.</h2>
+    <p>Both roles contribute to player development and team culture, while the Head Coach carries the primary leadership responsibility for team planning and direction.</p>
+  </div>
+  <div class="rt-container coaching-table-wrap coaching-expectations-wrap">
+    <table class="coaching-table coaching-table--compact">
+      <thead>
+        <tr>
+          <th>Applies To</th>
+          <th>Expectation</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $data.expectations }}
+          <tr>
+            <th>
+              {{ $appliesLower := lower .applies_to }}
+              {{ $appliesClass := "coaching-pill" }}
+              {{ if in $appliesLower "assistant" }}{{ $appliesClass = printf "%s coaching-pill--assist" $appliesClass }}{{ else if in $appliesLower "head" }}{{ $appliesClass = printf "%s coaching-pill--head" $appliesClass }}{{ else }}{{ $appliesClass = printf "%s coaching-pill--both" $appliesClass }}{{ end }}
+              <span class="{{ $appliesClass }}">{{ .applies_to }}</span>
+            </th>
+            <td>{{ .expectation }}</td>
+          </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="rt-section rt-section--dark coaching-support-section">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow">Compensation &amp; Support</p>
+    <h2>Paid coaching roles with program backing.</h2>
+    <p>Rawlings Tigers NOVA supports coaches with team resources, organizational guidance, and a competitive environment focused on development.</p>
+  </div>
+  <div class="rt-container rt-card-grid rt-card-grid--4">
+    {{ range $data.support }}
+      <article class="rt-feature-card rt-feature-card--dark coaching-support-card">
+        <span class="rt-feature-card__icon">+</span>
+        <strong>{{ .title }}</strong>
+        <small>{{ .text }}</small>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--white">
+  <div class="rt-container split-feature coaching-apply-split">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">How To Apply</p>
+      <h2>Review the role, submit the form, and our staff will follow up.</h2>
+      <p class="rt-muted">Interested coaches should complete the application and review the job description for the role that best fits their experience.</p>
+      <div class="rt-action-row">
+        <a class="rt-btn coaching-btn-outline" href="{{ partial "url.html" $data.contact_email_url }}">Email Us</a>
+      </div>
+    </div>
+    <div class="coaching-steps">
+      {{ range $i, $step := $data.application_steps }}
+        <article>
+          <span>{{ printf "%02d" (add $i 1) }}</span>
+          <div>
+            <strong>{{ $step.title }}</strong>
+            <p>{{ $step.text }}</p>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="connect-band coaching-connect-band">
+  <div class="rt-container connect-band__inner">
+    <div>
+      <p class="rt-kicker">Ready to coach?</p>
+      <p>Help build a competitive, accountable, development-focused baseball environment for Rawlings Tigers NOVA players.</p>
+    </div>
+    <div class="rt-action-row">
+      <a class="rt-btn rt-btn--light" href="{{ $data.apply_url }}">Apply Now</a>
+      <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" $data.contact_email_url }}">Contact Us</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,379 @@
+
+.coaching-role-grid{
+  align-items:stretch;
+}
+
+.coaching-role-card,
+.coaching-download-card{
+  background:#fff;
+  border:1px solid var(--rt-line);
+  box-shadow:var(--rt-shadow-soft);
+  padding:clamp(1.1rem,2vw,1.55rem);
+  display:flex;
+  flex-direction:column;
+  gap:.9rem;
+}
+
+.coaching-role-card__top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+}
+
+.coaching-role-card__badge,
+.coaching-pill{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  background:var(--rt-orange-soft);
+  color:var(--rt-orange-dark);
+  border:1px solid rgba(246,95,22,.28);
+  padding:.34rem .62rem;
+  font-size:.68rem;
+  font-weight:950;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+.coaching-role-card__short,
+.coaching-download-card>span{
+  font-family:var(--rt-display);
+  color:var(--rt-orange);
+  font-size:clamp(2.2rem,5vw,4rem);
+  line-height:.82;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+}
+
+.coaching-role-card h3,
+.coaching-download-card h3{
+  color:#0b0b0d;
+  margin:0;
+  font-size:clamp(1.8rem,3vw,2.55rem);
+}
+
+.coaching-role-card p,
+.coaching-download-card p,
+.coaching-steps p{
+  color:var(--rt-muted);
+  font-weight:650;
+  margin:0;
+}
+
+.coaching-role-card__meta{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.65rem;
+  margin:0;
+}
+
+.coaching-role-card__meta div{
+  border:1px solid var(--rt-line);
+  background:var(--rt-cream);
+  padding:.75rem;
+}
+
+.coaching-role-card__meta dt{
+  color:var(--rt-orange-dark);
+  font-size:.68rem;
+  font-weight:950;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.coaching-role-card__meta dd{
+  margin:.2rem 0 0;
+  color:#151515;
+  font-weight:850;
+}
+
+.coaching-role-card ul{
+  margin:.15rem 0 0;
+  padding-left:1.15rem;
+  color:var(--rt-muted);
+  font-weight:650;
+}
+
+.coaching-role-card li+li{
+  margin-top:.38rem;
+}
+
+.coaching-role-card__actions{
+  margin-top:auto;
+}
+
+.coaching-btn-outline{
+  background:#fff;
+  color:#0b0b0d;
+  border-color:#0b0b0d;
+}
+
+.coaching-btn-outline:hover,
+.coaching-btn-outline:focus-visible{
+  background:#0b0b0d;
+  color:#fff;
+}
+
+.coaching-table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--rt-line);
+  box-shadow:var(--rt-shadow-soft);
+  background:#fff;
+}
+
+.coaching-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:820px;
+}
+
+.coaching-table th,
+.coaching-table td{
+  padding:1rem;
+  text-align:left;
+  vertical-align:top;
+  border-bottom:1px solid var(--rt-line);
+}
+
+.coaching-table thead th{
+  background:#0b0b0d;
+  color:#fff;
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.coaching-table tbody th{
+  color:#0b0b0d;
+  font-weight:950;
+}
+
+.coaching-table tbody td{
+  color:var(--rt-muted);
+  font-weight:650;
+}
+
+.coaching-table tbody tr:last-child th,
+.coaching-table tbody tr:last-child td{
+  border-bottom:0;
+}
+
+.coaching-table--compact{
+  min-width:680px;
+}
+
+.coaching-standards-split h2,
+.coaching-apply-split h2{
+  color:#0b0b0d;
+}
+
+.coaching-standard-list div{
+  border-left:5px solid var(--rt-orange);
+}
+
+.coaching-support-section{
+  background:
+    radial-gradient(circle at 12% 0%, rgba(246,95,22,.12), transparent 32%),
+    linear-gradient(135deg,#050505 0%,#0b0b0d 58%,#151515 100%) !important;
+}
+
+.coaching-support-card{
+  min-height:170px;
+}
+
+.coaching-steps{
+  display:grid;
+  gap:.85rem;
+}
+
+.coaching-steps article{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.9rem;
+  align-items:start;
+  background:#fff;
+  border:1px solid var(--rt-line);
+  box-shadow:var(--rt-shadow-soft);
+  padding:1rem;
+}
+
+.coaching-steps article>span{
+  display:inline-grid;
+  place-items:center;
+  width:2.25rem;
+  height:2.25rem;
+  background:var(--rt-orange);
+  color:#fff;
+  font-weight:950;
+  font-size:.78rem;
+}
+
+.coaching-steps strong{
+  display:block;
+  color:#0b0b0d;
+  font-weight:950;
+  text-transform:uppercase;
+  margin-bottom:.2rem;
+}
+
+.coaching-download-grid{
+  align-items:stretch;
+}
+
+.coaching-download-card{
+  min-height:260px;
+}
+
+.coaching-download-card .rt-btn{
+  margin-top:auto;
+}
+
+.coaching-connect-band{
+  background:var(--rt-orange);
+}
+
+@media (max-width:720px){
+  .coaching-role-card__meta{
+    grid-template-columns:1fr;
+  }
+
+  .coaching-table{
+    min-width:760px;
+  }
+
+  .coaching-table--compact{
+    min-width:620px;
+  }
+}
+
+/* Coaching opportunities follow-up cleanup */
+.coaching-role-card--head .coaching-role-card__badge {
+  background:rgba(246,95,22,.09);
+  color:var(--rt-orange-dark);
+  border-color:rgba(246,95,22,.32);
+}
+
+.coaching-role-card--assist .coaching-role-card__badge {
+  background:#0b0b0d;
+  color:#fff;
+  border-color:#0b0b0d;
+}
+
+.coaching-role-card--head .coaching-role-card__short {
+  color:var(--rt-orange);
+}
+
+.coaching-role-card--assist .coaching-role-card__short {
+  color:#0b0b0d;
+  opacity:.92;
+}
+
+.coaching-role-card__actions {
+  margin-top:auto;
+}
+
+.coaching-role-card__actions .coaching-btn-outline {
+  width:fit-content;
+}
+
+.coaching-pill--head {
+  background:rgba(246,95,22,.09);
+  color:var(--rt-orange-dark);
+  border-color:rgba(246,95,22,.32);
+}
+
+.coaching-pill--assist {
+  background:#0b0b0d;
+  color:#fff;
+  border-color:#0b0b0d;
+}
+
+.coaching-pill--both {
+  background:#f4eee6;
+  color:#151515;
+  border-color:rgba(5,5,5,.16);
+}
+
+@media (max-width:720px){
+  .coaching-role-card__actions .coaching-btn-outline{
+    width:100%;
+  }
+}
+/* End coaching opportunities follow-up cleanup */
+
+/* Keep Compensation quick fact text consistent */
+.coaching-proof-strip strong,
+.coaching-proof-strip span {
+  color: #151515;
+}
+
+.coaching-proof-strip .coaching-proof-strip__item--highlight strong,
+.coaching-proof-strip .coaching-proof-strip__item--highlight span {
+  color: #151515;
+}
+
+/* Coaching opportunities cleanup v3 */
+
+/* Keep the white quick-facts row consistent. */
+.coaching-proof-strip .rt-proof-grid strong,
+.coaching-proof-strip .rt-proof-grid span {
+  color:#151515 !important;
+}
+
+/* Role card differentiation */
+.coaching-role-card--head .coaching-role-card__badge {
+  background:rgba(246,95,22,.09);
+  color:var(--rt-orange-dark);
+  border-color:rgba(246,95,22,.32);
+}
+
+.coaching-role-card--assist .coaching-role-card__badge {
+  background:#0b0b0d;
+  color:#fff;
+  border-color:#0b0b0d;
+}
+
+.coaching-role-card--head .coaching-role-card__short {
+  color:var(--rt-orange);
+}
+
+.coaching-role-card--assist .coaching-role-card__short {
+  color:#0b0b0d;
+  opacity:.92;
+}
+
+/* The role-card actions now only contain the PDF download button. */
+.coaching-role-card__actions {
+  margin-top:auto;
+}
+
+.coaching-role-card__actions .coaching-btn-outline {
+  width:fit-content;
+}
+
+/* Applies To pill differentiation */
+.coaching-pill--head {
+  background:rgba(246,95,22,.09);
+  color:var(--rt-orange-dark);
+  border-color:rgba(246,95,22,.32);
+}
+
+.coaching-pill--assist {
+  background:#0b0b0d;
+  color:#fff;
+  border-color:#0b0b0d;
+}
+
+.coaching-pill--both {
+  background:#f4eee6;
+  color:#151515;
+  border-color:rgba(5,5,5,.16);
+}
+
+@media (max-width:720px){
+  .coaching-role-card__actions .coaching-btn-outline{
+    width:100%;
+  }
+}
+/* End coaching opportunities cleanup v3 */

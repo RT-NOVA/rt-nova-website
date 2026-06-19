@@ -516,3 +516,9 @@
 
 }
 
+
+/* Highlight Private quick fact */
+.rt-tryout-fact-private strong,
+.rt-tryout-fact-private span {
+  color: var(--rt-orange) !important;
+}
