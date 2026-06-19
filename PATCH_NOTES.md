@@ -1,38 +1,48 @@
-# Tryout Schedule Clean Session + Directions Patch
+# RT NOVA Navy Cleanup Final Pass
 
-This replaces the boxed/badge treatment for `Open Evaluation` and `Formal Tryout` with a cleaner text label and small dot.
+This patch does a broader cleanup than the first theme patch.
 
-It also adds a clickable directions icon for each schedule row.
+## What it does
 
-## Visual behavior
-
-- Open Evaluation: orange dot + orange text
-- Formal Tryout: navy dot + navy text
-- Directions: compact map icon on the far right of the row
-
-## Directions behavior
-
-The directions icon opens Google Maps using the session location.
-
-If a session ever needs a custom map link, add this optional field to that session in `data/tryouts.yaml`:
-
-```yaml
-directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
-```
+- Scans active CSS files in `assets/css/*.css`.
+- Converts the main dark variables:
+  - `--rt-navy` to `#0b0b0d`
+  - `--rt-navy-2` to `#151515`
+- Replaces common hard-coded navy/slate colors and blue-tinted rgba shadows/overlays in served CSS files.
+- Adds stronger global overrides for:
+  - page heroes
+  - homepage hero overlay
+  - header
+  - footer
+  - dark sections
+  - Booster Club contact/CTA sections
+  - Sponsorship contact/CTA sections
+  - table headers
+  - Social Hub dark placeholders/buttons
+- Writes `NAVY_CLEANUP_AUDIT.md` with any remaining hard-coded old navy/blue values.
 
 ## Apply
 
 ```bash
 cd /Users/smbambling/Documents/personal/git/github/rt-nova-website
 
-unzip -o ~/Desktop/rt-nova-tryout-clean-sessions-directions-patch.zip -d .
+unzip -o ~/Desktop/rt-nova-navy-cleanup-audit-patch.zip -d .
 
-python3 scripts/apply-tryout-clean-sessions-directions.py
+python3 scripts/apply-navy-cleanup-final-pass.py
 
 hugo server -D --disableFastRender
 ```
 
-## Files modified by script
+Then hard refresh:
 
-- `layouts/partials/page-tryouts.html`
-- `assets/css/tryouts.css`
+```text
+Cmd + Shift + R
+```
+
+## Verify
+
+```bash
+rg -n "#061120|#0c1b2e|#07101f|#07111f|#080f1b|#0f172a|rgba\(6,\s*17,\s*32|rgba\(3,\s*10,\s*20|rgba\(8,\s*15,\s*27|rgba\(7,\s*16,\s*31" assets/css --glob "*.css"
+```
+
+It is okay if `var(--rt-navy)` still appears. The variable now points to near-black.

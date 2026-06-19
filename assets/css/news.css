@@ -79,7 +79,7 @@
 .news-feature-card__body h2,
 .news-card__body h3,
 .news-article__header h1 {
-  color: #0b1220;
+  color: #111111;
   font-weight: 900;
   letter-spacing: 0.02em;
   line-height: 1.05;
@@ -116,7 +116,7 @@
 }
 
 .news-index__recent-header h2 {
-  color: #111827;
+  color: #151515;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -173,7 +173,7 @@
 .news-more summary {
   border: 1px solid rgba(17, 24, 39, 0.20);
   border-radius: 6px;
-  color: #111827;
+  color: #151515;
   cursor: pointer;
   display: inline-block;
   font-size: 0.8rem;
@@ -265,7 +265,7 @@
   background: #fff;
   border: 1px solid rgba(17, 24, 39, 0.10);
   border-radius: 10px;
-  color: #111827;
+  color: #151515;
   display: block;
   padding: 1rem;
   text-decoration: none;
@@ -316,7 +316,7 @@
 }
 
 .news-article__related-header h2 {
-  color: #111827;
+  color: #151515;
   font-size: clamp(1.5rem, 3vw, 2.1rem);
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -390,7 +390,7 @@
 }
 
 .news-article__pager-link {
-  color: #111827;
+  color: #151515;
   display: block;
   text-decoration: none;
 }

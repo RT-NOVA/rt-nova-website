@@ -149,7 +149,7 @@
 .rt-roster-name {
   min-width: 0;
   overflow-wrap: anywhere;
-  color: #111827;
+  color: #151515;
   font-size: clamp(1rem, 1.05vw, 1.12rem);
   font-weight: 900;
   letter-spacing: .025em;

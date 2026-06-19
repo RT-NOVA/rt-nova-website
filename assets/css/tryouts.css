@@ -15,7 +15,7 @@
 
 .rt-tryout-eval-card {
   background: #fff;
-  border: 1px solid rgba(7, 16, 31, .12);
+  border: 1px solid rgba(5,5,5, .12);
   box-shadow: var(--rt-shadow-soft);
   padding: clamp(1.1rem, 2.4vw, 1.5rem);
 }
@@ -39,7 +39,7 @@
 
 .rt-tryout-age-chart {
   margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-  border: 1px solid rgba(7, 16, 31, .12);
+  border: 1px solid rgba(5,5,5, .12);
   background: #fff;
   box-shadow: var(--rt-shadow-soft);
 }
@@ -75,7 +75,7 @@
 
 .rt-tryout-age-chart summary b {
   white-space: nowrap;
-  border: 1px solid rgba(7, 16, 31, .14);
+  border: 1px solid rgba(5,5,5, .14);
   padding: .45rem .7rem;
   color: var(--rt-navy);
   font-size: .72rem;
@@ -85,7 +85,7 @@
 }
 
 .rt-tryout-age-table {
-  border-top: 1px solid rgba(7, 16, 31, .1);
+  border-top: 1px solid rgba(5,5,5, .1);
 }
 
 .rt-tryout-age-table__head,
@@ -109,7 +109,7 @@
 }
 
 .rt-tryout-age-table__row {
-  border-bottom: 1px solid rgba(7, 16, 31, .1);
+  border-bottom: 1px solid rgba(5,5,5, .1);
 }
 
 .rt-tryout-age-table__row:last-child { border-bottom: 0; }
@@ -139,7 +139,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid rgba(7, 16, 31, .12);
+  border-bottom: 1px solid rgba(5,5,5, .12);
   padding-bottom: .85rem;
 }
 
@@ -174,8 +174,8 @@
 }
 
 .rt-tryout-table {
-  border-top: 1px solid rgba(7, 16, 31, .12);
-  border-bottom: 1px solid rgba(7, 16, 31, .12);
+  border-top: 1px solid rgba(5,5,5, .12);
+  border-bottom: 1px solid rgba(5,5,5, .12);
 }
 
 .rt-tryout-table__head,
@@ -188,7 +188,7 @@
 
 .rt-tryout-table__head {
   padding: .85rem 0;
-  border-bottom: 2px solid rgba(7, 16, 31, .18);
+  border-bottom: 2px solid rgba(5,5,5, .18);
   color: var(--rt-muted);
 }
 
@@ -202,7 +202,7 @@
 .rt-tryout-table__row {
   min-height: 4.25rem;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(7, 16, 31, .1);
+  border-bottom: 1px solid rgba(5,5,5, .1);
 }
 
 .rt-tryout-table__row:last-child { border-bottom: 0; }
@@ -221,7 +221,7 @@
 
 .rt-tryout-empty {
   padding: 1rem;
-  border: 1px solid rgba(7, 16, 31, .12);
+  border: 1px solid rgba(5,5,5, .12);
   background: #fff;
   color: var(--rt-muted);
   font-weight: 800;
@@ -235,7 +235,7 @@
 }
 
 .rt-tryout-faq-item {
-  border: 1px solid rgba(7, 16, 31, .12);
+  border: 1px solid rgba(5,5,5, .12);
   background: #fff;
   box-shadow: var(--rt-shadow-soft);
 }
@@ -275,7 +275,7 @@
     gap: .35rem;
     min-height: 0;
     padding: 1rem;
-    border: 1px solid rgba(7, 16, 31, .12);
+    border: 1px solid rgba(5,5,5, .12);
     background: #fff;
     box-shadow: var(--rt-shadow-soft);
   }

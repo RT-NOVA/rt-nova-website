@@ -52,7 +52,7 @@
 .rt-team-season-nav__button:hover {
   transform: translateY(-1px);
   border-color: rgba(241, 90, 36, 0.36);
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
 }
 
 .rt-team-season-nav__button.is-active {
@@ -73,7 +73,7 @@
 
 .rt-team-season-heading__row h2 {
   margin: 0;
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   font-size: clamp(3.25rem, 8vw, 6.4rem);
   line-height: 0.92;
   letter-spacing: 0.16em;
@@ -104,7 +104,7 @@
 
 .rt-team-term__open-head h3 {
   margin: 0;
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   font-size: clamp(2.25rem, 5vw, 4.25rem);
   line-height: 0.98;
   letter-spacing: 0.14em;
@@ -139,7 +139,7 @@
 
 .rt-team-list-row h4 {
   margin: 0;
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   font-size: clamp(1.15rem, 1.65vw, 1.45rem);
   font-weight: 950;
   letter-spacing: 0.02em;
@@ -177,7 +177,7 @@
 }
 
 .rt-team-list-row__coach strong {
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   font-size: 0.98rem;
   font-weight: 950;
   letter-spacing: 0.06em;
@@ -193,7 +193,7 @@
 }
 
 .rt-team-list-row__record {
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   font-weight: 900;
   text-align: center;
 }
@@ -211,7 +211,7 @@
   border: 1px solid rgba(17, 24, 39, 0.12);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -248,7 +248,7 @@
   border: 1px solid rgba(17, 24, 39, 0.08);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.62);
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
   padding: clamp(1rem, 2vw, 1.25rem);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.05);
 }
@@ -315,7 +315,7 @@
   border: 1px solid rgba(17, 24, 39, 0.12);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
 }
 
 .rt-team-icon-link svg {
@@ -350,7 +350,7 @@
 }
 
 .rt-team-icon-link.is-accolades {
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
 }
 
 .rt-team-icon-link.is-disabled {
@@ -363,7 +363,7 @@
   transform: none;
   background: rgba(255, 255, 255, 0.78);
   border-color: rgba(17, 24, 39, 0.12);
-  color: var(--ink, #111827);
+  color: var(--ink, #151515);
 }
 
 .rt-team-icon-link__label,
