@@ -1,5 +1,6 @@
 {{ $data := hugo.Data.tryouts }}
 {{ with resources.Get "css/tryouts.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+{{ with resources.Get "css/faq.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 
 {{ partial "hero.html" (dict
   "kicker" ($data.season | default "Tryouts")
@@ -173,21 +174,13 @@
   </div>
 </section>
 
-<section id="tryout-faq" class="rt-section rt-section--cream">
-  <div class="rt-container rt-section-heading rt-section-heading--center">
-    <p class="rt-eyebrow rt-eyebrow--dark">Frequently Asked Questions</p>
-    <h2>FAQ</h2>
-  </div>
-
-  <div class="rt-container rt-tryout-faq-list">
-    {{ range $data.faq }}
-      <details class="rt-tryout-faq-item">
-        <summary>{{ .question }}</summary>
-        <p>{{ .answer }}</p>
-      </details>
-    {{ end }}
-  </div>
-</section>
+{{ partial "faq-list.html" (dict
+  "id" "tryout-faq"
+  "theme" "cream"
+  "eyebrow" "Frequently Asked Questions"
+  "title" "FAQ"
+  "items" $data.faq
+) }}
 
 <section class="rt-section rt-section--dark">
   <div class="rt-container rt-section-heading rt-section-heading--center">

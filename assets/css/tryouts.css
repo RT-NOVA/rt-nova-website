@@ -522,3 +522,10 @@
 .rt-tryout-fact-private span {
   color: var(--rt-orange) !important;
 }
+
+
+/* FAQ now uses shared rt-faq component; keep old tryout FAQ classes neutral for backward compatibility. */
+.rt-tryout-faq-list,
+.rt-tryout-faq-item {
+  box-shadow:none;
+}

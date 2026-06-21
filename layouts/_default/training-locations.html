@@ -1,0 +1,117 @@
+{{ define "main" }}
+{{ with resources.Get "css/training-locations.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+{{ with resources.Get "css/faq.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ $data := hugo.Data.training_locations }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Training Locations"
+  "title" "Where We Train"
+  "intro" (.Params.hero_intro | default $data.intro)
+  "show_card" false
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light training-proof-strip" aria-label="Training locations quick facts">
+  <div class="rt-container rt-proof-grid">
+    {{ range $data.proof }}
+      <div><strong>{{ .label }}</strong><span>{{ .value }}</span></div>
+    {{ end }}
+  </div>
+</section>
+
+{{ with $data.expectation }}
+<section class="rt-section">
+  <div class="rt-container split-feature training-split-feature">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">{{ .eyebrow }}</p>
+      <h2>{{ .title }}</h2>
+      <p class="rt-muted">{{ .text }}</p>
+    </div>
+    <div class="feature-list training-feature-list">
+      <div>
+        <strong>Local Footprint</strong>
+        <span>Most regular team activities are planned around Woodbridge, Dumfries, Montclair, Prince William County, and nearby Northern Virginia areas.</span>
+      </div>
+      <div>
+        <strong>Seasonal Schedules</strong>
+        <span>Outdoor and indoor locations may change by season, field availability, age group, weather, and team needs.</span>
+      </div>
+      <div>
+        <strong>Coach Communication</strong>
+        <span>Exact practice days, times, and locations are shared by the head coach once team schedules are finalized.</span>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with $data.outdoor }}
+<section class="rt-section rt-section--white">
+  <div class="rt-container rt-section-heading">
+    <p class="rt-eyebrow rt-eyebrow--dark">{{ .eyebrow }}</p>
+    <h2>{{ .title }}</h2>
+    <p>{{ .text }}</p>
+  </div>
+
+  <div class="rt-container rt-card-grid rt-card-grid--4 training-card-grid">
+    {{ range .locations }}
+    <article class="rt-info-card training-info-card">
+      <span class="training-card-kicker">{{ .season }}</span>
+      <h3>{{ .name }}</h3>
+      <p class="training-card-area">{{ .area }}</p>
+      <p class="rt-muted"><strong>Used for:</strong> {{ .use }}</p>
+      <p class="rt-muted">{{ .note }}</p>
+    </article>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ with $data.winter }}
+<section class="rt-section rt-section--cream">
+  <div class="rt-container split-feature training-split-feature">
+    <div>
+      <p class="rt-eyebrow rt-eyebrow--dark">{{ .eyebrow }}</p>
+      <h2>{{ .title }}</h2>
+      <p class="rt-muted">{{ .text }}</p>
+    </div>
+    <div class="feature-list training-feature-list">
+      {{ range .locations }}
+      <div>
+        <strong>{{ .name }}</strong>
+        <span>{{ .area }} · {{ .use }}. {{ .note }}</span>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with $data.faq }}
+{{ partial "faq-list.html" (dict
+  "id" "training-locations-faq"
+  "theme" "white"
+  "eyebrow" .eyebrow
+  "title" .title
+  "intro" "Answers to common parent questions about practices, winter training, and the regular driving footprint."
+  "items" .items
+) }}
+{{ end }}
+
+{{ with $data.cta }}
+<section class="rt-section rt-section--dark training-cta">
+  <div class="rt-container training-cta__inner">
+    <div>
+      <p class="rt-eyebrow">{{ .eyebrow }}</p>
+      <h2>{{ .title }}</h2>
+      <p>{{ .text }}</p>
+    </div>
+    <div class="rt-action-row">
+      <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" .primary_url }}">{{ .primary_label }}</a>
+      <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" .secondary_url }}">{{ .secondary_label }}</a>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ end }}

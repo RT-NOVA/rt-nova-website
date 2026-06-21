@@ -1,0 +1,102 @@
+/* Shared FAQ component
+   Reusable accordion treatment for Tryouts, Training Locations, and future parent-facing pages. */
+
+.rt-faq-section {
+  overflow: hidden;
+}
+
+.rt-faq-heading {
+  max-width: 860px;
+}
+
+.rt-faq-heading h2 {
+  margin-bottom: 0;
+}
+
+.rt-faq-list {
+  max-width: 980px;
+}
+
+.rt-faq-item {
+  border-top: 1px solid rgba(7, 16, 29, 0.12);
+}
+
+.rt-faq-item:last-child {
+  border-bottom: 1px solid rgba(7, 16, 29, 0.12);
+}
+
+.rt-faq-item summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 4.4rem;
+  padding: 1.15rem 3.15rem 1.15rem 0;
+  cursor: pointer;
+  color: var(--ink, #07101d);
+  font-size: clamp(0.98rem, 1.18vw, 1.08rem);
+  font-weight: 950;
+  letter-spacing: 0.035em;
+  line-height: 1.25;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.rt-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.rt-faq-item summary::before,
+.rt-faq-item summary::after {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  width: 1.05rem;
+  height: 2px;
+  background: var(--brand, #f15a24);
+  border-radius: 99px;
+  content: "";
+  transform: translateY(-50%);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.rt-faq-item summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.rt-faq-item[open] summary::after {
+  opacity: 0;
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.rt-faq-item__answer {
+  max-width: 760px;
+  padding: 0 3.15rem 1.2rem 0;
+}
+
+.rt-faq-item__answer p {
+  margin: 0;
+  color: var(--muted, #6b7280);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+@media (hover: hover) {
+  .rt-faq-item summary:hover {
+    color: var(--brand, #f15a24);
+  }
+}
+
+@media (max-width: 620px) {
+  .rt-faq-item summary {
+    min-height: 4rem;
+    padding-right: 2.35rem;
+    font-size: 0.94rem;
+  }
+
+  .rt-faq-item__answer {
+    padding-right: 2.35rem;
+  }
+}

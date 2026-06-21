@@ -1,0 +1,26 @@
+{{- $items := .items | default slice -}}
+{{- $sectionID := .id | default "page-faq" -}}
+{{- $eyebrow := .eyebrow | default "Frequently Asked Questions" -}}
+{{- $title := .title | default "FAQ" -}}
+{{- $intro := .intro | default "" -}}
+{{- $theme := .theme | default "cream" -}}
+{{- if $items -}}
+<section id="{{ $sectionID }}" class="rt-section rt-section--{{ $theme }} rt-faq-section">
+  <div class="rt-container rt-section-heading rt-section-heading--center rt-faq-heading">
+    <p class="rt-eyebrow rt-eyebrow--dark">{{ $eyebrow }}</p>
+    <h2>{{ $title }}</h2>
+    {{ with $intro }}<p>{{ . }}</p>{{ end }}
+  </div>
+
+  <div class="rt-container rt-faq-list">
+    {{ range $items }}
+      <details class="rt-faq-item">
+        <summary>{{ .question }}</summary>
+        <div class="rt-faq-item__answer">
+          <p>{{ .answer }}</p>
+        </div>
+      </details>
+    {{ end }}
+  </div>
+</section>
+{{- end -}}

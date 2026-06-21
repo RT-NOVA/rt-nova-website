@@ -1,0 +1,61 @@
+{{ define "main" }}
+{{ with resources.Get "css/become-a-tiger.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ $jotformID := .Params.jotform_id | default "253625311709152" }}
+{{ $jotformURL := .Params.jotform_url | default (printf "https://form.jotform.com/%s" $jotformID) }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Coaching Registration"
+  "title" .Title
+  "intro" (.Params.hero_intro | default "Complete the coaching registration form so we can collect your contact information, coaching background, age-group interest, and availability for upcoming Rawlings Tigers NOVA opportunities.")
+  "show_card" false
+) }}
+
+<section class="rt-section rt-become-page rt-coaching-registration-page">
+  <div class="rt-container rt-become-page__inner">
+
+    <section class="rt-become-readiness" aria-label="Coaching registration steps">
+      <ol class="rt-become-checklist">
+        <li>
+          <span class="rt-become-checklist__number">01</span>
+          <div>
+            <h2>Select Coaching Interest</h2>
+            <p>Let us know which age groups, roles, or coaching opportunities you are interested in.</p>
+          </div>
+        </li>
+        <li>
+          <span class="rt-become-checklist__number">02</span>
+          <div>
+            <h2>Complete Coach Info</h2>
+            <p>Provide your contact details, baseball background, and relevant coaching experience.</p>
+          </div>
+        </li>
+        <li>
+          <span class="rt-become-checklist__number">03</span>
+          <div>
+            <h2>Submit Registration</h2>
+            <p>You will receive confirmation once your coaching registration has been submitted.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <div class="rt-become-confirmation" role="note">
+      <p>After submitting, you should receive a confirmation email letting you know your coaching registration was received.</p>
+    </div>
+
+    <section class="rt-jotform-section" aria-label="Coaching registration form">
+      <div class="rt-jotform-frame">
+        <iframe
+          id="JotFormIFrame-{{ $jotformID }}"
+          title="Rawlings Tigers NOVA Coaching Registration"
+          src="{{ $jotformURL }}"
+          allow="geolocation; microphone; camera; fullscreen; payment"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+  </div>
+</section>
+{{ end }}
