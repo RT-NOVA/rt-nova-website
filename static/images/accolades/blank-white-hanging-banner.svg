@@ -1,0 +1,187 @@
+<svg
+  id="bannerSvg"
+  viewBox="0 0 1600 2000"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Editable realistic champagne cloth championship banner"
+>
+  <style>
+    :root {
+      --cloth-top: #fff0c9;
+      --cloth-mid: #e5c27b;
+      --cloth-low: #b98f43;
+      --cloth-shadow: #6f4a1f;
+      --binding-light: #f6dfaa;
+      --binding-mid: #c99d4e;
+      --binding-dark: #72501f;
+      --stitch-light: #fff4cf;
+      --stitch-dark: #6f4b1f;
+      --rod-black-1: #3a3a3a;
+      --rod-black-2: #030303;
+      --rod-black-3: #171717;
+      --t-fill: #d7ad61;
+      --t-highlight: #fff1c8;
+      --t-outline: #050505;
+    }
+  </style>
+  <defs>
+    <path
+      id="bannerShape"
+      d="
+        M 285 350
+        C 410 374, 585 365, 800 350
+        C 1015 365, 1190 374, 1315 350
+        L 1315 1305
+        C 1315 1395, 1267 1465, 1185 1518
+        L 800 1780
+        L 415 1518
+        C 333 1465, 285 1395, 285 1305
+        Z
+      "
+    />
+    <path
+      id="innerShape"
+      d="
+        M 405 505
+        C 520 525, 655 516, 800 505
+        C 945 516, 1080 525, 1195 505
+        L 1195 1265
+        C 1195 1335, 1157 1388, 1092 1430
+        L 800 1633
+        L 508 1430
+        C 443 1388, 405 1335, 405 1265
+        Z
+      "
+    />
+    <clipPath id="bannerClip"><use href="#bannerShape" /></clipPath>
+    <linearGradient id="clothBase" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="var(--cloth-top)" />
+      <stop offset="34%" stop-color="#efd69b" />
+      <stop offset="62%" stop-color="var(--cloth-mid)" />
+      <stop offset="100%" stop-color="var(--cloth-low)" />
+    </linearGradient>
+    <linearGradient id="sideFolds" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="rgba(60,35,10,.34)" />
+      <stop offset="9%" stop-color="rgba(255,245,205,.25)" />
+      <stop offset="18%" stop-color="rgba(90,58,18,.22)" />
+      <stop offset="29%" stop-color="rgba(255,245,210,.16)" />
+      <stop offset="42%" stop-color="rgba(80,50,18,.08)" />
+      <stop offset="52%" stop-color="rgba(255,255,230,.28)" />
+      <stop offset="64%" stop-color="rgba(90,58,20,.08)" />
+      <stop offset="76%" stop-color="rgba(255,242,200,.15)" />
+      <stop offset="88%" stop-color="rgba(80,48,16,.24)" />
+      <stop offset="100%" stop-color="rgba(45,28,10,.36)" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="47%" r="54%">
+      <stop offset="0%" stop-color="rgba(255,255,235,.34)" />
+      <stop offset="48%" stop-color="rgba(255,244,205,.14)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </radialGradient>
+    <radialGradient id="lowerPointShade" cx="50%" cy="82%" r="46%">
+      <stop offset="0%" stop-color="rgba(95,58,18,.24)" />
+      <stop offset="58%" stop-color="rgba(95,58,18,.10)" />
+      <stop offset="100%" stop-color="rgba(95,58,18,0)" />
+    </radialGradient>
+    <pattern id="wovenTexture" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 4.5 H18 M0 13.5 H18" stroke="rgba(255,255,255,.18)" stroke-width="1" />
+      <path d="M4.5 0 V18 M13.5 0 V18" stroke="rgba(80,52,18,.13)" stroke-width="1" />
+      <path d="M0 0 L18 18 M18 0 L0 18" stroke="rgba(255,255,255,.04)" stroke-width=".7" />
+    </pattern>
+    <filter id="clothDisplace" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.010 0.030" numOctaves="4" seed="18" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+    <filter id="softNoise" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="9" result="noise" />
+      <feColorMatrix in="noise" type="matrix" values="0.20 0 0 0 0 0 0.16 0 0 0 0 0 0.08 0 0 0 0 0 .18 0" result="coloredNoise" />
+      <feBlend in="SourceGraphic" in2="coloredNoise" mode="soft-light" />
+    </filter>
+    <filter id="bannerShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#000" flood-opacity=".36" />
+    </filter>
+    <filter id="rodShadow" x="-25%" y="-50%" width="150%" height="200%">
+      <feDropShadow dx="0" dy="12" stdDeviation="11" flood-color="#000" flood-opacity=".48" />
+    </filter>
+    <linearGradient id="rodGradient" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="var(--rod-black-1)" />
+      <stop offset="18%" stop-color="#111" />
+      <stop offset="45%" stop-color="var(--rod-black-2)" />
+      <stop offset="68%" stop-color="var(--rod-black-3)" />
+      <stop offset="100%" stop-color="#000" />
+    </linearGradient>
+    <radialGradient id="finialGradient" cx="34%" cy="28%" r="72%">
+      <stop offset="0%" stop-color="#646464" />
+      <stop offset="24%" stop-color="#191919" />
+      <stop offset="72%" stop-color="#050505" />
+      <stop offset="100%" stop-color="#000" />
+    </radialGradient>
+    <linearGradient id="bindingGradient" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="var(--binding-light)" />
+      <stop offset="52%" stop-color="var(--binding-mid)" />
+      <stop offset="100%" stop-color="var(--binding-dark)" />
+    </linearGradient>
+
+    <path
+      id="blockTPatch"
+      d="M -122.95 -130.12 L -125.00 -42.01 L -90.16 -42.01 L -81.97 -56.35 L -61.48 -70.70 L -45.08 -70.70 L -26.64 -60.45 L -26.64 70.70 L -38.93 85.04 L -59.43 89.14 L -59.43 128.07 L 57.38 128.07 L 57.38 89.14 L 34.84 82.99 L 24.59 68.65 L 24.59 -58.40 L 43.03 -70.70 L 59.43 -70.70 L 69.67 -66.60 L 88.11 -42.01 L 122.95 -42.01 L 122.95 -130.12 Z"
+    />
+    <linearGradient id="tChampagneCloth" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff0c9" />
+      <stop offset="42%" stop-color="#d7ad61" />
+      <stop offset="100%" stop-color="#9f7431" />
+    </linearGradient>
+    <linearGradient id="tInnerSheen" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,230,.76)" />
+      <stop offset="48%" stop-color="rgba(255,255,255,0)" />
+      <stop offset="100%" stop-color="rgba(70,42,13,.18)" />
+    </linearGradient>
+    <filter id="patchShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity=".34" />
+    </filter>
+  </defs>
+  <g id="rod" filter="url(#rodShadow)">
+    <rect x="210" y="304" width="1180" height="48" rx="24" fill="url(#rodGradient)" />
+    <circle cx="202" cy="328" r="45" fill="url(#finialGradient)" />
+    <circle cx="1398" cy="328" r="45" fill="url(#finialGradient)" />
+    <path d="M260 315 H1340" stroke="rgba(255,255,255,.23)" stroke-width="5" stroke-linecap="round" />
+    <path d="M262 344 H1338" stroke="rgba(0,0,0,.58)" stroke-width="6" stroke-linecap="round" />
+    <circle cx="188" cy="314" r="10" fill="rgba(255,255,255,.16)" />
+    <circle cx="1384" cy="314" r="10" fill="rgba(255,255,255,.16)" />
+  </g>
+  <g id="banner" filter="url(#bannerShadow)">
+    <use href="#bannerShape" fill="url(#clothBase)" />
+    <g clip-path="url(#bannerClip)">
+      <g filter="url(#clothDisplace)">
+        <rect x="255" y="320" width="1090" height="1500" fill="url(#clothBase)" />
+        <rect x="255" y="320" width="1090" height="1500" fill="url(#sideFolds)" opacity=".58" />
+        <rect x="255" y="320" width="1090" height="1500" fill="url(#centerGlow)" opacity=".9" />
+        <rect x="255" y="320" width="1090" height="1500" fill="url(#lowerPointShade)" opacity=".72" />
+        <path d="M342 370 C430 650, 420 930, 450 1245 C462 1385, 530 1485, 675 1588" fill="none" stroke="rgba(80,48,15,.24)" stroke-width="72" stroke-linecap="round" opacity=".58" />
+        <path d="M1258 370 C1170 650, 1180 930, 1150 1245 C1138 1385, 1070 1485, 925 1588" fill="none" stroke="rgba(80,48,15,.26)" stroke-width="76" stroke-linecap="round" opacity=".56" />
+        <path d="M480 365 C555 690, 548 1030, 603 1360 C620 1460, 690 1530, 760 1610" fill="none" stroke="rgba(255,248,215,.23)" stroke-width="54" stroke-linecap="round" opacity=".56" />
+        <path d="M1120 365 C1045 690, 1052 1030, 997 1360 C980 1460, 910 1530, 840 1610" fill="none" stroke="rgba(255,248,215,.22)" stroke-width="54" stroke-linecap="round" opacity=".52" />
+        <path d="M645 360 C670 640, 655 1035, 718 1365 C733 1445, 765 1522, 800 1602" fill="none" stroke="rgba(88,56,19,.14)" stroke-width="42" stroke-linecap="round" opacity=".55" />
+        <path d="M955 360 C930 640, 945 1035, 882 1365 C867 1445, 835 1522, 800 1602" fill="none" stroke="rgba(88,56,19,.15)" stroke-width="42" stroke-linecap="round" opacity=".55" />
+        <path d="M315 585 C520 525, 640 620, 800 575 C960 620, 1080 525, 1285 585" fill="none" stroke="rgba(255,255,230,.18)" stroke-width="82" stroke-linecap="round" opacity=".58" />
+        <path d="M330 955 C510 900, 650 1015, 800 965 C950 1015, 1090 900, 1270 955" fill="none" stroke="rgba(90,55,16,.15)" stroke-width="98" stroke-linecap="round" opacity=".58" />
+        <path d="M390 1330 C560 1275, 685 1392, 800 1340 C915 1392, 1040 1275, 1210 1330" fill="none" stroke="rgba(255,248,220,.14)" stroke-width="76" stroke-linecap="round" opacity=".5" />
+        <rect x="255" y="320" width="1090" height="1500" fill="url(#wovenTexture)" opacity=".42" filter="url(#softNoise)" />
+      </g>
+    </g>
+    <use href="#bannerShape" fill="none" stroke="rgba(82,55,22,.35)" stroke-width="34" stroke-linejoin="round" />
+    <use href="#bannerShape" fill="none" stroke="url(#bindingGradient)" stroke-width="22" stroke-linejoin="round" />
+    <use href="#bannerShape" fill="none" stroke="rgba(255,246,210,.66)" stroke-width="4" stroke-linejoin="round" />
+    <use href="#bannerShape" fill="none" stroke="var(--stitch-dark)" stroke-width="4" stroke-dasharray="10 13" stroke-linejoin="round" opacity=".72" />
+    <use href="#innerShape" fill="none" stroke="rgba(82,50,18,.26)" stroke-width="20" stroke-linejoin="round" />
+    <use href="#innerShape" fill="none" stroke="rgba(255,241,196,.58)" stroke-width="9" stroke-linejoin="round" />
+    <use href="#innerShape" fill="none" stroke="var(--stitch-dark)" stroke-width="4" stroke-dasharray="10 13" stroke-linejoin="round" opacity=".78" />
+    <use href="#innerShape" fill="none" stroke="rgba(255,255,230,.65)" stroke-width="2" stroke-dasharray="8 15" stroke-linejoin="round" opacity=".7" />
+    <path d="M310 365 C430 386, 600 375, 800 362 C1000 375, 1170 386, 1290 365" fill="none" stroke="rgba(80,51,18,.35)" stroke-width="14" stroke-linecap="round" opacity=".5" />
+    <path d="M320 361 C440 380, 610 370, 800 358 C990 370, 1160 380, 1280 361" fill="none" stroke="rgba(255,246,210,.6)" stroke-width="4" stroke-dasharray="9 12" stroke-linecap="round" />
+    <g id="stitchedT" transform="translate(800 515) scale(.8)" filter="url(#patchShadow)">
+      <!-- Rawlings/Tigers-style T extracted from the uploaded logo. Light champagne fill with clean black outline. -->
+      <use href="#blockTPatch" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="18" stroke-linejoin="round" transform="translate(0 5)" />
+      <use href="#blockTPatch" fill="#efd69b" stroke="#0a0a0a" stroke-width="10" stroke-linejoin="round" paint-order="stroke fill" />
+    </g>
+  </g>
+</svg>

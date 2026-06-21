@@ -1,136 +1,109 @@
-intro: Team achievements, tournament banners, player recognition, and program milestones
-  for Rawlings Tigers NOVA.
-years:
-- year: '2026'
-  teams:
-  - team: 13U Black
-    items:
-    - March Mania runner-up in the top bracket.
-    - Tournament banners and player highlights migrated from the prior TeamLinkt page.
-    banners:
-    - alt: 13U Black TCS October Bash Fall Banner
-      image: /images/teamlinkt/13u-black-tcs-october-bash-fall-banner.png
-    - alt: 13U Black DMV ATBA Back to School Fall Banner
-      image: /images/teamlinkt/13u-black-dmv-atba-back-to-school-fall-banner.png
-    - alt: 13U Black March Mania Spring Banner
-      image: /images/teamlinkt/13u-black-march-mania-spring-banner.png
-    - alt: 13U Black Cap City Showdown Spring Banner
-      image: /images/teamlinkt/13u-black-cap-city-showdown-spring-banner.png
-    highlights:
-    - alt: Conner Latin 2026 Player Highlight
-      image: /images/teamlinkt/conner-latin-2026-01.png
-    - alt: Max Pshores 2026 Player Highlight
-      image: /images/teamlinkt/max-pshores-2026-01.png
-    - alt: Henry Saunders 2026 Player Highlight
-      image: /images/teamlinkt/henry-saunders-2026-01.png
-    - alt: Alex Saunders 2026 Player Highlight
-      image: /images/teamlinkt/alex-saunders-2026-01.png
-    - alt: Owen Saunders 2026 Player Highlight
-      image: /images/teamlinkt/owen-saunders-2026-01.png
-    - alt: Parker Saunders 2026 Player Highlight
-      image: /images/teamlinkt/parker-saunders-2026-01.png
-    - alt: Tyler Saunders 2026 Player Highlight
-      image: /images/teamlinkt/tyler-saunders-2026-01.png
-  - team: 13U Orange
-    items:
-    - Team achievements and player highlights migrated from the prior TeamLinkt page.
-    banners:
-    - alt: 13U Orange TCS NOVA Bat Wars Fall Banner
-      image: /images/teamlinkt/13u-orange-tcs-nova-bat-wars-fall-banner.png
-    highlights:
-    - alt: Aaron Hampton 2026 Player Highlight
-      image: /images/teamlinkt/aaron-hampton-2026-01.png
-    - alt: Jordon Pshores 2026 Player Highlight
-      image: /images/teamlinkt/jordon-pshores-2026-01.png
-    - alt: Chris Saunders 2026 Player Highlight
-      image: /images/teamlinkt/chris-saunders-2026-01.png
-    - alt: Dominque Saunders 2026 Player Highlight
-      image: /images/teamlinkt/dominque-saunders-2026-01.png
-    - alt: Nathan Saunders 2026 Player Highlight
-      image: /images/teamlinkt/nathan-saunders-2026-01.png
-- year: '2025'
-  teams:
-  - team: 11U Black
-    items:
-    - USSSA Fire & Ice 2025 fall banner.
-    banners:
-    - alt: 11U Black USSSA Fire Ice 2025 Fall Banner
-      image: /images/teamlinkt/11u-black-usssa-fire-ice-2025-fall-baner.png
-    highlights: []
-  - team: 12U Orange
-    items:
-    - Multiple tournament banners and player recognition items from the 2024–2025
-      season.
-    banners:
-    - alt: 12U Orange Back 2 School Bash Runner Up 2024
-      image: /images/teamlinkt/12u-orange-back2schoolbash-runner-up-2024.png
-    - alt: 12U Orange Body Armor State Games Champion 2024
-      image: /images/teamlinkt/12u-orange-bodyarmorstategames-champ-up-2024.png
-    - alt: 12U Orange STJ Champion 2025
-      image: /images/teamlinkt/12u-orange-stj-champ-2025.png
-    - alt: 12U Orange Shock The World Spring Champion 2025
-      image: /images/teamlinkt/12u-orange-shock-the-world-spring-champ-2025.png
-    - alt: 12U Championship Banner
-      image: /images/teamlinkt/champ-banner1-3.png
-    - alt: 12U Orange Ripken 2025 Banner
-      image: /images/teamlinkt/12u-orange-ripken-2025-baner-2.png
-    highlights:
-    - alt: Owen PG All State 2025 MVP
-      image: /images/teamlinkt/owen-pg-all-state-2025-mvp-01.png
-    - alt: Owen PG All State 2025
-      image: /images/teamlinkt/owen-pg-all-state-2025-03.png
-    - alt: Parker PG All State 2025
-      image: /images/teamlinkt/parker-pg-all-state-2025-03.png
-    - alt: Henry PG All State 2025
-      image: /images/teamlinkt/henry-pg-all-state-2025-01.png
-    - alt: Max PG All State 2025
-      image: /images/teamlinkt/max-pg-all-state-2025-01.png
-    - alt: Alex PG All State 2025
-      image: /images/teamlinkt/alex-pg-all-state-2025-01.png
-    - alt: Tyler PG All State 2025
-      image: /images/teamlinkt/tyler-pg-all-state-2025-01.png
-    - alt: Alex Ripken Player of the Game 2025
-      image: /images/teamlinkt/alex-ripken-player-of-the-game-2025-01.png
-    - alt: Owen Ripken Player of the Game 2025
-      image: /images/teamlinkt/owen-ripken-player-of-the-game-2025-01.png
-    - alt: Max Ripken Player of the Game 2025
-      image: /images/teamlinkt/max-ripken-player-of-the-game-2025-01.png
-    - alt: Parker Ripken Player of the Game 2025
-      image: /images/teamlinkt/parker-ripken-player-of-the-game-2025-01.png
-    - alt: Henry Ripken Player of the Game 2025
-      image: /images/teamlinkt/henry-ripken-player-of-the-game-2025-01.png
-    - alt: Sebas PG Spring Spectacular All Tournament 2025
-      image: /images/teamlinkt/sebas-pg-spring-spectacular-all-tournament-2025-01.png
-      link: https://www.perfectgame.org/Players/Playerprofile.aspx?ID=1069269
-    - alt: Parker PG Spring Spectacular All Tournament 2025
-      image: /images/teamlinkt/park-pg-spring-spectacular-all-tournament-2025-01.png
-      link: https://www.perfectgame.org/Players/Playerprofile.aspx?ID=1512088
-    - alt: Owen PG Spring Spectacular All Tournament 2025
-      image: /images/teamlinkt/owen-pg-spring-spectacular-all-tournament-2025-01.png
-      link: https://www.perfectgame.org/Players/Playerprofile.aspx?ID=1512089
-    - alt: Owen Saunders 2025 Player Highlight
-      image: /images/teamlinkt/owne-saunders-2025-01.png
-    - alt: Henry Saunders 2025 Player Highlight
-      image: /images/teamlinkt/henry-saunders-2025-01.png
-    - alt: Parker Saunders 2025 Player Highlight
-      image: /images/teamlinkt/parker-saunders-2025-01.png
-    - alt: Tyler Saunders 2025 Player Highlight
-      image: /images/teamlinkt/tyler-saunders-2025-01.png
-    - alt: Alex Saunders 2025 Player Highlight
-      image: /images/teamlinkt/alex-saunders-2025-01.png
-    - alt: Max Potomac Shores 2025 Player Highlight
-      image: /images/teamlinkt/max-potomac-shores-2025-01.png
-    - alt: Aaron Hampton 2025 Player Highlight
-      image: /images/teamlinkt/aaron-hampton-2025-01.png
-    - alt: Max Top Gun All Stars 2025
-      image: /images/teamlinkt/max-top-gun-all-stars-2025-01.png
-    - alt: Tyler Top Gun All Stars 2025
-      image: /images/teamlinkt/tyler-top-gun-all-stars-2025-01.png
-    - alt: Tyler Top Gun All American 2025
-      image: /images/teamlinkt/tyler-top-gun-all-american-2025-01.png
-    - alt: Alex Top Gun All Stars 2025
-      image: /images/teamlinkt/alex-top-gun-all-stars-2025-01.png
-    - alt: Max Banana Ball 2025
-      image: /images/teamlinkt/max-banana-ball-2025-01.png
-    - alt: Max Rawlings National Team 2025
-      image: /images/teamlinkt/max-rawlings-national-team-2025-01.png
+intro: Team achievements, tournament banners, player recognition, and program milestones for Rawlings Tigers NOVA.
+default_template: /images/accolades/blank-white-hanging-banner.svg
+achievements:
+- id: 2026-13u-black-march-mania-runner-up
+  date: '2026-03-15'
+  year: '2026'
+  season: Spring
+  team: 13U Black
+  tournament: March Mania
+  result: Runner-Up
+  logo: /images/accolades/tournament-logos/march-mania-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+- id: 2026-13u-black-cap-city-showdown-runner-up
+  date: '2026-04-20'
+  year: '2026'
+  season: Spring
+  team: 13U Black
+  tournament: Cap City Showdown
+  result: Runner-Up
+  logo: /images/accolades/tournament-logos/cap-city-showdown-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+- id: 2025-13u-black-october-bash-champions
+  date: '2025-10-01'
+  year: '2025'
+  season: Fall
+  team: 13U Black
+  tournament: October Bash
+  result: Champions
+  logo: /images/accolades/tournament-logos/october-bash-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+- id: 2025-13u-black-back-to-school-champions
+  date: '2025-09-01'
+  year: '2025'
+  season: Fall
+  team: 13U Black
+  tournament: Back to School
+  result: Champions
+  logo: /images/accolades/tournament-logos/back-to-school-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+- id: 2026-13u-black-battleground-classic-finalist
+  date: '2026-05-01'
+  year: '2026'
+  season: Spring
+  team: 13U Black
+  tournament: Battleground Classic
+  result: Finalist
+  logo: /images/accolades/tournament-logos/battleground-classic-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+player_honors:
+- id: 2026-13u-black-conner-latin-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Conner Latin 2026 Player Highlight
+  image: /images/teamlinkt/conner-latin-2026-01.png
+- id: 2026-13u-black-max-pshores-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Max Pshores 2026 Player Highlight
+  image: /images/teamlinkt/max-pshores-2026-01.png
+- id: 2026-13u-black-henry-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Henry Saunders 2026 Player Highlight
+  image: /images/teamlinkt/henry-saunders-2026-01.png
+- id: 2026-13u-black-alex-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Alex Saunders 2026 Player Highlight
+  image: /images/teamlinkt/alex-saunders-2026-01.png
+- id: 2026-13u-black-owen-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Owen Saunders 2026 Player Highlight
+  image: /images/teamlinkt/owen-saunders-2026-01.png
+- id: 2026-13u-black-parker-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Parker Saunders 2026 Player Highlight
+  image: /images/teamlinkt/parker-saunders-2026-01.png
+- id: 2026-13u-black-tyler-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Black
+  title: Tyler Saunders 2026 Player Highlight
+  image: /images/teamlinkt/tyler-saunders-2026-01.png
+- id: 2026-13u-orange-aaron-hampton-2026-player-highlight
+  year: '2026'
+  team: 13U Orange
+  title: Aaron Hampton 2026 Player Highlight
+  image: /images/teamlinkt/aaron-hampton-2026-01.png
+- id: 2026-13u-orange-jordon-pshores-2026-player-highlight
+  year: '2026'
+  team: 13U Orange
+  title: Jordon Pshores 2026 Player Highlight
+  image: /images/teamlinkt/jordon-pshores-2026-01.png
+- id: 2026-13u-orange-chris-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Orange
+  title: Chris Saunders 2026 Player Highlight
+  image: /images/teamlinkt/chris-saunders-2026-01.png
+- id: 2026-13u-orange-dominque-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Orange
+  title: Dominque Saunders 2026 Player Highlight
+  image: /images/teamlinkt/dominque-saunders-2026-01.png
+- id: 2026-13u-orange-nathan-saunders-2026-player-highlight
+  year: '2026'
+  team: 13U Orange
+  title: Nathan Saunders 2026 Player Highlight
+  image: /images/teamlinkt/nathan-saunders-2026-01.png

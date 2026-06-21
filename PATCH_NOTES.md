@@ -1,28 +1,36 @@
-# Coaching Opportunities Clean Hugo Refresh Patch
-
-This reworks `/coaching-opportunities/` using the latest uploaded ZIP as the base.
+# Accolades Overlay Banner Template Patch
 
 ## What changed
 
-- Replaced the old-site style large split-feature sections.
-- Removed orange side bars from value/support cards.
-- Removed giant `HEAD` / `ASSIST` role art from the role cards.
-- Changed the role cards into cleaner cards with smaller headings.
-- Replaced the black-header comparison table with compact comparison rows.
-- Replaced the responsibilities table with clean expectation rows.
-- Changed the dark compensation/support band into light support cards.
-- Kept the kicker / heading / note rhythm.
-- Kept content/data in `data/coaching_opportunities.yaml`.
-- Kept styling isolated to `assets/css/coaching-opportunities.css`.
+- Updates the Banner Wall to use a realistic blank banner image template.
+- Overlays tournament logo, season/year, and result from YAML.
+- Moves tournament/year/team text into a clean caption below the banner.
+- Adds the uploaded 13U Black tournament logo assets.
+- Keeps Previous / Next pager and centers the last page when only 1 or 2 banners remain.
+- Leaves Current Team Results and Player Honors in their existing structure.
+
+## New YAML pattern
+
+```yaml
+banner_wall:
+  - order: 1
+    year: "2026"
+    season: "Spring"
+    tournament: "March Mania"
+    team: "13U Black"
+    result: "Runner-Up"
+    logo: "/images/accolades/tournament-logos/march-mania-logo.png"
+    template: "/images/accolades/blank-white-hanging-banner.svg"
+```
 
 ## Apply
 
 ```bash
 cd /Users/smbambling/Documents/personal/git/github/rt-nova-website
 
-unzip -o ~/Desktop/rt-nova-coaching-opportunities-clean-hugo-refresh-patch.zip -d .
+unzip -o ~/Desktop/rt-nova-accolades-overlay-banner-template-patch.zip -d .
 
-hugo server -D --disableFastRender
+hugo server -D --disableFastRender --ignoreCache
 ```
 
 Then hard refresh:
@@ -34,8 +42,6 @@ Cmd + Shift + R
 ## Verify
 
 ```bash
-rg -n 'border-left|split-feature|coaching-support-section|coaching-role-card__short|coaching-table' layouts/partials/page-coaching-opportunities.html assets/css/coaching-opportunities.css
-rg -n 'navy|#061120|#0c1b2e|#07101f|#07111f|#080f1b|#0f172a' assets/css/coaching-opportunities.css layouts/partials/page-coaching-opportunities.html
+rg -n 'blank-white-hanging-banner|accolades-overlay-banner|tournament-logos|banner_wall' data/accolades.yaml layouts/partials/page-accolades.html assets/css/accolades.css
+ls -l static/images/accolades/tournament-logos/
 ```
-
-Expected: no output.
