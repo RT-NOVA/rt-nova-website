@@ -5,6 +5,8 @@ main:
     children:
       - name: Who we are
         url: /about/
+      - name: Training Locations
+        url: /training-locations/
       - name: Family Hub
         url: /family-hub/
       - name: Booster Club
