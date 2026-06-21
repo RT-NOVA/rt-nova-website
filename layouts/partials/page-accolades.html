@@ -19,23 +19,36 @@
 {{ $currentSeason := $currentSeasonScratch.Get "season" }}
 
 {{ $currentTeamsScratch := newScratch }}
-{{ $currentTeamsScratch.Set "teams" (slice) }}
+{{ $currentTeamsScratch.Set "names" (slice) }}
 {{ with $currentSeason }}
   {{ with .spring }}
     {{ range .teams }}
-      {{ $currentTeamsScratch.Add "teams" (slice .) }}
+      {{ if not (in ($currentTeamsScratch.Get "names") .name) }}
+        {{ $currentTeamsScratch.Add "names" (slice .name) }}
+      {{ end }}
     {{ end }}
   {{ end }}
   {{ with .fall }}
     {{ range .teams }}
-      {{ $currentTeamsScratch.Add "teams" (slice .) }}
+      {{ if not (in ($currentTeamsScratch.Get "names") .name) }}
+        {{ $currentTeamsScratch.Add "names" (slice .name) }}
+      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
-{{ $currentTeams := $currentTeamsScratch.Get "teams" }}
+{{ $currentTeamNames := $currentTeamsScratch.Get "names" }}
 
-{{ $achievements := sort (default (slice) $data.achievements) "date" "desc" }}
-{{ $playerHonors := sort (default (slice) $data.player_honors) "year" "desc" }}
+{{ $achievements := sort ($data.achievements | default slice) "date" "desc" }}
+{{ $playerHonors := sort ($data.player_honors | default slice) "year" "desc" }}
+
+{{ $allTeamsScratch := newScratch }}
+{{ $allTeamsScratch.Set "names" (slice) }}
+{{ range $achievement := $achievements }}
+  {{ if and $achievement.team (not (in ($allTeamsScratch.Get "names") $achievement.team)) }}
+    {{ $allTeamsScratch.Add "names" (slice $achievement.team) }}
+  {{ end }}
+{{ end }}
+{{ $allAchievementTeamNames := $allTeamsScratch.Get "names" }}
 
 {{ with resources.Get "css/accolades.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 
@@ -96,9 +109,9 @@
 <section class="rt-section rt-section--white accolades-team-section">
   <div class="rt-container">
     <header class="accolades-block-head">
-      <p class="rt-eyebrow rt-eyebrow--dark">Team Achievements</p>
-      <h2>Current team results</h2>
-      <p>Search current-team accomplishments by team, event, or result. Current teams are pulled from Team Central.</p>
+      <p class="rt-eyebrow rt-eyebrow--dark">Team Accolades</p>
+      <h2>Tournament Results</h2>
+      <p>Browse current teams or search past tournament accomplishments.</p>
     </header>
 
     <div class="accolades-filter-panel" data-team-achievement-filter>
@@ -115,81 +128,65 @@
     </div>
 
     <div class="accolades-current-team-list" aria-label="Current team achievements">
-      {{ range $team := $currentTeams }}
+      {{ range $teamName := $allAchievementTeamNames }}
         {{ $teamAchievementsScratch := newScratch }}
         {{ $teamAchievementsScratch.Set "items" (slice) }}
         {{ range $achievement := $achievements }}
-          {{ if eq $achievement.team $team.name }}
+          {{ if eq $achievement.team $teamName }}
             {{ $teamAchievementsScratch.Add "items" (slice $achievement) }}
           {{ end }}
         {{ end }}
         {{ $teamAchievements := $teamAchievementsScratch.Get "items" }}
+        {{ $isCurrentTeam := in $currentTeamNames $teamName }}
         {{ with $teamAchievements }}
           {{ $achievementCount := len . }}
           <section class="accolades-current-team-card"
             data-team-group
-            data-team="{{ $team.name }}"
-            data-search="{{ lower (printf "%s %s" $team.name $currentYear) }}">
+            data-team="{{ $teamName }}"
+            data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
+            data-team-page="0"
+            data-search="{{ lower (printf "%s %s" $teamName $currentYear) }}">
             <header>
               <div>
-                <span>Current Team</span>
-                <h3>{{ $team.name }}</h3>
+                <span>{{ if $isCurrentTeam }}Current Team{{ else }}Team History{{ end }}</span>
+                <h3>{{ $teamName }}</h3>
               </div>
               <strong>{{ $achievementCount }} {{ cond (eq $achievementCount 1) "achievement" "achievements" }}</strong>
             </header>
 
-            <p class="accolades-current-team-card__summary">Latest tournament results and team accolades for {{ $team.name }}.</p>
-
-            <div class="accolades-team-banner-grid">
-              {{ range first 3 . }}
+            <div class="accolades-team-banner-grid" data-team-carousel-grid>
+              {{ range $index, $achievement := . }}
                 <article class="accolades-team-banner"
                   data-team-achievement-item
-                  data-team="{{ $team.name }}"
-                  data-search="{{ lower (printf "%s %s %s %s %s" $team.name .year .tournament .result .season) }}">
+                  data-team-carousel-item
+                  data-team-carousel-index="{{ $index }}"
+                  data-team="{{ $teamName }}"
+                  data-search="{{ lower (printf "%s %s %s %s %s" $teamName $achievement.year $achievement.tournament $achievement.result $achievement.season) }}">
                   <figure>
-                    {{ if .logo }}
-                      <img src="{{ partial "url.html" .logo }}" alt="{{ .tournament }} logo" loading="lazy">
+                    {{ if $achievement.logo }}
+                      <img src="{{ partial "url.html" $achievement.logo }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
                     {{ end }}
                   </figure>
                   <div>
-                    <span>{{ .year }} · {{ .season }}</span>
-                    <strong>{{ .tournament }}</strong>
-                    <em>{{ .result }}</em>
+                    <span>{{ $achievement.year }} · {{ $achievement.season }}</span>
+                    <strong>{{ $achievement.tournament }}</strong>
+                    <em>{{ $achievement.result }}</em>
                   </div>
                 </article>
               {{ end }}
             </div>
 
-            {{ if gt $achievementCount 3 }}
-              <details class="accolades-team-more">
-                <summary>View all {{ $achievementCount }} achievements</summary>
-                <div class="accolades-team-banner-grid">
-                  {{ range after 3 . }}
-                    <article class="accolades-team-banner"
-                      data-team-achievement-item
-                      data-team="{{ $team.name }}"
-                      data-search="{{ lower (printf "%s %s %s %s %s" $team.name .year .tournament .result .season) }}">
-                      <figure>
-                        {{ if .logo }}
-                          <img src="{{ partial "url.html" .logo }}" alt="{{ .tournament }} logo" loading="lazy">
-                        {{ end }}
-                      </figure>
-                      <div>
-                        <span>{{ .year }} · {{ .season }}</span>
-                        <strong>{{ .tournament }}</strong>
-                        <em>{{ .result }}</em>
-                      </div>
-                    </article>
-                  {{ end }}
-                </div>
-              </details>
-            {{ end }}
+            <div class="accolades-team-carousel-controls" data-team-carousel-controls hidden>
+              <button type="button" data-team-carousel-prev>Previous</button>
+              <span data-team-carousel-status>Showing 1–3 of {{ $achievementCount }}</span>
+              <button type="button" data-team-carousel-next>Next</button>
+            </div>
           </section>
         {{ end }}
       {{ end }}
     </div>
 
-    <p class="accolades-empty" data-team-empty hidden>No current team achievements match the selected filters.</p>
+    <p class="accolades-empty" data-team-empty hidden>No team achievements match the selected filters.</p>
   </div>
 </section>
 
@@ -198,7 +195,7 @@
     <header class="accolades-block-head">
       <p class="rt-eyebrow rt-eyebrow--dark">Individual Achievements</p>
       <h2>Player honors</h2>
-      <p>Search current player recognition, tournament honors, selection graphics, and individual accomplishments.</p>
+      <p>Search player recognition or browse a quick view of current-team honors.</p>
     </header>
 
     <div class="accolades-filter-panel" data-player-achievement-filter>
@@ -214,24 +211,32 @@
       </label>
     </div>
 
-    <div class="accolades-player-grid" aria-label="Searchable current player honors">
-      {{ range $team := $currentTeams }}
+    <div class="accolades-player-grid accolades-player-grid--free" aria-label="Searchable current player honors">
+      {{ range $teamName := $currentTeamNames }}
+        {{ $teamHonorsScratch := newScratch }}
+        {{ $teamHonorsScratch.Set "index" 0 }}
         {{ range $honor := $playerHonors }}
-          {{ if eq $honor.team $team.name }}
+          {{ if eq $honor.team $teamName }}
+            {{ $teamIndex := $teamHonorsScratch.Get "index" }}
+            {{ $playerName := $honor.player | default $honor.title }}
+            {{ $honorLabel := $honor.honor | default "Player Honor" }}
             <article class="accolades-player-card"
               data-player-achievement-item
-              data-team="{{ $team.name }}"
-              data-search="{{ lower (printf "%s %s %s" $team.name $honor.year $honor.title) }}">
+              data-team="{{ $teamName }}"
+              data-default-visible="{{ if lt $teamIndex 3 }}true{{ else }}false{{ end }}"
+              data-search="{{ lower (printf "%s %s %s %s %s" $teamName $honor.year $playerName $honorLabel $honor.title) }}">
               <figure>
                 {{ with $honor.link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
                   <img src="{{ partial "url.html" $honor.image }}" alt="{{ $honor.title }}" loading="lazy">
                 {{ with $honor.link }}</a>{{ end }}
               </figure>
               <div>
-                <span>{{ $team.name }} · {{ $honor.year }}</span>
-                <strong>{{ $honor.title }}</strong>
+                <strong>{{ $playerName }}</strong>
+                <span>{{ $honorLabel }} · {{ $honor.year }}</span>
+                <em>{{ $teamName }}</em>
               </div>
             </article>
+            {{ $teamHonorsScratch.Set "index" (add $teamIndex 1) }}
           {{ end }}
         {{ end }}
       {{ end }}
@@ -289,16 +294,35 @@
   })();
 
   (() => {
-    const setupFilter = ({ rootSelector, itemSelector, emptySelector, groupSelector }) => {
-      const root = document.querySelector(rootSelector);
-      if (!root) return;
+    const perTeamPage = 3;
+    const teamOrderValue = (team) => {
+      const match = String(team || "").match(/^(\d+)/);
+      return match ? parseInt(match[1], 10) : -1;
+    };
+    const sortTeamsOlderFirst = (a, b) => {
+      const ageDiff = teamOrderValue(b) - teamOrderValue(a);
+      return ageDiff || String(a).localeCompare(String(b), undefined, { numeric: true });
+    };
+    const teamRoot = document.querySelector("[data-team-achievement-filter]");
+    const teamGroups = Array.from(document.querySelectorAll("[data-team-group]"));
+    const teamEmpty = document.querySelector("[data-team-empty]");
 
-      const teamSelect = root.querySelector("[data-filter-team]");
-      const searchInput = root.querySelector("[data-filter-search]");
-      const items = Array.from(document.querySelectorAll(itemSelector));
-      const empty = document.querySelector(emptySelector);
+    if (teamRoot && teamGroups.length) {
+      const teamSelect = teamRoot.querySelector("[data-filter-team]");
+      const searchInput = teamRoot.querySelector("[data-filter-search]");
+      const teamList = teamGroups[0].parentElement;
+      if (teamList) {
+        teamGroups
+          .slice()
+          .sort((a, b) => sortTeamsOlderFirst(a.dataset.team, b.dataset.team))
+          .forEach((group) => teamList.appendChild(group));
+      }
 
-      const teams = Array.from(new Set(items.map((item) => item.dataset.team).filter(Boolean))).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+      const teams = Array.from(new Set(teamGroups
+        .filter((group) => group.dataset.currentTeam === "true")
+        .map((group) => group.dataset.team)
+        .filter(Boolean))).sort(sortTeamsOlderFirst);
+
       teams.forEach((value) => {
         const option = document.createElement("option");
         option.value = value;
@@ -306,56 +330,149 @@
         teamSelect.appendChild(option);
       });
 
-      const matchesFilters = (item) => {
-        const team = teamSelect.value;
+      const getMatchingItems = (group) => {
         const query = searchInput.value.trim().toLowerCase();
-        const text = item.dataset.search || "";
-
-        return (!team || item.dataset.team === team)
-          && (!query || text.includes(query));
-      };
-
-      const updateGroups = () => {
-        if (!groupSelector) return;
-        document.querySelectorAll(groupSelector).forEach((group) => {
-          const groupTeam = group.dataset.team || "";
-          const query = searchInput.value.trim().toLowerCase();
-          const groupText = group.dataset.search || "";
-          const groupTeamMatches = !teamSelect.value || groupTeam === teamSelect.value;
-          const directGroupMatch = !query || groupText.includes(query);
-          const visibleItems = Array.from(group.querySelectorAll(itemSelector)).filter((item) => !item.hidden);
-          group.hidden = !(groupTeamMatches && (visibleItems.length > 0 || directGroupMatch));
+        return Array.from(group.querySelectorAll("[data-team-achievement-item]")).filter((item) => {
+          const text = item.dataset.search || "";
+          return !query || text.includes(query);
         });
       };
 
-      const update = () => {
+      const renderTeamGroup = (group) => {
+        const selectedTeam = teamSelect.value;
+        const query = searchInput.value.trim().toLowerCase();
+        const hasQuery = query.length > 0;
+        const groupTeam = group.dataset.team || "";
+        const isCurrentTeam = group.dataset.currentTeam === "true";
+
+        const teamMatches = selectedTeam
+          ? groupTeam === selectedTeam
+          : (hasQuery ? true : isCurrentTeam);
+
+        const allItems = Array.from(group.querySelectorAll("[data-team-achievement-item]"));
+        const matchingItems = teamMatches ? getMatchingItems(group) : [];
+
+        allItems.forEach((item) => { item.hidden = true; });
+
+        if (!teamMatches || !matchingItems.length) {
+          group.hidden = true;
+          return 0;
+        }
+
+        group.hidden = false;
+
+        const pageCount = Math.max(1, Math.ceil(matchingItems.length / perTeamPage));
+        let page = parseInt(group.dataset.teamPage || "0", 10);
+        if (Number.isNaN(page)) page = 0;
+        page = Math.max(0, Math.min(page, pageCount - 1));
+        group.dataset.teamPage = String(page);
+
+        const start = page * perTeamPage;
+        const end = Math.min(start + perTeamPage, matchingItems.length);
+
+        matchingItems.forEach((item, index) => {
+          item.hidden = !(index >= start && index < end);
+        });
+
+        const controls = group.querySelector("[data-team-carousel-controls]");
+        const status = group.querySelector("[data-team-carousel-status]");
+        const prev = group.querySelector("[data-team-carousel-prev]");
+        const next = group.querySelector("[data-team-carousel-next]");
+
+        if (controls) controls.hidden = matchingItems.length <= perTeamPage;
+        if (status) status.textContent = `Showing ${start + 1}–${end} of ${matchingItems.length}`;
+        if (prev) prev.disabled = page <= 0;
+        if (next) next.disabled = page >= pageCount - 1;
+
+        return 1;
+      };
+
+      const updateTeams = () => {
+        let visibleGroups = 0;
+        teamGroups.forEach((group) => {
+          visibleGroups += renderTeamGroup(group);
+        });
+        if (teamEmpty) teamEmpty.hidden = visibleGroups !== 0;
+      };
+
+      teamGroups.forEach((group) => {
+        const prev = group.querySelector("[data-team-carousel-prev]");
+        const next = group.querySelector("[data-team-carousel-next]");
+
+        if (prev) {
+          prev.addEventListener("click", () => {
+            group.dataset.teamPage = String((parseInt(group.dataset.teamPage || "0", 10) || 0) - 1);
+            renderTeamGroup(group);
+          });
+        }
+
+        if (next) {
+          next.addEventListener("click", () => {
+            group.dataset.teamPage = String((parseInt(group.dataset.teamPage || "0", 10) || 0) + 1);
+            renderTeamGroup(group);
+          });
+        }
+      });
+
+      teamSelect.addEventListener("change", () => {
+        teamGroups.forEach((group) => { group.dataset.teamPage = "0"; });
+        updateTeams();
+      });
+
+      searchInput.addEventListener("input", () => {
+        teamGroups.forEach((group) => { group.dataset.teamPage = "0"; });
+        updateTeams();
+      });
+
+      updateTeams();
+    }
+
+    const playerRoot = document.querySelector("[data-player-achievement-filter]");
+    const playerItems = Array.from(document.querySelectorAll("[data-player-achievement-item]"));
+    const playerEmpty = document.querySelector("[data-player-empty]");
+
+    if (playerRoot && playerItems.length) {
+      const teamSelect = playerRoot.querySelector("[data-filter-team]");
+      const searchInput = playerRoot.querySelector("[data-filter-search]");
+      const playerGrid = playerItems[0].parentElement;
+      if (playerGrid) {
+        playerItems
+          .slice()
+          .sort((a, b) => sortTeamsOlderFirst(a.dataset.team, b.dataset.team))
+          .forEach((item) => playerGrid.appendChild(item));
+      }
+
+      const teams = Array.from(new Set(playerItems.map((item) => item.dataset.team).filter(Boolean))).sort(sortTeamsOlderFirst);
+      teams.forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        teamSelect.appendChild(option);
+      });
+
+      const updatePlayers = () => {
+        const selectedTeam = teamSelect.value;
+        const query = searchInput.value.trim().toLowerCase();
+        const hasQuery = query.length > 0;
         let visibleCount = 0;
-        items.forEach((item) => {
-          const visible = matchesFilters(item);
+
+        playerItems.forEach((item) => {
+          const teamMatches = !selectedTeam || item.dataset.team === selectedTeam;
+          const searchMatches = !hasQuery || (item.dataset.search || "").includes(query);
+          const defaultVisible = item.dataset.defaultVisible === "true";
+
+          const visible = teamMatches && searchMatches && (selectedTeam || hasQuery || defaultVisible);
+
           item.hidden = !visible;
           if (visible) visibleCount += 1;
         });
 
-        updateGroups();
-        if (empty) empty.hidden = visibleCount !== 0;
+        if (playerEmpty) playerEmpty.hidden = visibleCount !== 0;
       };
 
-      teamSelect.addEventListener("change", update);
-      searchInput.addEventListener("input", update);
-      update();
-    };
-
-    setupFilter({
-      rootSelector: "[data-team-achievement-filter]",
-      itemSelector: "[data-team-achievement-item]",
-      emptySelector: "[data-team-empty]",
-      groupSelector: "[data-team-group]"
-    });
-
-    setupFilter({
-      rootSelector: "[data-player-achievement-filter]",
-      itemSelector: "[data-player-achievement-item]",
-      emptySelector: "[data-player-empty]"
-    });
+      teamSelect.addEventListener("change", updatePlayers);
+      searchInput.addEventListener("input", updatePlayers);
+      updatePlayers();
+    }
   })();
 </script>

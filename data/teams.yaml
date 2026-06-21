@@ -153,6 +153,18 @@ seasons:
       - label: Accolades
         url: ''
         placeholder: true
+    - name: 10U
+      sort_order: 900
+      head_coach: Brandon Cleveland
+      coach_role: Head Coach
+      coach_photo: /images/teamlinkt/coach-cleveland-temp.png
+      record: —
+      links:
+      - label: Roster
+        url: /rosters/2027-10u/
+      - label: Accolades
+        url: ''
+        placeholder: true
   fall:
     label: Fall 2025
     empty_text: Teams coming soon.

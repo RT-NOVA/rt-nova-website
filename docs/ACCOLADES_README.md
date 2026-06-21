@@ -83,3 +83,43 @@ Changing the current teams in Team Central automatically controls which teams ap
 ### Player honors
 
 Player recognition remains separate under `player_honors:` because it is a different record type than team tournament achievements.
+
+### Current Team Results carousel
+
+Current Team Results now stays compact. Each current-team card shows up to three achievements at a time and uses small text-only Previous / Next controls when a team has more than three matching results. The controls page within that team card only; they do not expand the card vertically.
+
+Tournament images in this section use the `logo` field from each achievement and are displayed as centered logo artwork, not as banner previews. The Banner Wall remains the visual banner showcase.
+
+### Searching past team achievements from Current Team Results
+
+The team dropdown remains limited to current teams from `data/teams.yaml`, but the search box can now match any record in `achievements:`. When the search field is empty, the section shows current teams only. When a search term is entered, matching older teams/results can appear temporarily in the results area without being added to the dropdown.
+
+### Player Honors grouped by team
+
+Player Honors are now grouped by current team, with player-first cards inside each team group. Each card uses the honor graphic as a supporting thumbnail and leads with the player name. Team groups show up to three honors at a time and use compact Previous / Next controls when more honors are available.
+
+`player_honors:` supports optional `player:` and `honor:` fields. If those are missing, the template falls back to the existing `title:` value.
+
+### Player Honors vertical card treatment
+
+Player Honors now use a more visual recognition-card style inside each team group: larger centered thumbnails, player name as the primary text, and honor/year metadata below the name. This keeps team grouping and carousel behavior while making the individual recognitions feel less like table rows.
+
+### Player Honors free grid behavior
+
+Player Honors no longer use team group containers. The default view shows up to the first three honors for each current team in one free-flowing grid. Selecting a team shows all honors for that team. Typing in search shows all matching honors. This keeps the section lighter while still supporting team and player filtering.
+
+### Team Results & History section copy
+
+The Team Accolades section heading now reads `Team Results & History` because the dropdown remains focused on current teams while the search field can surface older tournament achievements from the full `achievements:` list.
+
+### Tournament Results section copy
+
+The Team Accolades section now uses the heading `Tournament Results` with supporting copy: `Browse current teams or search past tournament accomplishments.`
+
+### Team order and softer filters
+
+Team dropdowns now sort older age groups first, such as 13U before 10U, and the JavaScript uses the same ordering for Team Results and Player Honors filter options. Filter/search panels have also been softened with lighter translucent backgrounds and underline-style inputs so they blend better with the page.
+
+### Older-age team display order
+
+Team Results sections and Player Honors cards are reordered client-side so older age groups display first on the page, matching the filter dropdown order.
