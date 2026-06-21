@@ -1,38 +1,32 @@
-# Training Locations Page
+# Training Locations Specific Facility Update
 
-Adds a parent-facing `/training-locations/` page explaining the general driving footprint for Rawlings Tigers NOVA practices, winter training, and development sessions.
+This update removes generic location language and keys the page around actual Rawlings Tigers NOVA training locations.
 
-## Files
+## Outdoor fields
 
-- `content/training-locations.md`
-- `layouts/_default/training-locations.html`
-- `assets/css/training-locations.css`
-- `data/training_locations.yaml`
-- `data/navigation.yaml`
+- Veterans Memorial Park — Field 4
+- Eagle Field at Neabsco / Neabsco Eagles Field
 
-## Page structure
+## Winter facilities
 
-1. Hero: `Where We Train`
-2. Quick facts strip
-3. Parent planning intro
-4. Common outdoor practice areas
-5. Winter training / indoor work
-6. NOVA training area pills
-7. Parent FAQ
-8. CTA
+- D-BAT Manassas
+- Metro Baseball Facility
 
 ## Notes
 
-- The page intentionally avoids over-promising exact practice locations.
-- The data uses parent-friendly language such as `common locations`, `typical areas`, and `exact schedules shared by team`.
-- `Training Locations` is added under the About dropdown.
+- The D-BAT logo is included as a local static asset at `static/images/training-locations/dbat-logo.webp`.
+- Location cards now support address, field name, map links, and facility links.
+- The expectation/parent planning feature list is now data-driven from `data/training_locations.yaml`.
 
-## v2 visual rework
+## v6 template scope fix
 
-The Training Locations page was softened to better match the rest of the Hugo site. Orange rule-heavy card tops were removed, outdoor location cards now use quiet divider accents, winter cards use softer neutral panels, and the FAQ/area sections were made less boxed.
+Fixed the Hugo template scope bug in the winter facility logo block. The template now captures each facility as `$facility` before entering `with $facility.logo`, so the image alt text can reference `$facility.name` safely.
 
-Navigation recommendation remains: keep `Training Locations` under the `About` dropdown, directly after `Family Hub`, because the page is primarily parent orientation content rather than team roster content.
+## v7 copy and facility card refinement
 
-## v3 About-page style rework
-
-The duplicate `NOVA Training Area` panel was removed. The page now follows the same visual structure used on the About page: proof strip, split-feature intro with a feature list, white section with info cards, cream split-feature section for winter training, white FAQ card grid, and dark CTA. This removes the custom orange-bar location-card style and makes the page feel more consistent with the rest of the Hugo site.
+- Condensed the parent-planning copy and removed specific field names from that intro text.
+- Restored the top proof-strip labels/values requested by the program.
+- Updated Veterans Memorial Park Field 4 address to `14300 Veterans Dr, Woodbridge, VA 22191`.
+- Removed `Facility Info` links from outdoor field cards while keeping map links.
+- Added Veterans Community Center to the winter training facilities using the same Veterans Memorial Park address.
+- Made the D-BAT logo presentation transparent instead of sitting on a white logo card.

@@ -28,18 +28,12 @@
       <p class="rt-muted">{{ .text }}</p>
     </div>
     <div class="feature-list training-feature-list">
+      {{ range .items }}
       <div>
-        <strong>Local Footprint</strong>
-        <span>Most regular team activities are planned around Woodbridge, Dumfries, Montclair, Prince William County, and nearby Northern Virginia areas.</span>
+        <strong>{{ .label }}</strong>
+        <span>{{ .text }}</span>
       </div>
-      <div>
-        <strong>Seasonal Schedules</strong>
-        <span>Outdoor and indoor locations may change by season, field availability, age group, weather, and team needs.</span>
-      </div>
-      <div>
-        <strong>Coach Communication</strong>
-        <span>Exact practice days, times, and locations are shared by the head coach once team schedules are finalized.</span>
-      </div>
+      {{ end }}
     </div>
   </div>
 </section>
@@ -53,14 +47,19 @@
     <p>{{ .text }}</p>
   </div>
 
-  <div class="rt-container rt-card-grid rt-card-grid--4 training-card-grid">
+  <div class="rt-container rt-card-grid rt-card-grid--2 training-card-grid training-location-card-grid">
     {{ range .locations }}
-    <article class="rt-info-card training-info-card">
+    <article class="rt-info-card training-info-card training-info-card--location">
       <span class="training-card-kicker">{{ .season }}</span>
       <h3>{{ .name }}</h3>
+      {{ with .field }}<p class="training-card-field">{{ . }}</p>{{ end }}
       <p class="training-card-area">{{ .area }}</p>
+      {{ with .address }}<p class="training-card-address">{{ . }}</p>{{ end }}
       <p class="rt-muted"><strong>Used for:</strong> {{ .use }}</p>
       <p class="rt-muted">{{ .note }}</p>
+      <div class="training-card-actions">
+        {{ with .map_url }}<a href="{{ . }}" target="_blank" rel="noopener">Map</a>{{ end }}
+      </div>
     </article>
     {{ end }}
   </div>
@@ -75,11 +74,22 @@
       <h2>{{ .title }}</h2>
       <p class="rt-muted">{{ .text }}</p>
     </div>
-    <div class="feature-list training-feature-list">
+    <div class="feature-list training-feature-list training-winter-facility-list">
       {{ range .locations }}
-      <div>
-        <strong>{{ .name }}</strong>
-        <span>{{ .area }} · {{ .use }}. {{ .note }}</span>
+      {{ $facility := . }}
+      <div class="training-winter-facility">
+        {{ with $facility.logo }}
+          <figure class="training-facility-logo">
+            <img src="{{ partial "url.html" . }}" alt="{{ $facility.name }} logo" loading="lazy">
+          </figure>
+        {{ end }}
+        <strong>{{ $facility.name }}</strong>
+        <span>{{ $facility.area }} · {{ $facility.use }}. {{ $facility.note }}</span>
+        {{ with $facility.address }}<em>{{ . }}</em>{{ end }}
+        <div class="training-card-actions">
+          {{ with $facility.map_url }}<a href="{{ . }}" target="_blank" rel="noopener">Map</a>{{ end }}
+          {{ with $facility.website_url }}<a href="{{ . }}" target="_blank" rel="noopener">Facility Info</a>{{ end }}
+        </div>
       </div>
       {{ end }}
     </div>

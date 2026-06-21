@@ -1,92 +1,121 @@
-intro: "Rawlings Tigers NOVA practices across the Woodbridge, Dumfries, Montclair, and surrounding Northern Virginia area. This page helps families understand the fields and indoor spaces commonly used for practices, winter workouts, and development sessions."
-
+intro: Rawlings Tigers NOVA teams train at specific Woodbridge outdoor fields during
+  the outdoor season and move indoors during the winter. Outdoor work centers on Veterans
+  Memorial Park Field 4 and Eagle Field at Neabsco, with winter training at D-BAT
+  Manassas and Metro Baseball Facility.
 proof:
-  - label: Primary Area
-    value: Woodbridge / Dumfries / Montclair
-  - label: Outdoor Practices
-    value: Local school and county fields
-  - label: Winter Training
-    value: Indoor training facilities
-  - label: Team Schedules
-    value: Shared by each team coach
-
+- label: Primary Area
+  value: Woodbridge / Dumfries / Montclair
+- label: Outdoor Practices
+  value: County fields
+- label: Winter Training
+  value: Indoor training facilities
+- label: Schedule Details
+  value: Shared by team coach
 expectation:
   eyebrow: Parent Planning
-  title: "Know the general driving footprint before joining a team."
-  text: "Practice locations can vary by team, season, age group, field availability, and weather. Most team activities are planned around Prince William County and the surrounding Northern Virginia area. Exact weekly locations, days, and times are shared by each team once rosters and schedules are finalized."
-
+  title: Know where teams train before the season starts.
+  text: Rawlings Tigers NOVA uses established outdoor fields and indoor training facilities
+    to support team practices, winter workouts, and player development. Exact days,
+    times, and assignments are shared by each team coach.
+  items:
+  - label: Outdoor home fields
+    text: Veterans Memorial Park Field 4 and Eagle Field at Neabsco are the key outdoor
+      locations for team practices and baseball work.
+  - label: Winter indoor work
+    text: D-BAT Manassas and Metro Baseball Facility are the winter training locations
+      for indoor hitting, throwing, cage work, and development sessions.
+  - label: Team communication
+    text: Exact days, times, and field assignments are still communicated by each
+      head coach once seasonal schedules are finalized.
 outdoor:
   eyebrow: Outdoor Practices
-  title: "Common outdoor practice areas"
-  text: "During the spring, summer, and fall, teams typically use local school fields, county fields, and approved outdoor baseball facilities. Final field assignments depend on permits, availability, and team needs."
+  title: Woodbridge outdoor field locations
+  text: Outdoor team training is centered on two Woodbridge baseball locations instead
+    of a broad generic field footprint.
   locations:
-    - name: Veterans Memorial Park
-      area: Woodbridge, VA
-      use: "Outdoor practices, tryouts, and team workouts"
-      season: "Spring / Summer / Fall"
-      note: "Field assignments vary by team and availability."
-    - name: Woodbridge Area Fields
-      area: Woodbridge, VA
-      use: "Team practices and development sessions"
-      season: "Spring / Summer / Fall"
-      note: "Exact school or county field locations are shared by the team coach."
-    - name: Dumfries / Montclair Area Fields
-      area: Dumfries / Montclair, VA
-      use: "Team practices and local workouts"
-      season: "Spring / Summer / Fall"
-      note: "Used when field availability and team schedules align."
-    - name: Nearby NOVA Fields
-      area: Northern Virginia
-      use: "Additional practice or workout space when needed"
-      season: "Seasonal"
-      note: "Used as needed based on permits, weather, and team schedules."
-
+  - name: Veterans Memorial Park
+    field: Field 4
+    area: Woodbridge, VA
+    address: 14300 Veterans Dr, Woodbridge, VA 22191
+    use: Outdoor practices, tryouts, team workouts, and baseball development sessions
+    season: Spring / Summer / Fall
+    note: Primary Woodbridge outdoor field location when permits and team schedules
+      align.
+    map_url: https://www.google.com/maps/search/?api=1&query=14300+Veterans+Dr+Woodbridge+VA+22191
+  - name: Eagle Field at Neabsco
+    field: Neabsco Eagles Field
+    area: Woodbridge, VA
+    address: 15801 Neabsco Road, Woodbridge, VA 22191
+    use: Outdoor practices, workouts, and team development sessions
+    season: Spring / Summer / Fall
+    note: Woodbridge-area baseball field location used when team schedules and field
+      availability align.
+    map_url: https://www.google.com/maps/search/?api=1&query=Neabsco+Eagles+Field+15801+Neabsco+Road+Woodbridge+VA+22191
 winter:
   eyebrow: Winter Training
-  title: "Indoor work during the off-season"
-  text: "During the winter, teams may move indoors for hitting, throwing, defensive instruction, strength work, and team development sessions. Indoor schedules may vary by team, age group, roster size, and facility availability."
+  title: Indoor work at D-BAT and Metro Baseball
+  text: During the winter, Rawlings Tigers NOVA teams move indoors for focused cage
+    work, throwing, defensive instruction, and player development. Winter training
+    is centered around D-BAT Manassas, Metro Baseball Facility, and the Veterans Community
+    Center.
   locations:
-    - name: Indoor Training Facilities
-      area: Woodbridge / Prince William County area
-      use: "Hitting, throwing, defensive instruction, and team workouts"
-      season: "Winter / Off-season"
-      note: "Exact indoor locations are announced by team once winter schedules are finalized."
-    - name: Small-Group Development Sessions
-      area: Northern Virginia
-      use: "Focused skill work and player development"
-      season: "Winter / Off-season"
-      note: "May vary by team plan, coach availability, and facility scheduling."
-
-areas:
-  eyebrow: NOVA Training Area
-  title: "Most activities are centered around the local NOVA footprint."
-  text: "Families should expect most regular team activities to stay within the Woodbridge, Dumfries, Montclair, Prince William County, and nearby Northern Virginia area."
-  items:
-    - Woodbridge
-    - Dumfries
-    - Montclair
-    - Prince William County
-    - Nearby Northern Virginia areas
-
+  - name: D-BAT Manassas
+    logo: /images/training-locations/dbat-logo.webp
+    area: Manassas, VA
+    address: 9555 Discovery Blvd., Manassas, VA 20109
+    use: Indoor hitting, cage work, lessons, team workouts, and player development
+    season: Winter / Off-season
+    note: A prominent regional indoor baseball and softball training facility used
+      for winter development work.
+    map_url: https://www.google.com/maps/search/?api=1&query=D-BAT+Manassas+9555+Discovery+Blvd+Manassas+VA+20109
+    website_url: https://www.dbatmanassas.com/
+  - name: Metro Baseball Facility
+    area: Springfield, VA
+    address: Springfield, VA
+    use: Indoor team training, cage work, throwing, and winter development sessions
+    season: Winter / Off-season
+    note: Winter training location used for indoor team development when scheduled
+      by coaches.
+    map_url: https://www.google.com/maps/search/?api=1&query=Metro+Baseball+Facility+Springfield+VA
+    website_url: https://www.metrobaseballacademy.com/
+  - name: Veterans Community Center
+    area: Woodbridge, VA
+    address: 14300 Veterans Dr, Woodbridge, VA 22191
+    use: Indoor winter workouts, team development sessions, and program training when
+      scheduled
+    season: Winter / Off-season
+    note: Indoor Woodbridge training location connected to Veterans Memorial Park.
+    map_url: https://www.google.com/maps/search/?api=1&query=14300+Veterans+Dr+Woodbridge+VA+22191
+    website_url: https://www.pwcva.gov/department/veterans-memorial-park
 faq:
   eyebrow: Parent FAQ
-  title: "Common location questions"
+  title: Common location questions
   items:
-    - question: "Are practices always at the same field?"
-      answer: "Not always. Teams usually have regular practice patterns, but field permits, weather, and seasonal availability can change exact locations."
-    - question: "Where is winter training held?"
-      answer: "Winter training is typically held indoors. Exact facility details are shared by each team once the winter schedule is finalized."
-    - question: "How far should families expect to drive?"
-      answer: "Most regular activities are planned around the Woodbridge, Dumfries, Montclair, Prince William County, and nearby Northern Virginia area."
-    - question: "Are tournament locations separate from practice locations?"
-      answer: "Yes. Tournament locations vary by event and are separate from regular practice or winter training locations."
-    - question: "When will exact locations be shared?"
-      answer: "Coaches share exact days, times, and locations once team rosters and seasonal schedules are finalized."
-
+  - question: Where do teams practice outdoors?
+    answer: Outdoor training is centered around Veterans Memorial Park Field 4 and
+      Eagle Field at Neabsco in Woodbridge, Virginia. Exact assignments still depend
+      on permits, team schedules, weather, and field availability.
+  - question: Where is winter training held?
+    answer: Winter training is keyed around D-BAT Manassas in Manassas, Virginia,
+      Metro Baseball Facility in Springfield, Virginia, and the Veterans Community
+      Center in Woodbridge, Virginia. Coaches share the exact schedule for each team.
+  - question: Are practices always at the same field?
+    answer: Not always. These are the primary locations, but exact days, times, and
+      field assignments can vary by age group, season, field permits, weather, and
+      team needs.
+  - question: Do all teams use both indoor facilities?
+    answer: Winter training schedules can vary by team. Coaches will share which sessions
+      are at D-BAT Manassas, Metro Baseball Facility, or another approved training
+      location if needed.
+  - question: Are tournament locations separate from training locations?
+    answer: Yes. Tournament and game locations vary by event and are separate from
+      regular practice and winter training locations.
 cta:
   eyebrow: Questions about team locations?
-  title: "We can help explain what to expect for your player's team."
-  text: "Practice locations can vary by season and age group. Complete the player interest form or view current teams to learn more about the best fit for your player."
+  title: We can help explain what to expect for your player's team.
+  text: Practice and winter training details can vary by team and age group. Complete
+    the player interest form or view current teams to learn more about the best fit
+    for your player.
   primary_label: Become A Tiger
   primary_url: /become-a-tiger/
   secondary_label: View Teams
