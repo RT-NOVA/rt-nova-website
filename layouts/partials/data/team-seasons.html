@@ -1,0 +1,25 @@
+{{ $index := hugo.Data.seasons.index }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "seasons" (slice) }}
+
+{{ range $seasonMeta := ($index.seasons | default slice) }}
+  {{ $seasonData := index hugo.Data.seasons $seasonMeta.id }}
+  {{ $teamsData := dict }}
+  {{ with $seasonData }}
+    {{ with .teams }}{{ $teamsData = . }}{{ end }}
+  {{ end }}
+
+  {{ $season := merge $seasonMeta (dict
+    "spring" ($teamsData.spring | default (dict "label" "Spring" "teams" (slice)))
+    "fall" ($teamsData.fall | default (dict "label" "Fall" "teams" (slice)))
+  ) }}
+
+  {{ $scratch.Add "seasons" (slice $season) }}
+{{ end }}
+
+{{ return (dict
+  "intro" ($index.intro | default "Explore Rawlings Tigers NOVA teams by baseball season.")
+  "default_season" ($index.default_season | default "2026")
+  "season_naming_note" ($index.season_naming_note | default "")
+  "seasons" ($scratch.Get "seasons")
+) }}

@@ -1,4 +1,4 @@
-{{ $data := hugo.Data.teams }}
+{{ $data := partial "data/team-seasons.html" . }}
 {{ $seasonScratch := newScratch }}
 {{ $seasonScratch.Set "defaultSeason" ($data.default_season | default "2026") }}
 {{ range $data.seasons }}

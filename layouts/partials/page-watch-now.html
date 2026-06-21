@@ -1,0 +1,121 @@
+{{ $teamsData := partial "data/team-seasons.html" . }}
+
+{{ $seasonScratch := newScratch }}
+{{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
+{{ range $teamsData.seasons }}
+  {{ if eq (lower (.status | default "")) "current" }}
+    {{ $seasonScratch.Set "defaultSeason" .id }}
+  {{ end }}
+{{ end }}
+{{ $currentSeasonID := string ($seasonScratch.Get "defaultSeason") }}
+
+{{ $currentSeasonScratch := newScratch }}
+{{ range $teamsData.seasons }}
+  {{ if eq (string .id) $currentSeasonID }}
+    {{ $currentSeasonScratch.Set "season" . }}
+  {{ end }}
+{{ end }}
+{{ $currentSeason := $currentSeasonScratch.Get "season" }}
+
+{{ $teamScratch := newScratch }}
+{{ $teamScratch.Set "teams" (slice) }}
+{{ with $currentSeason }}
+  {{ if gt (len (.spring.teams | default slice)) 0 }}
+    {{ range .spring.teams }}
+      {{ $teamScratch.Add "teams" (slice .) }}
+    {{ end }}
+  {{ else }}
+    {{ range (.fall.teams | default slice) }}
+      {{ $teamScratch.Add "teams" (slice .) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $currentTeams := sort ($teamScratch.Get "teams") "sort_order" "asc" }}
+
+{{ with resources.Get "css/watch-now.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Live Games"
+  "title" .Title
+  "intro" (.Params.hero_intro | default "Follow current Rawlings Tigers NOVA teams through GameChanger live video, live game updates, and archived game content when available.")
+  "show_card" false
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light watch-proof-strip" aria-label="Watch Now quick facts">
+  <div class="rt-container rt-proof-grid">
+    <div><strong>Live Video</strong><span>GameChanger streams</span></div>
+    <div><strong>Game Updates</strong><span>Scores + plays</span></div>
+    <div><strong>Archives</strong><span>Past game video</span></div>
+    <div><strong>Access</strong><span>Login may be required</span></div>
+  </div>
+</section>
+
+<section class="rt-section rt-section--cream watch-page">
+  <div class="rt-container watch-page__inner">
+    <header class="rt-section-heading watch-heading">
+      <p class="rt-eyebrow rt-eyebrow--dark">Current Season</p>
+      <h2>Current team live links</h2>
+      <p>Use the current team GameChanger pages for live video when available, live game updates, and archived game content.</p>
+    </header>
+
+    <div class="watch-team-list" aria-label="Current team GameChanger live links">
+      {{ range $team := $currentTeams }}
+        {{ $gameChangerScratch := newScratch }}
+        {{ $gameChangerScratch.Set "url" "" }}
+        {{ range ($team.links | default slice) }}
+          {{ if in (lower (.label | default "")) "gamechanger" }}
+            {{ $gameChangerScratch.Set "url" .url }}
+          {{ end }}
+        {{ end }}
+        {{ $gameChangerURL := replaceRE "/team/?$" "" ($gameChangerScratch.Get "url") }}
+
+        <article class="watch-team-row">
+          <div class="watch-team-row__team">
+            <span>Team</span>
+            <h3>{{ $team.name }}</h3>
+            {{ with $team.head_coach }}<p>Coach: {{ . }}</p>{{ end }}
+          </div>
+
+          <div class="watch-team-row__details">
+            <span>GameChanger</span>
+            <p>Live video, game updates, and archived game content when available.</p>
+          </div>
+
+          <div class="watch-team-row__action">
+            {{ if $gameChangerURL }}
+              <a class="rt-btn rt-btn--orange" href="{{ $gameChangerURL }}" target="_blank" rel="noopener">Watch Live</a>
+            {{ else }}
+              <span class="watch-team-row__disabled">Link coming soon</span>
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </div>
+
+    <aside class="watch-access-note" role="note">
+      <strong>Viewing access</strong>
+      <span>GameChanger live video may require a login, team membership, or a valid viewing pass depending on team settings.</span>
+    </aside>
+  </div>
+</section>
+
+<section class="rt-section rt-section--white watch-page watch-page--white">
+  <div class="rt-container watch-page__inner">
+    <div class="watch-media-split">
+      <div>
+        <p class="rt-eyebrow rt-eyebrow--dark">Team Media</p>
+        <h2>Streams and video sources</h2>
+        <p>GameChanger is the primary place to follow current team live video and game updates. Program-level YouTube streams may also be used when available.</p>
+      </div>
+
+      <div class="watch-media-card">
+        <span>YouTube Streams</span>
+        <h3>Rawlings Tigers NOVA</h3>
+        <p>Live and upcoming program streams when available.</p>
+        {{ with .Params.youtube_streams_url }}
+          <a class="rt-btn rt-btn--ghost-light rt-btn--dark-outline" href="{{ . }}" target="_blank" rel="noopener">Open Streams</a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>

@@ -309,6 +309,53 @@
   height: 18px;
 }
 
+
+/* Watch Now shortcut in the global header */
+.rt-header-actions__icon--watch {
+  color: #fff;
+  background: rgba(246, 95, 22, .18);
+  border: 1px solid rgba(246, 95, 22, .48);
+  border-radius: 999px;
+}
+
+.rt-header-actions__icon--watch:hover,
+.rt-header-actions__icon--watch:focus-visible {
+  background: var(--rt-orange, #f65f16);
+  border-color: var(--rt-orange, #f65f16);
+  outline-color: rgba(246, 95, 22, .52);
+}
+
+.rt-nav__mobile-watch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 42px;
+  width: 100%;
+  padding: .82rem .95rem;
+  background: rgba(246, 95, 22, .16);
+  border: 1px solid rgba(246, 95, 22, .42);
+  color: #fff;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .085em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.rt-nav__mobile-watch svg {
+  width: 18px;
+  height: 18px;
+}
+
+.rt-nav__mobile-watch:hover,
+.rt-nav__mobile-watch:focus-visible {
+  background: var(--rt-orange, #f65f16);
+  outline: none;
+}
+
 .rt-header-actions__cta,
 .rt-nav__mobile-cta {
   display: inline-flex;

@@ -36,6 +36,10 @@
       </div>
 
       <div class="rt-nav__mobile-actions" aria-label="Utility navigation">
+        <a class="rt-nav__mobile-watch" href="{{ partial "url.html" "/watch-now/" }}">
+          {{ partial "icon.html" "watch-now" }}
+          <span>Watch Now</span>
+        </a>
         {{- range $utilityNav }}
           <a class="rt-nav__utility" href="{{ partial "url.html" .url }}">{{ .name }}</a>
         {{- end }}
@@ -47,6 +51,9 @@
       {{- range $utilityNav }}
         <a class="rt-header-actions__link" href="{{ partial "url.html" .url }}">{{ .name }}</a>
       {{- end }}
+      <a class="rt-header-actions__icon rt-header-actions__icon--watch" href="{{ partial "url.html" "/watch-now/" }}" aria-label="Watch Now">
+        {{ partial "icon.html" "watch-now" }}
+      </a>
       <a class="rt-header-actions__icon" href="https://instagram.com/rawlingstigersnova/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
         {{ partial "icon.html" "instagram" }}
       </a>

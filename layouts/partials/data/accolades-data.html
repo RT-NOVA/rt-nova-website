@@ -1,0 +1,39 @@
+{{ $config := hugo.Data.accolades_config }}
+{{ $index := hugo.Data.seasons.index }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "achievements" (slice) }}
+{{ $scratch.Set "playerHonors" (slice) }}
+
+{{ range $seasonMeta := ($index.seasons | default slice) }}
+  {{ $seasonData := index hugo.Data.seasons $seasonMeta.id }}
+  {{ with $seasonData }}
+    {{ with (index . "tournament-results") }}
+      {{ range (.achievements | default slice) }}
+        {{ $achievement := merge . (dict
+          "season_id" $seasonMeta.id
+          "season_label" $seasonMeta.label
+          "season_status" $seasonMeta.status
+        ) }}
+        {{ $scratch.Add "achievements" (slice $achievement) }}
+      {{ end }}
+    {{ end }}
+
+    {{ with (index . "player-honors") }}
+      {{ range (.player_honors | default slice) }}
+        {{ $honor := merge . (dict
+          "season_id" $seasonMeta.id
+          "season_label" $seasonMeta.label
+          "season_status" $seasonMeta.status
+        ) }}
+        {{ $scratch.Add "playerHonors" (slice $honor) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return (dict
+  "intro" ($config.intro | default "Team achievements, tournament banners, player recognition, and program milestones for Rawlings Tigers NOVA.")
+  "default_template" ($config.default_template | default "/images/accolades/blank-white-hanging-banner.svg")
+  "achievements" ($scratch.Get "achievements")
+  "player_honors" ($scratch.Get "playerHonors")
+) }}

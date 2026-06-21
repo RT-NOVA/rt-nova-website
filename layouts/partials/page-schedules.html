@@ -1,0 +1,351 @@
+{{ $teamsData := partial "data/team-seasons.html" . }}
+{{ $events := sort (partial "data/schedule-events.html" .) "date" "asc" }}
+
+{{ $seasonScratch := newScratch }}
+{{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
+{{ range $teamsData.seasons }}
+  {{ if eq (lower (.status | default "")) "current" }}
+    {{ $seasonScratch.Set "defaultSeason" .id }}
+  {{ end }}
+{{ end }}
+{{ $currentYear := string ($seasonScratch.Get "defaultSeason") }}
+
+{{ $currentSeasonScratch := newScratch }}
+{{ range $teamsData.seasons }}
+  {{ if eq (string .id) $currentYear }}
+    {{ $currentSeasonScratch.Set "season" . }}
+  {{ end }}
+{{ end }}
+{{ $currentSeason := $currentSeasonScratch.Get "season" }}
+
+{{ $currentTeamsScratch := newScratch }}
+{{ $currentTeamsScratch.Set "names" (slice) }}
+{{ with $currentSeason }}
+  {{ with .spring }}
+    {{ range .teams }}
+      {{ if not (in ($currentTeamsScratch.Get "names") .name) }}
+        {{ $currentTeamsScratch.Add "names" (slice .name) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ with .fall }}
+    {{ range .teams }}
+      {{ if not (in ($currentTeamsScratch.Get "names") .name) }}
+        {{ $currentTeamsScratch.Add "names" (slice .name) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $currentTeamNames := $currentTeamsScratch.Get "names" }}
+
+{{ $allTeamsScratch := newScratch }}
+{{ $allTeamsScratch.Set "names" (slice) }}
+{{ range $teamName := $currentTeamNames }}
+  {{ if not (in ($allTeamsScratch.Get "names") $teamName) }}
+    {{ $allTeamsScratch.Add "names" (slice $teamName) }}
+  {{ end }}
+{{ end }}
+{{ range $event := $events }}
+  {{ with $event.team }}
+    {{ if not (in ($allTeamsScratch.Get "names") .) }}
+      {{ $allTeamsScratch.Add "names" (slice .) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $allTeamNames := $allTeamsScratch.Get "names" }}
+
+{{ with resources.Get "css/schedules.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
+{{ partial "hero.html" (dict
+  "kicker" "Team Schedules"
+  "title" .Title
+  "intro" (.Params.hero_intro | default "Find team game and tournament schedules, including dates, matchups, times, and event locations when available.")
+  "show_card" false
+) }}
+
+<section class="rt-proof-strip rt-proof-strip--light schedules-proof-strip" aria-label="Schedule quick facts">
+  <div class="rt-container rt-proof-grid">
+    <div><strong>Schedule</strong><span>Dates + matchups</span></div>
+    <div><strong>Times</strong><span>First pitch</span></div>
+    <div><strong>Locations</strong><span>Fields + venues</span></div>
+    <div><strong>Events</strong><span>Games + tournaments</span></div>
+  </div>
+</section>
+
+<section class="rt-section rt-section--cream schedules-page">
+  <div class="rt-container schedules-page__inner">
+    <header class="rt-section-heading schedules-heading">
+      <p class="rt-eyebrow rt-eyebrow--dark">Schedule Hub</p>
+      <h2>Games and tournaments</h2>
+      <p>Browse game and tournament details by team, including dates, matchups, first pitch times, and locations when available.</p>
+    </header>
+
+    <div class="schedules-filter-panel" data-schedule-filter>
+      <label>
+        <span>Team</span>
+        <select data-filter-team>
+          <option value="">All Current Teams</option>
+        </select>
+      </label>
+      <label class="schedules-filter-panel__search">
+        <span>Search</span>
+        <input type="search" placeholder="Search team, opponent, location, or event..." data-filter-search>
+      </label>
+    </div>
+
+    <div class="schedules-list" aria-label="Searchable team game and tournament schedules">
+      {{ range $teamName := $allTeamNames }}
+        {{ $metaScratch := newScratch }}
+        {{ $metaScratch.Set "coach" "" }}
+        {{ $metaScratch.Set "season" "" }}
+        {{ $metaScratch.Set "found" false }}
+
+        {{ with $currentSeason }}
+          {{ with .spring }}
+            {{ range .teams }}
+              {{ if and (eq .name $teamName) (not ($metaScratch.Get "found")) }}
+                {{ $metaScratch.Set "coach" (.head_coach | default "") }}
+                {{ $metaScratch.Set "season" (printf "%s · %s" ($currentSeason.spring.label | default "Spring") ($currentSeason.label | default $currentYear)) }}
+                {{ $metaScratch.Set "found" true }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          {{ with .fall }}
+            {{ range .teams }}
+              {{ if and (eq .name $teamName) (not ($metaScratch.Get "found")) }}
+                {{ $metaScratch.Set "coach" (.head_coach | default "") }}
+                {{ $metaScratch.Set "season" (printf "%s · %s" ($currentSeason.fall.label | default "Fall") ($currentSeason.label | default $currentYear)) }}
+                {{ $metaScratch.Set "found" true }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ range $season := $teamsData.seasons }}
+          {{ range $termKey, $term := dict "spring" $season.spring "fall" $season.fall }}
+            {{ with $term }}
+              {{ range .teams }}
+                {{ if and (eq .name $teamName) (not ($metaScratch.Get "found")) }}
+                  {{ $metaScratch.Set "coach" (.head_coach | default "") }}
+                  {{ $metaScratch.Set "season" (printf "%s · %s" ($term.label | default (title $termKey)) ($season.label | default $season.id)) }}
+                  {{ $metaScratch.Set "found" true }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ $teamIsCurrent := in $currentTeamNames $teamName }}
+        {{ $teamEventsScratch := newScratch }}
+        {{ $teamEventsScratch.Set "count" 0 }}
+        {{ range $event := $events }}
+          {{ if eq $event.team $teamName }}
+            {{ $teamEventsScratch.Add "count" 1 }}
+          {{ end }}
+        {{ end }}
+        {{ $teamEventCount := $teamEventsScratch.Get "count" }}
+
+        <section class="schedules-team-section"
+          data-schedule-team-section
+          data-current-team="{{ if $teamIsCurrent }}true{{ else }}false{{ end }}"
+          data-team="{{ $teamName }}"
+          data-search="{{ lower (printf "%s %s %s" $teamName ($metaScratch.Get "coach") ($metaScratch.Get "season")) }}">
+          <header class="schedules-team-section__header">
+            <div>
+              <h3>{{ $teamName }}</h3>
+              {{ with ($metaScratch.Get "season") }}<p>{{ . }}</p>{{ end }}
+              {{ with ($metaScratch.Get "coach") }}<small>Coach: {{ . }}</small>{{ end }}
+            </div>
+            <strong>{{ $teamEventCount }} {{ if eq $teamEventCount 1 }}event{{ else }}events{{ end }}</strong>
+          </header>
+
+          <div class="schedules-events" aria-label="{{ $teamName }} game and tournament schedule">
+            {{ if gt $teamEventCount 0 }}
+              <div class="schedules-events__head" aria-hidden="true">
+                <span>Date</span>
+                <span>Time</span>
+                <span>Event</span>
+                <span>Location</span>
+              </div>
+              {{ $eventIndexScratch := newScratch }}
+              {{ $eventIndexScratch.Set "index" 0 }}
+              {{ range $event := $events }}
+                {{ if eq $event.team $teamName }}
+                  {{ $eventIndex := $eventIndexScratch.Get "index" }}
+                  {{ $typeLower := lower ($event.type | default "") }}
+                  {{ $eventTitleScratch := newScratch }}
+                  {{ $eventTitleScratch.Set "title" ($event.title | default ($event.type | default "Schedule Event")) }}
+                  {{ if isset $event "opponent" }}
+                    {{ if in $typeLower "tournament" }}
+                      {{ $eventTitleScratch.Set "title" $event.opponent }}
+                    {{ else }}
+                      {{ $eventTitleScratch.Set "title" (printf "vs %s" $event.opponent) }}
+                    {{ end }}
+                  {{ end }}
+                  {{ $eventTitle := $eventTitleScratch.Get "title" }}
+                  <article class="schedules-event-row"
+                    data-schedule-event
+                    data-default-visible="{{ if lt $eventIndex 3 }}true{{ else }}false{{ end }}"
+                    data-search="{{ lower (printf "%s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle ($event.location | default "") ($event.date | default "") ($event.time | default "")) }}">
+                    <time datetime="{{ $event.date }}">{{ time.Format "Jan 2" (time $event.date) }}</time>
+                    <span>{{ $event.time | default "—" }}</span>
+                    <strong>
+                      {{ with $event.type }}<em>{{ . }}</em>{{ end }}
+                      {{ $eventTitle }}
+                      {{ with $event.notes }}<small>{{ . }}</small>{{ end }}
+                    </strong>
+                    <span>{{ $event.location | default "—" }}</span>
+                  </article>
+                  {{ $eventIndexScratch.Set "index" (add $eventIndex 1) }}
+                {{ end }}
+              {{ end }}
+            {{ else }}
+              <p class="schedules-team-empty">Game and tournament schedule coming soon.</p>
+            {{ end }}
+          </div>
+
+          {{ if gt $teamEventCount 3 }}
+            <button class="schedules-show-more" type="button" data-schedule-toggle aria-expanded="false">
+              Show all {{ $teamEventCount }} events
+            </button>
+          {{ end }}
+        </section>
+      {{ end }}
+    </div>
+
+    <p class="schedules-empty" data-schedule-empty hidden>No game or tournament schedule entries match the selected filters.</p>
+
+    <aside class="schedules-note" role="note">
+      <strong>Schedule details may change.</strong>
+      <span>Coaches share final game and tournament details with families as team schedules are finalized.</span>
+    </aside>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector("[data-schedule-filter]");
+    const sections = Array.from(document.querySelectorAll("[data-schedule-team-section]"));
+    const empty = document.querySelector("[data-schedule-empty]");
+    if (!root || !sections.length) return;
+
+    const teamSelect = root.querySelector("[data-filter-team]");
+    const searchInput = root.querySelector("[data-filter-search]");
+    const defaultEventLimit = 3;
+
+    const teamOrderValue = (team) => {
+      const match = String(team || "").match(/^(\d+)/);
+      return match ? parseInt(match[1], 10) : -1;
+    };
+
+    const sortTeamsOlderFirst = (a, b) => {
+      const ageDiff = teamOrderValue(b) - teamOrderValue(a);
+      return ageDiff || String(a).localeCompare(String(b), undefined, { numeric: true });
+    };
+
+    const currentTeams = Array.from(new Set(sections
+      .filter((section) => section.dataset.currentTeam === "true")
+      .map((section) => section.dataset.team)
+      .filter(Boolean))).sort(sortTeamsOlderFirst);
+
+    currentTeams.forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      teamSelect.appendChild(option);
+    });
+
+    const list = sections[0].parentElement;
+    if (list) {
+      sections
+        .slice()
+        .sort((a, b) => {
+          const currentDiff = (b.dataset.currentTeam === "true") - (a.dataset.currentTeam === "true");
+          return currentDiff || sortTeamsOlderFirst(a.dataset.team, b.dataset.team);
+        })
+        .forEach((section) => list.appendChild(section));
+    }
+
+    const updateToggle = (section, shownCount, totalCount, expanded, hasQuery) => {
+      const toggle = section.querySelector("[data-schedule-toggle]");
+      if (!toggle) return;
+
+      if (hasQuery || totalCount <= defaultEventLimit) {
+        toggle.hidden = true;
+        return;
+      }
+
+      toggle.hidden = false;
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      toggle.textContent = expanded
+        ? "Show fewer events"
+        : `Show all ${totalCount} events`;
+    };
+
+    const update = () => {
+      const selectedTeam = teamSelect.value;
+      const query = searchInput.value.trim().toLowerCase();
+      const hasQuery = query.length > 0;
+      let visibleSections = 0;
+
+      sections.forEach((section) => {
+        const isCurrent = section.dataset.currentTeam === "true";
+        const teamMatches = !selectedTeam || section.dataset.team === selectedTeam;
+        const events = Array.from(section.querySelectorAll("[data-schedule-event]"));
+        const eventSearchText = events.map((event) => event.dataset.search || "").join(" ");
+        const sectionSearchText = `${section.dataset.search || ""} ${eventSearchText}`.toLowerCase();
+        const sectionMatchesQuery = !hasQuery || sectionSearchText.includes(query);
+        const shouldShowSection = teamMatches && (selectedTeam || hasQuery || isCurrent) && sectionMatchesQuery;
+        const expanded = section.dataset.expanded === "true";
+
+        let visibleEvents = 0;
+        let matchingEvents = 0;
+
+        events.forEach((event) => {
+          const eventMatchesQuery = !hasQuery || (event.dataset.search || "").toLowerCase().includes(query);
+          const teamNameMatchesQuery = hasQuery && String(section.dataset.team || "").toLowerCase().includes(query);
+          const matches = !hasQuery || teamNameMatchesQuery || eventMatchesQuery;
+
+          if (matches) matchingEvents += 1;
+
+          const underDefaultLimit = matchingEvents <= defaultEventLimit;
+          const showEvent = shouldShowSection && matches && (hasQuery || expanded || underDefaultLimit);
+
+          event.hidden = !showEvent;
+          if (showEvent) visibleEvents += 1;
+        });
+
+        const hasEvents = events.length > 0;
+        const showEmptyCurrentTeam = shouldShowSection && !hasEvents;
+        const sectionVisible = shouldShowSection && (visibleEvents > 0 || showEmptyCurrentTeam);
+
+        section.hidden = !sectionVisible;
+        updateToggle(section, visibleEvents, events.length, expanded, hasQuery);
+
+        if (sectionVisible) visibleSections += 1;
+      });
+
+      if (empty) empty.hidden = visibleSections !== 0;
+    };
+
+    sections.forEach((section) => {
+      const toggle = section.querySelector("[data-schedule-toggle]");
+      if (!toggle) return;
+
+      toggle.addEventListener("click", () => {
+        section.dataset.expanded = section.dataset.expanded === "true" ? "false" : "true";
+        update();
+      });
+    });
+
+    teamSelect.addEventListener("change", () => {
+      sections.forEach((section) => {
+        section.dataset.expanded = "false";
+      });
+      update();
+    });
+
+    searchInput.addEventListener("input", update);
+    update();
+  })();
+</script>

@@ -1,0 +1,21 @@
+{{ $index := hugo.Data.seasons.index }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "events" (slice) }}
+
+{{ range $seasonMeta := ($index.seasons | default slice) }}
+  {{ $seasonData := index hugo.Data.seasons $seasonMeta.id }}
+  {{ with $seasonData }}
+    {{ with .schedules }}
+      {{ range (.events | default slice) }}
+        {{ $event := merge . (dict
+          "season_id" $seasonMeta.id
+          "season_label" $seasonMeta.label
+          "season_status" $seasonMeta.status
+        ) }}
+        {{ $scratch.Add "events" (slice $event) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return ($scratch.Get "events") }}

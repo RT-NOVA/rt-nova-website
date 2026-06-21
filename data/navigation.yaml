@@ -5,8 +5,6 @@ main:
     children:
       - name: Who we are
         url: /about/
-      - name: Locations
-        url: /training-locations/
       - name: Family Hub
         url: /family-hub/
       - name: Booster Club
@@ -23,6 +21,8 @@ main:
         url: /coaches/
       - name: Schedules
         url: /schedules/
+      - name: Watch Now
+        url: /watch-now/
 
   - name: Tryouts
     url: /tryouts/

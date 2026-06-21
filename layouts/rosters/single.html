@@ -7,12 +7,13 @@
   {{ $division := .Params.division | default "" }}
   {{ $record := .Params.record | default "—" }}
   {{ $currentRosterURL := .RelPermalink }}
-  {{ with hugo.Data.teams.seasons }}
-    {{ range . }}
-      {{ range .terms }}
+  {{ $teamsData := partial "data/team-seasons.html" . }}
+  {{ range $teamsData.seasons }}
+    {{ range $term := slice .spring .fall }}
+      {{ with $term }}
         {{ range .teams }}
           {{ $teamRecord := .record | default "—" }}
-          {{ range .links }}
+          {{ range (.links | default slice) }}
             {{ $label := lower (.label | default "") }}
             {{ $url := partial "url.html" (.url | default "") }}
             {{ if and (in $label "roster") (eq $url $currentRosterURL) }}

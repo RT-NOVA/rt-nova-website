@@ -438,3 +438,128 @@
     transform: scale(1.06);
   }
 }
+
+
+/* Season-aware team coaching staff tabs */
+.rt-coaches-season-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  margin: 0 auto clamp(1.2rem, 2.6vw, 1.8rem);
+}
+
+.rt-coaches-season-nav__button {
+  appearance: none;
+  border: 1px solid rgba(5,5,5,.12);
+  background: #fff;
+  color: #151515;
+  cursor: pointer;
+  display: inline-grid;
+  gap: .2rem;
+  min-width: 10.5rem;
+  padding: .75rem 1rem;
+  text-align: left;
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.rt-coaches-season-nav__button:hover,
+.rt-coaches-season-nav__button:focus-visible {
+  border-color: rgba(245,91,32,.35);
+  box-shadow: 0 10px 24px rgba(5,5,5,.08);
+  outline: 0;
+  transform: translateY(-1px);
+}
+
+.rt-coaches-season-nav__button.is-active {
+  border-color: var(--rt-orange);
+  background: var(--rt-orange);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(245,91,32,.22);
+}
+
+.rt-coaches-season-nav__button span {
+  font-family: var(--rt-display);
+  font-size: 1.05rem;
+  font-weight: 950;
+  letter-spacing: .06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rt-coaches-season-nav__button small {
+  color: var(--rt-orange);
+  font-size: .62rem;
+  font-weight: 950;
+  letter-spacing: .13em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+
+.rt-coaches-season-nav__button.is-active span,
+.rt-coaches-season-nav__button.is-active small {
+  color: #fff;
+}
+
+
+.rt-coaches-season-panel[hidden] {
+  display: none;
+}
+
+.rt-coaches-season-heading {
+  display: grid;
+  grid-template-columns: minmax(8rem, .28fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(5,5,5,.1);
+  border-bottom: 1px solid rgba(5,5,5,.1);
+}
+
+.rt-coaches-season-heading h3 {
+  margin: 0;
+  color: #151515;
+  font-family: var(--rt-display);
+  font-size: clamp(1.45rem, 2.5vw, 2.05rem);
+  font-weight: 950;
+  letter-spacing: .055em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rt-coaches-season-heading p:not(.rt-eyebrow) {
+  margin: .45rem 0 0;
+  color: var(--rt-muted);
+  font-weight: 850;
+}
+
+.rt-coaches-season-heading small {
+  display: block;
+  margin-top: .45rem;
+  color: var(--rt-muted);
+  font-size: .86rem;
+  font-weight: 750;
+}
+
+.rt-coaches-empty {
+  display: block;
+  margin: 0;
+  padding: 1rem 0;
+}
+
+@media (max-width: 760px) {
+  .rt-coaches-season-nav {
+    justify-content: stretch;
+  }
+
+  .rt-coaches-season-nav__button,
+  .rt-coaches-season-heading {
+    width: 100%;
+  }
+
+  .rt-coaches-season-heading {
+    grid-template-columns: 1fr;
+  }
+}

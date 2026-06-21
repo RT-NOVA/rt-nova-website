@@ -30,7 +30,6 @@
                 {{ $class := "rt-team-icon-link" }}
                 {{ if in $labelLower "roster" }}{{ $class = printf "%s is-roster" $class }}{{ end }}
                 {{ if in $labelLower "gamechanger" }}{{ $class = printf "%s is-gc" $class }}{{ end }}
-                {{ if in $labelLower "accolades" }}{{ $class = printf "%s is-accolades" $class }}{{ end }}
                 {{ if $isPlaceholder }}{{ $class = printf "%s is-disabled" $class }}{{ end }}
 
                 {{ if $isPlaceholder }}
@@ -47,8 +46,6 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 2h2v2h6V2h2v2h3c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2zm3 4h4v4H7v-4z" fill="currentColor"/></svg>
                   {{ else if in $labelLower "gamechanger" }}
                     <span class="rt-gc-badge" aria-hidden="true">GC</span>
-                  {{ else if in $labelLower "accolades" }}
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 2h10v2h4v3c0 2.3-1.6 4.3-3.8 4.8-.7 1.5-2 2.6-3.6 3V18H17v2H7v-2h3.4v-3.2c-1.6-.4-2.9-1.5-3.6-3C4.6 11.3 3 9.3 3 7V4h4V2zm0 4H5v1c0 1.1.6 2.1 1.6 2.6C6.2 8.5 7 6 7 6zm12 0h-2s.8 2.5.4 3.6C18.4 9.1 19 8.1 19 7V6zm-10-2v5c0 2.2 1.8 4 4 4s4-1.8 4-4V4H9z" fill="currentColor"/></svg>
                   {{ else if in $labelLower "roster" }}
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 11c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3zM8 11c1.7 0 3-1.3 3-3S9.7 5 8 5 5 6.3 5 8s1.3 3 3 3zm0 2c-2.7 0-6 1.4-6 4v2h12v-2c0-2.6-3.3-4-6-4zm8 0c-.3 0-.7 0-1 .1 1.2.9 2 2.1 2 3.9v2h5v-2c0-2.6-3.3-4-6-4z" fill="currentColor"/></svg>
                   {{ else }}

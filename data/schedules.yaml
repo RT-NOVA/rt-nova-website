@@ -1,0 +1,4 @@
+# Deprecated after the season data split.
+# Use data/seasons/<season-id>/schedules.yaml.
+deprecated: true
+replacement: data/seasons/<season-id>/schedules.yaml

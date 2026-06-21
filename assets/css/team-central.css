@@ -349,9 +349,6 @@
   line-height: 1;
 }
 
-.rt-team-icon-link.is-accolades {
-  color: var(--ink, #151515);
-}
 
 .rt-team-icon-link.is-disabled {
   cursor: not-allowed;
@@ -414,7 +411,7 @@
   border-color: rgba(7, 16, 29, 0.16) !important;
 }
 
-/* Accolades placeholder should remain muted/disabled */
+/* Disabled placeholder links should remain muted. */
 .rt-team-icon-link.is-disabled,
 .rt-team-icon-link[aria-disabled="true"] {
   opacity: 0.42 !important;
@@ -512,7 +509,7 @@
   line-height: 1 !important;
 }
 
-/* Keep disabled placeholder links muted, including Accolades */
+/* Keep disabled placeholder links muted. */
 .rt-team-icon-link.is-disabled,
 .rt-team-icon-link[aria-disabled="true"] {
   opacity: 0.42 !important;

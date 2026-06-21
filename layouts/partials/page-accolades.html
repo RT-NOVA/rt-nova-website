@@ -1,5 +1,5 @@
-{{ $data := hugo.Data.accolades }}
-{{ $teamsData := hugo.Data.teams }}
+{{ $data := partial "data/accolades-data.html" . }}
+{{ $teamsData := partial "data/team-seasons.html" . }}
 
 {{ $seasonScratch := newScratch }}
 {{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
