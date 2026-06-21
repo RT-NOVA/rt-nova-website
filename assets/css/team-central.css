@@ -544,3 +544,32 @@
     justify-content: flex-end;
   }
 }
+
+
+/* Heading system alignment for season/table headings while preserving Team Central layout. */
+.rt-team-season-heading__row h2 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: clamp(2.75rem, 6vw, 5rem) !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+}
+
+/* Heading system v4: Team Central page and data headings. */
+.rt-team-central__intro h2,
+.rt-team-season-heading__row h2 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: var(--rt-heading-section) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-team-term__head h3,
+.rt-team-term__open-head h3 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: var(--rt-heading-data) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}

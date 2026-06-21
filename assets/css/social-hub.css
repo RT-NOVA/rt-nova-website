@@ -173,3 +173,13 @@
   }
 }
 /* End Social Hub image fit fix */
+
+/* Heading system v4: Social Hub custom page intro. */
+.social-hub-page__intro h1 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: var(--rt-heading-section) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}

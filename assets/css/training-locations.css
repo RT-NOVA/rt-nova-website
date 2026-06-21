@@ -114,3 +114,27 @@
 .training-faq-card {
   display:initial;
 }
+
+
+/* Heading system v2: Training Locations major section headings use the major section tier. */
+.training-locations-heading h2,
+.training-location-section h2,
+.training-locations-section h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+/* Heading system v4: Training Locations side/split and CTA headings. */
+.training-split-feature h2,
+.training-cta h2 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: var(--rt-heading-section) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}

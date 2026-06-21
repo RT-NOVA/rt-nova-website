@@ -502,3 +502,22 @@
     display: none;
   }
 }
+
+/* Heading system v4: News index/related headings. */
+.news-index__recent-header h2 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: var(--rt-heading-section) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.news-article__related-header h2 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-size: var(--rt-heading-block) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-block, 0.055em) !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+}

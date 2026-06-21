@@ -1564,3 +1564,51 @@
   background: transparent !important;
   box-shadow: none !important;
 }
+
+
+/* Heading system alignment: keep Tryouts layout, normalize heading sizes. */
+.rt-tryout-review-section .rt-section-heading h2,
+.rt-tryout-schedule-section .rt-section-heading h2,
+.rt-tryout-schedule-section .rt-section-heading--center h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-align: center !important;
+}
+
+.rt-tryout-group__head h3 {
+  font-size: var(--rt-heading-data) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading,
+.rt-tryout-schedule-section .rt-section-heading--center {
+  max-width: 980px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+/* Heading system v4: final Tryouts heading guard. */
+.rt-tryout-review-section .rt-section-heading h2,
+.rt-tryout-schedule-section .rt-section-heading h2,
+.rt-tryout-schedule-section .rt-section-heading--center h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-group__head h3 {
+  font-size: var(--rt-heading-data) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}

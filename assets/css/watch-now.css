@@ -194,3 +194,37 @@
     width: 100%;
   }
 }
+
+
+/* Heading system alignment */
+.watch-media-split h2 {
+  font-size: var(--rt-heading-block) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-block, 0.055em) !important;
+}
+
+.watch-heading h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+}
+
+
+/* Heading system v2: Watch Now major section headings use the major section tier. */
+.watch-heading h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.watch-media-split h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}

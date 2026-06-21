@@ -352,3 +352,35 @@
     width:100%;
   }
 }
+
+
+/* Heading system alignment */
+.coaching-block-head h2 {
+  font-size: var(--rt-heading-block) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-block, 0.055em) !important;
+}
+
+.coaching-apply-panel h2 {
+  font-size: clamp(1.9rem, 4vw, 3.25rem) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+}
+
+
+/* Heading system v2: Coaching Opportunities page-level section headers use the major section tier. */
+.coaching-block-head h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.coaching-block-head p:not(.rt-eyebrow) {
+  max-width: 760px;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.55;
+}

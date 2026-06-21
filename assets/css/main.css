@@ -4578,3 +4578,164 @@ h1, h2, h3,
   }
 }
 /* End RT NOVA navy cleanup final pass */
+
+
+/* Site heading rhythm system
+   Keeps split/side headings in their existing layout while normalizing font, size, spacing, and weight. */
+:root {
+  --rt-heading-section: clamp(2.75rem, 5.35vw, 5.15rem);
+  --rt-heading-block: clamp(1.7rem, 3vw, 2.65rem);
+  --rt-heading-data: clamp(1.9rem, 3.6vw, 3.1rem);
+  --rt-heading-letter-tight: -0.04em;
+  --rt-heading-letter-block: 0.055em;
+}
+
+/* Major section headings, both centered and side-by-side/split sections. */
+.rt-section-heading h2,
+.split-feature > div:first-child h2 {
+  color: var(--rt-navy, #0b0b0d);
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-size: var(--rt-heading-section);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-tight);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.rt-section-heading p:not(.rt-eyebrow),
+.split-feature > div:first-child p:not(.rt-eyebrow) {
+  color: var(--rt-muted, #667085);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.rt-section-heading--center h2,
+.rt-section-heading--center p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rt-section--dark .rt-section-heading h2,
+.rt-section--dark .split-feature > div:first-child h2 {
+  color: #fff;
+}
+
+/* Reusable compact block headings used inside data, staff, accolade, and role sections. */
+.rt-heading-block,
+.accolades-block-head h2,
+.rt-coaches-block-head h2,
+.coaching-block-head h2 {
+  color: var(--rt-navy, #0b0b0d);
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-size: var(--rt-heading-block);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-block);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* Reusable table/list group headings such as age groups, schedule teams, and season rows. */
+.rt-heading-data,
+.schedules-team-section__header h3,
+.rt-tryout-group__head h3,
+.rt-coaches-season-heading h3 {
+  color: var(--rt-navy, #0b0b0d);
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-size: var(--rt-heading-data);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-tight);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --rt-heading-section: clamp(2.55rem, 12vw, 4rem);
+    --rt-heading-block: clamp(1.55rem, 8vw, 2.35rem);
+    --rt-heading-data: clamp(1.75rem, 9vw, 2.65rem);
+  }
+}
+
+
+/* Heading system v2
+   Promote page-level block headers to the same major section heading tier while preserving their layout. */
+.rt-page-section-head h2,
+.rt-coaches-block-head h2,
+.coaching-block-head h2,
+.watch-heading h2,
+.training-locations-heading h2 {
+  color: var(--rt-navy, #0b0b0d);
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-size: var(--rt-heading-section);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-tight);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+/* Compact headings remain available for internal cards/subsections. */
+.rt-compact-section-head h2,
+.rt-card-section-head h2 {
+  font-size: var(--rt-heading-block);
+  letter-spacing: var(--rt-heading-letter-block);
+}
+
+
+/* Heading system v3: Accolades page-level sections are major headings. */
+.accolades-block-head h2 {
+  color: var(--rt-navy, #0b0b0d);
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-size: var(--rt-heading-section);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-tight);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+/* Heading system v4 final audit
+   Final broad pass for pages that use custom page-level headings outside .rt-section-heading. */
+.rt-become-page-heading h2,
+.rt-become-readiness__intro h2,
+.rt-roster-page-heading h2,
+.rt-roster-section__heading h2,
+.news-index__recent-header h2,
+.news-article__related-header h2,
+.social-hub-page__intro h1,
+.rt-team-central__intro h2,
+.rt-season-panel__head h2,
+.rt-season-panel__head--table h2,
+.rt-season-dashboard__summary h2,
+.training-split-feature h2,
+.training-cta h2 {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+/* Page-level heading size tier. */
+.rt-become-page-heading h2,
+.rt-become-readiness__intro h2,
+.rt-roster-page-heading h2,
+.news-index__recent-header h2,
+.social-hub-page__intro h1,
+.rt-team-central__intro h2,
+.training-split-feature h2,
+.training-cta h2 {
+  font-size: var(--rt-heading-section);
+  letter-spacing: var(--rt-heading-letter-tight);
+  line-height: 0.92;
+}
+
+/* Data/list section heading tier. */
+.rt-roster-section__heading h2,
+.rt-season-panel__head h2,
+.rt-season-panel__head--table h2,
+.rt-season-dashboard__summary h2,
+.rt-team-term__head h3,
+.rt-team-term__open-head h3,
+.news-article__related-header h2 {
+  font-size: var(--rt-heading-data);
+  letter-spacing: var(--rt-heading-letter-tight);
+  line-height: 0.92;
+}

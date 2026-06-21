@@ -563,3 +563,39 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Heading system alignment */
+.rt-coaches-block-head h2 {
+  font-size: var(--rt-heading-block) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-block, 0.055em) !important;
+}
+
+.rt-coaches-season-heading h3 {
+  font-size: var(--rt-heading-data) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+}
+
+
+/* Heading system v2: Coaches page section headers use the major section tier. */
+.rt-coaches-block-head {
+  max-width: 980px;
+}
+
+.rt-coaches-block-head h2 {
+  font-size: var(--rt-heading-section) !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
+  font-weight: 950 !important;
+  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-coaches-block-head p:not(.rt-eyebrow) {
+  max-width: 760px;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
