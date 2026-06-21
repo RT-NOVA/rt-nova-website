@@ -75,3 +75,7 @@ Each team now shows only the first three schedule entries by default. Teams with
 ## Season data split
 
 Schedule events now live under `data/seasons/<season-id>/schedules.yaml`.
+
+## v8 schedules dispatch fix
+
+Fixed `/schedules/` rendering after later patches overwrote `layouts/_default/single.html` without the schedules template dispatch. The page now routes `template: schedules` to `layouts/partials/page-schedules.html` again.

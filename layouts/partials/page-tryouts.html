@@ -44,8 +44,7 @@
     <p class="rt-eyebrow rt-eyebrow--dark">Tryout / Evaluation</p>
     <h2>Schedule Dates</h2>
     <p class="tryout-schedule-intro">
-      Players only need to attend one open evaluation unless a coach requests a follow-up.<br>
-      Private tryouts may be available upon request.
+      Players only need to attend one evaluation or tryout unless otherwise noted
     </p>
   </div>
 
@@ -75,104 +74,221 @@
       </details>
     {{ end }}
 
+    {{ $allAges := slice }}
+    {{ range $data.age_chart.rows }}
+      {{ $allAges = $allAges | append .age_group }}
+    {{ end }}
+    {{ range $data.groups }}
+      {{ if not (in $allAges .age_group) }}
+        {{ $allAges = $allAges | append .age_group }}
+      {{ end }}
+    {{ end }}
+
+    <div class="rt-tryout-filter-panel" data-tryout-filter>
+      <label>
+        <span>Age Group</span>
+        <select data-filter-age>
+          <option value="">All Age Groups</option>
+          {{ range $allAges }}
+            <option value="{{ . }}">{{ . }}</option>
+          {{ end }}
+        </select>
+      </label>
+      <label class="rt-tryout-filter-panel__search">
+        <span>Search</span>
+        <input type="search" placeholder="Search age group, session, date, time, or location..." data-filter-search>
+      </label>
+    </div>
+
     <div class="rt-tryout-groups" aria-label="Rawlings Tigers NOVA tryout schedule by age group">
       {{ range $data.groups }}
-        <section class="rt-tryout-group" aria-labelledby="tryout-group-{{ .age_group | urlize }}">
+        {{ $group := . }}
+        {{ $hasPostedSessions := false }}
+        {{ range .sessions }}
+          {{ $sessionType := .type | default "" }}
+          {{ $date := .date | default "—" }}
+          {{ $isPrivateFallback := and (in (lower $sessionType) "private") (or (eq $date "—") (eq $date "")) }}
+          {{ if not $isPrivateFallback }}
+            {{ $hasPostedSessions = true }}
+          {{ end }}
+        {{ end }}
+
+        <section class="rt-tryout-group" aria-labelledby="tryout-group-{{ .age_group | urlize }}" data-tryout-group data-age-group="{{ .age_group }}" data-has-posted="{{ $hasPostedSessions }}" data-search="{{ lower (printf "%s %s" .age_group (.coach | default "")) }}">
           <header class="rt-tryout-group__head">
             <div>
-              <p class="rt-eyebrow rt-eyebrow--dark">Age Group</p>
               <h3 id="tryout-group-{{ .age_group | urlize }}">{{ .age_group }}</h3>
+              {{ with .coach }}<small>Coach: {{ . }}</small>{{ end }}
             </div>
-            {{ with .coach }}
-              <div class="rt-tryout-group__coach">
-                <small>Coach</small>
-                <strong>{{ . }}</strong>
-              </div>
-            {{ end }}
           </header>
 
-          <div class="rt-tryout-table rt-tryout-table--grouped" role="table" aria-label="{{ .age_group }} tryout schedule">
+          <div class="rt-tryout-table rt-tryout-table--grouped{{ if not $hasPostedSessions }} rt-tryout-table--private-only{{ end }}" role="table" aria-label="{{ .age_group }} tryout schedule">
             <div class="rt-tryout-table__head" role="row">
               <span role="columnheader">Session</span>
               <span role="columnheader">Date</span>
               <span role="columnheader">Time</span>
-              <span role="columnheader" class="rt-tryout-location-map-head"><span>Location</span><span>Map</span></span>
+              <span role="columnheader">Location</span>
+              <span role="columnheader">Map</span>
             </div>
+
             {{ range .sessions }}
-              <article class="rt-tryout-table__row" role="row">
-                {{ $sessionType := .type | default "Evaluation" }}
+              {{ $sessionType := .type | default "Private Tryouts Upon Request" }}
+              {{ $sessionTypeLower := lower $sessionType }}
+              {{ $sessionClass := "rt-tryout-session-type" }}
+              {{ if in $sessionTypeLower "open" }}
+                {{ $sessionClass = printf "%s rt-tryout-session-type--open" $sessionClass }}
+              {{ else if in $sessionTypeLower "formal" }}
+                {{ $sessionClass = printf "%s rt-tryout-session-type--formal" $sessionClass }}
+              {{ else if in $sessionTypeLower "private" }}
+                {{ $sessionClass = printf "%s rt-tryout-session-type--private" $sessionClass }}
+              {{ end }}
 
-                {{ $sessionTypeLower := lower $sessionType }}
+              {{ $location := .location | default "—" }}
+              {{ $hasLocation := and $location (ne $location "—") }}
+              {{ $directionsUrl := .directions_url | default "" }}
+              {{ if and $hasLocation (not $directionsUrl) }}
+                {{ $directionsUrl = printf "https://www.google.com/maps/search/?api=1&query=%s" ($location | urlquery) }}
+              {{ end }}
+              {{ $isPrivateFallback := and (in $sessionTypeLower "private") (or (eq (.date | default "—") "—") (eq (.date | default "") "")) }}
 
-                {{ $sessionClass := "rt-tryout-session-type" }}
-
-                {{ if in $sessionTypeLower "formal" }}{{ $sessionClass = printf "%s rt-tryout-session-type--formal" $sessionClass }}{{ else if in $sessionTypeLower "open" }}{{ $sessionClass = printf "%s rt-tryout-session-type--open" $sessionClass }}{{ end }}
-
-                {{ $sessionType := .type | default "Evaluation" }}
-
-
-                {{ $sessionTypeLower := lower $sessionType }}
-
-
-                {{ $sessionClass := "rt-tryout-session-type" }}
-
-
-                {{ if in $sessionTypeLower "open" }}{{ $sessionClass = printf "%s rt-tryout-session-type--open" $sessionClass }}{{ else if in $sessionTypeLower "formal" }}{{ $sessionClass = printf "%s rt-tryout-session-type--formal" $sessionClass }}{{ end }}
-
-
-                <div role="cell" data-label="Session">
-
-
-                  <span class="{{ $sessionClass }}">{{ $sessionType }}</span>
-
-
-                </div>
-                <div role="cell" data-label="Date"><span>{{ .date }}</span></div>
-                <div role="cell" data-label="Time"><span>{{ .time }}</span></div>
-                {{ $directionsUrl := .directions_url | default (printf "https://www.google.com/maps/search/?api=1&query=%s" (.location | urlquery)) }}
-
-                <div role="cell" data-label="Location">
-
-                  <span class="rt-tryout-location-wrap">
-
-                    <span>{{ .location }}</span>
-
-                    <a class="rt-tryout-directions-link" href="{{ $directionsUrl }}" target="_blank" rel="noopener" aria-label="Get directions to {{ .location }}">
-
-                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-
-                        <path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"></path>
-
-                        <path d="M9 3v15"></path>
-
-                        <path d="M15 6v15"></path>
-
-                      </svg>
-
-                      <span class="rt-sr-only">Directions</span>
-
-                    </a>
-
-                  </span>
-
-                </div>
-              </article>
+              {{ if $isPrivateFallback }}
+                <article class="rt-tryout-private-callout" role="row" data-tryout-session data-session-kind="private-fallback" data-search="{{ lower (printf "%s no open evaluations tryouts currently scheduled private tryouts upon request" $group.age_group) }}">
+                  <div role="cell">
+                    <span>No open evaluations or tryouts currently scheduled</span>
+                    <strong>Private Tryouts Upon Request</strong>
+                  </div>
+                </article>
+              {{ else }}
+                <article class="rt-tryout-table__row" role="row" data-tryout-session data-session-kind="posted" data-search="{{ lower (printf "%s %s %s %s %s" $group.age_group $sessionType (.date | default "") (.time | default "") $location) }}">
+                  <div role="cell" data-label="Session">
+                    <span class="{{ $sessionClass }}">{{ $sessionType }}</span>
+                  </div>
+                  <div role="cell" data-label="Date"><span>{{ .date | default "—" }}</span></div>
+                  <div role="cell" data-label="Time"><span>{{ .time | default "—" }}</span></div>
+                  <div role="cell" data-label="Location"><span>{{ $location }}</span></div>
+                  <div role="cell" data-label="Map">
+                    {{ if $directionsUrl }}
+                      <a class="rt-tryout-directions-link" href="{{ $directionsUrl }}" target="_blank" rel="noopener" aria-label="Get directions to {{ $location }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"></path>
+                          <path d="M9 3v15"></path>
+                          <path d="M15 6v15"></path>
+                        </svg>
+                        <span class="rt-sr-only">Directions</span>
+                      </a>
+                    {{ else }}
+                      <span class="rt-tryout-map-empty">—</span>
+                    {{ end }}
+                  </div>
+                </article>
+              {{ end }}
             {{ else }}
-              <article class="rt-tryout-table__row" role="row">
-                <div role="cell" data-label="Session"><span>Schedule coming soon.</span></div>
-                <div role="cell" data-label="Date"><span>—</span></div>
-                <div role="cell" data-label="Time"><span>—</span></div>
-                <div role="cell" data-label="Location"><span>—</span></div>
+              <article class="rt-tryout-private-callout" role="row" data-tryout-session data-session-kind="private-fallback" data-search="{{ lower (printf "%s no open evaluations tryouts currently scheduled private tryouts upon request" $group.age_group) }}">
+                <div role="cell">
+                  <span>No open evaluations or tryouts currently scheduled</span>
+                  <strong>Private Tryouts Upon Request</strong>
+                </div>
               </article>
             {{ end }}
           </div>
         </section>
-      {{ else }}
-        <div class="rt-tryout-empty">Tryout schedule details are coming soon.</div>
+      {{ end }}
+
+      {{ range $data.age_chart.rows }}
+        {{ $age := .age_group }}
+        {{ $hasGroup := false }}
+        {{ range $data.groups }}
+          {{ if eq .age_group $age }}{{ $hasGroup = true }}{{ end }}
+        {{ end }}
+        {{ if not $hasGroup }}
+          <section class="rt-tryout-group" aria-labelledby="tryout-group-{{ $age | urlize }}" data-tryout-group data-age-group="{{ $age }}" data-has-posted="false" data-generated-fallback="true" data-search="{{ lower (printf "%s no open evaluations tryouts currently scheduled private tryouts upon request" $age) }}">
+            <header class="rt-tryout-group__head">
+              <div>
+                <h3 id="tryout-group-{{ $age | urlize }}">{{ $age }}</h3>
+              </div>
+            </header>
+            <div class="rt-tryout-table rt-tryout-table--grouped rt-tryout-table--private-only" role="table" aria-label="{{ $age }} tryout schedule">
+              <article class="rt-tryout-private-callout" role="row" data-tryout-session data-session-kind="private-fallback" data-search="{{ lower (printf "%s no open evaluations tryouts currently scheduled private tryouts upon request" $age) }}">
+                <div role="cell">
+                  <span>No open evaluations or tryouts currently scheduled</span>
+                  <strong>Private Tryouts Upon Request</strong>
+                </div>
+              </article>
+            </div>
+          </section>
+        {{ end }}
       {{ end }}
     </div>
+
+    <aside class="rt-tryout-global-private-callout" data-private-tryout-global>
+      <div>
+        <strong>Private Tryouts Upon Request</strong>
+        <span>Don’t see your player’s age group listed? Private tryouts may be available upon request.</span>
+      </div>
+    </aside>
+
+    <p class="rt-tryout-empty" data-tryout-empty hidden>No tryout sessions match the selected filters.</p>
   </div>
 </section>
+
+<script>
+  (() => {
+    const root = document.querySelector("[data-tryout-filter]");
+    const groups = Array.from(document.querySelectorAll("[data-tryout-group]"));
+    const empty = document.querySelector("[data-tryout-empty]");
+    const globalPrivateCallout = document.querySelector("[data-private-tryout-global]");
+    if (!root || !groups.length) return;
+
+    const ageSelect = root.querySelector("[data-filter-age]");
+    const searchInput = root.querySelector("[data-filter-search]");
+
+    const update = () => {
+      const selectedAge = ageSelect.value;
+      const query = searchInput.value.trim().toLowerCase();
+      const isDefaultView = !selectedAge && !query;
+      let visibleGroups = 0;
+      let privateOnlyCount = 0;
+      let postedCount = 0;
+
+      groups.forEach((group) => {
+        const hasPosted = group.dataset.hasPosted === "true";
+        if (hasPosted) postedCount += 1;
+        if (!hasPosted) privateOnlyCount += 1;
+
+        const sessions = Array.from(group.querySelectorAll("[data-tryout-session]"));
+        const groupSearch = `${group.dataset.search || ""} ${sessions.map((session) => session.dataset.search || "").join(" ")}`.toLowerCase();
+        const ageMatches = !selectedAge || group.dataset.ageGroup === selectedAge;
+        const searchMatches = !query || groupSearch.includes(query);
+
+        // Default view: only show age groups with real posted sessions.
+        // Filtered view: show the selected/searched age group, including private fallback-only groups.
+        const groupVisible = ageMatches && searchMatches && (!isDefaultView || hasPosted);
+        group.hidden = !groupVisible;
+
+        sessions.forEach((session) => {
+          const kind = session.dataset.sessionKind || "posted";
+          session.hidden = !groupVisible || (isDefaultView && kind !== "posted");
+        });
+
+        if (groupVisible) visibleGroups += 1;
+      });
+
+      if (globalPrivateCallout) {
+        // If there are no posted dates at all, the global private notice becomes the main schedule message.
+        // If some posted dates exist, it explains that non-listed age groups can request private tryouts.
+        globalPrivateCallout.hidden = !isDefaultView || privateOnlyCount === 0;
+      }
+
+      if (empty) {
+        empty.hidden = visibleGroups !== 0 || (isDefaultView && privateOnlyCount > 0);
+      }
+    };
+
+    ageSelect.addEventListener("change", update);
+    searchInput.addEventListener("input", update);
+    update();
+  })();
+</script>
+
 
 {{ partial "faq-list.html" (dict
   "id" "tryout-faq"

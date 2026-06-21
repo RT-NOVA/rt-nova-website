@@ -529,3 +529,1038 @@
 .rt-tryout-faq-item {
   box-shadow:none;
 }
+
+
+/* Tryout age-group schedule tables: aligned with the open Schedules page rhythm */
+.rt-tryout-schedule-section {
+  background: var(--rt-cream, #f4f1ea);
+}
+
+.rt-tryout-schedule-section .rt-section-heading {
+  max-width: 860px;
+}
+
+.rt-tryout-groups {
+  gap: clamp(2.25rem, 4vw, 3.4rem);
+}
+
+.rt-tryout-group {
+  gap: 0;
+  border-top: 1px solid rgba(7, 16, 29, 0.12);
+}
+
+.rt-tryout-group__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem;
+  padding: 1.1rem 0 0.9rem;
+  border-bottom: 1px solid rgba(7, 16, 29, 0.1);
+}
+
+.rt-tryout-group__head h3 {
+  letter-spacing: -0.045em;
+}
+
+.rt-tryout-table {
+  border: 0;
+}
+
+.rt-tryout-table__head,
+.rt-tryout-table__row {
+  display: grid;
+  grid-template-columns: 1.45fr 1.3fr 0.95fr minmax(0, 1.6fr) 0.42fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.rt-tryout-table__head {
+  padding: 0.8rem 0 0.5rem;
+  border-bottom: 1px solid rgba(7, 16, 29, 0.08);
+  color: rgba(31, 42, 63, 0.62);
+}
+
+.rt-tryout-table__head span {
+  font-size: 0.64rem;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rt-tryout-table__row {
+  min-height: 0;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(7, 16, 29, 0.08);
+}
+
+.rt-tryout-table__row:last-child {
+  border-bottom: 0;
+}
+
+.rt-tryout-table__row > div {
+  min-width: 0;
+}
+
+.rt-tryout-table__row span {
+  color: var(--rt-muted);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.rt-tryout-session-type {
+  color: var(--rt-orange) !important;
+  font-size: 0.66rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase;
+}
+
+.rt-tryout-session-type--private {
+  color: var(--rt-navy, #07101d) !important;
+}
+
+.rt-tryout-map-empty {
+  color: rgba(31, 42, 63, 0.5) !important;
+}
+
+.rt-tryout-directions-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(7, 16, 29, 0.14);
+  color: var(--rt-navy, #07101d);
+}
+
+.rt-tryout-directions-link:hover,
+.rt-tryout-directions-link:focus-visible {
+  border-color: var(--rt-orange);
+  color: var(--rt-orange);
+  outline: 0;
+}
+
+.rt-tryout-directions-link svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+@media (max-width: 980px) {
+  .rt-tryout-table__head {
+    display: none;
+  }
+
+  .rt-tryout-table {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid rgba(7, 16, 29, 0.08);
+  }
+
+  .rt-tryout-table__row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid rgba(7, 16, 29, 0.08);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .rt-tryout-table__row div {
+    display: grid;
+    grid-template-columns: 115px minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .rt-tryout-table__row div::before {
+    content: attr(data-label);
+    color: var(--rt-orange);
+    font-size: 0.68rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 760px) {
+  .rt-tryout-group__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+
+/* Tryout filter and compact schedule-style sections */
+.rt-tryout-filter-panel {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.35fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: end;
+  margin: 0 0 clamp(1.6rem, 3vw, 2.15rem);
+  padding: 1rem 0;
+  border-top: 1px solid rgba(7, 16, 29, 0.12);
+  border-bottom: 1px solid rgba(7, 16, 29, 0.12);
+}
+
+.rt-tryout-filter-panel label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.rt-tryout-filter-panel label span {
+  color: rgba(31, 42, 63, 0.72);
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rt-tryout-filter-panel select,
+.rt-tryout-filter-panel input {
+  width: 100%;
+  min-height: 2.8rem;
+  border: 0;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.16);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.38);
+  color: #151515;
+  font: inherit;
+  font-weight: 800;
+  padding: 0.65rem 0.2rem;
+}
+
+.rt-tryout-filter-panel select:focus,
+.rt-tryout-filter-panel input:focus {
+  border-bottom-color: var(--rt-orange, #f15a24);
+  box-shadow: 0 2px 0 rgba(241, 90, 36, 0.14);
+  outline: 0;
+}
+
+.rt-tryout-group[hidden],
+.rt-tryout-table__row[hidden],
+.rt-tryout-empty[hidden] {
+  display: none !important;
+}
+
+/* tighter section sizing to match schedules page */
+.rt-tryout-group__head {
+  padding-top: 0.95rem;
+  padding-bottom: 0.8rem;
+}
+
+.rt-tryout-group__head h3 {
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem) !important;
+  line-height: 0.92;
+}
+
+.rt-tryout-table__row {
+  padding: 0.85rem 0 !important;
+}
+
+@media (max-width: 820px) {
+  .rt-tryout-filter-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* v3: make Tryout age-group tables visually match the Schedules page */
+.rt-tryout-schedule-section {
+  background: var(--rt-cream, #f4f1ea) !important;
+}
+
+.rt-tryout-schedule-section > .rt-container,
+.rt-tryout-schedule-section .rt-container {
+  max-width: 1120px;
+}
+
+.rt-tryout-schedule-section .rt-section-heading {
+  max-width: 840px;
+  margin-inline: auto;
+  text-align: left;
+}
+
+.rt-tryout-schedule-section .rt-section-heading--center {
+  text-align: left;
+}
+
+.rt-tryout-schedule-section .rt-section-heading h2 {
+  margin: 0;
+  color: var(--rt-ink, #07101d);
+  font-family: var(--rt-display);
+  font-size: clamp(3.1rem, 7vw, 6.2rem);
+  font-weight: 950;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.rt-tryout-schedule-section .rt-section-heading p:not(.rt-eyebrow) {
+  max-width: 760px;
+  margin: 0.85rem 0 0;
+  color: var(--rt-muted);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.rt-tryout-age-chart {
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  border: 0;
+  border-top: 1px solid rgba(7, 16, 29, 0.12);
+  border-bottom: 1px solid rgba(7, 16, 29, 0.12);
+  background: transparent;
+  box-shadow: none;
+}
+
+.rt-tryout-age-chart summary {
+  padding: 1rem 0;
+}
+
+.rt-tryout-filter-panel {
+  margin: 0 0 clamp(1.6rem, 3vw, 2.25rem) !important;
+  padding: 1rem 0 !important;
+}
+
+.rt-tryout-groups {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem) !important;
+}
+
+.rt-tryout-group {
+  display: grid;
+  gap: 0 !important;
+  border-top: 1px solid rgba(7, 16, 29, 0.12);
+}
+
+.rt-tryout-group__head {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 1rem !important;
+  align-items: end !important;
+  padding: 1.1rem 0 0.9rem !important;
+  border-bottom: 1px solid rgba(7, 16, 29, 0.1) !important;
+}
+
+.rt-tryout-group__head .rt-eyebrow,
+.rt-tryout-group__coach {
+  display: none !important;
+}
+
+.rt-tryout-group__head h3 {
+  margin: 0 !important;
+  color: var(--rt-ink, #07101d) !important;
+  font-family: var(--rt-display) !important;
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-group__head small {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--rt-muted);
+  font-size: 0.88rem;
+  font-weight: 750;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.rt-tryout-table {
+  display: grid !important;
+  border: 0 !important;
+}
+
+.rt-tryout-table__head,
+.rt-tryout-table__row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.55fr) 0.9fr 0.85fr minmax(0, 1.25fr) 0.34fr !important;
+  gap: 1rem !important;
+  align-items: center !important;
+}
+
+.rt-tryout-table__head {
+  padding: 0.8rem 0 0.5rem !important;
+  border-bottom: 1px solid rgba(7, 16, 29, 0.08) !important;
+  color: rgba(31, 42, 63, 0.62) !important;
+}
+
+.rt-tryout-table__head span {
+  font-size: 0.64rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-table__row {
+  min-height: 0 !important;
+  padding: 0.85rem 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(7, 16, 29, 0.08) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.rt-tryout-table__row:last-child {
+  border-bottom: 0 !important;
+}
+
+.rt-tryout-table__row > div {
+  min-width: 0;
+}
+
+.rt-tryout-table__row span {
+  color: var(--rt-muted);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.rt-tryout-session-type {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  color: var(--rt-orange) !important;
+  font-size: 0.66rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+  white-space: normal !important;
+}
+
+.rt-tryout-session-type::before {
+  display: none !important;
+  content: none !important;
+}
+
+.rt-tryout-session-type--private {
+  color: var(--rt-ink, #07101d) !important;
+}
+
+.rt-tryout-map-empty {
+  color: rgba(31, 42, 63, 0.5) !important;
+}
+
+.rt-tryout-directions-link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  border: 1px solid rgba(7, 16, 29, 0.14) !important;
+  background: transparent !important;
+  color: var(--rt-ink, #07101d) !important;
+  box-shadow: none !important;
+}
+
+.rt-tryout-directions-link:hover,
+.rt-tryout-directions-link:focus-visible {
+  border-color: var(--rt-orange) !important;
+  color: var(--rt-orange) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  outline: 0;
+}
+
+@media (max-width: 980px) {
+  .rt-tryout-table__head {
+    display: none !important;
+  }
+
+  .rt-tryout-table {
+    display: grid !important;
+    gap: 0 !important;
+    border-top: 1px solid rgba(7, 16, 29, 0.08) !important;
+  }
+
+  .rt-tryout-table__row {
+    grid-template-columns: 1fr !important;
+    gap: 0.4rem !important;
+    padding: 1rem 0 !important;
+    border-bottom: 1px solid rgba(7, 16, 29, 0.08) !important;
+  }
+
+  .rt-tryout-table__row div {
+    display: grid !important;
+    grid-template-columns: 115px minmax(0, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  .rt-tryout-table__row div::before {
+    content: attr(data-label);
+    color: var(--rt-orange);
+    font-size: 0.68rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+
+/* v6: orange private tryout callout for no scheduled public sessions */
+.rt-tryout-private-callout {
+  display: block !important;
+  padding: clamp(1rem, 2.4vw, 1.25rem) clamp(1rem, 2.4vw, 1.35rem) !important;
+  border: 1px solid rgba(246, 95, 22, 0.65) !important;
+  background:
+    linear-gradient(135deg, rgba(246, 95, 22, 0.96), rgba(201, 74, 15, 0.98)) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 28px rgba(201, 74, 15, 0.18);
+}
+
+.rt-tryout-private-callout div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.rt-tryout-private-callout span {
+  color: rgba(255, 255, 255, 0.84) !important;
+  font-size: 0.78rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.09em !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-private-callout strong {
+  color: #fff !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif);
+  font-size: clamp(1.18rem, 2.2vw, 1.65rem);
+  font-weight: 950;
+  letter-spacing: 0.045em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rt-tryout-private-callout[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  .rt-tryout-private-callout div {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.25rem !important;
+  }
+
+  .rt-tryout-private-callout div::before {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+
+/* v7: multiline private tryout callout refinement */
+.rt-tryout-private-callout {
+  min-height: 7rem;
+  padding: clamp(1.1rem, 2.4vw, 1.45rem) clamp(1rem, 2.4vw, 1.35rem) !important;
+}
+
+.rt-tryout-private-callout > div,
+.rt-tryout-private-callout div[role="cell"] {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+  width: 100%;
+  text-align: center;
+}
+
+.rt-tryout-private-callout span {
+  display: block !important;
+  max-width: 680px;
+  color: rgba(255, 255, 255, 0.86) !important;
+  font-size: clamp(0.72rem, 1.05vw, 0.9rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.25 !important;
+  text-align: center;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-private-callout strong {
+  display: block !important;
+  max-width: 760px;
+  color: #fff !important;
+  font-size: clamp(1.55rem, 3.4vw, 2.55rem) !important;
+  letter-spacing: 0.045em !important;
+  line-height: 0.95 !important;
+  text-align: center;
+}
+
+@media (max-width: 620px) {
+  .rt-tryout-private-callout {
+    min-height: 8rem;
+  }
+
+  .rt-tryout-private-callout span {
+    letter-spacing: 0.1em !important;
+  }
+
+  .rt-tryout-private-callout strong {
+    font-size: clamp(1.35rem, 9vw, 2rem) !important;
+  }
+}
+
+
+/* v8: compact, centered private tryout status notice */
+.rt-tryout-private-callout {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 5.25rem !important;
+  padding: clamp(0.95rem, 1.8vw, 1.2rem) clamp(1rem, 2vw, 1.4rem) !important;
+  border: 1px solid rgba(246, 95, 22, 0.5) !important;
+  background:
+    linear-gradient(135deg, rgba(246, 95, 22, 0.95), rgba(214, 79, 17, 0.97)) !important;
+  box-shadow: 0 10px 20px rgba(201, 74, 15, 0.14) !important;
+}
+
+.rt-tryout-private-callout > div,
+.rt-tryout-private-callout div[role="cell"] {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.32rem !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+.rt-tryout-private-callout span {
+  display: block !important;
+  max-width: 100% !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: clamp(0.68rem, 0.92vw, 0.82rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-private-callout strong {
+  display: block !important;
+  max-width: 100% !important;
+  color: #fff !important;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif);
+  font-size: clamp(1.35rem, 2.35vw, 2rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 0.98 !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+@media (max-width: 620px) {
+  .rt-tryout-private-callout {
+    min-height: 6rem !important;
+    padding: 1rem !important;
+  }
+
+  .rt-tryout-private-callout span {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.09em !important;
+  }
+
+  .rt-tryout-private-callout strong {
+    font-size: clamp(1.2rem, 7.8vw, 1.7rem) !important;
+  }
+}
+
+
+/* v9: definitive centered compact private callout fix */
+.rt-tryout-private-callout {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  place-items: center !important;
+  min-height: 4.85rem !important;
+  padding: 0.95rem 1.15rem !important;
+  border: 1px solid rgba(246, 95, 22, 0.48) !important;
+  background: linear-gradient(135deg, #f15a24, #d94d13) !important;
+  box-shadow: 0 8px 18px rgba(201, 74, 15, 0.12) !important;
+  text-align: center !important;
+}
+
+.rt-tryout-private-callout > div,
+.rt-tryout-private-callout div[role="cell"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  justify-items: center !important;
+  align-items: center !important;
+  gap: 0.28rem !important;
+  width: 100% !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.rt-tryout-private-callout span,
+.rt-tryout-private-callout strong {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  text-align: center !important;
+  white-space: normal !important;
+}
+
+.rt-tryout-private-callout span {
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-family: var(--rt-font-body, inherit) !important;
+  font-size: clamp(0.66rem, 0.84vw, 0.78rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.115em !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-private-callout strong {
+  color: #fff !important;
+  font-family: var(--rt-display, var(--rt-font-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif)) !important;
+  font-size: clamp(1.25rem, 2.05vw, 1.78rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.035em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+}
+
+@media (max-width: 620px) {
+  .rt-tryout-private-callout {
+    min-height: 5.45rem !important;
+    padding: 0.95rem 0.9rem !important;
+  }
+
+  .rt-tryout-private-callout span {
+    font-size: 0.64rem !important;
+    letter-spacing: 0.085em !important;
+  }
+
+  .rt-tryout-private-callout strong {
+    font-size: clamp(1.08rem, 7vw, 1.45rem) !important;
+  }
+}
+
+
+/* v10: resync Schedule Dates section with the rest of the Tryouts page */
+.rt-tryout-schedule-section {
+  padding-top: clamp(4rem, 7vw, 6.25rem) !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading,
+.rt-tryout-schedule-section .rt-section-heading--center {
+  max-width: 940px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: clamp(2rem, 4vw, 3rem) !important;
+  text-align: center !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading .rt-eyebrow,
+.rt-tryout-schedule-section .rt-section-heading--center .rt-eyebrow {
+  text-align: center !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading h2 {
+  max-width: 920px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: var(--rt-ink, #07101d) !important;
+  font-family: var(--rt-display, var(--rt-font-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif)) !important;
+  font-size: clamp(3.4rem, 7.2vw, 6.2rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: -0.055em !important;
+  line-height: 0.9 !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading p:not(.rt-eyebrow),
+.rt-tryout-schedule-section .rt-section-heading--center p:not(.rt-eyebrow),
+.rt-tryout-schedule-section .tryout-schedule-intro {
+  max-width: 820px !important;
+  margin: 1rem auto 0 !important;
+  color: var(--rt-orange, #f15a24) !important;
+  font-size: clamp(1rem, 1.45vw, 1.16rem) !important;
+  font-weight: 900 !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+}
+
+.rt-tryout-schedule-section > .rt-container:not(.rt-section-heading),
+.rt-tryout-schedule-section .rt-section-heading + .rt-container {
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Keep the working-area width consistent below the centered section heading */
+.rt-tryout-age-chart,
+.rt-tryout-filter-panel,
+.rt-tryout-groups,
+.rt-tryout-empty[data-tryout-empty] {
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Restore the controls/content as the schedule-style open layout without affecting the heading */
+.rt-tryout-filter-panel {
+  margin-top: clamp(1.75rem, 3vw, 2.35rem) !important;
+}
+
+.rt-tryout-private-callout {
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (max-width: 760px) {
+  .rt-tryout-schedule-section {
+    padding-top: clamp(3rem, 11vw, 4.25rem) !important;
+  }
+
+  .rt-tryout-schedule-section .rt-section-heading h2 {
+    font-size: clamp(2.9rem, 15vw, 4.25rem) !important;
+  }
+}
+
+
+/* v11: match Schedule Dates heading to the standard Tryouts section heading pattern */
+.rt-tryout-schedule-section .rt-section-heading,
+.rt-tryout-schedule-section .rt-section-heading--center {
+  max-width: 980px !important;
+  text-align: center !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading h2,
+.rt-tryout-schedule-section .rt-section-heading--center h2 {
+  max-width: 980px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-size: clamp(2.9rem, 5.8vw, 5.35rem) !important;
+  letter-spacing: -0.04em !important;
+  line-height: 0.92 !important;
+  text-align: center !important;
+}
+
+.rt-tryout-schedule-section .rt-section-heading p:not(.rt-eyebrow),
+.rt-tryout-schedule-section .rt-section-heading--center p:not(.rt-eyebrow),
+.rt-tryout-schedule-section .tryout-schedule-intro {
+  max-width: 820px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+@media (max-width: 760px) {
+  .rt-tryout-schedule-section .rt-section-heading h2,
+  .rt-tryout-schedule-section .rt-section-heading--center h2 {
+    font-size: clamp(2.65rem, 13vw, 4rem) !important;
+  }
+}
+
+
+/* v12: global private tryout fallback for age groups without posted dates */
+.rt-tryout-table--private-only .rt-tryout-table__head {
+  display: none !important;
+}
+
+.rt-tryout-global-private-callout {
+  display: grid;
+  place-items: center;
+  max-width: 1120px;
+  margin: clamp(1.25rem, 3vw, 2rem) auto 0;
+  padding: clamp(1.15rem, 2.4vw, 1.5rem) clamp(1rem, 2.4vw, 1.4rem);
+  border: 1px solid rgba(246, 95, 22, 0.5);
+  background: linear-gradient(135deg, #f15a24, #d94d13);
+  box-shadow: 0 8px 18px rgba(201, 74, 15, 0.12);
+  color: #fff;
+  text-align: center;
+}
+
+.rt-tryout-global-private-callout[hidden] {
+  display: none !important;
+}
+
+.rt-tryout-global-private-callout > div {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 780px;
+  justify-items: center;
+}
+
+.rt-tryout-global-private-callout strong {
+  color: #fff;
+  font-family: var(--rt-display, var(--rt-font-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif));
+  font-size: clamp(1.45rem, 2.35vw, 2rem);
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rt-tryout-global-private-callout span {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.88rem, 1.1vw, 1rem);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+/* In default all-age view, private-only groups are hidden by JS and this global notice explains why. */
+.rt-tryout-table--private-only .rt-tryout-private-callout {
+  margin-top: 0;
+}
+
+@media (max-width: 620px) {
+  .rt-tryout-global-private-callout {
+    padding: 1rem;
+  }
+
+  .rt-tryout-global-private-callout strong {
+    font-size: clamp(1.2rem, 7vw, 1.55rem);
+  }
+}
+
+
+/* v13: keep posted tryout sections visible while using global private fallback */
+.rt-tryout-group[hidden],
+.rt-tryout-private-callout[hidden],
+.rt-tryout-table__row[hidden],
+.rt-tryout-global-private-callout[hidden],
+.rt-tryout-empty[hidden] {
+  display: none !important;
+}
+
+
+/* v14: rebuilt tryouts filter behavior and fallback display */
+.rt-tryout-group[hidden],
+.rt-tryout-table__row[hidden],
+.rt-tryout-private-callout[hidden],
+.rt-tryout-global-private-callout[hidden],
+.rt-tryout-empty[hidden] {
+  display: none !important;
+}
+
+.rt-tryout-table--private-only .rt-tryout-table__head {
+  display: none !important;
+}
+
+
+/* v15: restore distinct session-type colors for scannability */
+.rt-tryout-session-type {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  padding: 0.28rem 0.45rem !important;
+  border-left: 3px solid currentColor !important;
+  background: rgba(7, 16, 29, 0.045) !important;
+  color: var(--rt-navy, #07101d) !important;
+  font-size: 0.68rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.15 !important;
+  text-transform: uppercase !important;
+  white-space: normal !important;
+}
+
+.rt-tryout-session-type::before {
+  display: none !important;
+  content: none !important;
+}
+
+.rt-tryout-session-type--formal {
+  background: rgba(7, 16, 29, 0.065) !important;
+  color: var(--rt-navy, #07101d) !important;
+}
+
+.rt-tryout-session-type--open {
+  background: rgba(246, 95, 22, 0.11) !important;
+  color: var(--rt-orange, #f15a24) !important;
+}
+
+.rt-tryout-session-type--private {
+  background: rgba(107, 114, 128, 0.1) !important;
+  color: var(--rt-muted, #6b7280) !important;
+}
+
+/* Optional row tint reinforces the session type without making the table busy. */
+.rt-tryout-table__row:has(.rt-tryout-session-type--formal) {
+  background: linear-gradient(90deg, rgba(7, 16, 29, 0.035), transparent 55%) !important;
+}
+
+.rt-tryout-table__row:has(.rt-tryout-session-type--open) {
+  background: linear-gradient(90deg, rgba(246, 95, 22, 0.07), transparent 55%) !important;
+}
+
+@supports not selector(:has(*)) {
+  .rt-tryout-table__row {
+    background: transparent !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .rt-tryout-session-type {
+    padding: 0.22rem 0.38rem !important;
+  }
+}
+
+
+/* v16: session type text only, no shaded rows or badges */
+.rt-tryout-session-type,
+.rt-tryout-session-type--formal,
+.rt-tryout-session-type--open,
+.rt-tryout-session-type--private {
+  display: inline !important;
+  width: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-left: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 0.72rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+.rt-tryout-session-type::before,
+.rt-tryout-session-type::after {
+  display: none !important;
+  content: none !important;
+}
+
+.rt-tryout-session-type--formal {
+  color: var(--rt-orange, #f15a24) !important;
+}
+
+.rt-tryout-session-type--open {
+  color: var(--rt-ink, #07101d) !important;
+}
+
+.rt-tryout-session-type--private {
+  color: var(--rt-muted, #6b7280) !important;
+}
+
+.rt-tryout-table__row,
+.rt-tryout-table__row:has(.rt-tryout-session-type--formal),
+.rt-tryout-table__row:has(.rt-tryout-session-type--open),
+.rt-tryout-table__row:has(.rt-tryout-session-type--private) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
