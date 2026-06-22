@@ -4,7 +4,7 @@ Reworks `/watch-now/` into a current-team live media hub.
 
 ## Content source
 
-The older TeamLinkt page positioned Watch Now as a place for live games, highlights, team updates, archived video, and streaming content through GameChanger and program media sources.
+The older legacy site page positioned Watch Now as a place for live games, highlights, team updates, archived video, and streaming content through GameChanger and program media sources.
 
 ## Behavior
 

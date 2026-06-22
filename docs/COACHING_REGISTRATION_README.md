@@ -17,7 +17,7 @@ Adds a modern `/coaching-registration/` page styled to match the existing `becom
 
 ## Link updates
 
-- `data/coaching_opportunities.yaml` now sends all Coaching Opportunities `Apply Now` buttons to `/coaching-registration/` instead of the old external TeamLinkt form.
+- `data/coaching_opportunities.yaml` now sends all Coaching Opportunities `Apply Now` buttons to `/coaching-registration/` instead of the old external legacy site form.
 - `data/coaches.yaml` now points the Coaches page CTA directly to `/coaching-registration/`.
 - The Coaching Registration page front matter includes `opportunities_url: "/coaching-opportunities/"` for future cross-linking if needed.
 

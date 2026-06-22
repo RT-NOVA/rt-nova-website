@@ -24,7 +24,7 @@ dark contact section
 orange CTA band
 ```
 
-The old TeamLinkt Booster Club page content was migrated into the new site style. The content focuses on:
+The old legacy site Booster Club page content was migrated into the new site style. The content focuses on:
 
 ```text
 Booster Club mission

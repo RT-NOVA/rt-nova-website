@@ -6,7 +6,7 @@ spring:
     sort_order: 870
     head_coach: Chris Cheshire
     coach_role: Head Coach
-    coach_photo: /images/teamlinkt/2025_coach_cheshire_crop5.png
+    coach_photo: /images/program-media/2025_coach_cheshire_crop5.png
     record: —
     links:
     - label: Facebook
@@ -23,7 +23,7 @@ spring:
     sort_order: 871
     head_coach: Tim Jacoby
     coach_role: Head Coach
-    coach_photo: /images/teamlinkt/2025_coach_jacoby_crop2.jpg
+    coach_photo: /images/program-media/2025_coach_jacoby_crop2.jpg
     record: —
     links:
     - label: Facebook
@@ -40,7 +40,7 @@ spring:
     sort_order: 890
     head_coach: Ken Torres
     coach_role: Head Coach
-    coach_photo: /images/teamlinkt/2025-coach-torres-crop2.jpg
+    coach_photo: /images/program-media/2025-coach-torres-crop2.jpg
     record: —
     links:
     - label: Facebook
@@ -53,15 +53,6 @@ spring:
       url: https://rawlingstigersnova.com/leagues/team/28092/781691#schedule
     - label: GameChanger
       url: https://web.gc.com/teams/i57MoYP9I6Sn/2026-spring-rawlings-tigers-nova-11u/team
-  - name: 10U
-    sort_order: 900
-    head_coach: Brandon Cleveland
-    coach_role: Head Coach
-    coach_photo: /images/teamlinkt/coach-cleveland-temp.png
-    record: —
-    links:
-    - label: Roster
-      url: /rosters/2027-10u/
 fall:
   label: Fall 2025
   empty_text: Teams coming soon.
@@ -70,7 +61,7 @@ fall:
     sort_order: 870
     head_coach: Chris Cheshire
     coach_role: Head Coach
-    coach_photo: /images/teamlinkt/2025_coach_cheshire_crop5.png
+    coach_photo: /images/program-media/2025_coach_cheshire_crop5.png
     record: 11-13
     links:
     - label: Roster
@@ -79,7 +70,7 @@ fall:
     sort_order: 890
     head_coach: Ken Torres
     coach_role: Head Coach
-    coach_photo: /images/teamlinkt/2025-coach-torres-crop2.jpg
+    coach_photo: /images/program-media/2025-coach-torres-crop2.jpg
     record: 12-11-1
     links:
     - label: Roster

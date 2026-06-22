@@ -11,7 +11,7 @@ hero:
   secondary:
     label: Become A Tiger
     url: /become-a-tiger/
-  image: /images/teamlinkt/homepage-team-hero.png
+  image: /images/program-media/homepage-team-hero.png
 
 pillars:
   - title: Player Development

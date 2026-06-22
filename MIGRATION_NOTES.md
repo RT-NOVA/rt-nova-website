@@ -17,13 +17,13 @@ The main visual system now lives in `assets/css/main.css`, with shared page shel
 Team, coach, accolade, player-highlight, and age-chart images are stored locally under:
 
 ```text
-static/images/teamlinkt/
+static/images/program-media/
 ```
 
 Active pages should reference them with root-relative paths like:
 
 ```text
-/images/teamlinkt/example-file.png
+/images/program-media/example-file.png
 ```
 
 These paths work correctly with Cloudflare Pages and GitHub Pages when the site is deployed at the root of the custom domain.
@@ -39,7 +39,7 @@ Run this before deploying:
 Optional manual source check:
 
 ```bash
-grep -R "cdn-app\.teamlinkt\.com" -n . --exclude-dir=.git --exclude-dir=public
+grep -R "/images/program-media/" -n data content layouts docs --exclude-dir=.git
 ```
 
 No source file matches should be returned.

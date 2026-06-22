@@ -26,4 +26,4 @@ Common updates include:
 
 ## Design notes
 
-The page intentionally uses the new RT NOVA Hugo design system. Content was adapted from the old TeamLinkt Family Hub page, but the old expand/collapse layout was not copied.
+The page intentionally uses the new RT NOVA Hugo design system. Content was adapted from the old legacy site Family Hub page, but the old expand/collapse layout was not copied.

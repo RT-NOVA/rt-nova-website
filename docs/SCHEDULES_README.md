@@ -19,7 +19,7 @@ Adds a searchable `/schedules/` page using local data only.
 - Search can find team names, opponents, locations, and event titles from local schedule data.
 - Each team shows up to three game/tournament entries by default.
 - Selecting a team or searching can reveal additional matching events.
-- No Roster, GameChanger, TeamLinkt, or other external schedule links are rendered.
+- No Roster, GameChanger, legacy site, or other external schedule links are rendered.
 
 ## Local schedule data
 
