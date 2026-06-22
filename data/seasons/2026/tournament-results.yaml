@@ -1,56 +1,56 @@
 achievements:
 # 13U Black
 - id: 2026-13u-black-march-mania-runner-up
-  date: '2026-03-15'
+  date: '2026-03-21'
   year: '2026'
   season: Spring
   team: 13U Black
-  tournament: March Mania
+  tournament: USSSA March Mania
   result: Runner-Up
   logo: /images/accolades/tournament-logos/march-mania-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
 - id: 2026-13u-black-cap-city-showdown-runner-up
-  date: '2026-04-20'
+  date: '2026-04-11'
   year: '2026'
   season: Spring
   team: 13U Black
-  tournament: Cap City Showdown
+  tournament: USSSA Cap City Showdown
   result: Runner-Up
   logo: /images/accolades/tournament-logos/cap-city-showdown-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
 - id: 2025-13u-black-october-bash-champions
-  date: '2025-10-01'
+  date: '2025-10-04'
   year: '2025'
   season: Fall
   team: 13U Black
-  tournament: October Bash
+  tournament: TCS October Bash
   result: Champions
   logo: /images/accolades/tournament-logos/october-bash-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
 - id: 2025-13u-black-back-to-school-champions
-  date: '2025-09-01'
+  date: '2025-09-11'
   year: '2025'
   season: Fall
   team: 13U Black
-  tournament: Back to School
+  tournament: ATBA Back To School Tourney
   result: Champions
   logo: /images/accolades/tournament-logos/back-to-school-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
 - id: 2026-13u-black-battleground-classic-runner-up
-  date: '2026-05-01'
+  date: '2026-06-06'
   year: '2026'
   season: Spring
   team: 13U Black
-  tournament: Battleground Classic
+  tournament: 6th Annual Battleground Classic
   result: RUNNER-UP
   logo: /images/accolades/tournament-logos/battleground-classic-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
 
 # 13U Orange
 - id: 2025-13u-orange-tcs-nova-bat-wars-runner-up
-  date: '2025-10-15'
-  year: '2025'
-  season: Fall
+  date: '2026-05-02'
+  year: '2026'
+  season: Spring
   team: 13U Orange
   tournament: TCS NOVA Bat Wars
   result: Runner-Up
@@ -58,9 +58,9 @@ achievements:
   template: /images/accolades/blank-white-hanging-banner.svg
 
 # 11U
-- id: 2026-10u-team-award
-  date: '2026-04-01'
-  year: '2026'
+- id: 2026-11u-fire-ice-champions
+  date: '2025-09-06'
+  year: '2025'
   season: Spring
   team: 11U
   tournament: USSSA Fire & Ice
