@@ -51,15 +51,15 @@ outdoor:
     note: Woodbridge-area baseball field location used when team schedules and field
       availability align.
     map_url: https://www.google.com/maps/search/?api=1&query=Neabsco+Eagles+Field+15801+Neabsco+Road+Woodbridge+VA+22191
-#  - name: Dale City Recreation Center
-#    field: Dale City Community Park, Baseball Field 2
-#    area: Dale City, VA
-#    address: 14298 Minnieville Rd, Woodbridge, VA 22193
-#    use: Outdoor practices, workouts, and team development sessions
-#    season: Spring / Summer / Fall
-#    note: Woodbridge-area baseball field location used when team schedules and field
-#      availability align.
-#    map_url: https://maps.app.goo.gl/hRrA91874YXxpUH28
+  - name: Dale City Recreation Center
+    field: Dale City Community Park, Baseball Field 2
+    area: Dale City, VA
+    address: 14298 Minnieville Rd, Woodbridge, VA 22193
+    use: Outdoor practices, workouts, and team development sessions
+    season: Spring / Summer / Fall
+    note: Woodbridge-area baseball field location used when team schedules and field
+      availability align.
+    map_url: https://maps.app.goo.gl/hRrA91874YXxpUH28
 winter:
   eyebrow: Winter Training
   title: Indoor work at D-BAT and Metro Baseball
