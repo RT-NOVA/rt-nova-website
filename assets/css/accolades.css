@@ -1281,3 +1281,120 @@
   line-height: 0.92 !important;
   text-transform: uppercase !important;
 }
+
+
+/* Tournament Results readability pass
+   - Adds subtle warm containment around each team group
+   - Reduces excess vertical whitespace
+   - Pulls achievement counts closer to the team heading
+   - Gives achievement items a slightly larger, easier-to-scan presence
+*/
+.accolades-team-section {
+  background:linear-gradient(180deg, #fff 0%, #fbf7ef 100%);
+}
+
+.accolades-team-section .accolades-block-head {
+  margin-bottom:clamp(1.4rem, 3vw, 2.25rem) !important;
+}
+
+.accolades-current-team-list {
+  gap:clamp(1.25rem, 2.5vw, 1.8rem);
+}
+
+.accolades-current-team-card {
+  padding:clamp(1rem, 2.2vw, 1.55rem);
+  border:1px solid rgba(7, 16, 29, .07);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(250,247,241,.74), rgba(255,255,255,.9));
+  box-shadow:0 16px 36px rgba(7,16,29,.045);
+}
+
+.accolades-current-team-card > header {
+  justify-content:flex-start;
+  align-items:end;
+  flex-wrap:wrap;
+  column-gap:.85rem;
+  row-gap:.5rem;
+  padding:0 0 .75rem;
+  border-bottom:1px solid rgba(7,16,29,.1);
+}
+
+.accolades-current-team-card > header strong {
+  align-self:center;
+  margin-left:.15rem;
+  padding:.32rem .52rem .28rem;
+  border:1px solid rgba(168,66,32,.18);
+  border-radius:999px;
+  background:rgba(255,255,255,.58);
+  color:var(--rt-orange-dark);
+  font-size:.64rem;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.accolades-current-team-card .accolades-team-banner-grid {
+  max-width:920px;
+  margin:0 auto;
+  gap:clamp(.8rem, 1.8vw, 1.15rem);
+  padding:clamp(.95rem, 2vw, 1.3rem) 0 .15rem;
+}
+
+.accolades-current-team-card .accolades-team-banner {
+  padding:.7rem .85rem .8rem;
+  border:1px solid rgba(7,16,29,.055);
+  border-radius:16px;
+  background:rgba(255,255,255,.54);
+  transition:background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.accolades-current-team-card .accolades-team-banner:hover {
+  background:rgba(255,255,255,.78);
+  box-shadow:0 10px 22px rgba(7,16,29,.05);
+  transform:translateY(-1px);
+}
+
+.accolades-current-team-card .accolades-team-banner figure {
+  width:110px;
+  height:84px;
+}
+
+.accolades-current-team-card .accolades-team-banner span {
+  font-size:.7rem;
+}
+
+.accolades-current-team-card .accolades-team-banner strong {
+  font-size:clamp(1rem, 1.35vw, 1.12rem);
+}
+
+.accolades-current-team-card .accolades-team-banner em {
+  color:rgba(31,42,63,.74);
+  font-size:.76rem;
+  font-weight:950;
+}
+
+.accolades-current-team-card .accolades-team-carousel-controls {
+  padding:.8rem 0 0;
+}
+
+@media (max-width: 760px) {
+  .accolades-current-team-card {
+    padding:1rem;
+    border-radius:16px;
+  }
+
+  .accolades-current-team-card > header {
+    align-items:flex-start;
+  }
+
+  .accolades-current-team-card .accolades-team-banner {
+    align-items:center;
+    flex-direction:row;
+    text-align:left;
+  }
+
+  .accolades-current-team-card .accolades-team-banner figure {
+    width:84px;
+    height:66px;
+    flex:0 0 84px;
+  }
+}

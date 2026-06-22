@@ -30,3 +30,8 @@ Fixed the Hugo template scope bug in the winter facility logo block. The templat
 - Removed `Facility Info` links from outdoor field cards while keeping map links.
 - Added Veterans Community Center to the winter training facilities using the same Veterans Memorial Park address.
 - Made the D-BAT logo presentation transparent instead of sitting on a white logo card.
+
+## Outdoor field grid
+
+- Outdoor section title is `Outdoor Field Locations`.
+- Outdoor cards use a responsive grid: 3 cards render in one row on desktop; 4 cards render in a 2x2 pattern.

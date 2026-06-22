@@ -45,3 +45,8 @@ Cmd + Shift + R
 rg -n 'blank-white-hanging-banner|accolades-overlay-banner|tournament-logos|banner_wall' data/accolades.yaml layouts/partials/page-accolades.html assets/css/accolades.css
 ls -l static/images/accolades/tournament-logos/
 ```
+
+## Training Locations outdoor grid
+
+- Renamed `Woodbridge Outdoor Field Locations` to `Outdoor Field Locations`.
+- Updated outdoor location cards so 3 cards fit in one desktop row and 4 cards form a 2x2 desktop grid.
