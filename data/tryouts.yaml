@@ -32,19 +32,19 @@ evaluation_areas:
   text: Players who are eager to improve, compete with energy, support their teammates,
     and are prepared to play at a high level.
 groups:
-- age_group: 14U
-  coach: 'Black: Chris Cheshire · Orange: Tim Jacoby'
-  sessions:
-  - type: Formal Tryout
-    date: —
-    time: —
-    location: —
-    directions_url:
-  - type: Open Evaluations
-    date: —
-    time: —
-    location: —
-    directions_url:
+#- age_group: 14U
+#  coach: 'Black: Chris Cheshire · Orange: Tim Jacoby'
+#  sessions:
+#  - type: Formal Tryout
+#    date: —
+#    time: —
+#    location: —
+#    directions_url:
+#  - type: Open Evaluations
+#    date: —
+#    time: —
+#    location: —
+#    directions_url:
 #- age_group: 13U
 #  coach: Jose Acosta
 #  sessions:

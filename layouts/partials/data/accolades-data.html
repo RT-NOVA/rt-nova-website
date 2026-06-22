@@ -9,10 +9,33 @@
   {{ with $seasonData }}
     {{ with (index . "tournament-results") }}
       {{ range (.achievements | default slice) }}
+        {{ $rawTerm := string (.season | default "") }}
+        {{ $termKey := lower $rawTerm }}
+        {{ $termLabel := "" }}
+        {{ $teamName := .team | default "" }}
+        {{ $teamSlug := urlize $teamName }}
+
+        {{ with $seasonData.teams }}
+          {{ with (index . $termKey) }}
+            {{ $termLabel = .label | default "" }}
+          {{ end }}
+        {{ end }}
+
+        {{ if not $termLabel }}
+          {{ if $rawTerm }}
+            {{ $termLabel = printf "%s %s" $rawTerm (.year | default $seasonMeta.id) }}
+          {{ else }}
+            {{ $termLabel = $seasonMeta.label }}
+          {{ end }}
+        {{ end }}
+
         {{ $achievement := merge . (dict
           "season_id" $seasonMeta.id
           "season_label" $seasonMeta.label
           "season_status" $seasonMeta.status
+          "term_key" $termKey
+          "term_label" $termLabel
+          "team_group_key" (printf "%s--%s--%s" $seasonMeta.id $termKey $teamSlug)
         ) }}
         {{ $scratch.Add "achievements" (slice $achievement) }}
       {{ end }}
@@ -20,10 +43,35 @@
 
     {{ with (index . "player-honors") }}
       {{ range (.player_honors | default slice) }}
+        {{ $honorYear := string (.year | default $seasonMeta.id) }}
+        {{ $rawHonorTerm := string (.season | default (.term | default "")) }}
+        {{ $honorTermKey := lower $rawHonorTerm }}
+        {{ $honorTermLabel := "" }}
+
+        {{ if not $honorTermKey }}
+          {{ if eq $honorYear (string $seasonMeta.id) }}
+            {{ $honorTermKey = "spring" }}
+          {{ else }}
+            {{ $honorTermKey = "fall" }}
+          {{ end }}
+        {{ end }}
+
+        {{ with $seasonData.teams }}
+          {{ with (index . $honorTermKey) }}
+            {{ $honorTermLabel = .label | default "" }}
+          {{ end }}
+        {{ end }}
+
+        {{ if not $honorTermLabel }}
+          {{ $honorTermLabel = printf "%s %s" (title $honorTermKey) $honorYear }}
+        {{ end }}
+
         {{ $honor := merge . (dict
           "season_id" $seasonMeta.id
           "season_label" $seasonMeta.label
           "season_status" $seasonMeta.status
+          "term_key" $honorTermKey
+          "term_label" $honorTermLabel
         ) }}
         {{ $scratch.Add "playerHonors" (slice $honor) }}
       {{ end }}

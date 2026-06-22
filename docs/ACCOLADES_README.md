@@ -123,3 +123,15 @@ Team dropdowns now sort older age groups first, such as 13U before 10U, and the 
 ### Older-age team display order
 
 Team Results sections and Player Honors cards are reordered client-side so older age groups display first on the page, matching the filter dropdown order.
+
+### Year-based season filtering
+
+Tournament Results and Player Honors use year-based season filters from `data/seasons/index.yaml`:
+
+- `Current Season`
+- `All Seasons`
+- Individual season labels such as `2026 Season` and `2025 Season`
+
+Filtering is based on `season_id + team`. Spring and Fall terms may still appear on individual cards, but they are not used as top-level visible grouping or filter categories.
+
+When `All Seasons` is selected, repeated team names are disambiguated in the Team dropdown with the season label, such as `13U Black — 2026 Season`.

@@ -203,7 +203,7 @@
 /* Search controls */
 .accolades-filter-panel {
   display:grid;
-  grid-template-columns:minmax(10rem,.65fr) minmax(18rem,1.35fr);
+  grid-template-columns:minmax(9rem,.55fr) minmax(10rem,.65fr) minmax(18rem,1.35fr);
   gap:.75rem;
   margin-bottom:1rem;
   padding:1rem;
@@ -1396,5 +1396,369 @@
     width:84px;
     height:66px;
     flex:0 0 84px;
+  }
+}
+
+/* Show the season directly under each Tournament Results team name. */
+.accolades-current-team-card > header .accolades-current-team-card__season {
+  margin:.38rem 0 0;
+  color:rgba(31,42,63,.68);
+  letter-spacing:.16em;
+}
+
+/* Keep the Tournament Results season label visibly stacked under the team name. */
+.accolades-current-team-card > header .accolades-current-team-card__heading {
+  display:flex;
+  flex:1 1 auto;
+  min-width:0;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.accolades-current-team-card > header .accolades-current-team-card__status {
+  display:block;
+  margin:0 0 .34rem;
+}
+
+.accolades-current-team-card > header .accolades-current-team-card__season {
+  display:block !important;
+  margin:.42rem 0 0 !important;
+  color:rgba(31,42,63,.7) !important;
+  font-size:.66rem !important;
+  font-weight:950 !important;
+  letter-spacing:.16em !important;
+  line-height:1.1 !important;
+  text-transform:uppercase !important;
+}
+
+/* Player Honors team/season browsing: keep the open cream-background feel. */
+.accolades-player-team-list {
+  display:grid;
+  gap:2.4rem;
+}
+
+.accolades-player-team-card {
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.accolades-player-team-card[hidden] {
+  display:none;
+}
+
+.accolades-player-team-card > header {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:1rem;
+  padding:0 0 .85rem;
+  border-bottom:1px solid rgba(5,5,5,.08);
+  background:transparent;
+}
+
+.accolades-player-team-card > header span {
+  display:block;
+  margin:0 0 .35rem;
+  color:var(--rt-muted);
+  font-size:.64rem;
+  font-weight:950;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.accolades-player-team-card > header h3 {
+  margin:0;
+  color:#151515;
+  font-family:var(--rt-display);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:950;
+  letter-spacing:-.055em;
+  line-height:.92;
+  text-transform:uppercase;
+}
+
+.accolades-player-team-card > header em {
+  display:block;
+  margin-top:.42rem;
+  color:var(--rt-muted);
+  font-size:.72rem;
+  font-style:normal;
+  font-weight:950;
+  letter-spacing:.18em;
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.accolades-player-team-card > header strong {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:.35rem;
+  padding:.35rem .7rem;
+  border:1px solid rgba(199,77,31,.2);
+  border-radius:999px;
+  color:var(--rt-orange-dark);
+  background:rgba(255,255,255,.46);
+  font-size:.7rem;
+  font-weight:950;
+  letter-spacing:.14em;
+  line-height:1;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.accolades-player-team-card .accolades-player-grid,
+.accolades-player-team-card .accolades-player-grid--free {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:flex-start;
+  gap:1.6rem;
+  padding:1.65rem 0 0;
+}
+
+.accolades-player-team-card .accolades-player-card,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card {
+  flex:0 1 260px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  min-height:auto;
+  padding:0;
+  text-align:center;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+
+.accolades-player-team-card .accolades-player-card[hidden] {
+  display:none;
+}
+
+.accolades-player-team-card .accolades-player-card figure,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card figure {
+  width:150px;
+  height:150px;
+  margin:0 auto;
+  display:grid;
+  place-items:center;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  overflow:visible;
+}
+
+.accolades-player-team-card .accolades-player-card img,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.accolades-player-team-card .accolades-player-card div,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card div {
+  display:block;
+  min-width:0;
+  margin-top:.2rem;
+}
+
+.accolades-player-team-card .accolades-player-card strong,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card strong {
+  color:#151515;
+  display:block;
+  font-family:var(--rt-display);
+  font-size:clamp(1rem,1.45vw,1.25rem);
+  font-weight:950;
+  letter-spacing:.07em;
+  line-height:1.05;
+  text-transform:uppercase;
+}
+
+.accolades-player-team-card .accolades-player-card span,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card span {
+  color:var(--rt-orange-dark);
+  display:block;
+  font-size:.68rem;
+  font-weight:950;
+  letter-spacing:.1em;
+  line-height:1.2;
+  margin-top:.45rem;
+  text-transform:uppercase;
+}
+
+.accolades-player-team-card .accolades-team-carousel-controls {
+  margin-top:.4rem;
+}
+
+@media (max-width: 760px) {
+  .accolades-player-team-card > header {
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .accolades-player-team-card .accolades-player-card,
+  .accolades-player-team-card .accolades-player-grid--free .accolades-player-card {
+    flex-basis:100%;
+  }
+
+  .accolades-player-team-card .accolades-player-card figure,
+  .accolades-player-team-card .accolades-player-grid--free .accolades-player-card figure {
+    width:136px;
+    height:136px;
+  }
+}
+
+/* Player Honors carousel spacing: keep the open cream layout while preventing image/text/control overlap. */
+.accolades-player-team-card .accolades-player-grid--free {
+  gap:1.65rem;
+  padding-bottom:1.05rem;
+}
+
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card {
+  gap:1.25rem;
+  padding-bottom:.45rem;
+}
+
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card figure {
+  margin-bottom:.35rem;
+}
+
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card div {
+  display:block;
+  margin-top:.15rem;
+}
+
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card strong,
+.accolades-player-team-card .accolades-player-grid--free .accolades-player-card span {
+  position:relative;
+  z-index:1;
+}
+
+.accolades-player-team-card .accolades-player-carousel-controls {
+  margin-top:.35rem;
+  padding-top:.45rem;
+  padding-bottom:1.35rem;
+}
+
+@media (max-width: 760px) {
+  .accolades-player-team-card .accolades-player-grid--free {
+    gap:1.95rem;
+  }
+
+  .accolades-player-team-card .accolades-player-carousel-controls {
+    flex-wrap:wrap;
+    row-gap:.35rem;
+  }
+}
+
+/* Tournament Results: open text-only treatment, matching the airy Player Honors feel. */
+.accolades-current-team-card {
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.accolades-current-team-card > header {
+  padding:0 0 .85rem;
+  border-bottom:1px solid rgba(5,5,5,.08);
+  background:transparent;
+}
+
+.accolades-current-team-card .accolades-team-banner-grid {
+  padding:1.15rem 0 0;
+}
+
+.accolades-current-team-card .accolades-team-banner {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:.35rem;
+  min-height:0;
+  padding:.2rem .5rem 0;
+  text-align:center;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.accolades-current-team-card .accolades-team-banner figure {
+  display:none;
+}
+
+.accolades-current-team-card .accolades-team-banner div {
+  min-width:0;
+}
+
+.accolades-current-team-card .accolades-team-banner span {
+  margin:0 0 .28rem;
+}
+
+.accolades-current-team-card .accolades-team-banner em {
+  margin-top:.34rem;
+}
+
+/* Tournament Results logo visibility fix
+   The open text layout keeps the airy Player Honors feel, but logos should remain visible. */
+.accolades-current-team-card .accolades-team-banner figure {
+  display:flex !important;
+  width:96px;
+  height:72px;
+  margin:0 auto .35rem;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  background:transparent;
+  border:0;
+  overflow:visible;
+}
+
+.accolades-current-team-card .accolades-team-banner img {
+  display:block !important;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  margin:auto;
+}
+
+@media (max-width: 760px) {
+  .accolades-current-team-card .accolades-team-banner figure {
+    width:84px;
+    height:64px;
+    flex:0 0 84px;
+    margin:0;
+  }
+}
+
+/* Tournament Results carousel row centering
+   Match Player Honors behavior: 1 card centered, 2 cards centered as a pair, 3 cards as a full row. */
+.accolades-current-team-card .accolades-team-banner-grid {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:flex-start;
+  gap:clamp(1.15rem, 2.4vw, 2rem);
+  max-width:960px;
+  margin:0 auto;
+}
+
+.accolades-current-team-card .accolades-team-banner {
+  flex:0 1 280px;
+  max-width:300px;
+}
+
+@media (max-width: 760px) {
+  .accolades-current-team-card .accolades-team-banner-grid {
+    gap:1.45rem;
+  }
+
+  .accolades-current-team-card .accolades-team-banner {
+    flex:0 1 100%;
+    max-width:360px;
   }
 }

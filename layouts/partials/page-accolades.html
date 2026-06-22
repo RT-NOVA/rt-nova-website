@@ -116,6 +116,16 @@
 
     <div class="accolades-filter-panel" data-team-achievement-filter>
       <label>
+        <span>Season</span>
+        <select data-filter-season>
+          <option value="current">Current Season</option>
+          <option value="all">All Seasons</option>
+          {{ range $teamsData.seasons }}
+            <option value="{{ .id }}">{{ .label }}</option>
+          {{ end }}
+        </select>
+      </label>
+      <label>
         <span>Team</span>
         <select data-filter-team>
           <option value="">All Current Teams</option>
@@ -128,60 +138,79 @@
     </div>
 
     <div class="accolades-current-team-list" aria-label="Current team achievements">
-      {{ range $teamName := $allAchievementTeamNames }}
-        {{ $teamAchievementsScratch := newScratch }}
-        {{ $teamAchievementsScratch.Set "items" (slice) }}
+      {{ range $season := $teamsData.seasons }}
+        {{ $seasonID := string $season.id }}
+        {{ $seasonLabel := $season.label | default (printf "%s Season" $seasonID) }}
+        {{ $seasonTeamScratch := newScratch }}
+        {{ $seasonTeamScratch.Set "names" (slice) }}
         {{ range $achievement := $achievements }}
-          {{ if eq $achievement.team $teamName }}
-            {{ $teamAchievementsScratch.Add "items" (slice $achievement) }}
+          {{ if and (eq (string $achievement.season_id) $seasonID) $achievement.team (not (in ($seasonTeamScratch.Get "names") $achievement.team)) }}
+            {{ $seasonTeamScratch.Add "names" (slice $achievement.team) }}
           {{ end }}
         {{ end }}
-        {{ $teamAchievements := $teamAchievementsScratch.Get "items" }}
-        {{ $isCurrentTeam := in $currentTeamNames $teamName }}
-        {{ with $teamAchievements }}
-          {{ $achievementCount := len . }}
-          <section class="accolades-current-team-card"
-            data-team-group
-            data-team="{{ $teamName }}"
-            data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
-            data-team-page="0"
-            data-search="{{ lower (printf "%s %s" $teamName $currentYear) }}">
-            <header>
-              <div>
-                <span>{{ if $isCurrentTeam }}Current Team{{ else }}Team History{{ end }}</span>
-                <h3>{{ $teamName }}</h3>
+        {{ range $teamName := ($seasonTeamScratch.Get "names") }}
+          {{ $teamAchievementsScratch := newScratch }}
+          {{ $teamAchievementsScratch.Set "items" (slice) }}
+          {{ range $achievement := $achievements }}
+            {{ if and (eq (string $achievement.season_id) $seasonID) (eq $achievement.team $teamName) }}
+              {{ $teamAchievementsScratch.Add "items" (slice $achievement) }}
+            {{ end }}
+          {{ end }}
+          {{ $teamAchievements := $teamAchievementsScratch.Get "items" }}
+          {{ $isCurrentSeason := eq $seasonID $currentYear }}
+          {{ $isCurrentTeam := and $isCurrentSeason (in $currentTeamNames $teamName) }}
+          {{ with $teamAchievements }}
+            {{ $achievementCount := len . }}
+            <section class="accolades-current-team-card"
+              data-team-group
+              data-season="{{ $seasonID }}"
+              data-season-label="{{ $seasonLabel }}"
+              data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
+              data-team="{{ $teamName }}"
+              data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
+              data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
+              data-team-page="0"
+              data-search="{{ lower (printf "%s %s %s" $teamName $seasonID $seasonLabel) }}">
+              <header>
+                <div class="accolades-current-team-card__heading">
+                  <span class="accolades-current-team-card__status">{{ if $isCurrentTeam }}Current Team{{ else }}Team History{{ end }}</span>
+                  <h3>{{ $teamName }}</h3>
+                  <span class="accolades-current-team-card__season">{{ $seasonLabel }}</span>
+                </div>
+                <strong>{{ $achievementCount }} {{ cond (eq $achievementCount 1) "achievement" "achievements" }}</strong>
+              </header>
+
+              <div class="accolades-team-banner-grid" data-team-carousel-grid>
+                {{ range $index, $achievement := . }}
+                  <article class="accolades-team-banner"
+                    data-team-achievement-item
+                    data-team-carousel-item
+                    data-team-carousel-index="{{ $index }}"
+                    data-season="{{ $seasonID }}"
+                    data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
+                    data-team="{{ $teamName }}"
+                    data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName $seasonID $seasonLabel $achievement.year $achievement.tournament $achievement.result $achievement.season) }}">
+                    <figure>
+                      {{ if $achievement.logo }}
+                        <img src="{{ partial "url.html" $achievement.logo }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
+                      {{ end }}
+                    </figure>
+                    <div>
+                      <span>{{ $achievement.year }} · {{ $achievement.season }}</span>
+                      <strong>{{ $achievement.tournament }}</strong>
+                      <em>{{ $achievement.result }}</em>
+                    </div>
+                  </article>
+                {{ end }}
               </div>
-              <strong>{{ $achievementCount }} {{ cond (eq $achievementCount 1) "achievement" "achievements" }}</strong>
-            </header>
 
-            <div class="accolades-team-banner-grid" data-team-carousel-grid>
-              {{ range $index, $achievement := . }}
-                <article class="accolades-team-banner"
-                  data-team-achievement-item
-                  data-team-carousel-item
-                  data-team-carousel-index="{{ $index }}"
-                  data-team="{{ $teamName }}"
-                  data-search="{{ lower (printf "%s %s %s %s %s" $teamName $achievement.year $achievement.tournament $achievement.result $achievement.season) }}">
-                  <figure>
-                    {{ if $achievement.logo }}
-                      <img src="{{ partial "url.html" $achievement.logo }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
-                    {{ end }}
-                  </figure>
-                  <div>
-                    <span>{{ $achievement.year }} · {{ $achievement.season }}</span>
-                    <strong>{{ $achievement.tournament }}</strong>
-                    <em>{{ $achievement.result }}</em>
-                  </div>
-                </article>
-              {{ end }}
-            </div>
-
-            <div class="accolades-team-carousel-controls" data-team-carousel-controls hidden>
-              <button type="button" data-team-carousel-prev>Previous</button>
-              <span data-team-carousel-status>Showing 1–3 of {{ $achievementCount }}</span>
-              <button type="button" data-team-carousel-next>Next</button>
-            </div>
-          </section>
+              <div class="accolades-team-carousel-controls" data-team-carousel-controls hidden>
+                <button type="button" data-team-carousel-prev>Previous</button>
+                <span data-team-carousel-status>Showing 1–3 of {{ $achievementCount }}</span>
+                <button type="button" data-team-carousel-next>Next</button>
+              </div>
+            </section>
+          {{ end }}
         {{ end }}
       {{ end }}
     </div>
@@ -200,6 +229,16 @@
 
     <div class="accolades-filter-panel" data-player-achievement-filter>
       <label>
+        <span>Season</span>
+        <select data-filter-season>
+          <option value="current">Current Season</option>
+          <option value="all">All Seasons</option>
+          {{ range $teamsData.seasons }}
+            <option value="{{ .id }}">{{ .label }}</option>
+          {{ end }}
+        </select>
+      </label>
+      <label>
         <span>Team</span>
         <select data-filter-team>
           <option value="">All Current Teams</option>
@@ -211,32 +250,84 @@
       </label>
     </div>
 
-    <div class="accolades-player-grid accolades-player-grid--free" aria-label="Searchable current player honors">
-      {{ range $teamName := $currentTeamNames }}
-        {{ $teamHonorsScratch := newScratch }}
-        {{ $teamHonorsScratch.Set "index" 0 }}
+    <div class="accolades-player-team-list" aria-label="Searchable player honors by team and season">
+      {{ range $season := $teamsData.seasons }}
+        {{ $seasonID := string $season.id }}
+        {{ $seasonLabel := $season.label | default (printf "%s Season" $seasonID) }}
+        {{ $seasonTeamScratch := newScratch }}
+        {{ $seasonTeamScratch.Set "names" (slice) }}
         {{ range $honor := $playerHonors }}
-          {{ if eq $honor.team $teamName }}
-            {{ $teamIndex := $teamHonorsScratch.Get "index" }}
-            {{ $playerName := $honor.player | default $honor.title }}
-            {{ $honorLabel := $honor.honor | default "Player Honor" }}
-            <article class="accolades-player-card"
-              data-player-achievement-item
+          {{ if and (eq (string $honor.season_id) $seasonID) $honor.team (not (in ($seasonTeamScratch.Get "names") $honor.team)) }}
+            {{ $seasonTeamScratch.Add "names" (slice $honor.team) }}
+          {{ end }}
+        {{ end }}
+        {{ range $teamName := ($seasonTeamScratch.Get "names") }}
+          {{ $teamHonorsScratch := newScratch }}
+          {{ $teamHonorsScratch.Set "items" (slice) }}
+          {{ range $honor := $playerHonors }}
+            {{ if and (eq (string $honor.season_id) $seasonID) (eq $honor.team $teamName) }}
+              {{ $teamHonorsScratch.Add "items" (slice $honor) }}
+            {{ end }}
+          {{ end }}
+          {{ $teamHonors := $teamHonorsScratch.Get "items" }}
+          {{ $isCurrentSeason := eq $seasonID $currentYear }}
+          {{ $isCurrentTeam := and $isCurrentSeason (in $currentTeamNames $teamName) }}
+          {{ with $teamHonors }}
+            {{ $honorCount := len . }}
+            <section class="accolades-player-team-card"
+              data-player-group
+              data-season="{{ $seasonID }}"
+              data-season-label="{{ $seasonLabel }}"
+              data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
               data-team="{{ $teamName }}"
-              data-default-visible="{{ if lt $teamIndex 3 }}true{{ else }}false{{ end }}"
-              data-search="{{ lower (printf "%s %s %s %s %s" $teamName $honor.year $playerName $honorLabel $honor.title) }}">
-              <figure>
-                {{ with $honor.link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
-                  <img src="{{ partial "url.html" $honor.image }}" alt="{{ $honor.title }}" loading="lazy">
-                {{ with $honor.link }}</a>{{ end }}
-              </figure>
-              <div>
-                <strong>{{ $playerName }}</strong>
-                <span>{{ $honorLabel }} · {{ $honor.year }}</span>
-                <em>{{ $teamName }}</em>
+              data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
+              data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
+              data-player-page="0"
+              data-search="{{ lower (printf "%s %s %s" $teamName $seasonID $seasonLabel) }}">
+              <header>
+                <div>
+                  <span>{{ if $isCurrentTeam }}Current Team{{ else }}Team History{{ end }}</span>
+                  <h3>{{ $teamName }}</h3>
+                  <em>{{ $seasonLabel }}</em>
+                </div>
+                <strong>{{ $honorCount }} {{ cond (eq $honorCount 1) "honor" "honors" }}</strong>
+              </header>
+
+              <div class="accolades-player-grid accolades-player-grid--free" data-player-carousel-grid>
+                {{ range $index, $honor := . }}
+                  {{ $playerName := $honor.player | default $honor.title }}
+                  {{ $honorLabel := $honor.honor | default "Player Honor" }}
+                  {{ $honorTermLabel := $honor.term_label | default (printf "%s Season" ($honor.year | default $seasonID)) }}
+                  <article class="accolades-player-card"
+                    data-player-achievement-item
+                    data-player-carousel-item
+                    data-player-carousel-index="{{ $index }}"
+                    data-season="{{ $seasonID }}"
+                    data-season-label="{{ $seasonLabel }}"
+                    data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
+                    data-team="{{ $teamName }}"
+                    data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
+                    data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
+                    data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName $seasonID $seasonLabel $honorTermLabel $honor.year $playerName $honorLabel $honor.title) }}">
+                    <figure>
+                      {{ with $honor.link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+                        <img src="{{ partial "url.html" $honor.image }}" alt="{{ $honor.title }}" loading="lazy">
+                      {{ with $honor.link }}</a>{{ end }}
+                    </figure>
+                    <div>
+                      <strong>{{ $playerName }}</strong>
+                      <span>{{ $teamName }} · {{ $honorTermLabel }}</span>
+                    </div>
+                  </article>
+                {{ end }}
               </div>
-            </article>
-            {{ $teamHonorsScratch.Set "index" (add $teamIndex 1) }}
+
+              <div class="accolades-team-carousel-controls" data-player-carousel-controls hidden>
+                <button type="button" data-player-carousel-prev>Previous</button>
+                <span data-player-carousel-status>Showing 1–3 of {{ $honorCount }}</span>
+                <button type="button" data-player-carousel-next>Next</button>
+              </div>
+            </section>
           {{ end }}
         {{ end }}
       {{ end }}
@@ -295,19 +386,94 @@
 
   (() => {
     const perTeamPage = 3;
+    const currentSeasonValue = "current";
+    const allSeasonsValue = "all";
     const teamOrderValue = (team) => {
       const match = String(team || "").match(/^(\d+)/);
       return match ? parseInt(match[1], 10) : -1;
     };
     const sortTeamsOlderFirst = (a, b) => {
-      const ageDiff = teamOrderValue(b) - teamOrderValue(a);
-      return ageDiff || String(a).localeCompare(String(b), undefined, { numeric: true });
+      const aTeam = typeof a === "string" ? a : a.team;
+      const bTeam = typeof b === "string" ? b : b.team;
+      const ageDiff = teamOrderValue(bTeam) - teamOrderValue(aTeam);
+      return ageDiff || String(aTeam).localeCompare(String(bTeam), undefined, { numeric: true });
     };
+    const uniqueBy = (items, keyFn) => {
+      const seen = new Set();
+      return items.filter((item) => {
+        const key = keyFn(item);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    };
+    const matchesSeasonScope = (item, seasonValue) => {
+      if (seasonValue === allSeasonsValue) return true;
+      if (seasonValue === currentSeasonValue) return item.dataset.currentTeam === "true";
+      return item.dataset.season === seasonValue;
+    };
+    const filterOptionLabel = (seasonValue) => {
+      if (seasonValue === allSeasonsValue) return "All Teams";
+      if (seasonValue === currentSeasonValue) return "All Current Teams";
+      return "All Teams";
+    };
+
+    const setupScopedTeamOptions = (root, items, onChange) => {
+      const seasonSelect = root.querySelector("[data-filter-season]");
+      const teamSelect = root.querySelector("[data-filter-team]");
+
+      const rebuildTeamOptions = () => {
+        const seasonValue = seasonSelect ? seasonSelect.value : currentSeasonValue;
+        const currentValue = teamSelect.value;
+        const useSeasonLabel = seasonValue === allSeasonsValue;
+        const options = uniqueBy(
+          items
+            .filter((item) => matchesSeasonScope(item, seasonValue))
+            .map((item) => ({
+              key: item.dataset.teamKey,
+              team: item.dataset.team,
+              season: item.dataset.season,
+              seasonLabel: item.dataset.seasonLabel,
+              currentTeam: item.dataset.currentTeam === "true"
+            }))
+            .sort(sortTeamsOlderFirst),
+          (item) => item.key
+        );
+
+        teamSelect.innerHTML = "";
+        const allOption = document.createElement("option");
+        allOption.value = "";
+        allOption.textContent = filterOptionLabel(seasonValue);
+        teamSelect.appendChild(allOption);
+
+        options.forEach((item) => {
+          const option = document.createElement("option");
+          option.value = item.key;
+          option.textContent = useSeasonLabel ? `${item.team} — ${item.seasonLabel}` : item.team;
+          teamSelect.appendChild(option);
+        });
+
+        if (currentValue && options.some((item) => item.key === currentValue)) {
+          teamSelect.value = currentValue;
+        }
+      };
+
+      if (seasonSelect) {
+        seasonSelect.addEventListener("change", () => {
+          rebuildTeamOptions();
+          onChange();
+        });
+      }
+      teamSelect.addEventListener("change", onChange);
+      rebuildTeamOptions();
+    };
+
     const teamRoot = document.querySelector("[data-team-achievement-filter]");
     const teamGroups = Array.from(document.querySelectorAll("[data-team-group]"));
     const teamEmpty = document.querySelector("[data-team-empty]");
 
     if (teamRoot && teamGroups.length) {
+      const seasonSelect = teamRoot.querySelector("[data-filter-season]");
       const teamSelect = teamRoot.querySelector("[data-filter-team]");
       const searchInput = teamRoot.querySelector("[data-filter-search]");
       const teamList = teamGroups[0].parentElement;
@@ -318,18 +484,6 @@
           .forEach((group) => teamList.appendChild(group));
       }
 
-      const teams = Array.from(new Set(teamGroups
-        .filter((group) => group.dataset.currentTeam === "true")
-        .map((group) => group.dataset.team)
-        .filter(Boolean))).sort(sortTeamsOlderFirst);
-
-      teams.forEach((value) => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        teamSelect.appendChild(option);
-      });
-
       const getMatchingItems = (group) => {
         const query = searchInput.value.trim().toLowerCase();
         return Array.from(group.querySelectorAll("[data-team-achievement-item]")).filter((item) => {
@@ -339,22 +493,16 @@
       };
 
       const renderTeamGroup = (group) => {
-        const selectedTeam = teamSelect.value;
-        const query = searchInput.value.trim().toLowerCase();
-        const hasQuery = query.length > 0;
-        const groupTeam = group.dataset.team || "";
-        const isCurrentTeam = group.dataset.currentTeam === "true";
-
-        const teamMatches = selectedTeam
-          ? groupTeam === selectedTeam
-          : (hasQuery ? true : isCurrentTeam);
-
+        const seasonValue = seasonSelect ? seasonSelect.value : currentSeasonValue;
+        const selectedTeamKey = teamSelect.value;
+        const seasonMatches = matchesSeasonScope(group, seasonValue);
+        const teamMatches = selectedTeamKey ? group.dataset.teamKey === selectedTeamKey : true;
         const allItems = Array.from(group.querySelectorAll("[data-team-achievement-item]"));
-        const matchingItems = teamMatches ? getMatchingItems(group) : [];
+        const matchingItems = (seasonMatches && teamMatches) ? getMatchingItems(group) : [];
 
         allItems.forEach((item) => { item.hidden = true; });
 
-        if (!teamMatches || !matchingItems.length) {
+        if (!seasonMatches || !teamMatches || !matchingItems.length) {
           group.hidden = true;
           return 0;
         }
@@ -414,7 +562,7 @@
         }
       });
 
-      teamSelect.addEventListener("change", () => {
+      setupScopedTeamOptions(teamRoot, teamGroups, () => {
         teamGroups.forEach((group) => { group.dataset.teamPage = "0"; });
         updateTeams();
       });
@@ -428,50 +576,110 @@
     }
 
     const playerRoot = document.querySelector("[data-player-achievement-filter]");
-    const playerItems = Array.from(document.querySelectorAll("[data-player-achievement-item]"));
+    const playerGroups = Array.from(document.querySelectorAll("[data-player-group]"));
     const playerEmpty = document.querySelector("[data-player-empty]");
 
-    if (playerRoot && playerItems.length) {
+    if (playerRoot && playerGroups.length) {
+      const seasonSelect = playerRoot.querySelector("[data-filter-season]");
       const teamSelect = playerRoot.querySelector("[data-filter-team]");
       const searchInput = playerRoot.querySelector("[data-filter-search]");
-      const playerGrid = playerItems[0].parentElement;
-      if (playerGrid) {
-        playerItems
+      const playerList = playerGroups[0].parentElement;
+
+      if (playerList) {
+        playerGroups
           .slice()
           .sort((a, b) => sortTeamsOlderFirst(a.dataset.team, b.dataset.team))
-          .forEach((item) => playerGrid.appendChild(item));
+          .forEach((group) => playerList.appendChild(group));
       }
 
-      const teams = Array.from(new Set(playerItems.map((item) => item.dataset.team).filter(Boolean))).sort(sortTeamsOlderFirst);
-      teams.forEach((value) => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        teamSelect.appendChild(option);
-      });
-
-      const updatePlayers = () => {
-        const selectedTeam = teamSelect.value;
+      const getMatchingPlayerItems = (group) => {
         const query = searchInput.value.trim().toLowerCase();
-        const hasQuery = query.length > 0;
-        let visibleCount = 0;
-
-        playerItems.forEach((item) => {
-          const teamMatches = !selectedTeam || item.dataset.team === selectedTeam;
-          const searchMatches = !hasQuery || (item.dataset.search || "").includes(query);
-          const defaultVisible = item.dataset.defaultVisible === "true";
-
-          const visible = teamMatches && searchMatches && (selectedTeam || hasQuery || defaultVisible);
-
-          item.hidden = !visible;
-          if (visible) visibleCount += 1;
+        return Array.from(group.querySelectorAll("[data-player-achievement-item]")).filter((item) => {
+          const text = `${group.dataset.search || ""} ${item.dataset.search || ""}`;
+          return !query || text.includes(query);
         });
-
-        if (playerEmpty) playerEmpty.hidden = visibleCount !== 0;
       };
 
-      teamSelect.addEventListener("change", updatePlayers);
-      searchInput.addEventListener("input", updatePlayers);
+      const renderPlayerGroup = (group) => {
+        const seasonValue = seasonSelect ? seasonSelect.value : currentSeasonValue;
+        const selectedTeamKey = teamSelect.value;
+        const seasonMatches = matchesSeasonScope(group, seasonValue);
+        const teamMatches = selectedTeamKey ? group.dataset.teamKey === selectedTeamKey : true;
+        const allItems = Array.from(group.querySelectorAll("[data-player-achievement-item]"));
+        const matchingItems = (seasonMatches && teamMatches) ? getMatchingPlayerItems(group) : [];
+
+        allItems.forEach((item) => { item.hidden = true; });
+
+        if (!seasonMatches || !teamMatches || !matchingItems.length) {
+          group.hidden = true;
+          return 0;
+        }
+
+        group.hidden = false;
+
+        const pageCount = Math.max(1, Math.ceil(matchingItems.length / perTeamPage));
+        let page = parseInt(group.dataset.playerPage || "0", 10);
+        if (Number.isNaN(page)) page = 0;
+        page = Math.max(0, Math.min(page, pageCount - 1));
+        group.dataset.playerPage = String(page);
+
+        const start = page * perTeamPage;
+        const end = Math.min(start + perTeamPage, matchingItems.length);
+
+        matchingItems.forEach((item, index) => {
+          item.hidden = !(index >= start && index < end);
+        });
+
+        const controls = group.querySelector("[data-player-carousel-controls]");
+        const status = group.querySelector("[data-player-carousel-status]");
+        const prev = group.querySelector("[data-player-carousel-prev]");
+        const next = group.querySelector("[data-player-carousel-next]");
+
+        if (controls) controls.hidden = matchingItems.length <= perTeamPage;
+        if (status) status.textContent = `Showing ${start + 1}–${end} of ${matchingItems.length}`;
+        if (prev) prev.disabled = page <= 0;
+        if (next) next.disabled = page >= pageCount - 1;
+
+        return 1;
+      };
+
+      const updatePlayers = () => {
+        let visibleGroups = 0;
+        playerGroups.forEach((group) => {
+          visibleGroups += renderPlayerGroup(group);
+        });
+        if (playerEmpty) playerEmpty.hidden = visibleGroups !== 0;
+      };
+
+      playerGroups.forEach((group) => {
+        const prev = group.querySelector("[data-player-carousel-prev]");
+        const next = group.querySelector("[data-player-carousel-next]");
+
+        if (prev) {
+          prev.addEventListener("click", () => {
+            group.dataset.playerPage = String((parseInt(group.dataset.playerPage || "0", 10) || 0) - 1);
+            renderPlayerGroup(group);
+          });
+        }
+
+        if (next) {
+          next.addEventListener("click", () => {
+            group.dataset.playerPage = String((parseInt(group.dataset.playerPage || "0", 10) || 0) + 1);
+            renderPlayerGroup(group);
+          });
+        }
+      });
+
+      setupScopedTeamOptions(playerRoot, playerGroups, () => {
+        playerGroups.forEach((group) => { group.dataset.playerPage = "0"; });
+        updatePlayers();
+      });
+
+      searchInput.addEventListener("input", () => {
+        playerGroups.forEach((group) => { group.dataset.playerPage = "0"; });
+        updatePlayers();
+      });
+
       updatePlayers();
     }
   })();
