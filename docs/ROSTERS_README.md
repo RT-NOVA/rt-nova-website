@@ -1,58 +1,99 @@
 # Rosters
 
-Roster pages use lightweight markdown route files and season-based YAML data.
+Roster data is maintained in season-based YAML files. Markdown files under `content/rosters/` are generated route stubs and should not be edited by hand.
 
-## Route files
+## Source of truth
 
-Roster page URLs remain under:
-
-```text
-content/rosters/
-```
-
-Each markdown file should only identify the season and roster key:
-
-```yaml
----
-title: "2026 13U Orange Roster"
-date: 2026-06-16
-season_id: "2026"
-roster_key: "13u-orange"
-summary: "Rawlings Tigers NOVA 13U Orange spring roster."
----
-Rawlings Tigers NOVA 13U Orange spring roster.
-```
-
-## Roster data files
-
-Roster data lives under each season:
+Use one roster data file per team and term:
 
 ```text
+data/seasons/<season-id>/rosters/<team-key>.yaml
+```
+
+Examples:
+
+```text
+data/seasons/2026/rosters/11u.yaml
+data/seasons/2026/rosters/11u-fall.yaml
 data/seasons/2026/rosters/13u-orange.yaml
 ```
 
-Use one YAML file per team so roster edits stay small and reviewable.
+## Spring and fall roster pages
 
-## Player format
+Players can change between fall and spring. Use separate roster YAML files when the team has separate fall and spring rosters.
 
-```yaml
-players:
-  - number: "45"
-    name: "Cameron Branham"
-    positions: "P, 1B, OF"
+Example:
+
+```text
+data/seasons/2026/rosters/11u.yaml       # Spring 2026
+data/seasons/2026/rosters/11u-fall.yaml  # Fall 2025
 ```
 
-## Staff format
+The spring roster can keep the existing public URL by setting:
 
 ```yaml
+route_slug: "2026-11u"
+```
+
+The fall roster can use:
+
+```yaml
+route_slug: "2026-11u-fall"
+```
+
+That generates:
+
+```text
+/rosters/2026-11u/
+/rosters/2026-11u-fall/
+```
+
+## Roster data format
+
+```yaml
+team: "11U"
+route_slug: "2026-11u"
+page_date: "2026-06-16"
+season: "2026 Season"
+term: "Spring 2026"
+age_group: "11U"
+division: ""
+record: "—"
+summary: "Rawlings Tigers NOVA 11U spring roster."
+
+players:
+  - number: "2"
+    name: "Logan Moore"
+    positions: "P, 3B, OF"
+
 staff:
-  - name: "Tim Jacoby"
+  - name: "Ken Torres"
     title: "Head Coach"
-  - name: "Don Yizar"
-    title: "Assistant Coach"
 ```
 
 The roster template renders head coaches before assistant coaches in the Coaching Staff table.
+
+## Generate roster pages
+
+After adding a new roster YAML, renaming a roster YAML, deleting a generated roster page, or changing `route_slug`, run:
+
+```bash
+python3 scripts/sync-roster-pages.py
+```
+
+Then run Hugo:
+
+```bash
+hugo server -D --disableFastRender
+```
+
+Normal player/staff edits in an existing roster YAML do not require the sync script.
+
+## Check generated files
+
+```bash
+python3 scripts/sync-roster-pages.py --check
+```
 
 ## Layout
 
@@ -62,3 +103,10 @@ Roster pages render as open, line-based tables:
 - Coaching Staff: `Name`, `Title`
 
 Player and staff photo fields are intentionally not used by the roster page.
+
+
+## Fall 2025 roster data source note
+
+The Fall 2025 11U, 13U Black, and 13U Orange roster YAML files were created from legacy site screenshots.
+
+The 13U Orange screenshot did not show player positions or staff, so those fields are intentionally blank until confirmed.

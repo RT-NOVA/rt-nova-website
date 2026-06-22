@@ -1,22 +1,31 @@
 team: 11U
-route_slug: 2026-11u
+route_slug: 2026-11u-fall
 page_date: '2026-06-16'
 season: 2026 Season
-term: Spring 2026
+term: Fall 2025
 age_group: 11U
 division: ''
-record: —
-summary: Rawlings Tigers NOVA 11U spring roster.
+record: 12-11-1
+summary: Rawlings Tigers NOVA 11U fall roster.
 players:
+- number: '1'
+  name: Sebastian Almeida
+  positions: P, C, 3B, MIF
 - number: '2'
   name: Logan Moore
   positions: P, 3B, OF
 - number: '3'
   name: Colton Burnham
   positions: P, 2B, OF
+- number: '5'
+  name: Christopher Perez
+  positions: P, C, CIF, MIF, OF
 - number: '8'
   name: Blake Barwinczak
   positions: P, 3B, MIF
+- number: '13'
+  name: Kohl Oliver
+  positions: P, C, CIF, MIF, OF
 - number: '35'
   name: Benjamin Greksouk
   positions: P, OF
