@@ -79,3 +79,22 @@ Schedule events now live under `data/seasons/<season-id>/schedules.yaml`.
 ## v8 schedules dispatch fix
 
 Fixed `/schedules/` rendering after later patches overwrote `layouts/_default/single.html` without the schedules template dispatch. The page now routes `template: schedules` to `layouts/partials/page-schedules.html` again.
+
+## v9 upcoming-first default view
+
+The default schedule view now uses browser-side JavaScript to compare each event date to the visitor's current date. Each current team shows up to the next three upcoming events by default instead of the first three events in the YAML file.
+
+Behavior:
+
+- Default view shows the next three upcoming events per current team.
+- Past events are hidden by default.
+- `Show all` expands that team and shows all events, including past events.
+- Past events are muted and labeled `Past` when visible.
+- Search still checks all events so past events can be found when searching.
+- If a team has events but no upcoming events, the page shows `No upcoming events currently posted` and allows the user to show all past entries.
+
+## v10 robust current-date comparison
+
+Improves the upcoming-event logic by rendering each event date as a clean `YYYY-MM-DD` value and comparing date strings in the browser. This avoids browser timezone parsing issues and makes the “next three upcoming events” behavior more reliable.
+
+Note: if today's date is before a listed event, that event is still upcoming and will continue to show by default.

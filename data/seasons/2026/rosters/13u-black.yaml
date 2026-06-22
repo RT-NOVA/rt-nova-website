@@ -1,0 +1,53 @@
+team: 13U Black
+season: 2026 Season
+term: Spring 2026
+age_group: 13U
+division: Black
+record: —
+summary: Rawlings Tigers NOVA 13U Black spring roster and staff.
+players:
+- number: '3'
+  name: Maximillian Helchinger
+  positions: UTILITY
+- number: '94'
+  name: Henry Bambling
+  positions: P, 1B, 2B
+- number: '47'
+  name: Aiden Kim
+  positions: C, 1B
+- number: '22'
+  name: Alex Medrano
+  positions: UTILITY
+- number: '44'
+  name: Owen Trenkelbach
+  positions: P, 3B, 1B
+- number: '6'
+  name: Parker Scisciani
+  positions: UTILITY
+- number: '7'
+  name: Sebastian Reyes
+  positions: P, C, 3B
+- number: '8'
+  name: Tyler Davidson
+  positions: P, INF, OF
+- number: '11'
+  name: Liam Knittel
+  positions: P, 1B, OF
+- number: '1'
+  name: Isaiah Laborce
+  positions: P, SS, OF
+- number: '24'
+  name: Connor Taylor
+  positions: 2B, OF
+- number: '25'
+  name: Niko Branch
+  positions: C, 3B, OF
+staff:
+- name: Chris Cheshire
+  title: Head Coach
+- name: Doug Davidson
+  title: Assistant Coach
+- name: Franz Helchinger
+  title: Assistant Coach
+- name: Michael Reyes
+  title: Assistant Coach

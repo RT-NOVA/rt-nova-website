@@ -1,15 +1,8 @@
 ---
-title: "2026 13U Orange Roster"
-date: 2026-06-16
-season: "2026 Season"
-term: "Spring 2026"
-age_group: "13U"
-division: "Orange"
-record: "—"
-summary: "Rawlings Tigers NOVA 13U Orange spring roster."
-players: []
-staff:
-  - name: "Tim Jacoby"
-    title: "Head Coach"
+title: 2026 13U Orange Roster
+date: '2026-06-16'
+season_id: '2026'
+roster_key: 13u-orange
+summary: Rawlings Tigers NOVA 13U Orange spring roster.
 ---
-Roster details coming soon.
+Rawlings Tigers NOVA 13U Orange spring roster.

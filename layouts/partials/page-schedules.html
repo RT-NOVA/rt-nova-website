@@ -93,7 +93,7 @@
       </label>
     </div>
 
-    <div class="schedules-list" aria-label="Searchable team game and tournament schedules">
+    <div class="schedules-list" aria-label="Searchable team game and tournament schedules" data-schedule-list>
       {{ range $teamName := $allTeamNames }}
         {{ $metaScratch := newScratch }}
         {{ $metaScratch.Set "coach" "" }}
@@ -185,6 +185,7 @@
                   {{ $eventTitle := $eventTitleScratch.Get "title" }}
                   <article class="schedules-event-row"
                     data-schedule-event
+                    data-event-date="{{ time.Format "2006-01-02" (time $event.date) }}"
                     data-default-visible="{{ if lt $eventIndex 3 }}true{{ else }}false{{ end }}"
                     data-search="{{ lower (printf "%s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle ($event.location | default "") ($event.date | default "") ($event.time | default "")) }}">
                     <time datetime="{{ $event.date }}">{{ time.Format "Jan 2" (time $event.date) }}</time>
@@ -199,6 +200,7 @@
                   {{ $eventIndexScratch.Set "index" (add $eventIndex 1) }}
                 {{ end }}
               {{ end }}
+              <p class="schedules-team-empty schedules-team-empty--upcoming" data-schedule-no-upcoming hidden>No upcoming events currently posted. Use “Show all” to view past schedule entries.</p>
             {{ else }}
               <p class="schedules-team-empty">Game and tournament schedule coming soon.</p>
             {{ end }}
@@ -217,7 +219,7 @@
 
     <aside class="schedules-note" role="note">
       <strong>Schedule details may change.</strong>
-      <span>Coaches share final game and tournament details with families as team schedules are finalized.</span>
+      <span>By default, each team shows the next three upcoming events. Use “Show all” to view the full schedule, including muted past events.</span>
     </aside>
   </div>
 </section>
@@ -232,6 +234,32 @@
     const teamSelect = root.querySelector("[data-filter-team]");
     const searchInput = root.querySelector("[data-filter-search]");
     const defaultEventLimit = 3;
+
+    const toDateKey = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+
+    const todayKey = toDateKey(new Date());
+
+    const normalizeDateKey = (value) => {
+      const match = String(value || "").match(/\d{4}-\d{2}-\d{2}/);
+      return match ? match[0] : "";
+    };
+
+    const isPastEvent = (event) => {
+      const eventDateKey = normalizeDateKey(event.dataset.eventDate);
+      if (!eventDateKey) return false;
+      return eventDateKey < todayKey;
+    };
+
+    sections.forEach((section) => {
+      Array.from(section.querySelectorAll("[data-schedule-event]")).forEach((event) => {
+        event.dataset.eventStatus = isPastEvent(event) ? "past" : "upcoming";
+      });
+    });
 
     const teamOrderValue = (team) => {
       const match = String(team || "").match(/^(\d+)/);
@@ -266,11 +294,11 @@
         .forEach((section) => list.appendChild(section));
     }
 
-    const updateToggle = (section, shownCount, totalCount, expanded, hasQuery) => {
+    const updateToggle = (section, hiddenCount, expanded, hasQuery) => {
       const toggle = section.querySelector("[data-schedule-toggle]");
       if (!toggle) return;
 
-      if (hasQuery || totalCount <= defaultEventLimit) {
+      if (hasQuery || hiddenCount <= 0) {
         toggle.hidden = true;
         return;
       }
@@ -279,7 +307,7 @@
       toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
       toggle.textContent = expanded
         ? "Show fewer events"
-        : `Show all ${totalCount} events`;
+        : `Show all ${section.querySelectorAll("[data-schedule-event]").length} events`;
     };
 
     const update = () => {
@@ -292,6 +320,7 @@
         const isCurrent = section.dataset.currentTeam === "true";
         const teamMatches = !selectedTeam || section.dataset.team === selectedTeam;
         const events = Array.from(section.querySelectorAll("[data-schedule-event]"));
+        const noUpcoming = section.querySelector("[data-schedule-no-upcoming]");
         const eventSearchText = events.map((event) => event.dataset.search || "").join(" ");
         const sectionSearchText = `${section.dataset.search || ""} ${eventSearchText}`.toLowerCase();
         const sectionMatchesQuery = !hasQuery || sectionSearchText.includes(query);
@@ -300,27 +329,42 @@
 
         let visibleEvents = 0;
         let matchingEvents = 0;
+        let matchingUpcomingEvents = 0;
+        let hiddenMatchingEvents = 0;
 
         events.forEach((event) => {
           const eventMatchesQuery = !hasQuery || (event.dataset.search || "").toLowerCase().includes(query);
           const teamNameMatchesQuery = hasQuery && String(section.dataset.team || "").toLowerCase().includes(query);
           const matches = !hasQuery || teamNameMatchesQuery || eventMatchesQuery;
+          const isPast = event.dataset.eventStatus === "past";
+
+          event.classList.toggle("is-past-event", isPast);
 
           if (matches) matchingEvents += 1;
+          if (matches && !isPast) matchingUpcomingEvents += 1;
 
-          const underDefaultLimit = matchingEvents <= defaultEventLimit;
-          const showEvent = shouldShowSection && matches && (hasQuery || expanded || underDefaultLimit);
+          const upcomingSlot = matches && !isPast && matchingUpcomingEvents <= defaultEventLimit;
+
+          // Default view: show the next 3 upcoming events only.
+          // Expanded view: show all matching events, with past events muted.
+          // Search view: show all matching events so searches can find history.
+          const showEvent = shouldShowSection && matches && (hasQuery || expanded || upcomingSlot);
 
           event.hidden = !showEvent;
           if (showEvent) visibleEvents += 1;
+          if (shouldShowSection && matches && !showEvent) hiddenMatchingEvents += 1;
         });
 
         const hasEvents = events.length > 0;
+        const showNoUpcoming = shouldShowSection && hasEvents && !hasQuery && !expanded && matchingUpcomingEvents === 0;
+
+        if (noUpcoming) noUpcoming.hidden = !showNoUpcoming;
+
         const showEmptyCurrentTeam = shouldShowSection && !hasEvents;
-        const sectionVisible = shouldShowSection && (visibleEvents > 0 || showEmptyCurrentTeam);
+        const sectionVisible = shouldShowSection && (visibleEvents > 0 || showEmptyCurrentTeam || showNoUpcoming);
 
         section.hidden = !sectionVisible;
-        updateToggle(section, visibleEvents, events.length, expanded, hasQuery);
+        updateToggle(section, hiddenMatchingEvents, expanded, hasQuery);
 
         if (sectionVisible) visibleSections += 1;
       });

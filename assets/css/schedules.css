@@ -294,3 +294,47 @@
   font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
   letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
 }
+
+
+/* v9: default schedules show the next three upcoming events; past events are muted when expanded. */
+.schedules-event-row.is-past-event {
+  opacity: 0.52;
+}
+
+.schedules-event-row.is-past-event time,
+.schedules-event-row.is-past-event > span,
+.schedules-event-row.is-past-event strong,
+.schedules-event-row.is-past-event small {
+  color: rgba(102, 112, 133, 0.88) !important;
+}
+
+.schedules-event-row.is-past-event em {
+  color: rgba(102, 112, 133, 0.82) !important;
+}
+
+.schedules-event-row.is-past-event strong::after {
+  content: "Past";
+  display: inline-flex;
+  margin-left: 0.55rem;
+  color: rgba(102, 112, 133, 0.82);
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.schedules-team-empty--upcoming {
+  border-top: 1px solid rgba(7, 16, 29, 0.08);
+}
+
+
+/* v10: stronger past-event visual treatment when expanded or searched. */
+.schedules-event-row.is-past-event {
+  opacity: 0.44 !important;
+  filter: grayscale(0.1);
+}
+
+.schedules-event-row.is-past-event:hover,
+.schedules-event-row.is-past-event:focus-within {
+  opacity: 0.7 !important;
+}

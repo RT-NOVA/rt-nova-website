@@ -1,22 +1,39 @@
 {{ define "main" }}
   {{ with resources.Get "css/rosters.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 
-  {{ $season := .Params.season | default "Rawlings Tigers NOVA" }}
-  {{ $term := .Params.term | default "" }}
-  {{ $age := .Params.age_group | default "Team" }}
-  {{ $division := .Params.division | default "" }}
-  {{ $record := .Params.record | default "—" }}
+  {{/* Roster pages are lightweight route stubs. Roster data lives in data/seasons/<season_id>/rosters/<roster_key>.yaml. */}}
+  {{ $seasonID := string (.Params.season_id | default "") }}
+  {{ $rosterKey := .Params.roster_key | default "" }}
+  {{ $seasonData := cond (ne $seasonID "") (index hugo.Data.seasons $seasonID) nil }}
+  {{ $rosterData := dict }}
+  {{ with $seasonData }}
+    {{ with .rosters }}
+      {{ with (index . $rosterKey) }}
+        {{ $rosterData = . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $season := $rosterData.season | default "Rawlings Tigers NOVA" }}
+  {{ $term := $rosterData.term | default "" }}
+  {{ $age := $rosterData.age_group | default "Team" }}
+  {{ $division := $rosterData.division | default "" }}
+  {{ $record := $rosterData.record | default "—" }}
+  {{ $summary := $rosterData.summary | default (.Params.summary | default "Rawlings Tigers NOVA roster and staff.") }}
+  {{ $players := $rosterData.players | default slice }}
+  {{ $staff := $rosterData.staff | default slice }}
+
   {{ $currentRosterURL := .RelPermalink }}
   {{ $teamsData := partial "data/team-seasons.html" . }}
   {{ range $teamsData.seasons }}
     {{ range $term := slice .spring .fall }}
       {{ with $term }}
         {{ range .teams }}
-          {{ $teamRecord := .record | default "—" }}
+          {{ $teamRecord := .record | default "" }}
           {{ range (.links | default slice) }}
             {{ $label := lower (.label | default "") }}
             {{ $url := partial "url.html" (.url | default "") }}
-            {{ if and (in $label "roster") (eq $url $currentRosterURL) }}
+            {{ if and (in $label "roster") (eq $url $currentRosterURL) $teamRecord }}
               {{ $record = $teamRecord }}
             {{ end }}
           {{ end }}
@@ -24,7 +41,6 @@
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ $summary := .Params.summary | default "Rawlings Tigers NOVA roster and staff." }}
 
   {{ partial "hero.html" (dict
     "kicker" $season
@@ -58,28 +74,26 @@
           <h2 id="roster-heading">Roster</h2>
         </div>
 
-        {{ with .Params.players }}
-          <div class="rt-roster-card-grid" aria-label="Player roster">
-            {{ range . }}
-              <article class="rt-roster-person-card">
-                <div class="rt-roster-person-card__media">
-                  {{ with .photo }}
-                    <img src="{{ partial "url.html" . }}" alt="{{ $.name }}">
-                  {{ else }}
-                    <div class="rt-roster-person-card__placeholder" aria-hidden="true">
-                      {{ with .number }}#{{ . }}{{ else }}RT{{ end }}
-                    </div>
-                  {{ end }}
-                </div>
-                <div class="rt-roster-person-card__body">
-                  <div>
-                    <span class="rt-roster-name">{{ .name }}</span>
-                    {{ with .number }}<span class="rt-roster-number">#{{ . }}</span>{{ end }}
-                  </div>
-                  {{ with .positions }}<p>{{ . }}</p>{{ end }}
-                </div>
-              </article>
-            {{ end }}
+        {{ if gt (len $players) 0 }}
+          <div class="rt-roster-table-wrap">
+            <table class="rt-roster-table rt-roster-table--players">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Positions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{ range $players }}
+                  <tr>
+                    <td class="rt-roster-table__number">{{ .number | default "—" }}</td>
+                    <td class="rt-roster-table__name">{{ .name }}</td>
+                    <td>{{ .positions | default .position | default "—" }}</td>
+                  </tr>
+                {{ end }}
+              </tbody>
+            </table>
           </div>
         {{ else }}
           <div class="rt-roster-empty">Roster details coming soon.</div>
@@ -92,25 +106,42 @@
           <h2 id="staff-heading">Coaching Staff</h2>
         </div>
 
-        {{ with .Params.staff }}
-          <div class="rt-roster-card-grid rt-roster-card-grid--staff" aria-label="Team staff">
-            {{ range . }}
-              <article class="rt-roster-person-card rt-roster-person-card--staff">
-                <div class="rt-roster-person-card__media">
-                  {{ with .photo }}
-                    <img src="{{ partial "url.html" . }}" alt="{{ $.name }}">
-                  {{ else }}
-                    <div class="rt-roster-person-card__placeholder" aria-hidden="true">RT</div>
-                  {{ end }}
-                </div>
-                <div class="rt-roster-person-card__body">
-                  <div>
-                    <span class="rt-roster-name">{{ .name }}</span>
-                  </div>
-                  {{ with .title }}<p>{{ . }}</p>{{ end }}
-                </div>
-              </article>
+        {{ if gt (len $staff) 0 }}
+          {{ $staffScratch := newScratch }}
+          {{ $staffScratch.Set "head" (slice) }}
+          {{ $staffScratch.Set "other" (slice) }}
+          {{ range $staff }}
+            {{ $title := lower (.title | default "") }}
+            {{ if in $title "head coach" }}
+              {{ $staffScratch.Add "head" (slice .) }}
+            {{ else }}
+              {{ $staffScratch.Add "other" (slice .) }}
             {{ end }}
+          {{ end }}
+
+          <div class="rt-roster-table-wrap">
+            <table class="rt-roster-table rt-roster-table--staff">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{ range ($staffScratch.Get "head") }}
+                  <tr>
+                    <td class="rt-roster-table__name">{{ .name }}</td>
+                    <td>{{ .title | default "—" }}</td>
+                  </tr>
+                {{ end }}
+                {{ range ($staffScratch.Get "other") }}
+                  <tr>
+                    <td class="rt-roster-table__name">{{ .name }}</td>
+                    <td>{{ .title | default "—" }}</td>
+                  </tr>
+                {{ end }}
+              </tbody>
+            </table>
           </div>
         {{ else }}
           <div class="rt-roster-empty">Staff details coming soon.</div>
