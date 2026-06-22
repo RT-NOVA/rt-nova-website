@@ -395,3 +395,15 @@ Do not render a separate white Select Season header around the toggle.
 ### Team order is wrong
 
 Check `sort_order` values. Lower numbers appear first.
+
+## Team Central archive search
+
+The Team Central page includes an `Archive` selector option alongside the current/upcoming season buttons. The existing current/upcoming team views remain unchanged. Selecting `Archive` opens a searchable team browser.
+
+Archive filters:
+
+- `Season`: Defaults to `Current Season` and then lists individual seasons from `data/seasons/index.yaml`. The archive intentionally does not include an `All Seasons` option so the page does not render every historical team at once as the archive grows.
+- `Team`: Updates based on the selected season and lists only teams from that season.
+- `Search`: Matches team name, coach name, coach role, season label/year/status, and spring/fall term label within the selected season.
+
+Team data still comes from `data/seasons/<year>/teams.yaml`. Spring and fall are shown as supporting context inside archive results, but the archive remains season-first for clearer browsing and better long-term performance.

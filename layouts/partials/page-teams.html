@@ -30,6 +30,10 @@
           </button>
         {{ end }}
       {{ end }}
+      <button class="rt-team-season-nav__button rt-team-season-nav__button--archive" type="button" data-season-button="archive" aria-pressed="false">
+        <span>Archive</span>
+        <small>Search</small>
+      </button>
     </div>
 
     <div class="rt-team-season-panels" data-team-season-panels>
@@ -56,6 +60,123 @@
           </section>
         {{ end }}
       {{ end }}
+
+      <section class="rt-team-season-panel rt-team-archive-panel" data-season-panel="archive" hidden>
+        <header class="rt-team-season-heading rt-team-archive-heading">
+          <p class="rt-eyebrow rt-eyebrow--dark">Team Archive</p>
+          <div class="rt-team-season-heading__row">
+            <h2>Find Teams</h2>
+            <p>Search current, upcoming, and past Rawlings Tigers NOVA teams by season, team, or coach.</p>
+          </div>
+        </header>
+
+        <div class="rt-team-archive-filters" data-team-archive-filters>
+          <label class="rt-team-archive-filter">
+            <span>Season</span>
+            <select data-team-archive-season>
+              {{ range sort $data.seasons "id" "desc" }}
+                <option value="{{ .id }}"{{ if eq .id $defaultSeason }} selected{{ end }}>{{ if eq .id $defaultSeason }}Current Season · {{ end }}{{ .label }}</option>
+              {{ end }}
+            </select>
+          </label>
+
+          <label class="rt-team-archive-filter">
+            <span>Team</span>
+            <select data-team-archive-team>
+              <option value="all">All Teams</option>
+            </select>
+          </label>
+
+          <label class="rt-team-archive-filter rt-team-archive-filter--search">
+            <span>Search</span>
+            <input type="search" data-team-archive-search placeholder="Search teams, coaches, ages..." autocomplete="off">
+          </label>
+        </div>
+
+        <div class="rt-team-archive-results" data-team-archive-results>
+          {{ range $season := $data.seasons }}
+            {{ $seasonID := $season.id }}
+            {{ $seasonLabel := $season.label }}
+            {{ $seasonStatus := $season.status }}
+            {{ range $termKey, $term := dict "spring" $season.spring "fall" $season.fall }}
+              {{ $termLabel := $term.label | default (title $termKey) }}
+              {{ range sort ($term.teams | default slice) "sort_order" "asc" }}
+                {{ $team := . }}
+                {{ $teamSlug := urlize $team.name }}
+                {{ $teamSeasonKey := printf "%s--%s" $seasonID $teamSlug }}
+                {{ $coach := $team.head_coach | default "" }}
+                {{ $searchText := printf "%s %s %s %s %s %s %s %s" $team.name $coach ($team.coach_role | default "") $seasonID $seasonLabel $seasonStatus $termKey $termLabel }}
+                <article class="rt-team-list-row rt-team-archive-row"
+                  data-team-archive-row
+                  data-archive-season="{{ $seasonID }}"
+                  data-archive-season-label="{{ $seasonLabel }}"
+                  data-archive-team-key="{{ $teamSeasonKey }}"
+                  data-archive-team-name="{{ $team.name }}"
+                  data-archive-sort-order="{{ $team.sort_order | default 9999 }}"
+                  data-archive-term="{{ $termKey }}"
+                  data-archive-term-order="{{ if eq $termKey "fall" }}0{{ else if eq $termKey "spring" }}1{{ else }}9{{ end }}"
+                  data-archive-search="{{ $searchText | plainify | lower }}">
+                  <div class="rt-team-list-row__main">
+                    <div>
+                      <h4>{{ $team.name }}</h4>
+                      <p class="rt-team-archive-row__season">{{ $seasonLabel }} · {{ $termLabel }}</p>
+                    </div>
+                    <div class="rt-team-list-row__coach">
+                      {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $coach }}">{{ end }}
+                      <span>
+                        <small>{{ $team.coach_role | default "Head Coach" }}</small>
+                        <strong>{{ $coach | default "TBA" }}</strong>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="rt-team-list-row__meta">
+                    <span class="rt-team-list-row__record">{{ $team.record | default "—" }}</span>
+                    <div class="rt-team-icon-links" aria-label="{{ $team.name }} {{ $seasonLabel }} team links">
+                      {{ range $team.links }}
+                        {{ $label := .label | default "Team Link" }}
+                        {{ $labelLower := lower $label }}
+                        {{ $isPlaceholder := or .placeholder (not .url) }}
+                        {{ $class := "rt-team-icon-link" }}
+                        {{ if in $labelLower "roster" }}{{ $class = printf "%s is-roster" $class }}{{ end }}
+                        {{ if in $labelLower "gamechanger" }}{{ $class = printf "%s is-gc" $class }}{{ end }}
+                        {{ if $isPlaceholder }}{{ $class = printf "%s is-disabled" $class }}{{ end }}
+
+                        {{ if $isPlaceholder }}
+                          <span class="{{ $class }}" aria-label="{{ $team.name }} {{ $label }} coming soon" title="{{ $label }} coming soon" aria-disabled="true">
+                        {{ else }}
+                          <a class="{{ $class }}" href="{{ partial "url.html" .url }}" aria-label="{{ $team.name }} {{ $label }}" title="{{ $label }}">
+                        {{ end }}
+
+                          {{ if in $labelLower "facebook" }}
+                            {{ partial "icon.html" "facebook" }}
+                          {{ else if in $labelLower "instagram" }}
+                            {{ partial "icon.html" "instagram" }}
+                          {{ else if in $labelLower "schedule" }}
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 2h2v2h6V2h2v2h3c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2zm3 4h4v4H7v-4z" fill="currentColor"/></svg>
+                          {{ else if in $labelLower "gamechanger" }}
+                            <span class="rt-gc-badge" aria-hidden="true">GC</span>
+                          {{ else if in $labelLower "roster" }}
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 11c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3zM8 11c1.7 0 3-1.3 3-3S9.7 5 8 5 5 6.3 5 8s1.3 3 3 3zm0 2c-2.7 0-6 1.4-6 4v2h12v-2c0-2.6-3.3-4-6-4zm8 0c-.3 0-.7 0-1 .1 1.2.9 2 2.1 2 3.9v2h5v-2c0-2.6-3.3-4-6-4z" fill="currentColor"/></svg>
+                          {{ else }}
+                            {{ partial "icon.html" "people" }}
+                          {{ end }}
+                          <span class="rt-team-icon-link__label">{{ $label }}</span>
+
+                        {{ if $isPlaceholder }}</span>{{ else }}</a>{{ end }}
+                      {{ else }}
+                        <span class="rt-muted">Links coming soon</span>
+                      {{ end }}
+                    </div>
+                  </div>
+                </article>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </div>
+
+        <p class="rt-team-archive-empty" data-team-archive-empty hidden>No teams match those filters.</p>
+      </section>
     </div>
   </div>
 </section>
@@ -80,6 +201,13 @@
   var panels = document.querySelectorAll('[data-season-panel]');
   if (!buttons.length || !panels.length) return;
 
+  var archivePanel = document.querySelector('[data-season-panel="archive"]');
+  var archiveSeason = document.querySelector('[data-team-archive-season]');
+  var archiveTeam = document.querySelector('[data-team-archive-team]');
+  var archiveSearch = document.querySelector('[data-team-archive-search]');
+  var archiveRows = Array.prototype.slice.call(document.querySelectorAll('[data-team-archive-row]'));
+  var archiveEmpty = document.querySelector('[data-team-archive-empty]');
+
   function showSeason(value) {
     panels.forEach(function (panel) {
       panel.hidden = panel.getAttribute('data-season-panel') !== value;
@@ -89,7 +217,133 @@
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
+
+    if (value === 'archive') {
+      updateArchiveTeamOptions();
+      filterArchiveTeams();
+    }
   }
+
+  function optionExists(select, value) {
+    return Array.prototype.some.call(select.options, function (option) {
+      return option.value === value;
+    });
+  }
+
+  function updateArchiveTeamOptions() {
+    if (!archiveSeason || !archiveTeam) return;
+
+    var selectedSeason = archiveSeason.value || '{{ $defaultSeason }}';
+    var previousValue = archiveTeam.value || 'all';
+    var teams = [];
+    var seen = Object.create(null);
+
+    archiveRows.forEach(function (row) {
+      var season = row.getAttribute('data-archive-season') || '';
+      if (season !== selectedSeason) return;
+
+      var key = row.getAttribute('data-archive-team-key') || '';
+      if (!key || seen[key]) return;
+      seen[key] = true;
+
+      var teamName = row.getAttribute('data-archive-team-name') || 'Team';
+      var seasonLabel = row.getAttribute('data-archive-season-label') || season;
+      teams.push({
+        key: key,
+        label: teamName,
+        teamName: teamName,
+        season: season
+      });
+    });
+
+    teams.sort(function (a, b) {
+      if (a.season !== b.season) return b.season.localeCompare(a.season);
+      return a.teamName.localeCompare(b.teamName, undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+    archiveTeam.innerHTML = '';
+    var allOption = document.createElement('option');
+    allOption.value = 'all';
+    allOption.textContent = 'All Teams';
+    archiveTeam.appendChild(allOption);
+
+    teams.forEach(function (team) {
+      var option = document.createElement('option');
+      option.value = team.key;
+      option.textContent = team.label;
+      archiveTeam.appendChild(option);
+    });
+
+    archiveTeam.value = optionExists(archiveTeam, previousValue) ? previousValue : 'all';
+  }
+
+  function sortArchiveRows() {
+    var results = document.querySelector('[data-team-archive-results]');
+    if (!results || !archiveRows.length) return;
+
+    var groupOrders = archiveRows.reduce(function (orders, row) {
+      var season = row.getAttribute('data-archive-season') || '';
+      var team = (row.getAttribute('data-archive-team-name') || '').toLowerCase();
+      var key = season + '::' + team;
+      var order = parseInt(row.getAttribute('data-archive-sort-order') || '9999', 10);
+      if (!Object.prototype.hasOwnProperty.call(orders, key) || order < orders[key]) {
+        orders[key] = order;
+      }
+      return orders;
+    }, {});
+
+    archiveRows.sort(function (a, b) {
+      var seasonA = a.getAttribute('data-archive-season') || '';
+      var seasonB = b.getAttribute('data-archive-season') || '';
+      if (seasonA !== seasonB) return seasonB.localeCompare(seasonA, undefined, { numeric: true });
+
+      var teamA = a.getAttribute('data-archive-team-name') || '';
+      var teamB = b.getAttribute('data-archive-team-name') || '';
+      var teamKeyA = seasonA + '::' + teamA.toLowerCase();
+      var teamKeyB = seasonB + '::' + teamB.toLowerCase();
+      var groupOrderA = groupOrders[teamKeyA] || 9999;
+      var groupOrderB = groupOrders[teamKeyB] || 9999;
+      if (groupOrderA !== groupOrderB) return groupOrderA - groupOrderB;
+
+      var teamSort = teamA.localeCompare(teamB, undefined, { numeric: true, sensitivity: 'base' });
+      if (teamSort !== 0) return teamSort;
+
+      var termA = parseInt(a.getAttribute('data-archive-term-order') || '9', 10);
+      var termB = parseInt(b.getAttribute('data-archive-term-order') || '9', 10);
+      return termA - termB;
+    });
+
+    archiveRows.forEach(function (row) {
+      results.appendChild(row);
+    });
+  }
+
+  function filterArchiveTeams() {
+    if (!archiveRows.length) return;
+
+    var selectedSeason = archiveSeason ? archiveSeason.value : '{{ $defaultSeason }}';
+    var selectedTeam = archiveTeam ? archiveTeam.value : 'all';
+    var query = archiveSearch ? archiveSearch.value.trim().toLowerCase() : '';
+    var visibleCount = 0;
+
+    archiveRows.forEach(function (row) {
+      var rowSeason = row.getAttribute('data-archive-season') || '';
+      var rowTeam = row.getAttribute('data-archive-team-key') || '';
+      var rowSearch = row.getAttribute('data-archive-search') || '';
+
+      var matchesSeason = rowSeason === selectedSeason;
+      var matchesTeam = selectedTeam === 'all' || rowTeam === selectedTeam;
+      var matchesSearch = !query || rowSearch.indexOf(query) !== -1;
+      var visible = matchesSeason && matchesTeam && matchesSearch;
+
+      row.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+
+    if (archiveEmpty) archiveEmpty.hidden = visibleCount !== 0;
+  }
+
+  sortArchiveRows();
 
   var activeButton = document.querySelector('[data-season-button].is-active') || buttons[0];
   if (activeButton) showSeason(activeButton.getAttribute('data-season-button'));
@@ -99,5 +353,14 @@
       showSeason(button.getAttribute('data-season-button'));
     });
   });
+
+  if (archiveSeason) {
+    archiveSeason.addEventListener('change', function () {
+      updateArchiveTeamOptions();
+      filterArchiveTeams();
+    });
+  }
+  if (archiveTeam) archiveTeam.addEventListener('change', filterArchiveTeams);
+  if (archiveSearch) archiveSearch.addEventListener('input', filterArchiveTeams);
 })();
 </script>

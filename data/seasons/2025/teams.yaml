@@ -2,7 +2,7 @@ spring:
   label: Spring 2026
   empty_text: Teams coming soon.
   teams:
-  - name: 13U Black
+  - name: 12U Black
     sort_order: 870
     head_coach: Chris Cheshire
     coach_role: Head Coach
@@ -11,7 +11,7 @@ spring:
     links:
     - label: Roster
       url: /rosters/2025-13u-black/
-  - name: 13U Orange
+  - name: 12U Orange
     sort_order: 871
     head_coach: Tim Jacoby
     coach_role: Head Coach
@@ -20,7 +20,7 @@ spring:
     links:
     - label: Roster
       url: /rosters/2025-13u-orange/
-  - name: 11U
+  - name: 10U
     sort_order: 890
     head_coach: Ken Torres
     coach_role: Head Coach
@@ -33,7 +33,7 @@ fall:
   label: Fall 2024
   empty_text: Teams coming soon.
   teams:
-  - name: 13U Black
+  - name: 12U Black
     sort_order: 870
     head_coach: Chris Cheshire
     coach_role: Head Coach
@@ -42,7 +42,7 @@ fall:
     links:
     - label: Roster
       url: /rosters/2024-13u-black-fall/
-  - name: 11U
+  - name: 10U
     sort_order: 890
     head_coach: Ken Torres
     coach_role: Head Coach
