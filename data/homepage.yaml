@@ -11,7 +11,9 @@ hero:
   secondary:
     label: Become A Tiger
     url: /become-a-tiger/
-  image: /images/program-media/homepage-team-hero.png
+  #image: /images/program-media/homepage-team-hero.png
+  image: /images/program-media/13u-coach-talk.jpg
+  image_position: center 55%
 
 pillars:
   - title: Player Development
@@ -31,6 +33,14 @@ why:
   kicker: Why Rawlings Tigers NOVA?
   title: Built around growth, competition, and love for the game.
   intro: We focus on better practices, smarter game preparation, accountable teammates, clear communication, and a travel baseball experience families can understand.
+  image:
+    enabled: true
+    #src: /images/program-media/main-love-the-game-1600x1200-full-photo.jpg
+    src: /images/program-media/main-love-the-game-1600x1200-crop.jpg
+    alt: Rawlings Tigers NOVA players together after a team moment.
+    position: center center
+    #label: NOVA Baseball Family
+    #caption: Real players, real teams, and a program built around the day-to-day experience.
 
 proof:
   - value: 10U–14U

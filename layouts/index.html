@@ -3,7 +3,8 @@
 
 <section class="home-hero">
   <div class="home-hero__media" aria-hidden="true">
-    <img src="{{ partial "url.html" $home.hero.image }}" alt="">
+    {{ $heroImagePosition := default "center 42%" $home.hero.image_position }}
+    <img src="{{ partial "url.html" $home.hero.image }}" alt="" style="object-position: {{ $heroImagePosition }};">
   </div>
   <div class="rt-shell home-hero__inner">
     <div class="home-hero__copy">
@@ -30,12 +31,32 @@
   </div>
 </section>
 
-<section class="rt-section rt-section--white home-statement">
+<section class="rt-section rt-section--white home-statement{{ if and $home.why.image $home.why.image.enabled }} home-statement--with-media{{ end }}">
+  {{ if and $home.why.image $home.why.image.enabled }}
+  <div class="rt-shell home-statement__grid">
+    <div class="section-intro home-statement__copy">
+      <p class="rt-kicker rt-kicker--dark">{{ $home.why.kicker }}</p>
+      <h2>{{ $home.why.title }}</h2>
+      <p>{{ $home.why.intro }}</p>
+    </div>
+    <figure class="home-statement__media">
+      {{ $whyImagePosition := default "center center" $home.why.image.position }}
+      <img src="{{ partial "url.html" $home.why.image.src }}" alt="{{ $home.why.image.alt }}" style="object-position: {{ $whyImagePosition }};">
+      {{ if or $home.why.image.label $home.why.image.caption }}
+      <figcaption>
+        {{ with $home.why.image.label }}<strong>{{ . }}</strong>{{ end }}
+        {{ with $home.why.image.caption }}<span>{{ . }}</span>{{ end }}
+      </figcaption>
+      {{ end }}
+    </figure>
+  </div>
+  {{ else }}
   <div class="rt-shell section-intro section-intro--center">
     <p class="rt-kicker rt-kicker--dark">{{ $home.why.kicker }}</p>
     <h2>{{ $home.why.title }}</h2>
     <p>{{ $home.why.intro }}</p>
   </div>
+  {{ end }}
 </section>
 
 <section class="proof-band">

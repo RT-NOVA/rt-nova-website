@@ -31,3 +31,10 @@
 - The current season remains in its year-based position and is labeled `Current Season · <Year> Season`.
 - Example ordering: `2027 Season`, `Current Season · 2026 Season`, `2025 Season`.
 - If `2028 Season` is added while `2027 Season` is current, the dropdown will order as `2028 Season`, `Current Season · 2027 Season`, `2026 Season`.
+
+## Homepage Photo Integration Patch
+
+- Added data-driven hero image focus control through `data/homepage.yaml`.
+- Added an optional image element inside the existing “Built around growth, competition, and love for the game” section.
+- Kept the homepage structure intact; no new standalone photo-story/gallery section was added.
+- Added `docs/HOMEPAGE_MEDIA.md` with hero and section image update instructions.
