@@ -38,3 +38,11 @@
 - Added an optional image element inside the existing “Built around growth, competition, and love for the game” section.
 - Kept the homepage structure intact; no new standalone photo-story/gallery section was added.
 - Added `docs/HOMEPAGE_MEDIA.md` with hero and section image update instructions.
+
+## Homepage local training teaser with photos preserved
+
+- Preserved the data-driven homepage hero image and Built Around Growth photo support.
+- Added a compact local/training teaser inside the existing Built Around Growth section.
+- Added callouts for Local roots and Real training locations with a link to `/training-locations/`.
+- Updated homepage proof points to emphasize Woodbridge-based roots, outdoor + indoor training, age groups, and the Rawlings Tigers brand.
+- Updated `docs/HOMEPAGE_MEDIA.md` with photo and teaser configuration notes.

@@ -38,6 +38,19 @@
       <p class="rt-kicker rt-kicker--dark">{{ $home.why.kicker }}</p>
       <h2>{{ $home.why.title }}</h2>
       <p>{{ $home.why.intro }}</p>
+      {{ if and $home.why.local $home.why.local.enabled }}
+      <div class="home-statement__local" aria-label="Local program and training footprint">
+        {{ range $home.why.local.callouts }}
+        <article class="home-statement__local-item">
+          <strong>{{ .title }}</strong>
+          <span>{{ .text }}</span>
+        </article>
+        {{ end }}
+        {{ with $home.why.local.link }}
+        <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .url }}">{{ .label }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
     </div>
     <figure class="home-statement__media">
       {{ $whyImagePosition := default "center center" $home.why.image.position }}
@@ -55,6 +68,19 @@
     <p class="rt-kicker rt-kicker--dark">{{ $home.why.kicker }}</p>
     <h2>{{ $home.why.title }}</h2>
     <p>{{ $home.why.intro }}</p>
+    {{ if and $home.why.local $home.why.local.enabled }}
+    <div class="home-statement__local home-statement__local--center" aria-label="Local program and training footprint">
+      {{ range $home.why.local.callouts }}
+      <article class="home-statement__local-item">
+        <strong>{{ .title }}</strong>
+        <span>{{ .text }}</span>
+      </article>
+      {{ end }}
+      {{ with $home.why.local.link }}
+      <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .url }}">{{ .label }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
   </div>
   {{ end }}
 </section>

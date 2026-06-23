@@ -4854,3 +4854,55 @@ h1, h2, h3,
     margin-top:.45rem;
   }
 }
+
+/* Homepage local/training teaser: add practical context without adding a new section. */
+.home-statement__local {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.8rem;
+  margin-top:1.25rem;
+}
+
+.home-statement__local-item {
+  padding:.95rem 1rem;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(11,11,13,.08);
+  border-radius:16px;
+  box-shadow:0 14px 38px rgba(5,5,5,.06);
+}
+
+.home-statement__local-item strong {
+  display:block;
+  margin-bottom:.35rem;
+  color:var(--rt-orange-dark);
+  font-size:.72rem;
+  font-weight:950;
+  letter-spacing:.11em;
+  line-height:1.1;
+  text-transform:uppercase;
+}
+
+.home-statement__local-item span {
+  display:block;
+  color:var(--rt-muted);
+  font-size:.88rem;
+  font-weight:750;
+  line-height:1.45;
+}
+
+.home-statement__local-link {
+  grid-column:1 / -1;
+  margin-top:.15rem;
+}
+
+.home-statement__local--center {
+  max-width:780px;
+  margin-inline:auto;
+  text-align:left;
+}
+
+@media (max-width:720px) {
+  .home-statement__local {
+    grid-template-columns:1fr;
+  }
+}

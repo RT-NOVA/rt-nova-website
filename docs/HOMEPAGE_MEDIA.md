@@ -1,6 +1,6 @@
-# Homepage Photo Controls
+# Homepage Media
 
-The homepage uses photos inside existing sections rather than adding a separate photo gallery section.
+The homepage keeps photos integrated into existing sections instead of adding a separate gallery-style block.
 
 ## Hero image
 
@@ -8,46 +8,56 @@ The homepage hero image is controlled in `data/homepage.yaml`:
 
 ```yaml
 hero:
-  image: /images/program-media/homepage-team-hero.png
-  image_position: center 42%
+  image: /images/program-media/13u-coach-talk.jpg
+  image_position: center 55%
 ```
 
-To rotate the hero image:
-
-1. Add the new image under `static/images/program-media/` or another `static/images/...` folder.
-2. Update `hero.image` to the new path.
-3. Adjust `hero.image_position` if the crop needs to focus higher/lower or left/right.
-
-Useful examples:
+Use `image_position` to adjust the crop/focus without editing CSS. Examples:
 
 ```yaml
 image_position: center center
 image_position: center 35%
-image_position: 60% center
-image_position: left center
+image_position: right center
 ```
 
-Recommended hero images should be wide landscape images. A good target is roughly 1600×900 or wider.
+This maps to CSS `object-position`, so it changes which part of the image stays visible when the hero crops across desktop, tablet, and mobile screens.
 
-## Built Around Growth section image
+## Built Around Growth image
 
-The image in the “Built around growth, competition, and love for the game” section is controlled by the `why.image` block:
+The optional photo inside the `Built around growth, competition, and love for the game` section is controlled by:
 
 ```yaml
 why:
   image:
     enabled: true
-    src: /images/social/2026-06-15-facebook-11u-team-facebook-photo.jpg
+    src: /images/program-media/main-love-the-game-1600x1200-crop.jpg
     alt: Rawlings Tigers NOVA players together after a team moment.
     position: center center
-    label: NOVA Baseball Family
-    caption: Real players, real teams, and a program built around the day-to-day experience.
 ```
 
-To hide the image and return that section to the centered text-only layout:
+Set `enabled: false` to return the section to text-only.
+
+Recommended image sizes:
+
+- Hero: 2000–2400px wide, landscape.
+- Built Around Growth: 1600 × 1200, 1800 × 1200, or similar landscape crop.
+
+## Local/training teaser
+
+The homepage also includes a small local/training footprint teaser inside the Built Around Growth section:
 
 ```yaml
-enabled: false
+why:
+  local:
+    enabled: true
+    callouts:
+      - title: Local roots
+        text: Serving Woodbridge, Dumfries, Montclair, Dale City, Stafford, Manassas, Fairfax, Prince William County, and surrounding communities.
+      - title: Real training locations
+        text: Outdoor work centers on Woodbridge-area fields, with winter training at D-BAT Manassas, Metro Baseball Facility, and Veterans Community Center.
+    link:
+      label: View Training Locations
+      url: /training-locations/
 ```
 
-Use candid team, practice, dugout, or game-day photos here. This section works best with a warm, personal team image rather than a graphic or player-card image.
+Keep these callouts short so the homepage remains a teaser and the Training Locations page remains the detailed planning page.

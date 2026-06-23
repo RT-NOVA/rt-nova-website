@@ -13,7 +13,7 @@ hero:
     url: /become-a-tiger/
   #image: /images/program-media/homepage-team-hero.png
   image: /images/program-media/13u-coach-talk.jpg
-  image_position: center 55%
+  image_position: center 35%
 
 pillars:
   - title: Player Development
@@ -26,13 +26,23 @@ pillars:
     text: Clear instruction, organized practices, and development standards.
     icon: whistle-1-svgrepo-com
   - title: Home Base
-    text: Proudly serving Woodbridge, Dumfries, Montclair, and Northern Virginia.
+    text: Proudly serving the Northern Virginia area.
     icon: baseball-stadium-1-svgrepo-com
 
 why:
   kicker: Why Rawlings Tigers NOVA?
   title: Built around growth, competition, and love for the game.
   intro: We focus on better practices, smarter game preparation, accountable teammates, clear communication, and a travel baseball experience families can understand.
+  local:
+    enabled: true
+    callouts:
+      - title: NoVA roots
+        text: Serving Woodbridge, Dumfries, Montclair, Dale City, Stafford, Manassas, Fairfax, Prince William County, and surrounding communities.
+      - title: Real training locations
+        text: Outdoor work centers on Woodbridge-area fields, with winter training at D-BAT Manassas, Metro Baseball Facility, and Veterans Community Center.
+    link:
+      label: View Training Locations
+      url: /training-locations/
   image:
     enabled: true
     #src: /images/program-media/main-love-the-game-1600x1200-full-photo.jpg
@@ -43,14 +53,14 @@ why:
     #caption: Real players, real teams, and a program built around the day-to-day experience.
 
 proof:
+  - value: NORTHERN VIRGINIA
+    label: Program Area
+  - value: Outdoor + Indoor
+    label: Year-round training footprint
   - value: 10U–14U
     label: Team age groups
-  - value: Northern Virginia
-    label: Local program roots
   - value: Rawlings Tigers
     label: National brand
-  - value: 501(c)(3)
-    label: Booster Club support
 
 social:
   kicker: Follow Along
