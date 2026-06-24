@@ -19,14 +19,39 @@
   </div>
 </section>
 
-<section class="program-strip">
-  <div class="rt-shell program-strip__grid">
-    {{ range $home.pillars }}
-    <article class="program-strip__item">
-      <span class="rt-line-icon" aria-hidden="true">{{ partial "icon.html" .icon }}</span>
+<section class="rt-section rt-section--cream home-pillars" aria-label="Rawlings Tigers NOVA program pillars">
+  <div class="rt-shell">
+    {{ with $home.pillars_intro }}
+    <div class="section-intro section-intro--center home-pillars__intro">
+      <p class="rt-kicker rt-kicker--dark">{{ .kicker }}</p>
       <h2>{{ .title }}</h2>
-      <p>{{ .text }}</p>
-    </article>
+    </div>
+    {{ end }}
+    <div class="home-pillars__grid">
+      {{ range $home.pillars }}
+      {{ $pillar := . }}
+      <article class="home-pillar-card">
+      {{ with $pillar.image }}
+      {{ $pillarImagePosition := default "center center" $pillar.image_position }}
+      <div class="home-pillar-card__media" aria-hidden="true">
+        <img src="{{ partial "url.html" . }}" alt="" style="object-position: {{ $pillarImagePosition }};">
+      </div>
+      {{ end }}
+      <div class="home-pillar-card__body">
+        {{ with $pillar.icon }}<span class="rt-line-icon" aria-hidden="true">{{ partial "icon.html" . }}</span>{{ end }}
+        <h2>{{ $pillar.title }}</h2>
+        <p>{{ $pillar.text }}</p>
+      </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="proof-band proof-band--home">
+  <div class="rt-shell proof-band__grid">
+    {{ range $home.proof }}
+    <div><strong>{{ .value }}</strong><span>{{ .label }}</span></div>
     {{ end }}
   </div>
 </section>
@@ -44,10 +69,14 @@
         <article class="home-statement__local-item">
           <strong>{{ .title }}</strong>
           <span>{{ .text }}</span>
+          {{ if .link }}
+          <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .link.url }}">{{ .link.label }}</a>
+          {{ else if eq (lower .title) "real training locations" }}
+            {{ with $home.why.local.link }}
+            <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .url }}">{{ .label }}</a>
+            {{ end }}
+          {{ end }}
         </article>
-        {{ end }}
-        {{ with $home.why.local.link }}
-        <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .url }}">{{ .label }}</a>
         {{ end }}
       </div>
       {{ end }}
@@ -64,7 +93,7 @@
     </figure>
   </div>
   {{ else }}
-  <div class="rt-shell section-intro section-intro--center">
+  <div class="rt-shell section-intro section-intro--center home-statement__center">
     <p class="rt-kicker rt-kicker--dark">{{ $home.why.kicker }}</p>
     <h2>{{ $home.why.title }}</h2>
     <p>{{ $home.why.intro }}</p>
@@ -74,23 +103,15 @@
       <article class="home-statement__local-item">
         <strong>{{ .title }}</strong>
         <span>{{ .text }}</span>
+        {{ with .link }}
+        <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .url }}">{{ .label }}</a>
+        {{ end }}
       </article>
-      {{ end }}
-      {{ with $home.why.local.link }}
-      <a class="rt-text-link home-statement__local-link" href="{{ partial "url.html" .url }}">{{ .label }}</a>
       {{ end }}
     </div>
     {{ end }}
   </div>
   {{ end }}
-</section>
-
-<section class="proof-band">
-  <div class="rt-shell proof-band__grid">
-    {{ range $home.proof }}
-    <div><strong>{{ .value }}</strong><span>{{ .label }}</span></div>
-    {{ end }}
-  </div>
 </section>
 
 {{ partial "social-hub.html" . }}

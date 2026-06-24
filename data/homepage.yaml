@@ -15,23 +15,31 @@ hero:
   image: /images/program-media/13u-coach-talk.jpg
   image_position: center 35%
 
+
+pillars_intro:
+  kicker: Development, competition, and coaching.
+  title: Program Focus
+
 pillars:
   - title: Player Development
     text: Skill work, baseball IQ, confidence, and accountability.
-    icon: helmet-2-svgrepo-com
+    #icon: helmet-2-svgrepo-com
+    image: /images/program-media/hank-first-base-pick.jpeg
+    image_position: center center
   - title: Competitive Teams
     text: Age-level teams built around growth and meaningful competition.
-    icon: bat-4-svgrepo-com
+    #icon: bat-4-svgrepo-com
+    image: /images/program-media/main-love-the-game-1600x1200-crop.jpg
+    image_position: center center
   - title: Professional Coaching
     text: Clear instruction, organized practices, and development standards.
-    icon: whistle-1-svgrepo-com
-  - title: Home Base
-    text: Proudly serving the Northern Virginia area.
-    icon: baseball-stadium-1-svgrepo-com
+    #icon: whistle-1-svgrepo-com
+    image: /images/program-media/cheshire-and-12u-black.jpeg
+    image_position: center center
 
 why:
   kicker: Why Rawlings Tigers NOVA?
-  title: Built around growth, competition, and love for the game.
+  title: Local Roots. National Standards.
   intro: We focus on better practices, smarter game preparation, accountable teammates, clear communication, and a travel baseball experience families can understand.
   local:
     enabled: true
@@ -40,11 +48,11 @@ why:
         text: Serving Woodbridge, Dumfries, Montclair, Dale City, Stafford, Manassas, Fairfax, Prince William County, and surrounding communities.
       - title: Real training locations
         text: Outdoor work centers on Woodbridge-area fields, with winter training at D-BAT Manassas, Metro Baseball Facility, and Veterans Community Center.
-    link:
-      label: View Training Locations
-      url: /training-locations/
+        link:
+          label: View Training Locations
+          url: /training-locations/
   image:
-    enabled: true
+    enabled: false
     #src: /images/program-media/main-love-the-game-1600x1200-full-photo.jpg
     src: /images/program-media/main-love-the-game-1600x1200-crop.jpg
     alt: Rawlings Tigers NOVA players together after a team moment.
