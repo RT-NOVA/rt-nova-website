@@ -4,7 +4,7 @@ title: "Rawlings Tigers NOVA 12U Bring Home Shock The World Championship"
 date: 2025-04-28
 badge: "Champions"
 team: "12U"
-image: "https://cdn-app.teamlinkt.com/media/news_items/31998/news_item.jpeg"
+image: "images/social/12u-bring-home-shock-the-world-championship.jpeg"
 image_alt: "Rawlings Tigers NOVA 12U news image"
 excerpt: "12U showed grit and teamwork at the Shock The World Spring 2025 Tournament."
 ---

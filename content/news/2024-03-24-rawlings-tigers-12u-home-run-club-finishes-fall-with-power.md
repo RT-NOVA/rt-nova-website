@@ -4,7 +4,7 @@ title: "Rawlings Tigers 12U Home Run Club Finishes Fall with Power"
 date: 2024-03-24
 badge: "Home Runs"
 team: "12U"
-image: "https://cdn-app.teamlinkt.com/media/news_items/28438/news_item.jpeg"
+image: "images/social/12u-home-run-club-finishes-fall-with-power.jpeg"
 image_alt: "Rawlings Tigers NOVA 12U news image"
 excerpt: "The 12U team hit eight home runs in the final tournament of the fall season."
 ---

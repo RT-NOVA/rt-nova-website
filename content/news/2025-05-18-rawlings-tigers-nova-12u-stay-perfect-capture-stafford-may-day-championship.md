@@ -4,7 +4,7 @@ title: "Rawlings Tigers NOVA 12U Stay Perfect, Capture Stafford May Day Champion
 date: 2025-05-18
 badge: "Champions"
 team: "12U"
-image: "https://cdn-app.teamlinkt.com/media/news_items/32547/news_item.jpeg"
+image: "images/social/12u-stay-perfect-capture-stafford-may-day-championship.jpeg"
 image_alt: "Rawlings Tigers NOVA 12U news image"
 excerpt: "12U went undefeated and collected 33 hits over three games to win Stafford May Day."
 ---

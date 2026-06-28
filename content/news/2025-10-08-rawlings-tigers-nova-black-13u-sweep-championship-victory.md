@@ -4,7 +4,7 @@ title: "Rawlings Tigers NOVA – Black 13U Sweep Championship Victory"
 date: 2025-10-08
 badge: "Champions"
 team: "13U Black"
-image: "https://cdn-app.teamlinkt.com/media/news_items/36801/news_item.jpeg"
+image: "images/social/black-13u-sweep-championship-victory.jpeg"
 image_alt: "Rawlings Tigers NOVA 13U Black news image"
 excerpt: "Rawlings Tigers NOVA – Black 13U delivered back-to-back wins to cap a championship weekend."
 ---

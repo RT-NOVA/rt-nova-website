@@ -4,7 +4,7 @@ title: "Rawlings Tigers NOVA 12U Capture St. James Frozen Rope Championship"
 date: 2025-03-21
 badge: "Champions"
 team: "12U"
-image: "https://cdn-app.teamlinkt.com/media/news_items/31082/news_item.jpeg"
+image: "images/social/12u-capture-st-james-frozen-rope-championship.jpeg"
 image_alt: "Rawlings Tigers NOVA 12U news image"
 excerpt: "12U opened the season by winning the St. James Frozen Rope Tournament."
 ---

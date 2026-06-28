@@ -4,7 +4,7 @@ title: "Rawlings Tigers Represent at Perfect Game All-State Tournament"
 date: 2025-08-03
 badge: "Player Honors"
 team: "Rawlings Tigers"
-image: "https://cdn-app.teamlinkt.com/media/news_items/34707/news_item.jpeg"
+image: "images/social/rawlings-tigers-represent-at-perfect-game-all-state-tournament.jpeg"
 image_alt: "Rawlings Tigers Represent at Perfect Game All-State Tournament news image"
 excerpt: "Six Tigers represented the program at the Perfect Game All-State Tournament."
 ---

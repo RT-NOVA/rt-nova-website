@@ -4,7 +4,7 @@ title: "Rawlings Tigers 10U Season Record"
 date: 2024-11-22
 badge: "Season Recap"
 team: "10U"
-image: "https://cdn-app.teamlinkt.com/media/news_items/28439/news_item.jpeg"
+image: "images/social/10u-season-record.jpeg"
 image_alt: "Rawlings Tigers NOVA 10U news image"
 excerpt: "10U finished the fall season with a 14-5 record."
 ---

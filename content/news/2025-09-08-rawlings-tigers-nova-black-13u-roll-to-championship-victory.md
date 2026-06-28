@@ -4,7 +4,7 @@ title: "Rawlings Tigers NOVA – Black 13U Roll to Championship Victory"
 date: 2025-09-08
 badge: "Champions"
 team: "13U Black"
-image: "https://cdn-app.teamlinkt.com/media/news_items/35828/news_item.jpeg"
+image: "images/social/black-13u-roll-to-championship-victory.jpeg"
 image_alt: "Rawlings Tigers NOVA 13U Black news image"
 excerpt: "Black 13U secured semifinal and championship wins at South County Middle School."
 ---

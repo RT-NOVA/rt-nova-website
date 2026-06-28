@@ -4,7 +4,7 @@ title: "Rawlings Tigers NOVA Black 13U Earn Runner-Up at VSA Select DMV 13U Gold
 date: 2026-04-13
 badge: "Runner-Up"
 team: "13U Black"
-image: "https://cdn-app.teamlinkt.com/media/news_items/42940/news_item.jpeg"
+image: "images/social/black-13u-earn-runner-up-at-vsa-select-dmv-13u-gold.jpeg"
 image_alt: "Rawlings Tigers NOVA 13U Black news image"
 excerpt: "Black 13U earned the top seed and finished runner-up after an 11-10 championship game."
 ---

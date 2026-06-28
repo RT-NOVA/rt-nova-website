@@ -4,7 +4,7 @@ title: "Rawlings Tigers 10U Bring the Heat at the St. James Home Run Derby"
 date: 2025-03-24
 badge: "Home Run Derby"
 team: "10U"
-image: "https://cdn-app.teamlinkt.com/media/news_items/31080/news_item.jpeg"
+image: "images/social/10u-bring-the-heat-at-the-st-james-home-run-derby.jpeg"
 image_alt: "Rawlings Tigers NOVA 10U news image"
 excerpt: "Christopher Perez reached the final round at the St. James Home Run Derby."
 ---
