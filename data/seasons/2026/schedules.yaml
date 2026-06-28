@@ -12,6 +12,12 @@
 #  title: Summer Slugfest
 #  location: VMP Field 4
 events:
+  - team: 13U Black
+    date: 2026-03-14
+    time: TBD
+    type: Tournament
+    title: USSSA St. Patrick's Day
+    location: Manassas, VA
   # 13U Black
   - team: 13U Black
     date: 2026-06-27
@@ -25,21 +31,21 @@ events:
     time: TBD
     type: Tournament
     title: 2026 Diamond Wars
-    location: TBD
+    location: Fredricksburg, VA
 
   - team: 13U Black
     date: 2026-07-18
     time: TBD
     type: Tournament
     title: 2026 Dawg Days of Summer
-    location: TBD
+    location: Hershey, PA
 
   - team: 13U Black
     date: 2026-07-30
     time: TBD
     type: Tournament
     title: 2026 Prospect Select DMV Open
-    location: TBD
+    location: Fairfax, VA
 
   # 13U Orange
   - team: 13U Orange
@@ -56,7 +62,7 @@ events:
     time: TBD
     type: Tournament
     title: 2026 Dog Days of Summer
-    location: TBD
+    location: Fredricksburg, VA
 
   - team: 13U Orange
     date: 2026-07-12
@@ -65,11 +71,19 @@ events:
     title: NVBTL Double Header
     notes: NVBTL Double Header
     opponent: TBD
-    location: TBD
+    location: NoVA Area
 
   - team: 13U Orange
     date: 2026-07-25
     time: TBD
     type: Tournament
     title: 2026 TCS Summer Blaze
-    location: TBD
+    location: Fredricksburg, VA
+
+# 11U
+  - team: 11U
+    date: 2026-06-20
+    time: TBD
+    type: Tournament
+    title: Grand Caverns International
+    location: Shenandoah Valley, VA
