@@ -1,0 +1,61 @@
+# Rawlings Tigers NOVA SEO / AI-search settings.
+# Keep this file simple so non-technical updates can be made without editing templates.
+site_name: Rawlings Tigers NOVA
+legal_name: Rawlings Tigers NOVA
+url: https://rawlingstigersnova.com
+logo: /images/teamlinkt/rawlings-tigers-nova-round.png
+image: /images/program-media/13u-coach-talk.jpg
+primary_title: Rawlings Tigers NOVA | Travel Baseball in Northern Virginia
+description: Rawlings Tigers NOVA is a Northern Virginia travel baseball program serving Woodbridge, Dumfries, Montclair, Stafford, Manassas, Fairfax, Prince William County, and surrounding communities.
+official_tagline: Official website of Rawlings Tigers NOVA travel baseball.
+sport: Baseball
+area_served:
+  - Northern Virginia
+  - Woodbridge VA
+  - Dumfries VA
+  - Montclair VA
+  - Dale City VA
+  - Stafford VA
+  - Manassas VA
+  - Fairfax VA
+  - Prince William County VA
+keywords:
+  - Rawlings Tigers NOVA
+  - Rawlings Tigers Northern Virginia
+  - Northern Virginia travel baseball
+  - Woodbridge VA travel baseball
+  - Prince William County travel baseball
+  - Dumfries VA baseball
+  - Montclair VA baseball
+  - Stafford VA travel baseball
+  - Manassas VA travel baseball
+  - Fairfax VA travel baseball
+  - youth baseball Northern Virginia
+same_as:
+  - https://www.instagram.com/rawlingstigersnova
+  - https://www.facebook.com/rawlingstigersnova
+important_pages:
+  - title: Home
+    url: /
+    description: Official Rawlings Tigers NOVA homepage.
+  - title: About
+    url: /about/
+    description: Program overview, standards, and Northern Virginia travel baseball information.
+  - title: Teams
+    url: /teams/
+    description: Current Rawlings Tigers NOVA teams and team archive.
+  - title: Tryouts
+    url: /tryouts/
+    description: Rawlings Tigers NOVA tryout information.
+  - title: Coaches
+    url: /coaches/
+    description: Rawlings Tigers NOVA coaching staff.
+  - title: Accolades
+    url: /accolades/
+    description: Tournament results, banner wall, and player honors.
+  - title: Schedules
+    url: /schedules/
+    description: Rawlings Tigers NOVA schedules and team calendar links.
+  - title: Social Hub
+    url: /social-hub/
+    description: Team news, Facebook updates, and Instagram highlights.

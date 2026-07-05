@@ -1,0 +1,44 @@
+# Rawlings Tigers NOVA
+# Public site: allow search engines and AI-search crawlers to discover official pages.
+
+User-agent: *
+Allow: /
+
+# Google / Bing search discovery
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# OpenAI crawlers
+# OAI-SearchBot supports ChatGPT search/discovery.
+User-agent: OAI-SearchBot
+Allow: /
+
+# ChatGPT-User is used for user-requested fetches in ChatGPT.
+User-agent: ChatGPT-User
+Allow: /
+
+# GPTBot is used for OpenAI model training. Leave allowed if you want future AI systems
+# to learn the official Rawlings Tigers NOVA entity from your current site.
+User-agent: GPTBot
+Allow: /
+
+# Other common AI/search crawlers. These are advisory; compliant crawlers honor robots.txt.
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+Sitemap: https://rawlingstigersnova.com/sitemap.xml
