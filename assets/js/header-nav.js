@@ -4,10 +4,36 @@
     if (!header || header.dataset.rtHeaderReady === 'true') return;
     header.dataset.rtHeaderReady = 'true';
 
+    var root = document.documentElement;
     var nav = header.querySelector('[data-rt-nav]');
     var mobileToggle = header.querySelector('[data-rt-nav-toggle]');
     var items = Array.prototype.slice.call(header.querySelectorAll('[data-rt-nav-item]'));
     var hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    function firstMainElement() {
+      var main = document.querySelector('main');
+      if (!main) return null;
+      for (var i = 0; i < main.children.length; i += 1) {
+        var child = main.children[i];
+        if (child && child.nodeType === 1) return child;
+      }
+      return null;
+    }
+
+    function pageHasHero() {
+      var first = firstMainElement();
+      if (!first) return false;
+      if (first.matches('[data-hero], .home-hero, .page-hero, .section-hero, .hero')) return true;
+      var className = String(first.className || '').toLowerCase();
+      return className.indexOf('hero') !== -1;
+    }
+
+    function updateHeaderState() {
+      var hasHero = pageHasHero();
+      root.classList.toggle('rt-has-hero', hasHero);
+      root.classList.toggle('rt-no-hero', !hasHero);
+      header.classList.toggle('is-scrolled', window.scrollY > 36 || !hasHero);
+    }
 
     function triggerFor(item) {
       return item ? item.querySelector('[data-rt-nav-trigger]') : null;
@@ -53,7 +79,7 @@
       if (!nav || !mobileToggle) return;
       mobileToggle.setAttribute('aria-expanded', String(open));
       nav.classList.toggle('is-open', open);
-      document.documentElement.classList.toggle('rt-nav-lock', open);
+      root.classList.toggle('rt-nav-lock', open);
       if (!open) closeAll();
     }
 
@@ -64,15 +90,12 @@
       item.addEventListener('mouseenter', function () {
         if (hoverQuery.matches) openItem(item);
       });
-
       item.addEventListener('mouseleave', function () {
         if (hoverQuery.matches) closeItem(item);
       });
-
       item.addEventListener('focusin', function () {
         if (hoverQuery.matches) openItem(item);
       });
-
       trigger.addEventListener('click', function (event) {
         event.preventDefault();
         toggleItem(item);
@@ -102,6 +125,11 @@
       setMobileNav(false);
       if (mobileToggle && header.contains(document.activeElement)) mobileToggle.focus();
     });
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+    window.addEventListener('resize', updateHeaderState);
+    window.addEventListener('load', updateHeaderState);
   }
 
   if (document.readyState === 'loading') {

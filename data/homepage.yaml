@@ -1,10 +1,8 @@
 hero:
   kicker: Rawlings Tigers NOVA Baseball
   title_lines:
-    - Develop.
-    - Compete.
-    - Represent.
-  intro: A Northern Virginia travel baseball program built around player development, competitive preparation, team culture, and a better experience for families.
+    - Northern Virginia Baseball
+  intro: ""
   primary:
     label: View Teams
     url: /teams/
@@ -15,10 +13,10 @@ hero:
   image: /images/program-media/13u-coach-talk.jpg
   image_position: center 35%
 
-
 pillars_intro:
   kicker: Development, competition, and coaching.
   title: Program Focus
+  text: Baseball built around player development, competitive preparation, team culture, and a better experience for families.
 
 pillars:
   - title: Player Development
@@ -48,9 +46,9 @@ why:
         text: Serving Woodbridge, Dumfries, Montclair, Dale City, Stafford, Manassas, Fairfax, Prince William County, and surrounding communities.
       - title: Real training locations
         text: Outdoor work centers on Woodbridge-area fields, with winter training at D-BAT Manassas, Metro Baseball Facility, and Veterans Community Center.
-        link:
-          label: View Training Locations
-          url: /training-locations/
+    link:
+      label: View Training Locations
+      url: /training-locations/
   image:
     enabled: false
     #src: /images/program-media/main-love-the-game-1600x1200-full-photo.jpg

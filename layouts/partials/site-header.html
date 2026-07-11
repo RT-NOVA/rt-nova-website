@@ -1,71 +1,88 @@
-{{- /*
-  RT NOVA isolated disclosure header.
-  This partial intentionally uses rt-header / rt-nav class names instead of the old
-  site-header / site-nav naming so older nav styles cannot create duplicate underlines
-  or sticky dropdown state.
+{{- /* RT NOVA Brick-inspired centered overlay header.
+      Desktop: location left, centered logo, social/phone right, nav centered below.
+      Scroll behavior is handled by assets/js/header-nav.js.
 */ -}}
-{{- with resources.Get "css/header-nav.css" }}
-<style id="rt-header-nav-css">
-{{ .Content | safeCSS }}
-</style>
-{{- end }}
+{{- with resources.Get "css/header-nav.css" -}}
+  {{- $rtHeaderCSS := . | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $rtHeaderCSS.RelPermalink }}" integrity="{{ $rtHeaderCSS.Data.Integrity }}">
+{{- end -}}
+
+{{- with resources.Get "css/hero-natural-reset.css" -}}
+  {{- $rtHeroNaturalCSS := . | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $rtHeroNaturalCSS.RelPermalink }}" integrity="{{ $rtHeroNaturalCSS.Data.Integrity }}">
+{{- end -}}
+
 {{- $mainNav := default (slice) hugo.Data.navigation.main -}}
 {{- $utilityNav := default (slice) hugo.Data.navigation.utility -}}
-<header class="rt-header" role="banner" data-rt-header>
-  <div class="rt-header__inner rt-shell--wide">
-    <a class="rt-header-brand" href="{{ partial "url.html" "/" }}" aria-label="Rawlings Tigers NOVA home">
-      <img class="rt-header-brand__logo" src="{{ partial "url.html" "/images/program-media/rawlings-tigers-nova-round-logo.png" }}" alt="Rawlings Tigers Northern Virginia">
-      <span class="rt-header-brand__text" aria-hidden="true">
-        <span class="rt-header-brand__title">Rawlings Tigers</span>
-        <span class="rt-header-brand__sub">NOVA Baseball</span>
-      </span>
-    </a>
+{{- $footer := hugo.Data.footer -}}
+{{- $contact := $footer.contact -}}
+{{- $social := default (slice) $footer.social -}}
 
-    <button class="rt-header-menu" type="button" aria-expanded="false" aria-controls="rt-header-nav" data-rt-nav-toggle>
-      <span class="rt-header-menu__bar"></span>
-      <span class="rt-header-menu__bar"></span>
-      <span class="rt-header-menu__bar"></span>
-      <span class="sr-only">Menu</span>
-    </button>
+<header class="rt-header" data-rt-header>
+  <div class="rt-header__shell">
+    <div class="rt-header__meta" aria-label="Program contact information">
+      <a class="rt-header__location" href="{{ "/training-locations/" | relURL }}">
+        <span class="rt-header__location-copy">
+          <span>Northern Virginia Area</span>
+          <span>Woodbridge • Dumfries • Manassas</span>
+        </span>
+      </a>
 
-    <nav id="rt-header-nav" class="rt-nav" aria-label="Main navigation" data-rt-nav>
-      <div class="rt-nav__main">
-        {{- range $index, $item := $mainNav }}
-          {{- partial "site-nav-item.html" (dict "item" $item "level" 0 "id" (printf "rt-nav-panel-%d" $index)) -}}
+      <a class="rt-header-brand" href="{{ "/" | relURL }}" aria-label="Rawlings Tigers NOVA Baseball home">
+        <img class="rt-header-brand__logo" src="{{ "/images/program-media/rawlings-tigers-nova-round-logo.png" | relURL }}" alt="" width="142" height="142">
+      </a>
+
+      <div class="rt-header__contact">
+        <div class="rt-header-social" aria-label="Social links">
+          <a class="rt-header-social__link rt-header-social__link--watch" href="{{ "/watch-now/" | relURL }}" aria-label="Watch Now">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+              <rect x="3" y="6" width="13" height="12" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="2"></rect>
+              <path d="M16 10.2 21 7.5v9l-5-2.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+          {{- range first 2 $social }}
+            <a class="rt-header-social__link" href="{{ .url }}" aria-label="{{ .label | default .name }}" target="_blank" rel="noopener">
+              {{ partial "icon.html" .icon }}
+            </a>
+          {{- end }}
+        </div>
+        {{- with $contact.phone }}
+          <a class="rt-header__phone" href="{{ $contact.phone_url | default (printf "tel:%s" .) }}">{{ . }}</a>
         {{- end }}
       </div>
+    </div>
 
-      <div class="rt-nav__mobile-actions" aria-label="Utility navigation">
-        <a class="rt-nav__mobile-watch" href="{{ partial "url.html" "/watch-now/" }}">
-          {{ partial "icon.html" "watch-now" }}
-          <span>Watch Now</span>
-        </a>
-        {{- range $utilityNav }}
-          <a class="rt-nav__utility" href="{{ partial "url.html" .url }}">{{ .name }}</a>
-        {{- end }}
-        <a class="rt-nav__mobile-cta" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
-      </div>
-    </nav>
+    <div class="rt-header__navrow">
+      <button class="rt-header-menu" type="button" data-rt-nav-toggle aria-expanded="false" aria-controls="rt-primary-nav">
+        <span class="sr-only">Menu</span>
+        <span class="rt-header-menu__bar" aria-hidden="true"></span>
+        <span class="rt-header-menu__bar" aria-hidden="true"></span>
+        <span class="rt-header-menu__bar" aria-hidden="true"></span>
+      </button>
 
-    <div class="rt-header-actions" aria-label="Social and signup links">
-      {{- range $utilityNav }}
-        <a class="rt-header-actions__link" href="{{ partial "url.html" .url }}">{{ .name }}</a>
-      {{- end }}
-      <a class="rt-header-actions__icon rt-header-actions__icon--watch" href="{{ partial "url.html" "/watch-now/" }}" aria-label="Watch Now">
-        {{ partial "icon.html" "watch-now" }}
-      </a>
-      <a class="rt-header-actions__icon" href="https://instagram.com/rawlingstigersnova/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-        {{ partial "icon.html" "instagram" }}
-      </a>
-      <a class="rt-header-actions__icon" href="https://www.facebook.com/rawlingstigersNOVA/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-        {{ partial "icon.html" "facebook" }}
-      </a>
-      <a class="rt-header-actions__cta" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
+      <nav class="rt-nav" id="rt-primary-nav" data-rt-nav aria-label="Primary navigation">
+        <div class="rt-nav__main">
+          {{- range $index, $item := $mainNav }}
+            {{- partial "site-nav-item.html" (dict "item" $item "level" 0 "id" (printf "rt-nav-panel-%d" $index)) -}}
+          {{- end }}
+          {{- range $utilityNav }}
+            <a class="rt-nav__utility rt-nav__desktop-extra" href="{{ .url | relURL }}">{{ .name }}</a>
+          {{- end }}
+          <a class="rt-header-actions__cta rt-nav__desktop-extra" href="{{ "/become-a-tiger/" | relURL }}">Become A Tiger</a>
+        </div>
+
+        <div class="rt-nav__mobile-actions">
+          {{- range $utilityNav }}
+            <a class="rt-nav__utility" href="{{ .url | relURL }}">{{ .name }}</a>
+          {{- end }}
+          <a class="rt-nav__mobile-cta" href="{{ "/become-a-tiger/" | relURL }}">Become A Tiger</a>
+        </div>
+      </nav>
     </div>
   </div>
 </header>
-{{- with resources.Get "js/header-nav.js" }}
-<script id="rt-header-nav-js">
-{{ .Content | safeJS }}
-</script>
-{{- end }}
+
+{{- with resources.Get "js/header-nav.js" -}}
+  {{- $rtHeaderJS := . | minify | fingerprint -}}
+  <script src="{{ $rtHeaderJS.RelPermalink }}" integrity="{{ $rtHeaderJS.Data.Integrity }}" defer></script>
+{{- end -}}
