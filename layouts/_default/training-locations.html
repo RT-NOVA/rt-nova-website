@@ -1,7 +1,4 @@
 {{ define "main" }}
-{{ with resources.Get "css/training-locations.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
-{{ with resources.Get "css/faq.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
-
 {{ $data := hugo.Data.training_locations }}
 
 {{ partial "hero.html" (dict

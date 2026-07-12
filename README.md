@@ -4,6 +4,8 @@ This repository contains the Hugo-based Rawlings Tigers NOVA website.
 
 The site is organized around reusable layouts, Hugo data files, and Markdown content so common updates can be made without editing page HTML.
 
+Front-end stylesheet and script ownership is documented in [`docs/FRONTEND_MAINTENANCE.md`](docs/FRONTEND_MAINTENANCE.md).
+
 ## Common update locations
 
 | Area | URL | Edit source |
@@ -74,7 +76,7 @@ http://localhost:1313/
 ## Build
 
 ```bash
-hugo --minify
+hugo --minify --cleanDestinationDir
 ```
 
 Generated output goes to:

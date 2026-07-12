@@ -1,4 +1,5 @@
 {{- /* Brick N' Mortar inspired footer, adapted for Rawlings Tigers NOVA content. */ -}}
+
 {{- with resources.Get "css/footer-brick.css" -}}
   {{- $rtFooterCSS := . | minify | fingerprint -}}
   <link rel="stylesheet" href="{{ $rtFooterCSS.RelPermalink }}" integrity="{{ $rtFooterCSS.Data.Integrity }}">

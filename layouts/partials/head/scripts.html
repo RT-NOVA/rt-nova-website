@@ -1,0 +1,24 @@
+{{- $template := .Params.template | default "" -}}
+{{- $scripts := slice "js/header-nav.js" -}}
+
+{{- if or .IsHome (eq .Section "social-hub") -}}
+  {{- $scripts = $scripts | append "js/social-hub.js" -}}
+{{- end -}}
+{{- if eq $template "teams" -}}
+  {{- $scripts = $scripts | append "js/teams.js" -}}
+{{- else if eq $template "coaches" -}}
+  {{- $scripts = $scripts | append "js/coaches.js" -}}
+{{- else if eq $template "tryouts" -}}
+  {{- $scripts = $scripts | append "js/tryouts.js" -}}
+{{- else if eq $template "accolades" -}}
+  {{- $scripts = $scripts | append "js/accolades.js" -}}
+{{- else if eq $template "schedules" -}}
+  {{- $scripts = $scripts | append "js/schedules.js" -}}
+{{- end -}}
+
+{{- range $scripts -}}
+  {{- with resources.Get . -}}
+    {{- $script := . | minify | fingerprint -}}
+    <script src="{{ $script.RelPermalink }}" defer integrity="{{ $script.Data.Integrity }}"></script>
+  {{- end -}}
+{{- end -}}

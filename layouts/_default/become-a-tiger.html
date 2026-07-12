@@ -1,6 +1,4 @@
 {{ define "main" }}
-{{ with resources.Get "css/become-a-tiger.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
-
 {{ $jotformID := .Params.jotform_id | default "261354423024043" }}
 {{ $jotformURL := .Params.jotform_url | default (printf "https://form.jotform.com/%s" $jotformID) }}
 

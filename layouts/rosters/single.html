@@ -1,6 +1,4 @@
 {{ define "main" }}
-  {{ with resources.Get "css/rosters.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
-
   {{/* Roster pages are lightweight route stubs. Roster data lives in data/seasons/<season_id>/rosters/<roster_key>.yaml. */}}
   {{ $seasonID := string (.Params.season_id | default "") }}
   {{ $rosterKey := .Params.roster_key | default "" }}

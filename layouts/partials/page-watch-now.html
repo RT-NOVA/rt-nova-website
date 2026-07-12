@@ -32,8 +32,6 @@
 {{ end }}
 {{ $currentTeams := sort ($teamScratch.Get "teams") "sort_order" "asc" }}
 
-{{ with resources.Get "css/watch-now.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
-
 {{ partial "hero.html" (dict
   "kicker" "Live Games"
   "title" .Title

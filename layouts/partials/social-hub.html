@@ -68,8 +68,4 @@
     {{ end }}
   </div>
 
-  {{ with resources.Get "js/social-hub.js" }}
-    {{ $socialHubJS := . | minify | fingerprint }}
-    <script src="{{ $socialHubJS.RelPermalink }}" defer integrity="{{ $socialHubJS.Data.Integrity }}"></script>
-  {{ end }}
 </section>

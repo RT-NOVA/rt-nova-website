@@ -1,0 +1,91 @@
+/* Transparent header behavior for non-home hero pages. */
+html.rt-force-hero-header:not(.rt-home-page) .rt-header:not(.is-scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+html.rt-force-hero-header:not(.rt-home-page) .rt-header:not(.is-scrolled) .rt-header__shell {
+  background: transparent !important;
+}
+
+html.rt-force-hero-header:not(.rt-home-page) body {
+  padding-top: 0 !important;
+}
+
+/* Non-component heroes retain the established fixed-header safe area. */
+@media (min-width: 1025px) {
+  html.rt-force-hero-header:not(.rt-home-page) main > :first-child:not(.rt-page-hero) {
+    box-sizing: border-box;
+    min-height: 390px;
+    padding-top: max(var(--rt-header-expanded, 210px), 13.5rem) !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1024px) {
+  html.rt-force-hero-header:not(.rt-home-page) main > :first-child:not(.rt-page-hero) {
+    box-sizing: border-box;
+    min-height: 340px;
+    padding-top: max(var(--rt-header-mobile, 112px), 8rem) !important;
+    padding-bottom: 2.5rem !important;
+  }
+}
+
+@media (max-width: 720px) {
+  html.rt-force-hero-header:not(.rt-home-page) main > :first-child:not(.rt-page-hero) {
+    box-sizing: border-box;
+    min-height: 300px;
+    padding-top: max(var(--rt-header-mobile, 100px), 7rem) !important;
+    padding-bottom: 2.25rem !important;
+  }
+}
+
+/* Asset nodes can precede a page hero; they must never inherit hero spacing. */
+html.rt-has-hero main > :is(style, script, link[rel="stylesheet"]):first-child {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+}
+
+/* The page-hero component owns its safe area in one place: its inner wrapper. */
+html.rt-has-hero .rt-page-hero {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 0 !important;
+  margin-top: 0 !important;
+}
+
+html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
+  box-sizing: border-box;
+  padding-top: 260px !important;
+  padding-bottom: 52px !important;
+  min-height: 455px !important;
+  align-content: end;
+  align-items: center;
+}
+
+@media (max-width: 1180px) {
+  html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
+    padding-top: 205px !important;
+    padding-bottom: 44px !important;
+    min-height: 410px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
+    padding-top: 190px !important;
+    padding-bottom: 44px !important;
+    min-height: 390px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
+    padding-top: 132px !important;
+    padding-bottom: 36px !important;
+    min-height: 320px !important;
+    align-items: end;
+  }
+}

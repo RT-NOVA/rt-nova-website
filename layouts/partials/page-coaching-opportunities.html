@@ -1,6 +1,4 @@
 {{ $data := hugo.Data.coaching_opportunities }}
-{{ with resources.Get "css/coaching-opportunities.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
-
 {{ partial "hero.html" (dict
   "kicker" "Join Our Staff"
   "title" .Title

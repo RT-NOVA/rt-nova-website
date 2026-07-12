@@ -1,0 +1,35 @@
+{{- $template := .Params.template | default "" -}}
+{{- $layout := .Params.layout | default "" -}}
+{{- $styles := slice -}}
+
+{{- /*
+  These page styles intentionally render before the page content. Some preserved
+  hero rules distinguish pages whose first main child is an asset node, so moving
+  these links to the head would change established hero heights.
+*/ -}}
+{{- if eq $template "coaches" -}}
+  {{- $styles = $styles | append "css/coaches.css" -}}
+{{- else if eq $template "tryouts" -}}
+  {{- $styles = $styles | append "css/tryouts.css" "css/faq.css" -}}
+{{- else if eq $template "accolades" -}}
+  {{- $styles = $styles | append "css/accolades.css" -}}
+{{- else if eq $template "schedules" -}}
+  {{- $styles = $styles | append "css/schedules.css" -}}
+{{- else if eq $template "watch-now" -}}
+  {{- $styles = $styles | append "css/watch-now.css" -}}
+{{- else if eq $template "coaching-opportunities" -}}
+  {{- $styles = $styles | append "css/coaching-opportunities.css" -}}
+{{- else if eq $layout "training-locations" -}}
+  {{- $styles = $styles | append "css/training-locations.css" "css/faq.css" -}}
+{{- else if or (eq $layout "become-a-tiger") (eq $layout "coaching-registration") -}}
+  {{- $styles = $styles | append "css/become-a-tiger.css" -}}
+{{- else if eq .Section "rosters" -}}
+  {{- $styles = $styles | append "css/rosters.css" -}}
+{{- end -}}
+
+{{- range $styles -}}
+  {{- with resources.Get . -}}
+    {{- $style := . | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+  {{- end -}}
+{{- end -}}

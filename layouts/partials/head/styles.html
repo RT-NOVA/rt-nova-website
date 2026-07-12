@@ -1,0 +1,46 @@
+{{- $template := .Params.template | default "" -}}
+{{- /* The core modules are concatenated in their established cascade order. */ -}}
+{{- $corePaths := slice
+  "css/foundation.css"
+  "css/shared-components.css"
+  "css/team-central-base.css"
+  "css/team-central-cards-tables.css"
+  "css/team-central-dashboard.css"
+  "css/team-central-header.css"
+  "css/team-central-toggle.css"
+  "css/team-central-toggle-polish.css"
+  "css/page-components.css"
+  "css/tryouts-foundation.css"
+  "css/theme-system.css"
+  "css/homepage.css"
+-}}
+{{- $coreResources := slice -}}
+{{- range $corePaths -}}
+  {{- with resources.Get . -}}
+    {{- $coreResources = $coreResources | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $coreStyle := $coreResources | resources.Concat "css/site.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $coreStyle.RelPermalink }}" integrity="{{ $coreStyle.Data.Integrity }}">
+
+{{- /* Preserve the existing cascade order while keeping asset selection in one place. */ -}}
+{{- $styles := slice -}}
+
+{{- if or .IsHome (eq .Section "social-hub") -}}
+  {{- $styles = $styles | append "css/social-hub.css" -}}
+{{- end -}}
+{{- if eq $template "teams" -}}
+  {{- $styles = $styles | append "css/team-central.css" -}}
+{{- end -}}
+{{- if eq .Section "news" -}}
+  {{- $styles = $styles | append "css/news.css" -}}
+{{- end -}}
+
+{{- $styles = $styles | append "css/footer-cleanup.css" "css/responsive-polish.css" "css/header-nav.css" "css/design-lock.css" "css/social-hub-home.css" "css/page-hero.css" -}}
+
+{{- range $styles -}}
+  {{- with resources.Get . -}}
+    {{- $style := . | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+  {{- end -}}
+{{- end -}}

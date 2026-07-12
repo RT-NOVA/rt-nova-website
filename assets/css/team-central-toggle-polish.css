@@ -1,0 +1,183 @@
+/* Team Central: move Current/Upcoming toggle into black season header */
+.rt-team-central--inline-toggle .rt-season-dashboard__top,
+.rt-team-central--inline-toggle .rt-season-dashboard__selector-copy {
+  display: none !important;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background: #07101d;
+  color: #fff;
+  border-radius: 24px 24px 0 0;
+  border-top: 0;
+  border-bottom: 4px solid var(--brand, #f15a24);
+  padding: clamp(2rem, 4vw, 3.25rem);
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary p {
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 800;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__helper {
+  max-width: 52rem;
+  color: rgba(255, 255, 255, 0.64) !important;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle__button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle__button span,
+.rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle__button strong {
+  display: block;
+  color: inherit;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle__button.is-active {
+  background: #fff;
+  color: #07101d;
+}
+
+.rt-team-central--inline-toggle .rt-season-dashboard__terms {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 760px) {
+  .rt-team-central--inline-toggle .rt-season-dashboard__summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle {
+    width: 100%;
+  }
+
+  .rt-team-central--inline-toggle .rt-season-dashboard__summary .rt-season-toggle__button {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+
+/* Team Central: tighten black-header season toggle */
+.rt-season-dashboard__helper {
+  max-width: 42rem;
+}
+
+.rt-season-dashboard__helper::after {
+  content: none !important;
+}
+
+/* Hide the second helper sentence if it was hardcoded in the template text */
+.rt-season-dashboard__helper {
+  font-size: 0;
+}
+
+.rt-season-dashboard__helper::before {
+  content: "Choose a season to view active and upcoming Rawlings Tigers NOVA teams.";
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Make the toggle smaller and stand out on the black header */
+.rt-season-dashboard__summary .rt-season-toggle {
+  flex: 0 0 auto;
+  width: auto !important;
+  max-width: 420px;
+  padding: 0.28rem;
+  gap: 0.25rem;
+  border-radius: 999px;
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.rt-season-dashboard__summary .rt-season-toggle__button {
+  min-width: 145px;
+  padding: 0.55rem 1rem !important;
+  border-radius: 999px;
+  background: transparent;
+  color: #6b7280 !important;
+  font-size: 0.68rem !important;
+  line-height: 1.05;
+  letter-spacing: 0.12em !important;
+}
+
+.rt-season-dashboard__summary .rt-season-toggle__button span,
+.rt-season-dashboard__summary .rt-season-toggle__button strong {
+  color: inherit !important;
+}
+
+.rt-season-dashboard__summary .rt-season-toggle__button.is-active {
+  background: #07101d !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 18px rgba(7, 16, 29, 0.22);
+}
+
+@media (max-width: 760px) {
+  .rt-season-dashboard__summary .rt-season-toggle {
+    width: 100% !important;
+    max-width: none;
+  }
+
+  .rt-season-dashboard__summary .rt-season-toggle__button {
+    min-width: 0;
+    flex: 1;
+    padding-inline: 0.6rem !important;
+  }
+}
+
+/* Team Central: stop duplicated helper text from older CSS override */
+.rt-season-dashboard__helper {
+  font-size: 0.95rem !important;
+}
+
+.rt-season-dashboard__helper::before,
+.rt-season-dashboard__helper::after {
+  content: none !important;
+}
+

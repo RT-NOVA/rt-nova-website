@@ -2,16 +2,6 @@
       Desktop: location left, centered logo, social/phone right, nav centered below.
       Scroll behavior is handled by assets/js/header-nav.js.
 */ -}}
-{{- with resources.Get "css/header-nav.css" -}}
-  {{- $rtHeaderCSS := . | minify | fingerprint -}}
-  <link rel="stylesheet" href="{{ $rtHeaderCSS.RelPermalink }}" integrity="{{ $rtHeaderCSS.Data.Integrity }}">
-{{- end -}}
-
-{{- with resources.Get "css/hero-natural-reset.css" -}}
-  {{- $rtHeroNaturalCSS := . | minify | fingerprint -}}
-  <link rel="stylesheet" href="{{ $rtHeroNaturalCSS.RelPermalink }}" integrity="{{ $rtHeroNaturalCSS.Data.Integrity }}">
-{{- end -}}
-
 {{- $mainNav := default (slice) hugo.Data.navigation.main -}}
 {{- $utilityNav := default (slice) hugo.Data.navigation.utility -}}
 {{- $footer := hugo.Data.footer -}}
@@ -81,8 +71,3 @@
     </div>
   </div>
 </header>
-
-{{- with resources.Get "js/header-nav.js" -}}
-  {{- $rtHeaderJS := . | minify | fingerprint -}}
-  <script src="{{ $rtHeaderJS.RelPermalink }}" integrity="{{ $rtHeaderJS.Data.Integrity }}" defer></script>
-{{- end -}}
