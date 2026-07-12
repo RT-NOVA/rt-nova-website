@@ -1269,3 +1269,26 @@ html.rt-has-hero [data-hero] {
     height: 20px;
   }
 }
+
+
+/* RT NOVA forced transparent hero header pages.
+   Some interior pages render custom title/hero blocks that do not share the same
+   hero class name. The header script marks those routes with rt-force-hero-header
+   so they use the same transparent-at-top behavior as the homepage/About page. */
+html.rt-force-hero-header.rt-has-hero .rt-header:not(.is-scrolled) {
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+@media (min-width: 1025px) {
+  html.rt-force-hero-header.rt-has-hero main > :first-child {
+    padding-top: max(var(--rt-header-expanded), 9.5rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  html.rt-force-hero-header.rt-has-hero main > :first-child {
+    padding-top: initial;
+  }
+}

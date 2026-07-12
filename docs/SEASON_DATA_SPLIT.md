@@ -62,12 +62,12 @@ data/seasons/
 - `/accolades/` combines tournament results and player honors across season folders, while still defaulting around current-team behavior.
 - Roster pages use the split team data to find records.
 
-## Deprecated aggregate files
+## Removed aggregate files
 
-These aggregate files are retained only as compatibility/deprecation pointers:
+The former aggregate compatibility files were removed after the season-folder migration was validated:
 
 - `data/teams.yaml`
 - `data/schedules.yaml`
 - `data/accolades.yaml`
 
-Do not add new seasonal data there.
+All seasonal updates now belong in `data/seasons/<season-id>/`.

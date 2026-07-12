@@ -1,6 +1,6 @@
 # Suggested Team Central Roster Links
 
-Use these URLs in `data/teams.yaml` for each team's `Roster` link.
+Use these URLs in `data/seasons/<season-id>/teams.yaml` for each team's `Roster` link.
 
 | Team | Suggested roster URL |
 |---|---|

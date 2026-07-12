@@ -1,4 +1,0 @@
-# Deprecated after the season data split.
-# Use data/seasons/index.yaml plus data/seasons/<season-id>/teams.yaml.
-deprecated: true
-replacement: data/seasons/

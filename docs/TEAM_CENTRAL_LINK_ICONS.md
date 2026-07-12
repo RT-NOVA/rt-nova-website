@@ -4,7 +4,7 @@ Team Central uses icon-only links for each team row.
 
 ## Link labels
 
-The renderer recognizes these labels in `data/teams.yaml`:
+The renderer recognizes these labels in `data/seasons/<season-id>/teams.yaml`:
 
 - `Facebook`
 - `Instagram`

@@ -4,11 +4,11 @@
 
 This package uses Hugo templates and data files for the high-value pages that need to be maintained regularly:
 
-- `/teams/` → `data/teams.yaml` + `layouts/partials/page-teams.html`
+- `/teams/` → `data/seasons/index.yaml` + `data/seasons/<year>/teams.yaml` + `layouts/partials/page-teams.html`
 - `/coaches/` → `data/coaches.yaml` + `layouts/partials/page-coaches.html`
 - `/tryouts/` → `data/tryouts.yaml` + `layouts/partials/page-tryouts.html`
 - `/sponsors/` → `data/sponsors.yaml` + `layouts/partials/page-sponsors.html`
-- `/accolades/` → `data/accolades.yaml` + `layouts/partials/page-accolades.html`
+- `/accolades/` → `data/accolades_config.yaml` + season-specific tournament results/player honors + `layouts/partials/page-accolades.html`
 
 The main visual system now lives in `assets/css/main.css`, with shared page shell templates in `layouts/_default/` and `layouts/partials/`.
 

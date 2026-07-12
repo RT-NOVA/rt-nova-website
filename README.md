@@ -11,19 +11,20 @@ The site is organized around reusable layouts, Hugo data files, and Markdown con
 | Home | `/` | `layouts/index.html`, `data/homepage.yaml`, `content/social-hub/`, `content/news/` |
 | News | `/news/` | `content/news/*.md` |
 | Social Hub | Homepage section | `content/social-hub/*.md` and selected news articles |
-| Team Central | `/teams/` | `data/teams.yaml` |
+| Team Central | `/teams/` | `data/seasons/index.yaml`, `data/seasons/<year>/teams.yaml` |
 | Coaches | `/coaches/` | `data/coaches.yaml` |
 | Tryouts | `/tryouts/` | `data/tryouts.yaml` |
-| Accolades | `/accolades/` | `data/accolades.yaml` |
+| Accolades | `/accolades/` | `data/accolades_config.yaml`, `data/seasons/<year>/tournament-results.yaml`, `data/seasons/<year>/player-honors.yaml` |
 | Sponsors | `/sponsors/` | `data/sponsors.yaml` |
 | Footer | Site-wide | `data/footer.yaml` |
 
 ## Team Central
 
-Team Central is managed from:
+Team Central is managed from the season index and season-specific team files:
 
 ```text
-data/teams.yaml
+data/seasons/index.yaml
+data/seasons/<year>/teams.yaml
 ```
 
 The current `/teams/` page is focused on current and upcoming teams only. It uses a Current / Upcoming toggle, a black season dashboard header, Spring/Fall subsections, and a compact team table.
@@ -135,7 +136,7 @@ Do not leave backup files inside Hugo-managed folders like `data/`, `content/`, 
 Bad example:
 
 ```text
-data/teams.yaml.bak-teamcentral-selector-cleanup
+data/seasons/2026/teams.yaml.bak-local-edit
 ```
 
 Hugo may try to load these and fail.

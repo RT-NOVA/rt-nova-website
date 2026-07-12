@@ -20,18 +20,50 @@
       return null;
     }
 
+    function normalizedPathname() {
+      var path = window.location.pathname || '/';
+      path = path.replace(/\/+/g, '/');
+      if (path.length > 1 && path.charAt(path.length - 1) !== '/') path += '/';
+      return path;
+    }
+
+    function pagePathUsesOverlayHeroHeader() {
+      var path = normalizedPathname();
+      var overlayHeroPaths = [
+        '/',
+        '/about/',
+        '/teams/',
+        '/become-a-tiger/',
+        '/coaching-opportunities/',
+        '/tryouts/',
+        '/accolades/',
+        '/coaches/',
+        '/schedules/',
+        '/watch-now/',
+        '/training-locations/',
+        '/family-hub/',
+        '/booster-club/',
+        '/sponsorship-opportunities/'
+      ];
+      return overlayHeroPaths.indexOf(path) !== -1;
+    }
+
     function pageHasHero() {
       var first = firstMainElement();
+      if (pagePathUsesOverlayHeroHeader()) return true;
       if (!first) return false;
-      if (first.matches('[data-hero], .home-hero, .page-hero, .section-hero, .hero')) return true;
+      if (first.matches('[data-hero], [data-page-hero], .home-hero, .page-hero, .section-hero, .hero, .inner-hero, .interior-hero, .subpage-hero, .page-header, .page-masthead, .masthead, .cover')) return true;
       var className = String(first.className || '').toLowerCase();
-      return className.indexOf('hero') !== -1;
+      return className.indexOf('hero') !== -1 || className.indexOf('masthead') !== -1;
     }
 
     function updateHeaderState() {
+      var forcedHeroHeader = pagePathUsesOverlayHeroHeader();
       var hasHero = pageHasHero();
       root.classList.toggle('rt-has-hero', hasHero);
       root.classList.toggle('rt-no-hero', !hasHero);
+      root.classList.toggle('rt-force-hero-header', forcedHeroHeader);
+      root.classList.toggle('rt-home-page', normalizedPathname() === '/');
       header.classList.toggle('is-scrolled', window.scrollY > 36 || !hasHero);
     }
 

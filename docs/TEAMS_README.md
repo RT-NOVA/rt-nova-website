@@ -3,7 +3,7 @@
 The `/teams/` page is managed from:
 
 ```text
-data/teams.yaml
+data/seasons/<season-id>/teams.yaml
 ```
 
 The page is intended to be a clean **Team Central dashboard** for current and upcoming Rawlings Tigers NOVA teams. It should stay focused on active and upcoming teams only. Older team history can be handled later with a separate archive solution.
@@ -46,7 +46,7 @@ The season `id` should usually match the spring year of that baseball season.
 
 ## Default season
 
-At the top of `data/teams.yaml`, keep:
+At the top of `data/seasons/<season-id>/teams.yaml`, keep:
 
 ```yaml
 default_season: "2026"
@@ -339,7 +339,7 @@ Spacing between Spring and Fall sections remains compact
 
 ## Local testing
 
-After editing `data/teams.yaml`, run:
+After editing `data/seasons/<season-id>/teams.yaml`, run:
 
 ```bash
 hugo server -D
@@ -370,7 +370,7 @@ Do not leave backup files inside `data/`.
 Bad:
 
 ```text
-data/teams.yaml.bak-teamcentral-selector-cleanup
+data/seasons/<season-id>/teams.yaml.bak-teamcentral-selector-cleanup
 ```
 
 Hugo tries to load files in `data/` and will fail on unknown backup extensions.

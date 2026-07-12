@@ -183,3 +183,110 @@
   line-height: 0.92 !important;
   text-transform: uppercase !important;
 }
+
+/* RT NOVA: homepage social hub three-card cleanup START */
+
+/* Keep the homepage pager authoritative: hidden cards must stay hidden. */
+body:has(> main .home-hero) .social-hub .social-feed-card[hidden] {
+  display: none !important;
+}
+
+/* Let the homepage Social Hub use more horizontal space than the normal shell. */
+body:has(> main .home-hero) .social-hub .social-hub__layout--feed {
+  width: min(100%, 1640px);
+  max-width: 1640px;
+  margin-inline: auto;
+}
+
+body:has(> main .home-hero) .social-hub .social-feed {
+  width: 100%;
+  max-width: 1580px;
+  margin-inline: auto;
+}
+
+/* Three genuinely wider cards on large screens. */
+body:has(> main .home-hero) .social-hub .social-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(22px, 2vw, 34px);
+  width: 100%;
+  max-width: 1580px;
+  margin-inline: auto;
+  align-items: start;
+  justify-content: center;
+}
+
+body:has(> main .home-hero) .social-hub .social-feed-card {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+}
+
+body:has(> main .home-hero) .social-hub .social-feed-card__link {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 0;
+}
+
+/* Tighten the copy area without crowding it. */
+body:has(> main .home-hero) .social-hub .social-feed-card__top {
+  padding: 18px 18px 8px;
+  min-height: 0;
+}
+
+body:has(> main .home-hero) .social-hub .social-feed-card__caption {
+  padding: 8px 18px 16px;
+  min-height: 0;
+  margin: 0;
+}
+
+body:has(> main .home-hero) .social-hub .social-feed-card__image {
+  margin: 0 12px;
+}
+
+body:has(> main .home-hero) .social-hub .social-feed-card__footer {
+  padding: 14px 18px;
+}
+
+/* Preserve the white card treatment on all interaction states. */
+body:has(> main .home-hero) .social-hub .social-feed-card:hover,
+body:has(> main .home-hero) .social-hub .social-feed-card:focus-within,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:hover,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:focus,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:active,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:hover .social-feed-card__top,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:hover .social-feed-card__caption,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:hover .social-feed-card__footer,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:focus .social-feed-card__top,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:focus .social-feed-card__caption,
+body:has(> main .home-hero) .social-hub .social-feed-card__link:focus .social-feed-card__footer {
+  background-color: #fff !important;
+}
+
+/* Step down only when three wide cards no longer fit comfortably. */
+@media (max-width: 1319px) {
+  body:has(> main .home-hero) .social-hub .social-feed,
+  body:has(> main .home-hero) .social-hub .social-feed-grid {
+    max-width: 980px;
+  }
+
+  body:has(> main .home-hero) .social-hub .social-feed-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 799px) {
+  body:has(> main .home-hero) .social-hub .social-feed,
+  body:has(> main .home-hero) .social-hub .social-feed-grid {
+    max-width: 560px;
+  }
+
+  body:has(> main .home-hero) .social-hub .social-feed-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+}
+
+/* RT NOVA: homepage social hub three-card cleanup END */

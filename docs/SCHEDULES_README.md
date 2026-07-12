@@ -7,12 +7,12 @@ Adds a searchable `/schedules/` page using local data only.
 - `content/schedules.md`
 - `layouts/partials/page-schedules.html`
 - `assets/css/schedules.css`
-- `data/schedules.yaml`
+- `data/seasons/<season-id>/schedules.yaml`
 - `layouts/_default/single.html`
 
 ## Behavior
 
-- Current teams are determined from `data/teams.yaml`.
+- Current teams are determined from `data/seasons/<season-id>/teams.yaml`.
 - Current teams are shown by default.
 - The team dropdown includes current teams only.
 - Older age groups sort first on the page and in the dropdown.
@@ -23,7 +23,7 @@ Adds a searchable `/schedules/` page using local data only.
 
 ## Local schedule data
 
-Schedule events live in `data/schedules.yaml`.
+Schedule events live in `data/seasons/<season-id>/schedules.yaml`.
 
 Supported event fields:
 
@@ -49,7 +49,7 @@ events:
     location: TBD
 ```
 
-No `status` field is needed in schedule events. Current team status comes from `data/teams.yaml`.
+No `status` field is needed in schedule events. Current team status comes from `data/seasons/<season-id>/teams.yaml`.
 
 ## v3 team order fix
 

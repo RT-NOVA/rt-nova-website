@@ -6,7 +6,7 @@ This update changes `/teams/` from card-heavy team profiles to a themed table/li
 
 - `layouts/partials/page-teams.html`
 - `layouts/partials/team-table-term.html`
-- `scripts/apply-team-central-table-layout.py`
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 
 Run the script after unzipping to append the required CSS to `assets/css/main.css`.
 

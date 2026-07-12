@@ -3,7 +3,7 @@
 Run from the repository root:
 
 ```bash
-python3 scripts/apply-team-card-social-style.py
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 hugo server -D
 ```
 

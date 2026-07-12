@@ -11,7 +11,7 @@ This update focuses on the `/teams/` page visual cleanup:
 Run from repo root:
 
 ```bash
-python3 scripts/apply-team-central-cleanup.py
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 hugo server -D
 ```
 

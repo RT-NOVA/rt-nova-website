@@ -88,3 +88,28 @@ Current homepage target pattern:
 ## Footer Baseline
 
 Use a clean white footer on every page. Do not use a full orange footer, an orange divider band, or an orange-to-cream fade. The footer should separate from the preceding section through a subtle charcoal top border, a soft upward shadow, clear vertical spacing, and the black copyright bar. Orange should remain a link/button accent only.
+
+## Inner Page Transparent Header Routes
+
+The homepage uses the largest visual hero. Core inner pages may still use the transparent header at first load, but with a shorter/smaller hero treatment and enough top safe space for the centered logo/nav stack.
+
+Current transparent-header inner routes:
+
+- `/about/`
+- `/become-a-tiger/`
+- `/coaching-opportunities/`
+- `/tryouts/`
+- `/accolades/`
+- `/coaches/`
+- `/schedules/`
+- `/watch-now/`
+- `/training-locations/`
+
+Utility pages such as icon credits, tags, categories, and other low-visual pages should keep the solid black header instead of using the transparent overlay treatment.
+
+
+## Transparent header repair note
+
+The following inner pages are intentionally treated like hero pages at first load so the header starts transparent and becomes solid black after scrolling: `/about/`, `/become-a-tiger/`, `/coaching-opportunities/`, `/tryouts/`, `/accolades/`, `/coaches/`, `/schedules/`, `/watch-now/`, and `/training-locations/`.
+
+For these pages, the first hero/masthead section must include enough top safe space for the full centered-logo header stack. Later page-specific CSS should not remove the inner hero safe-area rules in `assets/css/hero-natural-reset.css`.

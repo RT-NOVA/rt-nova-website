@@ -58,7 +58,7 @@ hugo server -D --disableFastRender
 Zip patches cannot delete existing files from your working tree. If needed, run:
 
 ```bash
-bash scripts/cleanup-roster-transition-files.sh
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 ```
 
 That removes generated Hugo output and obsolete roster-card/photo transition files.

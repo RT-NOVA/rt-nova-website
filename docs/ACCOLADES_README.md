@@ -44,14 +44,14 @@ Current Team Results and Player Honors are intentionally left in their current s
 
 ## Accolades data model
 
-The Accolades page uses `data/accolades.yaml` for achievements and player honors, while current-team filtering is derived from `data/teams.yaml`.
+The Accolades page uses `season-specific `tournament-results.yaml` and `player-honors.yaml` files` for achievements and player honors, while current-team filtering is derived from `data/seasons/<season-id>/teams.yaml`.
 
 ### Single source of truth for team achievements
 
 Team tournament results now live once under `achievements:`. The Banner Wall and Current Team Results both read from that same list:
 
 - Banner Wall: all achievements sorted by `date` descending, shown three at a time.
-- Current Team Results: the same achievements, grouped by teams that are current in `data/teams.yaml`.
+- Current Team Results: the same achievements, grouped by teams that are current in `data/seasons/<season-id>/teams.yaml`.
 
 Do not duplicate a result in a separate `banner_wall:` section. To add a new team result, add one record under `achievements:`.
 
@@ -74,7 +74,7 @@ Use real event completion dates in `YYYY-MM-DD` format so sorting stays correct.
 
 The Accolades page follows the same current-season logic as `/teams/`:
 
-1. Start with `data/teams.yaml` `default_season`.
+1. Start with `data/seasons/<season-id>/teams.yaml` `default_season`.
 2. If a season has `status: Current`, use that season instead.
 3. Read current team names from that season's `spring.teams` and `fall.teams`.
 
@@ -92,7 +92,7 @@ Tournament images in this section use the `logo` field from each achievement and
 
 ### Searching past team achievements from Current Team Results
 
-The team dropdown remains limited to current teams from `data/teams.yaml`, but the search box can now match any record in `achievements:`. When the search field is empty, the section shows current teams only. When a search term is entered, matching older teams/results can appear temporarily in the results area without being added to the dropdown.
+The team dropdown remains limited to current teams from `data/seasons/<season-id>/teams.yaml`, but the search box can now match any record in `achievements:`. When the search field is empty, the section shows current teams only. When a search term is entered, matching older teams/results can appear temporarily in the results area without being added to the dropdown.
 
 ### Player Honors grouped by team
 

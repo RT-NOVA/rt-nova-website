@@ -1,6 +1,0 @@
-# Deprecated after the season data split.
-# Use data/accolades_config.yaml plus:
-# - data/seasons/<season-id>/tournament-results.yaml
-# - data/seasons/<season-id>/player-honors.yaml
-deprecated: true
-replacement: data/seasons/<season-id>/

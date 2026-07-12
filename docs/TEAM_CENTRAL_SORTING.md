@@ -1,6 +1,6 @@
 # Team Central Sorting
 
-Team rows are sorted by `sort_order` in `data/teams.yaml`.
+Team rows are sorted by `sort_order` in `data/seasons/<season-id>/teams.yaml`.
 
 The current convention is:
 

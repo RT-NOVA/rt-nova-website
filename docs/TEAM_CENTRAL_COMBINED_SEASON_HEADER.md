@@ -7,7 +7,7 @@ It does not change team data or season sorting.
 Apply with:
 
 ```bash
-python3 scripts/apply-team-central-combined-season-header.py
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 ```
 
 Then run:

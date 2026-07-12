@@ -4,7 +4,7 @@ Files changed:
 - layouts/partials/site-header.html
 - assets/css/header-nav.css
 - assets/js/header-nav.js
-- scripts/rt-nova-restore-header-main.sh
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 
 Behavior:
 - Header is fixed over hero sections.
@@ -17,4 +17,3 @@ Hero detection selectors in assets/js/header-nav.js:
 .home-hero, .page-hero, .rt-page-hero, .team-hero, .hero, [data-hero]
 
 To undo from repo root:
-bash scripts/rt-nova-restore-header-main.sh

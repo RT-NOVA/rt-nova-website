@@ -6,6 +6,6 @@ Apply from repo root:
 
 ```bash
 unzip -o rt-nova-team-central-dashboard-tweaks.zip -d .
-python3 scripts/apply-team-central-dashboard-tweaks.py
+> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
 hugo server -D
 ```
