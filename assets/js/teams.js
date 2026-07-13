@@ -12,6 +12,7 @@
   var archiveSearch = root.querySelector('[data-team-archive-search]');
   var archiveRows = Array.prototype.slice.call(root.querySelectorAll('[data-team-archive-row]'));
   var archiveEmpty = root.querySelector('[data-team-archive-empty]');
+  var archiveCount = root.querySelector('[data-team-archive-count]');
 
   function showSeason(value) {
     panels.forEach(function (panel) {
@@ -48,21 +49,31 @@
       if (season !== selectedSeason) return;
 
       var key = row.getAttribute('data-archive-team-key') || '';
-      if (!key || seen[key]) return;
-      seen[key] = true;
+      if (!key) return;
 
       var teamName = row.getAttribute('data-archive-team-name') || 'Team';
       var seasonLabel = row.getAttribute('data-archive-season-label') || season;
+      var sortOrder = parseInt(row.getAttribute('data-archive-sort-order') || '9999', 10);
+
+      if (Object.prototype.hasOwnProperty.call(seen, key)) {
+        var existingTeam = teams[seen[key]];
+        if (sortOrder < existingTeam.sortOrder) existingTeam.sortOrder = sortOrder;
+        return;
+      }
+
+      seen[key] = teams.length;
       teams.push({
         key: key,
         label: teamName,
         teamName: teamName,
-        season: season
+        season: season,
+        sortOrder: sortOrder
       });
     });
 
     teams.sort(function (a, b) {
       if (a.season !== b.season) return b.season.localeCompare(a.season);
+      if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
       return a.teamName.localeCompare(b.teamName, undefined, { numeric: true, sensitivity: 'base' });
     });
 
@@ -118,7 +129,15 @@
       return termA - termB;
     });
 
+    var previousTeamKey = '';
     archiveRows.forEach(function (row) {
+      var rowSeason = row.getAttribute('data-archive-season') || '';
+      var rowTeam = (row.getAttribute('data-archive-team-name') || '').toLowerCase();
+      var teamKey = rowSeason + '::' + rowTeam;
+      var isContinuation = teamKey === previousTeamKey;
+      row.classList.toggle('is-team-group-start', !isContinuation);
+      row.classList.toggle('is-team-group-continuation', isContinuation);
+      previousTeamKey = teamKey;
       results.appendChild(row);
     });
   }
@@ -130,6 +149,7 @@
     var selectedTeam = archiveTeam ? archiveTeam.value : 'all';
     var query = archiveSearch ? archiveSearch.value.trim().toLowerCase() : '';
     var visibleCount = 0;
+    var visibleTeams = Object.create(null);
 
     archiveRows.forEach(function (row) {
       var rowSeason = row.getAttribute('data-archive-season') || '';
@@ -142,10 +162,19 @@
       var visible = matchesSeason && matchesTeam && matchesSearch;
 
       row.hidden = !visible;
-      if (visible) visibleCount += 1;
+      if (visible) {
+        visibleCount += 1;
+        visibleTeams[rowTeam] = true;
+      }
     });
 
     if (archiveEmpty) archiveEmpty.hidden = visibleCount !== 0;
+    if (archiveCount) {
+      var visibleTeamCount = Object.keys(visibleTeams).length;
+      var teamLabel = visibleTeamCount === 1 ? 'team' : 'teams';
+      var entryLabel = visibleCount === 1 ? 'season entry' : 'season entries';
+      archiveCount.textContent = visibleTeamCount + ' ' + teamLabel + ' · ' + visibleCount + ' ' + entryLabel;
+    }
   }
 
   sortArchiveRows();

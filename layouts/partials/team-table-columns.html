@@ -1,0 +1,12 @@
+{{- $class := .class | default "" -}}
+{{- $teamLabel := .team_label | default "Team" -}}
+<div class="rt-team-list-columns{{ with $class }} {{ . }}{{ end }}" aria-hidden="true">
+  <div class="rt-team-list-columns__main">
+    <span>{{ $teamLabel }}</span>
+    <span>Head Coach</span>
+  </div>
+  <div class="rt-team-list-columns__meta">
+    <span>Record</span>
+    <span>Team Links</span>
+  </div>
+</div>

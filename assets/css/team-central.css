@@ -674,3 +674,232 @@
     min-width: 100%;
   }
 }
+
+/* Team Central portrait-led table refresh. */
+.rt-team-central--open-flow {
+  padding-top: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.rt-team-season-nav {
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.rt-team-season-nav__button {
+  min-width: 7.6rem;
+  padding: 0.78rem 1rem 0.72rem;
+}
+
+.rt-team-season-nav__button em {
+  color: currentColor;
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  opacity: 0.72;
+}
+
+.rt-team-season-nav__button--current:not(.is-active) {
+  border-color: rgba(241, 90, 36, 0.38);
+  color: var(--ink, #151515);
+}
+
+.rt-team-season-nav__button--archive {
+  margin-left: 0.35rem;
+  border-style: dashed;
+}
+
+.rt-team-season-heading {
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.rt-team-season-heading__row h2 {
+  font-size: clamp(2.65rem, 5vw, 4.35rem) !important;
+}
+
+.rt-team-season-heading__row p {
+  margin-top: 0.7rem;
+}
+
+.rt-team-terms-open {
+  gap: clamp(2.5rem, 4.5vw, 4rem);
+}
+
+.rt-team-list-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(24rem, 24rem);
+  align-items: end;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: 0 0 0.7rem;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.16);
+}
+
+.rt-team-list-columns__main {
+  display: grid;
+  grid-template-columns: minmax(9.5rem, 0.34fr) minmax(16rem, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.rt-team-list-columns__meta {
+  display: grid;
+  grid-template-columns: 5.25rem minmax(17rem, 17rem);
+  gap: 1.25rem;
+}
+
+.rt-team-list-columns span {
+  color: var(--muted, #6b7280);
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rt-team-list-columns__meta span:first-child {
+  text-align: center;
+}
+
+.rt-team-list-columns__meta span:last-child {
+  text-align: right;
+}
+
+.rt-team-list {
+  border-top: 0;
+}
+
+.rt-team-list-row {
+  padding-top: clamp(0.9rem, 1.5vw, 1.1rem);
+  padding-bottom: clamp(0.9rem, 1.5vw, 1.1rem);
+}
+
+.rt-team-list-row__main {
+  grid-template-columns: minmax(9.5rem, 0.34fr) minmax(16rem, 1fr);
+}
+
+.rt-team-list-row__coach {
+  gap: 1rem;
+}
+
+.rt-team-list-row__coach img {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  border-radius: 14px;
+  object-position: center top;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.rt-team-list-row__coach strong {
+  font-size: 1.04rem;
+}
+
+.rt-team-list-row__coach small {
+  font-size: 0.65rem;
+}
+
+.rt-team-list-columns--archive {
+  margin-top: 0.25rem;
+}
+
+.rt-team-archive-count {
+  margin: 0 0 0.8rem;
+  color: var(--muted, #6b7280);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rt-team-archive-results {
+  border-top: 0;
+}
+
+.rt-team-archive-row.is-team-group-start:not(:first-child) {
+  margin-top: 0.85rem;
+  border-top: 2px solid rgba(17, 24, 39, 0.12);
+}
+
+.rt-team-archive-row.is-team-group-start {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.rt-team-archive-row.is-team-group-continuation {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 880px) {
+  .rt-team-list-columns {
+    display: none;
+  }
+
+  .rt-team-season-nav__button--archive {
+    margin-left: 0;
+  }
+
+  .rt-team-list-row__main {
+    grid-template-columns: 1fr;
+  }
+
+  .rt-team-list-row__coach img {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .rt-team-archive-row.is-team-group-start:not(:first-child) {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .rt-team-season-nav__button {
+    min-width: calc(50% - 0.25rem);
+  }
+
+  .rt-team-season-nav__button--archive {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .rt-team-list-row__coach img {
+    width: 60px;
+    height: 60px;
+    flex-basis: 60px;
+  }
+}
+
+/* Distinct final CTA before the white site footer. */
+.rt-team-join-band--dark {
+  border-top: 0;
+  border-bottom: 0;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(241, 90, 36, 0.14), transparent 34%),
+    linear-gradient(135deg, #050505 0%, #0b0b0d 62%, #171717 100%) !important;
+  color: #ffffff;
+}
+
+.rt-team-join-band--dark h2 {
+  color: #ffffff;
+}
+
+.rt-team-join-band--dark p:not(.rt-eyebrow) {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.rt-team-join-band--dark .rt-eyebrow {
+  color: var(--brand, #f15a24);
+}
+
+.rt-team-join-band--dark .rt-btn--ghost-light {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  color: #ffffff;
+}
+
+.rt-team-join-band--dark .rt-btn--ghost-light:hover,
+.rt-team-join-band--dark .rt-btn--ghost-light:focus-visible {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #050505;
+}

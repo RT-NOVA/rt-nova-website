@@ -5,6 +5,7 @@
   </header>
 
   {{ if gt (len $term.teams) 0 }}
+    {{ partial "team-table-columns.html" (dict) }}
     <div class="rt-team-list" aria-label="{{ $term.label }} teams">
       {{ range sort $term.teams "sort_order" "asc" }}
         {{ $team := . }}

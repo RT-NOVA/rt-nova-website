@@ -7,6 +7,19 @@
   {{ end }}
 {{ end }}
 {{ $defaultSeason := $seasonScratch.Get "defaultSeason" }}
+{{ $activeSeasonsScratch := newScratch }}
+{{ $activeSeasonsScratch.Set "seasons" (slice) }}
+{{ range $data.seasons }}
+  {{ if eq (lower .status) "current" }}
+    {{ $activeSeasonsScratch.Add "seasons" (slice .) }}
+  {{ end }}
+{{ end }}
+{{ range $data.seasons }}
+  {{ if eq (lower .status) "upcoming" }}
+    {{ $activeSeasonsScratch.Add "seasons" (slice .) }}
+  {{ end }}
+{{ end }}
+{{ $activeSeasons := $activeSeasonsScratch.Get "seasons" }}
 
 {{ partial "hero.html" (dict "kicker" "Teams" "title" .Title "intro" $data.intro "show_card" false) }}
 
@@ -22,13 +35,23 @@
 <section class="rt-section rt-team-central rt-team-central--open-flow" data-team-central data-default-season="{{ $defaultSeason }}">
   <div class="rt-container">
     <div class="rt-team-season-nav" aria-label="Team season selector">
-      {{ range $data.seasons }}
-        {{ if or (eq (lower .status) "current") (eq (lower .status) "upcoming") }}
-          <button class="rt-team-season-nav__button{{ if eq .id $defaultSeason }} is-active{{ end }}" type="button" data-season-button="{{ .id }}" aria-pressed="{{ if eq .id $defaultSeason }}true{{ else }}false{{ end }}">
-            <span>{{ .id }}</span>
-            <small>{{ .status }}</small>
-          </button>
+      {{ range $activeSeasons }}
+        {{ $teamCountScratch := newScratch }}
+        {{ $teamCountScratch.Set "names" (slice) }}
+        {{ range (slice .spring .fall) }}
+          {{ range (.teams | default slice) }}
+            {{ $teamNames := $teamCountScratch.Get "names" }}
+            {{ if not (in $teamNames .name) }}
+              {{ $teamCountScratch.Add "names" (slice .name) }}
+            {{ end }}
+          {{ end }}
         {{ end }}
+        {{ $teamCount := len ($teamCountScratch.Get "names") }}
+        <button class="rt-team-season-nav__button rt-team-season-nav__button--{{ lower .status }}{{ if eq .id $defaultSeason }} is-active{{ end }}" type="button" data-season-button="{{ .id }}" aria-pressed="{{ if eq .id $defaultSeason }}true{{ else }}false{{ end }}">
+          <span>{{ .id }}</span>
+          <small>{{ .status }}</small>
+          <em>{{ $teamCount }} {{ if eq $teamCount 1 }}team{{ else }}teams{{ end }}</em>
+        </button>
       {{ end }}
       <button class="rt-team-season-nav__button rt-team-season-nav__button--archive" type="button" data-season-button="archive" aria-pressed="false">
         <span>Archive</span>
@@ -74,8 +97,13 @@
           <label class="rt-team-archive-filter">
             <span>Season</span>
             <select data-team-archive-season>
+              {{ range $activeSeasons }}
+                <option value="{{ .id }}"{{ if eq .id $defaultSeason }} selected{{ end }}>{{ title .status }} · {{ .label }}</option>
+              {{ end }}
               {{ range sort $data.seasons "id" "desc" }}
-                <option value="{{ .id }}"{{ if eq .id $defaultSeason }} selected{{ end }}>{{ if eq .id $defaultSeason }}Current Season · {{ end }}{{ .label }}</option>
+                {{ if and (ne (lower .status) "current") (ne (lower .status) "upcoming") }}
+                  <option value="{{ .id }}">{{ title .status }} · {{ .label }}</option>
+                {{ end }}
               {{ end }}
             </select>
           </label>
@@ -92,6 +120,9 @@
             <input type="search" data-team-archive-search placeholder="Search teams, coaches, ages..." autocomplete="off">
           </label>
         </div>
+
+        <p class="rt-team-archive-count" data-team-archive-count aria-live="polite"></p>
+        {{ partial "team-table-columns.html" (dict "class" "rt-team-list-columns--archive" "team_label" "Team / Season") }}
 
         <div class="rt-team-archive-results" data-team-archive-results>
           {{ range $season := $data.seasons }}
@@ -181,7 +212,7 @@
   </div>
 </section>
 
-<section class="rt-section rt-section--white rt-team-join-band rt-team-join-band--compact">
+<section class="rt-section rt-section--dark rt-team-join-band rt-team-join-band--compact rt-team-join-band--dark">
   <div class="rt-container rt-team-join-band__inner">
     <div>
       <p class="rt-eyebrow rt-eyebrow--dark">Looking for a team?</p>
@@ -190,7 +221,7 @@
     </div>
     <div class="rt-action-row">
       <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" "/become-a-tiger/" }}">Become A Tiger</a>
-      <a class="rt-btn rt-btn--ghost-light rt-btn--dark-outline" href="{{ partial "url.html" "/tryouts/" }}">Tryouts</a>
+      <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" "/tryouts/" }}">Tryouts</a>
     </div>
   </div>
 </section>
