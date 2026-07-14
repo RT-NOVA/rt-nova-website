@@ -892,6 +892,11 @@
 }
 
 .accolades-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem 1.25rem;
+  flex-wrap: wrap;
   margin: 1rem 0 0;
   padding: 1.1rem 0;
   border-top: 1px solid rgba(5, 5, 5, .14);
@@ -899,6 +904,35 @@
   color: var(--rt-muted);
   font-weight: 850;
   text-align: center;
+}
+
+.accolades-empty[hidden],
+.accolades-empty button[hidden] {
+  display: none !important;
+}
+
+.accolades-empty p {
+  margin: 0;
+}
+
+.accolades-empty button {
+  padding: .2rem 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--rt-orange-dark);
+  cursor: pointer;
+  font: inherit;
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.accolades-empty button:hover,
+.accolades-empty button:focus-visible {
+  color: #151515;
+  outline: 0;
 }
 
 .accolades-connect-band {

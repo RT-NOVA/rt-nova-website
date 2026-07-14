@@ -97,7 +97,7 @@
     const gallery = document.querySelector("[data-team-banner-results]");
     const items = Array.from(document.querySelectorAll("[data-team-banner-result]"));
     const empty = document.querySelector("[data-team-empty]");
-    if (!root || !gallery || !items.length) return;
+    if (!root || !gallery) return;
 
     const seasonSelect = root.querySelector("[data-filter-season]");
     const teamSelect = root.querySelector("[data-filter-team]");
@@ -108,6 +108,17 @@
     const status = document.querySelector("[data-team-banner-results-status]");
     const previous = document.querySelector("[data-team-banner-results-prev]");
     const following = document.querySelector("[data-team-banner-results-next]");
+    const emptyMessage = empty ? empty.querySelector("[data-team-empty-message]") : null;
+    const emptyReset = empty ? empty.querySelector("[data-team-empty-reset]") : null;
+
+    if (!items.length) {
+      if (empty) empty.hidden = false;
+      if (emptyMessage) emptyMessage.textContent = "No team accolades have been posted yet.";
+      if (emptyReset) emptyReset.hidden = true;
+      if (count) count.textContent = "0 teams · 0 banners";
+      return;
+    }
+
     const rebuildTeamOptions = setupTeamOptions(root, items);
     let page = 0;
 
@@ -124,6 +135,43 @@
       });
     };
 
+    const resetFilters = () => {
+      seasonSelect.value = defaultSeasonValue;
+      searchInput.value = "";
+      rebuildTeamOptions();
+      teamSelect.value = "";
+      page = 0;
+      update();
+      seasonSelect.focus();
+    };
+
+    const updateEmptyState = (matchCount) => {
+      if (!empty) return;
+
+      empty.hidden = matchCount !== 0;
+      if (matchCount !== 0) return;
+
+      const query = searchInput.value.trim();
+      const hasSearchFilters = Boolean(teamSelect.value || query);
+      const seasonValue = seasonSelect.value;
+      if (emptyMessage) {
+        if (hasSearchFilters) {
+          emptyMessage.textContent = "No team accolades match the selected filters.";
+        } else if (seasonValue === currentSeasonValue) {
+          emptyMessage.textContent = "No team accolades have been posted for the current season yet.";
+        } else if (seasonValue === allSeasonsValue) {
+          emptyMessage.textContent = "No team accolades have been posted yet.";
+        } else {
+          const seasonLabel = seasonSelect.selectedOptions[0]?.textContent.trim() || `${seasonValue} Season`;
+          emptyMessage.textContent = `No team accolades have been posted for ${seasonLabel} yet.`;
+        }
+      }
+      if (emptyReset) {
+        emptyReset.textContent = hasSearchFilters ? "Clear Filters" : "View All Seasons";
+        emptyReset.hidden = seasonValue === allSeasonsValue && !hasSearchFilters;
+      }
+    };
+
     const update = () => {
       const matches = matchingItems();
       const pageCount = Math.max(1, Math.ceil(matches.length / perTeamPage));
@@ -135,7 +183,7 @@
       items.forEach((item) => { item.hidden = !visible.has(item); });
       gallery.setAttribute("data-visible-count", String(end - start));
 
-      if (empty) empty.hidden = matches.length !== 0;
+      updateEmptyState(matches.length);
       if (controls) controls.hidden = matches.length <= perTeamPage;
       if (status) status.textContent = matches.length ? `${start + 1}–${end} of ${matches.length}` : "0 of 0";
       if (previous) previous.disabled = page <= 0;
@@ -182,16 +230,9 @@
     }
 
     if (clear) {
-      clear.addEventListener("click", () => {
-        seasonSelect.value = defaultSeasonValue;
-        searchInput.value = "";
-        rebuildTeamOptions();
-        teamSelect.value = "";
-        page = 0;
-        update();
-        seasonSelect.focus();
-      });
+      clear.addEventListener("click", resetFilters);
     }
+    if (emptyReset) emptyReset.addEventListener("click", resetFilters);
 
     rebuildTeamOptions();
     update();
@@ -214,9 +255,13 @@
     const status = document.querySelector("[data-player-results-status]");
     const previous = document.querySelector("[data-player-results-prev]");
     const following = document.querySelector("[data-player-results-next]");
+    const emptyMessage = empty ? empty.querySelector("[data-player-empty-message]") : null;
+    const emptyReset = empty ? empty.querySelector("[data-player-empty-reset]") : null;
 
     if (!items.length) {
       if (empty) empty.hidden = false;
+      if (emptyMessage) emptyMessage.textContent = "No player honors have been posted yet.";
+      if (emptyReset) emptyReset.hidden = true;
       if (count) count.textContent = "0 teams · 0 honors";
       return;
     }
@@ -296,6 +341,43 @@
       return !selectedTeam && !query ? balancedRecentOrder(matches) : matches;
     };
 
+    const resetFilters = () => {
+      seasonSelect.value = defaultSeasonValue;
+      searchInput.value = "";
+      rebuildTeamOptions();
+      teamSelect.value = "";
+      page = 0;
+      update();
+      seasonSelect.focus();
+    };
+
+    const updateEmptyState = (matchCount) => {
+      if (!empty) return;
+
+      empty.hidden = matchCount !== 0;
+      if (matchCount !== 0) return;
+
+      const query = searchInput.value.trim();
+      const hasSearchFilters = Boolean(teamSelect.value || query);
+      const seasonValue = seasonSelect.value;
+      if (emptyMessage) {
+        if (hasSearchFilters) {
+          emptyMessage.textContent = "No player honors match the selected filters.";
+        } else if (seasonValue === currentSeasonValue) {
+          emptyMessage.textContent = "No player honors have been posted for the current season yet.";
+        } else if (seasonValue === allSeasonsValue) {
+          emptyMessage.textContent = "No player honors have been posted yet.";
+        } else {
+          const seasonLabel = seasonSelect.selectedOptions[0]?.textContent.trim() || `${seasonValue} Season`;
+          emptyMessage.textContent = `No player honors have been posted for ${seasonLabel} yet.`;
+        }
+      }
+      if (emptyReset) {
+        emptyReset.textContent = hasSearchFilters ? "Clear Filters" : "View All Seasons";
+        emptyReset.hidden = seasonValue === allSeasonsValue && !hasSearchFilters;
+      }
+    };
+
     const update = () => {
       const matches = orderedMatches();
       const pageCount = Math.max(1, Math.ceil(matches.length / playerPageSize));
@@ -308,7 +390,7 @@
       items.forEach((item) => { item.hidden = !visible.has(item); });
       gallery.setAttribute("data-visible-count", String(end - start));
 
-      if (empty) empty.hidden = matches.length !== 0;
+      updateEmptyState(matches.length);
       if (controls) controls.hidden = matches.length <= playerPageSize;
       if (status) status.textContent = matches.length ? `${start + 1}–${end} of ${matches.length}` : "0 of 0";
       if (previous) previous.disabled = page <= 0;
@@ -355,16 +437,9 @@
     }
 
     if (clear) {
-      clear.addEventListener("click", () => {
-        seasonSelect.value = defaultSeasonValue;
-        searchInput.value = "";
-        rebuildTeamOptions();
-        teamSelect.value = "";
-        page = 0;
-        update();
-        seasonSelect.focus();
-      });
+      clear.addEventListener("click", resetFilters);
     }
+    if (emptyReset) emptyReset.addEventListener("click", resetFilters);
 
     rebuildTeamOptions();
     update();

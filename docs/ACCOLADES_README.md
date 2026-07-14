@@ -1,137 +1,107 @@
-# Accolades Overlay Banner Wall
+# Accolades Page
 
-This update changes the Banner Wall direction and leaves Current Team Results and Player Honors in the existing split-section structure.
+The Accolades page combines featured stories, searchable team banners, and a rotating Hall of Recognition.
 
-## Banner Wall
+## Data sources
 
-The Banner Wall uses a realistic blank white hanging banner image:
-
-```yaml
-template: "/images/accolades/blank-white-hanging-banner.svg"
-```
-
-Dynamic items are overlaid from YAML:
-
-```yaml
-banner_wall:
-  - order: 1
-    year: "2026"
-    season: "Spring"
-    tournament: "March Mania"
-    team: "13U Black"
-    result: "Runner-Up"
-    logo: "/images/accolades/tournament-logos/march-mania-logo.png"
-    template: "/images/accolades/blank-white-hanging-banner.svg"
-```
-
-## Logo assets
-
-Tournament logos are stored in:
+Season-specific content lives in:
 
 ```text
-static/images/accolades/tournament-logos/
+data/seasons/<season-id>/tournament-results.yaml
+data/seasons/<season-id>/player-honors.yaml
 ```
 
-## Paging
+Current-season and current-team status comes from `data/seasons/index.yaml` and `data/seasons/<season-id>/teams.yaml`, using the same rules as Team Central.
 
-The Banner Wall shows three banners at a time with Previous / Next controls, similar to the Social Hub pattern.
+## Team accolades
 
-When a page has one or two remaining banners, those banners are centered.
-
-## Existing sections
-
-Current Team Results and Player Honors are intentionally left in their current structure.
-
-## Accolades data model
-
-The Accolades page uses `season-specific `tournament-results.yaml` and `player-honors.yaml` files` for achievements and player honors, while current-team filtering is derived from `data/seasons/<season-id>/teams.yaml`.
-
-### Single source of truth for team achievements
-
-Team tournament results now live once under `achievements:`. The Banner Wall and Current Team Results both read from that same list:
-
-- Banner Wall: all achievements sorted by `date` descending, shown three at a time.
-- Current Team Results: the same achievements, grouped by teams that are current in `data/seasons/<season-id>/teams.yaml`.
-
-Do not duplicate a result in a separate `banner_wall:` section. To add a new team result, add one record under `achievements:`.
+Tournament results belong under `achievements:` in the appropriate `tournament-results.yaml` file.
 
 ```yaml
 achievements:
-  - id: "2026-13u-black-march-mania-runner-up"
-    date: "2026-03-15"
+  - id: 2026-13u-black-cap-city-showdown-runner-up
+    date: "2026-04-11"
     year: "2026"
-    season: "Spring"
-    team: "13U Black"
-    tournament: "March Mania"
-    result: "Runner-Up"
-    logo: "/images/accolades/tournament-logos/march-mania-logo.png"
-    template: "/images/accolades/blank-white-hanging-banner.svg"
+    season: Spring
+    team: 13U Black
+    tournament: USSSA Cap City Showdown
+    result: Runner-Up
+    logo: /images/accolades/tournament-logos/cap-city-showdown-logo.png
+    template: /images/accolades/blank-white-hanging-banner.svg
+    story_url: /news/example-story/
 ```
 
-Use real event completion dates in `YYYY-MM-DD` format so sorting stays correct.
+Use a real event completion `date` in `YYYY-MM-DD` format. Team Accolades uses that field to sort tournament results newest first.
 
-### Current teams
+Tournament logos are stored in `static/images/accolades/tournament-logos/`. The default hanging-banner artwork is `static/images/accolades/blank-white-hanging-banner.svg`.
 
-The Accolades page follows the same current-season logic as `/teams/`:
+The searchable banner gallery defaults to All Seasons and shows three matching banners per page. Filters support season, team, tournament, result, and free-text searching.
 
-1. Start with `data/seasons/<season-id>/teams.yaml` `default_season`.
-2. If a season has `status: Current`, use that season instead.
-3. Read current team names from that season's `spring.teams` and `fall.teams`.
+## Manually selecting Featured Achievements
 
-Changing the current teams in Team Central automatically controls which teams appear in Current Team Results and Player Honors.
+Featured Achievements normally displays the newest three eligible tournament stories. Add `featured: true` to an achievement when it should receive manual priority.
 
-### Player honors
+```yaml
+achievements:
+  - id: 2026-13u-black-cap-city-showdown-runner-up
+    date: "2026-04-11"
+    year: "2026"
+    season: Spring
+    team: 13U Black
+    tournament: USSSA Cap City Showdown
+    result: Runner-Up
+    logo: /images/accolades/tournament-logos/cap-city-showdown-logo.png
+    story_url: /news/2026-04-13-example-story/
+    featured: true
+```
 
-Player recognition remains separate under `player_honors:` because it is a different record type than team tournament achievements.
+Selection behavior:
 
-### Current Team Results carousel
+1. An achievement is eligible only when it has a `story_url` or `social_url` and a usable image.
+2. A direct `feature_image` may be provided. Otherwise, the image, title, summary, and alternate text are inherited from the linked local news or Social Hub page when available.
+3. If one or more eligible achievements use `featured: true`, those items are placed first, newest date first.
+4. If fewer than three eligible items are manually featured, the remaining slots are filled with the newest eligible unmarked achievements.
+5. If nothing is marked `featured: true`, the page automatically displays the newest three eligible achievements. This preserves the normal page behavior without requiring manual labels.
+6. If more than three items are marked, the newest three marked items are displayed.
+7. A marked item without a destination link or usable image is ignored and does not create a broken card.
 
-Current Team Results now stays compact. Each current-team card shows up to three achievements at a time and uses small text-only Previous / Next controls when a team has more than three matching results. The controls page within that team card only; they do not expand the card vertically.
+Optional fields:
 
-Tournament images in this section use the `logo` field from each achievement and are displayed as centered logo artwork, not as banner previews. The Banner Wall remains the visual banner showcase.
+- `feature_image`: overrides the image inherited from the linked page.
+- `story_label`: overrides `Read the story` or `View the post`.
+- `feature_crop`: retains compatibility with existing content metadata, although Featured Achievement images are displayed without cropping by default.
 
-### Searching past team achievements from Current Team Results
+## Hall of Recognition
 
-The team dropdown remains limited to current teams from `data/seasons/<season-id>/teams.yaml`, but the search box can now match any record in `achievements:`. When the search field is empty, the section shows current teams only. When a search term is entered, matching older teams/results can appear temporarily in the results area without being added to the dropdown.
+Player recognition belongs under `player_honors:` in the appropriate `player-honors.yaml` file.
 
-### Player Honors grouped by team
+```yaml
+player_honors:
+  - id: 2026-13u-black-player-name-player-highlight
+    year: "2026"
+    team: 13U Black
+    title: Player Name 2026 Player Highlight
+    image: /images/program-media/player-name-2026-01.png
+    player: Player Name
+    honor: Player Highlight
+```
 
-Player Honors are now grouped by current team, with player-first cards inside each team group. Each card uses the honor graphic as a supporting thumbnail and leads with the player name. Team groups show up to three honors at a time and use compact Previous / Next controls when more honors are available.
+Player Honors are intentionally organized by the latest season/year, not by exact dates. Do not add honor dates solely for display ordering.
 
-`player_honors:` supports optional `player:` and `honor:` fields. If those are missing, the template falls back to the existing `title:` value.
+The Hall of Recognition:
 
-### Player Honors vertical card treatment
+- defaults to All Seasons;
+- shows six portraits at a time;
+- prioritizes the newest season and term;
+- balances the default selection across teams with available honors;
+- may rotate the specific players shown when the page reloads;
+- keeps filtered and searched results predictable; and
+- opens portraits in a larger image preview.
 
-Player Honors now use a more visual recognition-card style inside each team group: larger centered thumbnails, player name as the primary text, and honor/year metadata below the name. This keeps team grouping and carousel behavior while making the individual recognitions feel less like table rows.
+## Empty filter results
 
-### Player Honors free grid behavior
+Team Accolades and Hall of Recognition provide contextual empty messages. A search with no matches offers Clear Filters, while a season with no posted content offers View All Seasons.
 
-Player Honors no longer use team group containers. The default view shows up to the first three honors for each current team in one free-flowing grid. Selecting a team shows all honors for that team. Typing in search shows all matching honors. This keeps the section lighter while still supporting team and player filtering.
+## Display order
 
-### Team Results & History section copy
-
-The Team Accolades section heading now reads `Team Results & History` because the dropdown remains focused on current teams while the search field can surface older tournament achievements from the full `achievements:` list.
-
-### Tournament Results section copy
-
-The Team Accolades section now uses the heading `Tournament Results` with supporting copy: `Browse current teams or search past tournament accomplishments.`
-
-### Team order and softer filters
-
-Team dropdowns now sort older age groups first, such as 13U before 10U, and the JavaScript uses the same ordering for Team Results and Player Honors filter options. Filter/search panels have also been softened with lighter translucent backgrounds and underline-style inputs so they blend better with the page.
-
-### Older-age team display order
-
-Team Results sections and Player Honors cards are reordered client-side so older age groups display first on the page, matching the filter dropdown order.
-
-### Year-based season filtering
-
-Tournament Results and Player Honors use year-based season filters from `data/seasons/index.yaml`:
-
-- `Current Season`
-- `All Seasons`
-- Individual season labels such as `2026 Season` and `2025 Season`
-
-Filtering is based on `season_id + team`. Spring and Fall terms may still appear on individual cards, but they are not used as top-level visible grouping or filter categories.
-
-When `All Seasons` is selected, repeated team names are disambiguated in the Team dropdown with the season label, such as `13U Black — 2026 Season`.
+When team names need ordering, older age groups appear first. For teams of the same age, Black appears before Orange.
