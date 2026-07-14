@@ -18,6 +18,7 @@ achievements:
   result: Runner-Up
   logo: /images/accolades/tournament-logos/cap-city-showdown-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  story_url: /news/2026-04-13-rawlings-tigers-nova-black-13u-earn-runner-up-at-vsa-select-dmv-13u-gold/
 - id: 2025-13u-black-october-bash-champions
   date: '2025-10-04'
   year: '2025'
@@ -27,6 +28,8 @@ achievements:
   result: Champions
   logo: /images/accolades/tournament-logos/october-bash-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  feature_crop: side-gutters
+  story_url: /news/2025-10-08-rawlings-tigers-nova-black-13u-sweep-championship-victory/
 - id: 2025-13u-black-back-to-school-champions
   date: '2025-09-11'
   year: '2025'
@@ -36,6 +39,7 @@ achievements:
   result: Champions
   logo: /images/accolades/tournament-logos/back-to-school-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  story_url: /news/2025-09-08-rawlings-tigers-nova-black-13u-roll-to-championship-victory/
 - id: 2026-13u-black-battleground-classic-runner-up
   date: '2026-06-06'
   year: '2026'
@@ -56,6 +60,8 @@ achievements:
   result: Runner-Up
   logo: /images/accolades/tournament-logos/nova-bat-wars-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  feature_crop: side-gutters
+  social_url: https://www.facebook.com/share/p/18xVUjEsSX/
 
 # 11U
 - id: 2026-11u-fire-ice-champions
@@ -67,3 +73,4 @@ achievements:
   result: Champions
   logo: /images/accolades/tournament-logos/fire-and-ice-logo.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  story_url: /news/2025-09-07-rawlings-tigers-nova-11u-black-capture-tournament-title-in-dominant-fashion/

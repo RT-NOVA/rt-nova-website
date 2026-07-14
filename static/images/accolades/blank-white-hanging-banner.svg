@@ -16,9 +16,9 @@
       --binding-dark: #72501f;
       --stitch-light: #fff4cf;
       --stitch-dark: #6f4b1f;
-      --rod-black-1: #3a3a3a;
-      --rod-black-2: #030303;
-      --rod-black-3: #171717;
+      --rod-black-1: #b99558;
+      --rod-black-2: #2b1b0c;
+      --rod-black-3: #765329;
       --t-fill: #d7ad61;
       --t-highlight: #fff1c8;
       --t-outline: #050505;
@@ -104,16 +104,16 @@
     </filter>
     <linearGradient id="rodGradient" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0%" stop-color="var(--rod-black-1)" />
-      <stop offset="18%" stop-color="#111" />
+      <stop offset="18%" stop-color="#6f522b" />
       <stop offset="45%" stop-color="var(--rod-black-2)" />
       <stop offset="68%" stop-color="var(--rod-black-3)" />
-      <stop offset="100%" stop-color="#000" />
+      <stop offset="100%" stop-color="#1a1007" />
     </linearGradient>
     <radialGradient id="finialGradient" cx="34%" cy="28%" r="72%">
-      <stop offset="0%" stop-color="#646464" />
-      <stop offset="24%" stop-color="#191919" />
-      <stop offset="72%" stop-color="#050505" />
-      <stop offset="100%" stop-color="#000" />
+      <stop offset="0%" stop-color="#d2b47c" />
+      <stop offset="24%" stop-color="#8b6737" />
+      <stop offset="72%" stop-color="#36220f" />
+      <stop offset="100%" stop-color="#160d06" />
     </radialGradient>
     <linearGradient id="bindingGradient" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0%" stop-color="var(--binding-light)" />

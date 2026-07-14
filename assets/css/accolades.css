@@ -1,1764 +1,1104 @@
-/* Accolades page
-   Scoped to /accolades/. Banner Wall uses an editable champagne SVG template
-   with YAML-driven tournament logo overlays. Current Team Results and Player Honors
-   remain in the current structure. */
+/* Accolades page */
 
 .accolades-proof-strip .rt-proof-grid strong {
-  color:#151515;
+  color: #151515;
 }
 
 .accolades-proof-strip .rt-proof-grid span {
-  color:var(--rt-muted);
+  color: var(--rt-muted);
 }
 
 .accolades-wall-section .rt-container,
+.accolades-featured-section .rt-container,
 .accolades-team-section .rt-container,
 .accolades-player-section .rt-container {
-  max-width:1180px;
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
 }
 
 .accolades-block-head {
-  max-width:780px;
-  margin:0 auto clamp(1.35rem,2.8vw,2.1rem);
-  text-align:center;
+  max-width: 900px;
+  margin: 0 auto clamp(1.8rem, 4vw, 3rem);
+  text-align: center;
 }
 
 .accolades-block-head .rt-eyebrow {
-  margin-bottom:.45rem;
+  margin-bottom: .55rem;
 }
 
 .accolades-block-head h2 {
-  margin:0;
-  color:#151515;
-  font-family:var(--rt-display);
-  font-size:clamp(1.7rem,3vw,2.65rem);
-  font-weight:950;
-  letter-spacing:.065em;
-  line-height:1;
-  text-transform:uppercase;
+  margin: 0;
+  color: var(--rt-navy, #0b0b0d);
+  font-family: var(--rt-display, "Oswald", "Arial Narrow", sans-serif);
+  font-size: var(--rt-heading-section);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-tight, -.04em);
+  line-height: .92;
+  text-transform: uppercase;
 }
 
 .accolades-block-head p:not(.rt-eyebrow) {
-  max-width:680px;
-  margin:.65rem auto 0;
-  color:var(--rt-muted);
-  font-size:clamp(.98rem,1.35vw,1.12rem);
-  font-weight:850;
-  line-height:1.45;
+  max-width: 750px;
+  margin: .85rem auto 0;
+  color: var(--rt-muted);
+  font-size: clamp(.98rem, 1.2vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.55;
 }
 
-/* Banner Wall — editable SVG-backed banners with a tournament-logo overlay and pager. */
+.accolades-visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Image-led stories keep the hero focused and make recent results tangible. */
+.accolades-featured-section {
+  background: #fff;
+}
+
+.accolades-featured-section .rt-container {
+  max-width: 1560px;
+}
+
+.accolades-featured-section__head {
+  margin-bottom: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.accolades-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.accolades-featured-card {
+  min-width: 0;
+}
+
+.accolades-featured-card > a {
+  display: flex;
+  height: 100%;
+  color: inherit;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.accolades-featured-card__image {
+  --rt-featured-scale: 1;
+  --rt-featured-hover-scale: 1;
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  border: 1px solid rgba(5, 5, 5, .14);
+  background: #fff;
+  place-items: center;
+}
+
+.accolades-featured-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  background: #fff;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(var(--rt-featured-scale));
+  transition: transform .25s ease;
+}
+
+.accolades-featured-card__image--side-gutters {
+  --rt-featured-scale: 1;
+  --rt-featured-hover-scale: 1;
+}
+
+.accolades-featured-card__image--side-gutters img {
+  object-position: center;
+  transform-origin: center;
+}
+
+.accolades-featured-card > a:hover .accolades-featured-card__image img,
+.accolades-featured-card > a:focus-visible .accolades-featured-card__image img {
+  transform: scale(var(--rt-featured-hover-scale));
+}
+
+.accolades-featured-card > a:focus-visible {
+  outline: 2px solid var(--rt-orange);
+  outline-offset: 4px;
+}
+
+.accolades-featured-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  height: auto;
+  padding: 1.15rem .1rem .2rem;
+  border-bottom: 1px solid rgba(5, 5, 5, .14);
+  flex-direction: column;
+}
+
+.accolades-featured-card__body > span {
+  color: var(--rt-orange-dark);
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.accolades-featured-card__body h3 {
+  margin: .45rem 0 0;
+  color: #151515;
+  font-family: var(--rt-display, "Oswald", "Arial Narrow", sans-serif);
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  font-weight: 950;
+  letter-spacing: -.025em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.accolades-featured-card__body p {
+  margin: .75rem 0 0;
+  color: var(--rt-muted);
+  font-size: .92rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.accolades-featured-card__body footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.15rem;
+}
+
+.accolades-featured-card__body footer em,
+.accolades-featured-card__body footer strong {
+  font-size: .63rem;
+  font-style: normal;
+  font-weight: 950;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.accolades-featured-card__body footer em {
+  color: var(--rt-muted);
+}
+
+.accolades-featured-card__body footer strong {
+  color: var(--rt-orange-dark);
+  text-align: right;
+}
+
+.accolades-featured-card__body footer strong span {
+  color: var(--rt-orange);
+  font-size: .78rem;
+}
+
+/* Searchable field-house banner wall */
+.accolades-wall-section {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(5, 5, 5, .08);
+  border-bottom: 1px solid rgba(5, 5, 5, .08);
+  background: linear-gradient(180deg, #eceef0 0%, #dfe3e6 100%);
+}
+
 .accolades-banner-wall {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  justify-content:center;
-  gap:clamp(1.1rem,2.6vw,1.8rem);
-  align-items:start;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 315px));
+  gap: clamp(1rem, 2.8vw, 2.15rem);
+  align-items: start;
+  justify-content: center;
 }
 
 .accolades-banner-wall[data-visible-count="1"] {
-  grid-template-columns:minmax(260px,370px);
+  grid-template-columns: minmax(240px, 315px);
 }
 
 .accolades-banner-wall[data-visible-count="2"] {
-  grid-template-columns:repeat(2,minmax(260px,370px));
+  grid-template-columns: repeat(2, minmax(240px, 315px));
 }
 
 .accolades-overlay-banner {
-  display:grid;
-  gap:.78rem;
-  min-width:0;
+  min-width: 0;
 }
 
 .accolades-overlay-banner[hidden] {
-  display:none;
+  display: none !important;
+}
+
+.accolades-overlay-banner__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .accolades-overlay-banner__stage {
-  position:relative;
-  width:100%;
-  max-width:370px;
-  margin:0 auto;
-  aspect-ratio:4 / 5;
-  filter:drop-shadow(0 18px 22px rgba(5,5,5,.13));
+  position: relative;
+  width: 100%;
+  max-width: 315px;
+  margin: 0 auto;
+  aspect-ratio: 4 / 5;
+  filter: drop-shadow(0 18px 22px rgba(25, 20, 15, .2));
+  transition: filter .2s ease, transform .2s ease;
+}
+
+.accolades-overlay-banner--linked .accolades-overlay-banner__link:hover .accolades-overlay-banner__stage,
+.accolades-overlay-banner--linked .accolades-overlay-banner__link:focus-visible .accolades-overlay-banner__stage {
+  filter: drop-shadow(0 23px 27px rgba(25, 20, 15, .28));
+  transform: translateY(-4px);
+}
+
+.accolades-overlay-banner__link:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--rt-orange);
+  outline-offset: 5px;
 }
 
 .accolades-overlay-banner__base {
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  pointer-events:none;
-  user-select:none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
 }
 
 .accolades-overlay-banner__logo {
-  position:absolute;
-  left:50%;
+  position: absolute;
   top: 44%;
-  width: 36%;
-  height: 22%;
-  transform:translate(-50%,-50%);
-  display:grid;
-  place-items:center;
-  margin:0;
-  z-index:2;
+  left: 50%;
+  display: grid;
+  width: 34%;
+  height: 17%;
+  margin: 0;
+  align-items: center;
+  justify-items: center;
+  transform: translate(-50%, -50%);
 }
 
 .accolades-overlay-banner__logo img {
-  width:100%;
-  height:100%;
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-  filter:drop-shadow(0 5px 7px rgba(5,5,5,.16));
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 4px 5px rgba(5, 5, 5, .14));
 }
 
 .accolades-overlay-banner__caption {
-  display:grid;
-  gap:.18rem;
-  text-align:center;
+  display: grid;
+  gap: .2rem;
+  max-width: 340px;
+  margin: .2rem auto 0;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .accolades-overlay-banner__caption strong,
 .accolades-overlay-banner__caption span,
 .accolades-overlay-banner__caption em {
-  font-style:normal;
-  font-weight:950;
-  line-height:1.05;
-  text-transform:uppercase;
+  font-style: normal;
+  font-weight: 950;
 }
 
 .accolades-overlay-banner__caption strong {
-  color:#151515;
-  font-family:var(--rt-display);
-  font-size:clamp(1.15rem,2vw,1.42rem);
-  letter-spacing:.12em;
+  color: #151515;
+  font-family: var(--rt-display, "Oswald", "Arial Narrow", sans-serif);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  letter-spacing: .04em;
+  line-height: 1;
 }
 
 .accolades-overlay-banner__caption span {
-  color:var(--rt-orange-dark);
-  font-size:.76rem;
-  letter-spacing:.12em;
+  color: var(--rt-muted);
+  font-size: .67rem;
+  letter-spacing: .09em;
+  line-height: 1.3;
 }
 
 .accolades-overlay-banner__caption em {
-  color:var(--rt-muted);
-  font-size:.72rem;
-  letter-spacing:.14em;
+  margin-top: .12rem;
+  color: var(--rt-orange-dark);
+  font-size: .72rem;
+  letter-spacing: .13em;
+  line-height: 1.1;
+}
+
+.accolades-overlay-banner__story {
+  display: block;
+  margin-top: .55rem;
+  color: var(--rt-muted);
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .13em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color .18s ease;
+}
+
+.accolades-overlay-banner__story span {
+  color: var(--rt-orange);
+  font-size: .85rem;
+}
+
+.accolades-overlay-banner--linked .accolades-overlay-banner__link:hover .accolades-overlay-banner__story,
+.accolades-overlay-banner--linked .accolades-overlay-banner__link:focus-visible .accolades-overlay-banner__story {
+  color: #151515;
+}
+
+.accolades-banner-controls,
+.accolades-team-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
 }
 
 .accolades-banner-controls {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:.75rem;
-  margin-top:1rem;
+  margin-top: clamp(1.4rem, 3vw, 2.1rem);
 }
 
 .accolades-banner-controls button {
-  min-height:2.35rem;
-  border:1px solid rgba(5,5,5,.18);
-  background:#fff;
-  color:#151515;
-  cursor:pointer;
-  font-size:.68rem;
-  font-weight:950;
-  letter-spacing:.09em;
-  padding:.55rem .8rem;
-  text-transform:uppercase;
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(5, 5, 5, .24);
+  border-radius: 50%;
+  background: transparent;
+  color: #151515;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.05rem;
+  place-items: center;
+  transition: background .18s ease, border-color .18s ease;
 }
 
 .accolades-banner-controls button:hover,
 .accolades-banner-controls button:focus-visible {
-  border-color:#151515;
-  background:#151515;
-  color:#fff;
-}
-
-.accolades-banner-controls button:disabled {
-  cursor:not-allowed;
-  opacity:.45;
+  border-color: var(--rt-orange);
+  background: var(--rt-orange);
+  outline: 0;
 }
 
 .accolades-banner-controls span {
-  color:var(--rt-muted);
-  font-size:.72rem;
-  font-weight:900;
+  min-width: 7.5rem;
+  color: var(--rt-muted);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-
-.accolades-team-banner em {
-  color:var(--rt-muted);
-  display:block;
-  font-size:.72rem;
-  font-style:normal;
-  font-weight:900;
-  letter-spacing:.11em;
-  margin-top:.16rem;
-  text-transform:uppercase;
+.accolades-banner-results__controls[hidden] {
+  display: none !important;
 }
 
-/* Search controls */
+.accolades-banner-controls button:disabled {
+  border-color: rgba(5, 5, 5, .14);
+  background: transparent;
+  color: rgba(21, 21, 21, .35);
+  cursor: default;
+}
+
+/* Open filter controls shared by the archive and recognition gallery */
 .accolades-filter-panel {
-  display:grid;
-  grid-template-columns:minmax(9rem,.55fr) minmax(10rem,.65fr) minmax(18rem,1.35fr);
-  gap:.75rem;
-  margin-bottom:1rem;
-  padding:1rem;
-  border:1px solid rgba(5,5,5,.08);
-  background:#fff;
-  box-shadow:0 12px 28px rgba(5,5,5,.05);
+  margin: 0 0 clamp(2.2rem, 4vw, 3.25rem);
+  padding: .15rem 0 1.15rem;
+  border: 0;
+  background: transparent;
+}
+
+.accolades-filter-panel__topline {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.accolades-filter-panel__topline > p {
+  margin: 0;
+  color: var(--rt-orange-dark);
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .15em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.accolades-filter-panel__status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .75rem;
+  min-height: 1rem;
+}
+
+.accolades-filter-panel__status p {
+  margin: 0;
+  color: rgba(31, 42, 63, .78);
+  font-size: .74rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.accolades-filter-panel__status button {
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--rt-orange-dark);
+  cursor: pointer;
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .1em;
+  padding: 0 0 .12rem;
+  text-transform: uppercase;
+}
+
+.accolades-filter-panel__status button:hover,
+.accolades-filter-panel__status button:focus-visible {
+  color: #151515;
+  outline: 0;
+}
+
+.accolades-filter-panel__controls {
+  display: grid;
+  grid-template-columns: minmax(10rem, .65fr) minmax(10rem, .65fr) minmax(18rem, 1.35fr);
+  gap: clamp(1rem, 2.3vw, 1.7rem);
+  align-items: end;
 }
 
 .accolades-filter-panel label {
-  display:grid;
-  gap:.35rem;
-  margin:0;
+  display: grid;
+  gap: .4rem;
+  min-width: 0;
+  margin: 0;
 }
 
-.accolades-filter-panel label > span {
-  color:var(--rt-muted);
-  font-size:.6rem;
-  font-weight:950;
-  letter-spacing:.14em;
-  line-height:1;
-  text-transform:uppercase;
+.accolades-filter-panel label > span:first-child {
+  color: var(--rt-muted);
+  font-size: .61rem;
+  font-weight: 950;
+  letter-spacing: .15em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .accolades-filter-panel select,
 .accolades-filter-panel input {
-  width:100%;
-  min-height:2.8rem;
-  border:1px solid rgba(5,5,5,.16);
-  background:#fff;
-  color:#151515;
-  font:inherit;
-  font-weight:800;
-  padding:.7rem .75rem;
-  border-radius:0;
+  width: 100%;
+  min-height: 3rem;
+  border: 0;
+  border-bottom: 1px solid rgba(5, 5, 5, .22);
+  border-radius: 0;
+  background: transparent;
+  color: #151515;
+  font: inherit;
+  font-weight: 800;
+}
+
+.accolades-filter-panel select {
+  padding: .68rem .35rem;
+}
+
+.accolades-filter-panel input {
+  padding: .68rem .6rem .68rem 2.6rem;
+}
+
+.accolades-filter-panel input::placeholder {
+  color: rgba(31, 42, 63, .62);
+  opacity: 1;
 }
 
 .accolades-filter-panel select:focus,
 .accolades-filter-panel input:focus {
-  outline:2px solid var(--rt-orange);
-  outline-offset:2px;
+  border-color: var(--rt-orange);
+  box-shadow: inset 0 -2px 0 var(--rt-orange);
+  outline: 0;
 }
 
-/* Current team cards, inspired by Team Central / Coaches. */
-.accolades-current-team-list {
-  display:grid;
-  gap:1rem;
+.accolades-filter-panel__search-field {
+  position: relative;
+  display: block;
 }
 
-.accolades-current-team-card {
-  border:1px solid rgba(5,5,5,.08);
-  background:#fff;
-  box-shadow:0 10px 24px rgba(5,5,5,.04);
+.accolades-filter-panel__search-field::before {
+  position: absolute;
+  top: 50%;
+  left: .75rem;
+  width: .65rem;
+  height: .65rem;
+  border: 2px solid var(--rt-muted);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+  transform: translateY(-65%);
 }
 
-.accolades-current-team-card[hidden] {
-  display:none;
+.accolades-filter-panel__search-field::after {
+  position: absolute;
+  top: calc(50% + .27rem);
+  left: 1.45rem;
+  width: .38rem;
+  height: 2px;
+  background: var(--rt-muted);
+  content: "";
+  pointer-events: none;
+  transform: rotate(45deg);
+  transform-origin: left center;
 }
 
-.accolades-current-team-card > header {
-  display:flex;
-  justify-content:space-between;
-  gap:1rem;
-  align-items:end;
-  padding:1rem;
-  border-bottom:1px solid rgba(5,5,5,.08);
-  background:#f8f5ef;
+/* Combined searchable banner archive */
+.accolades-team-section {
+  border-top: 1px solid rgba(5, 5, 5, .08);
+  border-bottom: 1px solid rgba(5, 5, 5, .08);
+  background: linear-gradient(180deg, #eceef0 0%, #dfe3e6 100%);
 }
 
-.accolades-current-team-card > header span {
-  display:block;
-  margin-bottom:.35rem;
-  color:var(--rt-muted);
-  font-size:.6rem;
-  font-weight:950;
-  letter-spacing:.14em;
-  text-transform:uppercase;
+.accolades-banner-results {
+  min-height: 1px;
 }
 
-.accolades-current-team-card > header h3 {
-  margin:0;
-  color:#151515;
-  font-family:var(--rt-display);
-  font-size:clamp(1.35rem,2.4vw,2rem);
-  font-weight:950;
-  letter-spacing:.06em;
-  line-height:1;
-  text-transform:uppercase;
+.accolades-current-team-list,
+.accolades-player-team-list {
+  display: grid;
+  gap: clamp(2.8rem, 5vw, 4.25rem);
 }
 
-.accolades-current-team-card > header strong {
-  color:var(--rt-orange-dark);
-  font-size:.75rem;
-  font-weight:950;
-  letter-spacing:.1em;
-  text-transform:uppercase;
+.accolades-current-team-card,
+.accolades-player-team-card {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
-.accolades-current-team-card__summary {
-  padding:0 1rem;
-  margin-top:1rem;
-  color:var(--rt-muted);
-  font-size:.9rem;
-  font-weight:800;
-  line-height:1.35;
-}
-
-.accolades-team-banner-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:.75rem;
-  padding:1rem;
-}
-
-.accolades-team-banner {
-  display:grid;
-  grid-template-columns:74px minmax(0,1fr);
-  gap:.85rem;
-  align-items:center;
-  min-width:0;
-  padding:.75rem;
-  border:1px solid rgba(5,5,5,.08);
-  background:#fff;
-}
-
-.accolades-team-banner[hidden] {
-  display:none;
-}
-
-.accolades-team-banner figure {
-  margin:0;
-  width:74px;
-  height:74px;
-  display:grid;
-  place-items:center;
-  background:#f4eee6;
-  overflow:hidden;
-}
-
-.accolades-team-banner img {
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.accolades-team-banner span,
-.accolades-player-card span {
-  display:block;
-  margin-bottom:.25rem;
-  color:var(--rt-orange-dark);
-  font-size:.66rem;
-  font-weight:950;
-  letter-spacing:.1em;
-  line-height:1;
-  text-transform:uppercase;
-}
-
-.accolades-team-banner strong,
-.accolades-player-card strong {
-  display:block;
-  color:#151515;
-  font-size:.82rem;
-  font-weight:950;
-  letter-spacing:.03em;
-  line-height:1.12;
-  text-transform:uppercase;
-}
-
-.accolades-team-more {
-  border-top:1px solid rgba(5,5,5,.08);
-}
-
-.accolades-team-more summary {
-  list-style:none;
-  cursor:pointer;
-  padding:.85rem 1rem;
-  color:var(--rt-orange-dark);
-  font-size:.72rem;
-  font-weight:950;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-}
-
-.accolades-team-more summary::-webkit-details-marker {
-  display:none;
-}
-
-.accolades-team-more summary::after {
-  content:" +";
-}
-
-.accolades-team-more[open] summary::after {
-  content:" −";
-}
-
-/* Individual achievements. */
-.accolades-player-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:.85rem;
-}
-
-.accolades-player-card {
-  display:grid;
-  grid-template-columns:82px minmax(0,1fr);
-  gap:.85rem;
-  align-items:center;
-  padding:.75rem;
-  border:1px solid rgba(5,5,5,.08);
-  background:#fff;
-  box-shadow:0 10px 24px rgba(5,5,5,.05);
-}
-
+.accolades-current-team-card[hidden],
+.accolades-player-team-card[hidden],
+.accolades-team-banner[hidden],
 .accolades-player-card[hidden] {
-  display:none;
+  display: none !important;
 }
 
-.accolades-player-card figure {
-  margin:0;
-  width:82px;
-  height:82px;
-  background:#f4eee6;
-  overflow:hidden;
+.accolades-current-team-card > header,
+.accolades-player-team-card > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.05rem 0 1rem;
+  border-top: 2px solid #151515;
+  border-bottom: 1px solid rgba(5, 5, 5, .12);
 }
 
-.accolades-player-card img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.accolades-current-team-card > header span,
+.accolades-player-team-card > header span {
+  display: block;
+  color: var(--rt-muted);
+  font-size: .63rem;
+  font-weight: 950;
+  letter-spacing: .15em;
+  text-transform: uppercase;
 }
 
-.accolades-empty {
-  margin:1rem 0 0;
-  padding:1rem;
-  border:1px dashed rgba(5,5,5,.18);
-  color:var(--rt-muted);
-  font-weight:850;
-  text-align:center;
+.accolades-current-team-card > header .accolades-current-team-card__status,
+.accolades-player-team-card > header > div > span {
+  margin-bottom: .4rem;
+  color: var(--rt-orange-dark);
 }
 
-.accolades-connect-band {
-  background:var(--rt-orange);
+.accolades-current-team-card > header h3,
+.accolades-player-team-card > header h3 {
+  margin: 0;
+  color: #151515;
+  font-family: var(--rt-display, "Oswald", "Arial Narrow", sans-serif);
+  font-size: var(--rt-heading-data);
+  font-weight: 950;
+  letter-spacing: var(--rt-heading-letter-tight, -.04em);
+  line-height: .92;
+  text-transform: uppercase;
 }
 
-@media (max-width:1100px) {
-  .accolades-team-banner-grid,
-  .accolades-player-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+.accolades-current-team-card__season,
+.accolades-player-team-card > header em {
+  display: block;
+  margin-top: .46rem;
+  color: var(--rt-muted);
+  font-size: .66rem;
+  font-style: normal;
+  font-weight: 950;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
-@media (max-width:980px) {
-  .accolades-banner-wall,
-  .accolades-banner-wall[data-visible-count="1"],
-  .accolades-banner-wall[data-visible-count="2"] {
-    grid-template-columns:minmax(250px,370px);
-  }
-
-  .accolades-filter-panel {
-    grid-template-columns:1fr;
-  }
-}
-
-@media (max-width:720px) {
-  .accolades-block-head {
-    text-align:left;
-    margin-left:0;
-    margin-right:0;
-  }
-
-  .accolades-block-head p:not(.rt-eyebrow) {
-    margin-left:0;
-    margin-right:0;
-  }
-
-  .accolades-current-team-card > header {
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .accolades-team-banner-grid,
-  .accolades-player-grid {
-    grid-template-columns:1fr;
-  }
-
-  .accolades-team-banner {
-    grid-template-columns:64px minmax(0,1fr);
-  }
-
-  .accolades-team-banner figure {
-    width:64px;
-    height:64px;
-  }
-
-  .accolades-player-card {
-    grid-template-columns:72px minmax(0,1fr);
-  }
-
-  .accolades-player-card figure {
-    width:72px;
-    height:72px;
-  }
-
-  .accolades-banner-controls {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-  }
-
-  .accolades-banner-controls span {
-    grid-column:1 / -1;
-    text-align:center;
-    order:-1;
-  }
-}
-
-
-/* Current Team Results refinements */
-.accolades-current-team-card > header {
-  padding:.85rem 1rem;
-}
-
-.accolades-current-team-card > header h3 {
-  font-size:clamp(1.2rem,2vw,1.7rem);
-}
-
-.accolades-current-team-card__summary {
-  display:none;
+.accolades-current-team-card > header > strong,
+.accolades-player-team-card > header > strong {
+  margin-bottom: .2rem;
+  color: var(--rt-orange-dark);
+  font-size: .7rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .accolades-team-banner-grid {
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:.65rem;
-  padding:.85rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 clamp(1rem, 2.5vw, 2rem);
 }
 
 .accolades-team-banner {
-  grid-template-columns:68px minmax(0,1fr);
-  gap:.75rem;
-  padding:.62rem;
-  min-height:5.25rem;
+  min-width: 0;
+}
+
+.accolades-team-banner__content {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  min-height: 8rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(5, 5, 5, .1);
+  color: inherit;
+  text-decoration: none;
+}
+
+.accolades-team-banner__content > div {
+  align-self: center;
+}
+
+.accolades-team-banner--linked .accolades-team-banner__content {
+  transition: border-color .18s ease, transform .18s ease;
+}
+
+.accolades-team-banner--linked .accolades-team-banner__content:hover,
+.accolades-team-banner--linked .accolades-team-banner__content:focus-visible {
+  border-color: var(--rt-orange);
+  outline: 0;
+  transform: translateY(-2px);
 }
 
 .accolades-team-banner figure {
-  width:68px;
-  height:68px;
-  background:transparent;
-  overflow:visible;
+  display: grid;
+  width: 88px;
+  height: 76px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  align-self: center;
+  justify-self: center;
+  place-items: center;
 }
 
 .accolades-team-banner img {
-  width:100%;
-  height:100%;
-  object-fit:contain;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  object-fit: contain;
+  transform: translateY(-7%);
 }
 
 .accolades-team-banner span {
-  margin-bottom:.22rem;
+  display: block;
+  margin-bottom: .3rem;
+  color: var(--rt-orange-dark);
+  font-size: .64rem;
+  font-weight: 950;
+  letter-spacing: .11em;
+  text-transform: uppercase;
 }
 
 .accolades-team-banner strong {
-  font-size:.82rem;
+  display: block;
+  color: #151515;
+  font-size: clamp(.93rem, 1.25vw, 1.05rem);
+  font-weight: 950;
+  letter-spacing: .015em;
+  line-height: 1.15;
 }
 
 .accolades-team-banner em {
-  color:var(--rt-muted);
-  display:block;
-  font-size:.72rem;
-  font-style:normal;
-  font-weight:900;
-  letter-spacing:.11em;
-  margin-top:.18rem;
-  text-transform:uppercase;
+  display: block;
+  margin-top: .38rem;
+  color: var(--rt-muted);
+  font-size: .68rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.accolades-team-banner small {
+  display: block;
+  margin-top: .65rem;
+  color: var(--rt-orange-dark);
+  font-size: .62rem;
+  font-weight: 950;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.accolades-team-banner small span {
+  display: inline;
+  margin: 0;
+  font-size: .75rem;
 }
 
 .accolades-team-carousel-controls {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:.55rem;
-  padding:.1rem 1rem .85rem;
+  margin-top: 1.1rem;
 }
 
 .accolades-team-carousel-controls[hidden] {
-  display:none;
+  display: none !important;
 }
 
 .accolades-team-carousel-controls button {
-  border:0;
-  background:transparent;
-  color:var(--rt-orange-dark);
-  cursor:pointer;
-  font-size:.68rem;
-  font-weight:950;
-  letter-spacing:.09em;
-  padding:.25rem .2rem;
-  text-transform:uppercase;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--rt-orange-dark);
+  cursor: pointer;
+  font: inherit;
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .1em;
+  padding: .2rem 0;
+  text-transform: uppercase;
 }
 
 .accolades-team-carousel-controls button:hover,
 .accolades-team-carousel-controls button:focus-visible {
-  color:#151515;
-  text-decoration:underline;
-  text-underline-offset:.2em;
+  color: #151515;
+  outline: 0;
 }
 
 .accolades-team-carousel-controls button:disabled {
-  color:rgba(21,21,21,.35);
-  cursor:not-allowed;
-  text-decoration:none;
+  cursor: default;
+  opacity: .35;
 }
 
 .accolades-team-carousel-controls span {
-  color:var(--rt-muted);
-  font-size:.68rem;
-  font-weight:900;
+  min-width: 7rem;
+  color: var(--rt-muted);
+  font-size: .67rem;
+  font-weight: 900;
+  text-align: center;
 }
 
-@media (max-width: 760px) {
-  .accolades-team-banner-grid {
-    grid-template-columns:1fr;
+/* Image-forward Hall of Recognition */
+.accolades-player-section {
+  background: #fff;
+}
+
+.accolades-player-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 250px));
+  justify-content: center;
+  gap: clamp(1.25rem, 2.8vw, 2.15rem);
+  padding-top: 1.5rem;
+}
+
+.accolades-player-card {
+  min-width: 0;
+}
+
+.accolades-player-card__image {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: #e9ecf2;
+  box-shadow: 0 15px 30px rgba(7, 16, 29, .11);
+  cursor: zoom-in;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.accolades-player-card__image:hover,
+.accolades-player-card__image:focus-visible {
+  box-shadow: 0 20px 38px rgba(7, 16, 29, .18);
+  outline: 2px solid var(--rt-orange);
+  outline-offset: 3px;
+  transform: translateY(-3px);
+}
+
+.accolades-player-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.accolades-player-card > div {
+  padding: 1rem .1rem 0;
+  text-align: left;
+}
+
+.accolades-player-card > div em {
+  display: block;
+  margin-bottom: .35rem;
+  color: var(--rt-orange-dark);
+  font-size: .65rem;
+  font-style: normal;
+  font-weight: 950;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.accolades-player-card > div strong {
+  display: block;
+  color: #151515;
+  font-family: var(--rt-display, "Oswald", "Arial Narrow", sans-serif);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 950;
+  letter-spacing: -.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.accolades-player-card > div span {
+  display: block;
+  margin-top: .48rem;
+  color: var(--rt-muted);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.accolades-empty {
+  margin: 1rem 0 0;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(5, 5, 5, .14);
+  border-bottom: 1px solid rgba(5, 5, 5, .14);
+  color: var(--rt-muted);
+  font-weight: 850;
+  text-align: center;
+}
+
+.accolades-connect-band {
+  background:
+    radial-gradient(circle at 12% 50%, rgba(223, 75, 30, .2), transparent 31%),
+    #0b0c0e;
+}
+
+/* Player image preview */
+.accolades-photo-modal[hidden] {
+  display: none !important;
+}
+
+.accolades-photo-modal {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: grid;
+  padding: clamp(1rem, 3vw, 2rem);
+  place-items: center;
+}
+
+.accolades-photo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgba(4, 5, 7, .88);
+  cursor: zoom-out;
+}
+
+.accolades-photo-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(620px, 92vw);
+  max-height: 92vh;
+  padding: .7rem;
+  background: #111317;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, .5);
+}
+
+.accolades-photo-modal__image {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  background: #0b0c0e;
+}
+
+.accolades-photo-modal__caption {
+  display: grid;
+  gap: .25rem;
+  padding: .85rem .3rem .25rem;
+  text-align: center;
+}
+
+.accolades-photo-modal__caption strong {
+  color: #fff;
+  font-family: var(--rt-display, "Oswald", "Arial Narrow", sans-serif);
+  font-size: 1.35rem;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.accolades-photo-modal__caption span {
+  color: rgba(255, 255, 255, .68);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.accolades-photo-modal__close {
+  position: absolute;
+  z-index: 2;
+  top: .45rem;
+  right: .45rem;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 50%;
+  background: rgba(5, 5, 5, .8);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.55rem;
+  line-height: 1;
+  place-items: center;
+}
+
+.accolades-photo-modal__close:hover,
+.accolades-photo-modal__close:focus-visible {
+  border-color: var(--rt-orange);
+  background: var(--rt-orange);
+  outline: 0;
+}
+
+.accolades-photo-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 980px) {
+  .accolades-banner-wall,
+  .accolades-banner-wall[data-visible-count="2"] {
+    grid-template-columns: repeat(2, minmax(240px, 315px));
   }
 
-  .accolades-team-banner {
-    grid-template-columns:64px minmax(0,1fr);
+  .accolades-banner-wall[data-visible-count="1"] {
+    grid-template-columns: minmax(240px, 315px);
+  }
+
+  .accolades-filter-panel__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .accolades-filter-panel__search {
+    grid-column: 1 / -1;
+  }
+
+  .accolades-team-banner-grid,
+  .accolades-player-grid {
+    grid-template-columns: repeat(2, minmax(180px, 250px));
+  }
+}
+
+@media (max-width: 680px) {
+  .accolades-block-head {
+    margin-right: 0;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .accolades-block-head p:not(.rt-eyebrow) {
+    margin-left: 0;
+  }
+
+  .accolades-filter-panel__topline {
+    align-items: flex-start;
+  }
+
+  .accolades-filter-panel__status {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: .35rem;
+  }
+
+  .accolades-filter-panel__controls,
+  .accolades-team-banner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accolades-banner-wall,
+  .accolades-banner-wall[data-visible-count="1"],
+  .accolades-banner-wall[data-visible-count="2"] {
+    grid-template-columns: minmax(240px, 315px);
+  }
+
+  .accolades-filter-panel__search {
+    grid-column: auto;
+  }
+
+  .accolades-current-team-card > header,
+  .accolades-player-team-card > header {
+    display: grid;
+    gap: .7rem;
+  }
+
+  .accolades-current-team-card > header > strong,
+  .accolades-player-team-card > header > strong {
+    margin: 0;
+  }
+
+  .accolades-team-banner__content {
+    grid-template-columns: 76px minmax(0, 1fr);
+    min-height: 0;
   }
 
   .accolades-team-banner figure {
-    width:64px;
-    height:64px;
+    width: 76px;
+    height: 68px;
+  }
+
+  .accolades-player-grid {
+    grid-template-columns: minmax(180px, 260px);
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .accolades-photo-modal__dialog {
+    padding: .4rem;
   }
 }
 
-
-/* Center tournament logos within compact Current Team Results cards. */
-.accolades-team-banner figure {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:.2rem;
-}
-
-.accolades-team-banner img {
-  display:block;
-  width:auto;
-  height:auto;
-  max-width:100%;
-  max-height:100%;
-  margin:auto;
-}
-
-
-/* Player Honors grouped by team */
-.accolades-player-team-list {
-  display:grid;
-  gap:1rem;
-}
-
-.accolades-player-team-card {
-  border:1px solid rgba(5,5,5,.08);
-  background:#fff;
-  box-shadow:0 10px 24px rgba(5,5,5,.04);
-}
-
-.accolades-player-team-card[hidden] {
-  display:none;
-}
-
-.accolades-player-team-card > header {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:1rem;
-  padding:.85rem 1rem;
-  border-bottom:1px solid rgba(5,5,5,.08);
-  background:#f8f5ef;
-}
-
-.accolades-player-team-card > header span {
-  display:block;
-  margin-bottom:.35rem;
-  color:var(--rt-muted);
-  font-size:.6rem;
-  font-weight:950;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card > header h3 {
-  margin:0;
-  color:#151515;
-  font-family:var(--rt-display);
-  font-size:clamp(1.2rem,2vw,1.7rem);
-  font-weight:950;
-  letter-spacing:.06em;
-  line-height:1;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card > header strong {
-  color:var(--rt-orange-dark);
-  font-size:.75rem;
-  font-weight:950;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card .accolades-player-grid {
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:.65rem;
-  padding:.85rem 1rem;
-}
-
-.accolades-player-team-card .accolades-player-card {
-  box-shadow:none;
-  grid-template-columns:68px minmax(0,1fr);
-  gap:.75rem;
-  min-height:5.25rem;
-  padding:.62rem;
-}
-
-.accolades-player-team-card .accolades-player-card figure {
-  width:68px;
-  height:68px;
-  background:#f4eee6;
-}
-
-.accolades-player-team-card .accolades-player-card img {
-  object-fit:cover;
-}
-
-.accolades-player-team-card .accolades-player-card span {
-  margin-bottom:.22rem;
-}
-
-.accolades-player-team-card .accolades-player-card strong {
-  font-size:.9rem;
-}
-
-.accolades-player-carousel-controls {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:.55rem;
-  padding:.1rem 1rem .85rem;
-}
-
-.accolades-player-carousel-controls[hidden] {
-  display:none;
-}
-
-.accolades-player-carousel-controls button {
-  border:0;
-  background:transparent;
-  color:var(--rt-orange-dark);
-  cursor:pointer;
-  font-size:.68rem;
-  font-weight:950;
-  letter-spacing:.09em;
-  padding:.25rem .2rem;
-  text-transform:uppercase;
-}
-
-.accolades-player-carousel-controls button:hover,
-.accolades-player-carousel-controls button:focus-visible {
-  color:#151515;
-  text-decoration:underline;
-  text-underline-offset:.2em;
-}
-
-.accolades-player-carousel-controls button:disabled {
-  color:rgba(21,21,21,.35);
-  cursor:not-allowed;
-  text-decoration:none;
-}
-
-.accolades-player-carousel-controls span {
-  color:var(--rt-muted);
-  font-size:.68rem;
-  font-weight:900;
-}
-
-@media (max-width: 1100px) {
-  .accolades-player-team-card .accolades-player-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-@media (max-width: 760px) {
-  .accolades-player-team-card > header {
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .accolades-player-team-card .accolades-player-grid {
-    grid-template-columns:1fr;
-  }
-
-  .accolades-player-team-card .accolades-player-card {
-    grid-template-columns:64px minmax(0,1fr);
-  }
-
-  .accolades-player-team-card .accolades-player-card figure {
-    width:64px;
-    height:64px;
-  }
-}
-
-
-/* Player Honors vertical recognition-card treatment */
-.accolades-player-team-card .accolades-player-grid {
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:.8rem;
-  padding:1rem;
-}
-
-.accolades-player-team-card .accolades-player-card {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:.7rem;
-  min-height:13.25rem;
-  padding:1rem .85rem .95rem;
-  text-align:center;
-  border:1px solid rgba(5,5,5,.08);
-  background:
-    linear-gradient(180deg, rgba(248,245,239,.72), #fff 46%),
-    #fff;
-}
-
-.accolades-player-team-card .accolades-player-card figure {
-  width:118px;
-  height:118px;
-  margin:0 auto;
-  display:grid;
-  place-items:center;
-  background:#f4eee6;
-  border:1px solid rgba(5,5,5,.06);
-  overflow:hidden;
-}
-
-.accolades-player-team-card .accolades-player-card figure a {
-  display:block;
-  width:100%;
-  height:100%;
-}
-
-.accolades-player-team-card .accolades-player-card img {
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.accolades-player-team-card .accolades-player-card div {
-  min-width:0;
-}
-
-.accolades-player-team-card .accolades-player-card strong {
-  color:#151515;
-  display:block;
-  font-family:var(--rt-display);
-  font-size:clamp(1rem,1.4vw,1.2rem);
-  font-weight:950;
-  letter-spacing:.07em;
-  line-height:1.05;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card .accolades-player-card span {
-  color:var(--rt-orange-dark);
-  display:block;
-  font-size:.68rem;
-  font-weight:950;
-  letter-spacing:.1em;
-  line-height:1.2;
-  margin:.4rem 0 0;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card .accolades-player-card div span:first-child {
-  margin-top:.42rem;
-}
-
-.accolades-player-team-card .accolades-player-card div {
-  display:flex;
-  flex-direction:column-reverse;
-  align-items:center;
-}
-
-@media (max-width: 1100px) {
-  .accolades-player-team-card .accolades-player-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .accolades-player-team-card .accolades-player-card {
-    min-height:12.8rem;
-  }
-}
-
-@media (max-width: 760px) {
-  .accolades-player-team-card .accolades-player-grid {
-    grid-template-columns:1fr;
-  }
-
-  .accolades-player-team-card .accolades-player-card {
-    min-height:auto;
-  }
-
-  .accolades-player-team-card .accolades-player-card figure {
-    width:108px;
-    height:108px;
-  }
-}
-
-
-/* Player Honors free-flowing recognition grid */
-.accolades-player-grid--free {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:1.1rem;
-}
-
-.accolades-player-grid--free .accolades-player-card {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:.7rem;
-  min-height:auto;
-  padding:0;
-  text-align:center;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-}
-
-.accolades-player-grid--free .accolades-player-card[hidden] {
-  display:none;
-}
-
-.accolades-player-grid--free .accolades-player-card figure {
-  width:126px;
-  height:126px;
-  margin:0 auto;
-  display:grid;
-  place-items:center;
-  background:#fff;
-  border:1px solid rgba(5,5,5,.07);
-  box-shadow:0 12px 28px rgba(5,5,5,.06);
-  overflow:hidden;
-}
-
-.accolades-player-grid--free .accolades-player-card figure a {
-  display:block;
-  width:100%;
-  height:100%;
-}
-
-.accolades-player-grid--free .accolades-player-card img {
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.accolades-player-grid--free .accolades-player-card div {
-  display:block;
-  min-width:0;
-}
-
-.accolades-player-grid--free .accolades-player-card strong {
-  color:#151515;
-  display:block;
-  font-family:var(--rt-display);
-  font-size:clamp(1rem,1.45vw,1.25rem);
-  font-weight:950;
-  letter-spacing:.07em;
-  line-height:1.05;
-  text-transform:uppercase;
-}
-
-.accolades-player-grid--free .accolades-player-card span {
-  color:var(--rt-orange-dark);
-  display:block;
-  font-size:.68rem;
-  font-weight:950;
-  letter-spacing:.1em;
-  line-height:1.2;
-  margin-top:.45rem;
-  text-transform:uppercase;
-}
-
-.accolades-player-grid--free .accolades-player-card em {
-  color:var(--rt-muted);
-  display:block;
-  font-size:.66rem;
-  font-style:normal;
-  font-weight:900;
-  letter-spacing:.11em;
-  line-height:1.2;
-  margin-top:.28rem;
-  text-transform:uppercase;
-}
-
-@media (max-width: 1100px) {
-  .accolades-player-grid--free {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-@media (max-width: 760px) {
-  .accolades-player-grid--free {
-    grid-template-columns:1fr;
-  }
-
-  .accolades-player-grid--free .accolades-player-card figure {
-    width:116px;
-    height:116px;
-  }
-}
-
-
-/* Player Honors image cleanup: no frame, show full honor image */
-.accolades-player-grid--free .accolades-player-card figure {
-  width:150px;
-  height:150px;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  overflow:visible;
-}
-
-.accolades-player-grid--free .accolades-player-card img {
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-@media (max-width: 760px) {
-  .accolades-player-grid--free .accolades-player-card figure {
-    width:136px;
-    height:136px;
-  }
-}
-
-
-/* Add a little breathing room between Player Honors image and text. */
-.accolades-player-grid--free .accolades-player-card {
-  gap:1rem;
-}
-
-.accolades-player-grid--free .accolades-player-card div {
-  margin-top:.2rem;
-}
-
-
-/* Current Team Results open, less-boxed showcase treatment */
-.accolades-current-team-list {
-  gap:2.4rem;
-}
-
-.accolades-current-team-card {
-  border:0;
-  background:transparent;
-  box-shadow:none;
-}
-
-.accolades-current-team-card > header {
-  align-items:end;
-  padding:0 0 .85rem;
-  border-bottom:1px solid rgba(5,5,5,.08);
-  background:transparent;
-}
-
-.accolades-current-team-card > header span {
-  margin-bottom:.32rem;
-}
-
-.accolades-current-team-card > header h3 {
-  font-size:clamp(1.45rem,2.5vw,2.15rem);
-}
-
-.accolades-current-team-card > header strong {
-  align-self:center;
-}
-
-.accolades-current-team-card .accolades-team-banner-grid {
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:1.05rem;
-  padding:1.05rem 0 0;
-}
-
-.accolades-current-team-card .accolades-team-banner {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:.65rem;
-  min-height:0;
-  padding:.2rem .35rem 0;
-  text-align:center;
-  border:0;
-  background:transparent;
-}
-
-.accolades-current-team-card .accolades-team-banner figure {
-  width:96px;
-  height:76px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  background:transparent;
-  border:0;
-  overflow:visible;
-}
-
-.accolades-current-team-card .accolades-team-banner img {
-  display:block;
-  width:auto;
-  height:auto;
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-  margin:auto;
-}
-
-.accolades-current-team-card .accolades-team-banner div {
-  min-width:0;
-}
-
-.accolades-current-team-card .accolades-team-banner span {
-  margin:0 0 .28rem;
-  color:var(--rt-orange-dark);
-  font-size:.68rem;
-}
-
-.accolades-current-team-card .accolades-team-banner strong {
-  color:#151515;
-  font-family:var(--rt-display);
-  font-size:clamp(.95rem,1.25vw,1.08rem);
-  font-weight:950;
-  letter-spacing:.055em;
-  line-height:1.08;
-  text-transform:uppercase;
-}
-
-.accolades-current-team-card .accolades-team-banner em {
-  color:var(--rt-muted);
-  font-size:.72rem;
-  margin-top:.32rem;
-}
-
-.accolades-current-team-card .accolades-team-carousel-controls {
-  padding:1rem 0 0;
-}
-
-@media (max-width: 1100px) {
-  .accolades-current-team-card .accolades-team-banner-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-@media (max-width: 760px) {
-  .accolades-current-team-card > header {
-    display:grid;
-    grid-template-columns:1fr;
-    gap:.45rem;
-  }
-
-  .accolades-current-team-card > header strong {
-    align-self:start;
-  }
-
-  .accolades-current-team-card .accolades-team-banner-grid {
-    grid-template-columns:1fr;
-    gap:1.25rem;
-  }
-
-  .accolades-current-team-card .accolades-team-banner figure {
-    width:104px;
-    height:82px;
-  }
-}
-
-
-/* Preserve per-team paging limit in the open Current Team Results layout. */
-.accolades-current-team-card .accolades-team-banner[hidden] {
-  display:none !important;
-}
-
-
-/* Softer filter/search controls so they blend into the page */
-.accolades-filter-panel {
-  background:rgba(255,255,255,.42);
-  border:1px solid rgba(5,5,5,.06);
-  box-shadow:none;
-  backdrop-filter:blur(3px);
-}
-
-.accolades-filter-panel label span {
-  color:rgba(31,42,63,.72);
-}
-
-.accolades-filter-panel select,
-.accolades-filter-panel input {
-  background:rgba(255,255,255,.48);
-  border:0;
-  border-bottom:1px solid rgba(5,5,5,.16);
-  box-shadow:none;
-  border-radius:0;
-  color:#151515;
-}
-
-.accolades-filter-panel select:focus,
-.accolades-filter-panel input:focus {
-  background:rgba(255,255,255,.68);
-  border-bottom-color:var(--rt-orange);
-  box-shadow:0 2px 0 rgba(214,73,28,.14);
-  outline:0;
-}
-
-.accolades-filter-panel input::placeholder {
-  color:rgba(31,42,63,.45);
-}
-
-@media (max-width: 760px) {
-  .accolades-filter-panel {
-    background:rgba(255,255,255,.5);
-  }
-}
-
-
-/* Heading system alignment */
-.accolades-block-head h2 {
-  font-size: var(--rt-heading-block) !important;
-  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
-  letter-spacing: var(--rt-heading-letter-block, 0.055em) !important;
-}
-
-
-/* Heading system v3: Accolades page section headings match other major sections. */
-.accolades-block-head {
-  max-width: 980px !important;
-  margin: 0 auto clamp(1.75rem, 4vw, 3rem) !important;
-  text-align: center !important;
-}
-
-.accolades-block-head h2 {
-  color: var(--rt-navy, #0b0b0d) !important;
-  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
-  font-size: var(--rt-heading-section) !important;
-  font-weight: 950 !important;
-  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
-  line-height: 0.92 !important;
-  text-transform: uppercase !important;
-}
-
-.accolades-block-head p:not(.rt-eyebrow) {
-  max-width: 760px !important;
-  margin: 0.85rem auto 0 !important;
-  color: var(--rt-muted, #667085) !important;
-  font-size: clamp(0.98rem, 1.2vw, 1.08rem) !important;
-  font-weight: 700 !important;
-  line-height: 1.55 !important;
-}
-
-/* Team/result cards are data/list headings, not page-level section headings. */
-.accolades-current-team-card > header h3,
-.accolades-player-team-card > header h3 {
-  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif) !important;
-  font-size: var(--rt-heading-data) !important;
-  font-weight: 950 !important;
-  letter-spacing: var(--rt-heading-letter-tight, -0.04em) !important;
-  line-height: 0.92 !important;
-  text-transform: uppercase !important;
-}
-
-
-/* Tournament Results readability pass
-   - Adds subtle warm containment around each team group
-   - Reduces excess vertical whitespace
-   - Pulls achievement counts closer to the team heading
-   - Gives achievement items a slightly larger, easier-to-scan presence
-*/
-.accolades-team-section {
-  background:linear-gradient(180deg, #fff 0%, #fbf7ef 100%);
-}
-
-.accolades-team-section .accolades-block-head {
-  margin-bottom:clamp(1.4rem, 3vw, 2.25rem) !important;
-}
-
-.accolades-current-team-list {
-  gap:clamp(1.25rem, 2.5vw, 1.8rem);
-}
-
-.accolades-current-team-card {
-  padding:clamp(1rem, 2.2vw, 1.55rem);
-  border:1px solid rgba(7, 16, 29, .07);
-  border-radius:18px;
-  background:linear-gradient(180deg, rgba(250,247,241,.74), rgba(255,255,255,.9));
-  box-shadow:0 16px 36px rgba(7,16,29,.045);
-}
-
-.accolades-current-team-card > header {
-  justify-content:flex-start;
-  align-items:end;
-  flex-wrap:wrap;
-  column-gap:.85rem;
-  row-gap:.5rem;
-  padding:0 0 .75rem;
-  border-bottom:1px solid rgba(7,16,29,.1);
-}
-
-.accolades-current-team-card > header strong {
-  align-self:center;
-  margin-left:.15rem;
-  padding:.32rem .52rem .28rem;
-  border:1px solid rgba(168,66,32,.18);
-  border-radius:999px;
-  background:rgba(255,255,255,.58);
-  color:var(--rt-orange-dark);
-  font-size:.64rem;
-  line-height:1;
-  white-space:nowrap;
-}
-
-.accolades-current-team-card .accolades-team-banner-grid {
-  max-width:920px;
-  margin:0 auto;
-  gap:clamp(.8rem, 1.8vw, 1.15rem);
-  padding:clamp(.95rem, 2vw, 1.3rem) 0 .15rem;
-}
-
-.accolades-current-team-card .accolades-team-banner {
-  padding:.7rem .85rem .8rem;
-  border:1px solid rgba(7,16,29,.055);
-  border-radius:16px;
-  background:rgba(255,255,255,.54);
-  transition:background .18s ease, transform .18s ease, box-shadow .18s ease;
-}
-
-.accolades-current-team-card .accolades-team-banner:hover {
-  background:rgba(255,255,255,.78);
-  box-shadow:0 10px 22px rgba(7,16,29,.05);
-  transform:translateY(-1px);
-}
-
-.accolades-current-team-card .accolades-team-banner figure {
-  width:110px;
-  height:84px;
-}
-
-.accolades-current-team-card .accolades-team-banner span {
-  font-size:.7rem;
-}
-
-.accolades-current-team-card .accolades-team-banner strong {
-  font-size:clamp(1rem, 1.35vw, 1.12rem);
-}
-
-.accolades-current-team-card .accolades-team-banner em {
-  color:rgba(31,42,63,.74);
-  font-size:.76rem;
-  font-weight:950;
-}
-
-.accolades-current-team-card .accolades-team-carousel-controls {
-  padding:.8rem 0 0;
-}
-
-@media (max-width: 760px) {
-  .accolades-current-team-card {
-    padding:1rem;
-    border-radius:16px;
-  }
-
-  .accolades-current-team-card > header {
-    align-items:flex-start;
-  }
-
-  .accolades-current-team-card .accolades-team-banner {
-    align-items:center;
-    flex-direction:row;
-    text-align:left;
-  }
-
-  .accolades-current-team-card .accolades-team-banner figure {
-    width:84px;
-    height:66px;
-    flex:0 0 84px;
-  }
-}
-
-/* Show the season directly under each Tournament Results team name. */
-.accolades-current-team-card > header .accolades-current-team-card__season {
-  margin:.38rem 0 0;
-  color:rgba(31,42,63,.68);
-  letter-spacing:.16em;
-}
-
-/* Keep the Tournament Results season label visibly stacked under the team name. */
-.accolades-current-team-card > header .accolades-current-team-card__heading {
-  display:flex;
-  flex:1 1 auto;
-  min-width:0;
-  flex-direction:column;
-  align-items:flex-start;
-}
-
-.accolades-current-team-card > header .accolades-current-team-card__status {
-  display:block;
-  margin:0 0 .34rem;
-}
-
-.accolades-current-team-card > header .accolades-current-team-card__season {
-  display:block !important;
-  margin:.42rem 0 0 !important;
-  color:rgba(31,42,63,.7) !important;
-  font-size:.66rem !important;
-  font-weight:950 !important;
-  letter-spacing:.16em !important;
-  line-height:1.1 !important;
-  text-transform:uppercase !important;
-}
-
-/* Player Honors team/season browsing: keep the open cream-background feel. */
-.accolades-player-team-list {
-  display:grid;
-  gap:2.4rem;
-}
-
-.accolades-player-team-card {
-  border:0;
-  background:transparent;
-  box-shadow:none;
-}
-
-.accolades-player-team-card[hidden] {
-  display:none;
-}
-
-.accolades-player-team-card > header {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:1rem;
-  padding:0 0 .85rem;
-  border-bottom:1px solid rgba(5,5,5,.08);
-  background:transparent;
-}
-
-.accolades-player-team-card > header span {
-  display:block;
-  margin:0 0 .35rem;
-  color:var(--rt-muted);
-  font-size:.64rem;
-  font-weight:950;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card > header h3 {
-  margin:0;
-  color:#151515;
-  font-family:var(--rt-display);
-  font-size:clamp(2rem,4vw,3rem);
-  font-weight:950;
-  letter-spacing:-.055em;
-  line-height:.92;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card > header em {
-  display:block;
-  margin-top:.42rem;
-  color:var(--rt-muted);
-  font-size:.72rem;
-  font-style:normal;
-  font-weight:950;
-  letter-spacing:.18em;
-  line-height:1;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card > header strong {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:.35rem;
-  padding:.35rem .7rem;
-  border:1px solid rgba(199,77,31,.2);
-  border-radius:999px;
-  color:var(--rt-orange-dark);
-  background:rgba(255,255,255,.46);
-  font-size:.7rem;
-  font-weight:950;
-  letter-spacing:.14em;
-  line-height:1;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-
-.accolades-player-team-card .accolades-player-grid,
-.accolades-player-team-card .accolades-player-grid--free {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:flex-start;
-  gap:1.6rem;
-  padding:1.65rem 0 0;
-}
-
-.accolades-player-team-card .accolades-player-card,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card {
-  flex:0 1 260px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:1rem;
-  min-height:auto;
-  padding:0;
-  text-align:center;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-}
-
-.accolades-player-team-card .accolades-player-card[hidden] {
-  display:none;
-}
-
-.accolades-player-team-card .accolades-player-card figure,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card figure {
-  width:150px;
-  height:150px;
-  margin:0 auto;
-  display:grid;
-  place-items:center;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  overflow:visible;
-}
-
-.accolades-player-team-card .accolades-player-card img,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card img {
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.accolades-player-team-card .accolades-player-card div,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card div {
-  display:block;
-  min-width:0;
-  margin-top:.2rem;
-}
-
-.accolades-player-team-card .accolades-player-card strong,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card strong {
-  color:#151515;
-  display:block;
-  font-family:var(--rt-display);
-  font-size:clamp(1rem,1.45vw,1.25rem);
-  font-weight:950;
-  letter-spacing:.07em;
-  line-height:1.05;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card .accolades-player-card span,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card span {
-  color:var(--rt-orange-dark);
-  display:block;
-  font-size:.68rem;
-  font-weight:950;
-  letter-spacing:.1em;
-  line-height:1.2;
-  margin-top:.45rem;
-  text-transform:uppercase;
-}
-
-.accolades-player-team-card .accolades-team-carousel-controls {
-  margin-top:.4rem;
-}
-
-@media (max-width: 760px) {
-  .accolades-player-team-card > header {
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .accolades-player-team-card .accolades-player-card,
-  .accolades-player-team-card .accolades-player-grid--free .accolades-player-card {
-    flex-basis:100%;
-  }
-
-  .accolades-player-team-card .accolades-player-card figure,
-  .accolades-player-team-card .accolades-player-grid--free .accolades-player-card figure {
-    width:136px;
-    height:136px;
-  }
-}
-
-/* Player Honors carousel spacing: keep the open cream layout while preventing image/text/control overlap. */
-.accolades-player-team-card .accolades-player-grid--free {
-  gap:1.65rem;
-  padding-bottom:1.05rem;
-}
-
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card {
-  gap:1.25rem;
-  padding-bottom:.45rem;
-}
-
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card figure {
-  margin-bottom:.35rem;
-}
-
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card div {
-  display:block;
-  margin-top:.15rem;
-}
-
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card strong,
-.accolades-player-team-card .accolades-player-grid--free .accolades-player-card span {
-  position:relative;
-  z-index:1;
-}
-
-.accolades-player-team-card .accolades-player-carousel-controls {
-  margin-top:.35rem;
-  padding-top:.45rem;
-  padding-bottom:1.35rem;
-}
-
-@media (max-width: 760px) {
-  .accolades-player-team-card .accolades-player-grid--free {
-    gap:1.95rem;
-  }
-
-  .accolades-player-team-card .accolades-player-carousel-controls {
-    flex-wrap:wrap;
-    row-gap:.35rem;
-  }
-}
-
-/* Tournament Results: open text-only treatment, matching the airy Player Honors feel. */
-.accolades-current-team-card {
-  border:0;
-  background:transparent;
-  box-shadow:none;
-}
-
-.accolades-current-team-card > header {
-  padding:0 0 .85rem;
-  border-bottom:1px solid rgba(5,5,5,.08);
-  background:transparent;
-}
-
-.accolades-current-team-card .accolades-team-banner-grid {
-  padding:1.15rem 0 0;
-}
-
-.accolades-current-team-card .accolades-team-banner {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:.35rem;
-  min-height:0;
-  padding:.2rem .5rem 0;
-  text-align:center;
-  border:0;
-  background:transparent;
-  box-shadow:none;
-}
-
-.accolades-current-team-card .accolades-team-banner figure {
-  display:none;
-}
-
-.accolades-current-team-card .accolades-team-banner div {
-  min-width:0;
-}
-
-.accolades-current-team-card .accolades-team-banner span {
-  margin:0 0 .28rem;
-}
-
-.accolades-current-team-card .accolades-team-banner em {
-  margin-top:.34rem;
-}
-
-/* Tournament Results logo visibility fix
-   The open text layout keeps the airy Player Honors feel, but logos should remain visible. */
-.accolades-current-team-card .accolades-team-banner figure {
-  display:flex !important;
-  width:96px;
-  height:72px;
-  margin:0 auto .35rem;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  background:transparent;
-  border:0;
-  overflow:visible;
-}
-
-.accolades-current-team-card .accolades-team-banner img {
-  display:block !important;
-  width:auto;
-  height:auto;
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-  margin:auto;
-}
-
-@media (max-width: 760px) {
-  .accolades-current-team-card .accolades-team-banner figure {
-    width:84px;
-    height:64px;
-    flex:0 0 84px;
-    margin:0;
-  }
-}
-
-/* Tournament Results carousel row centering
-   Match Player Honors behavior: 1 card centered, 2 cards centered as a pair, 3 cards as a full row. */
-.accolades-current-team-card .accolades-team-banner-grid {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:flex-start;
-  gap:clamp(1.15rem, 2.4vw, 2rem);
-  max-width:960px;
-  margin:0 auto;
-}
-
-.accolades-current-team-card .accolades-team-banner {
-  flex:0 1 280px;
-  max-width:300px;
-}
-
-@media (max-width: 760px) {
-  .accolades-current-team-card .accolades-team-banner-grid {
-    gap:1.45rem;
-  }
-
-  .accolades-current-team-card .accolades-team-banner {
-    flex:0 1 100%;
-    max-width:360px;
+@media (prefers-reduced-motion: reduce) {
+  .accolades-featured-card__image img,
+  .accolades-overlay-banner__stage,
+  .accolades-team-banner__content,
+  .accolades-player-card__image {
+    transition: none;
   }
 }

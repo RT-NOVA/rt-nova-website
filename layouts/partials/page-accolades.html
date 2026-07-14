@@ -41,14 +41,51 @@
 {{ $achievements := sort ($data.achievements | default slice) "date" "desc" }}
 {{ $playerHonors := sort ($data.player_honors | default slice) "year" "desc" }}
 
-{{ $allTeamsScratch := newScratch }}
-{{ $allTeamsScratch.Set "names" (slice) }}
+{{ $featuredScratch := newScratch }}
+{{ $featuredScratch.Set "items" (slice) }}
 {{ range $achievement := $achievements }}
-  {{ if and $achievement.team (not (in ($allTeamsScratch.Get "names") $achievement.team)) }}
-    {{ $allTeamsScratch.Add "names" (slice $achievement.team) }}
+  {{ if lt (len ($featuredScratch.Get "items")) 3 }}
+    {{ $storyURL := $achievement.story_url | default $achievement.social_url | default "" }}
+    {{ if $storyURL }}
+      {{ $isExternal := or (hasPrefix $storyURL "http://") (hasPrefix $storyURL "https://") }}
+      {{ $sourceScratch := newScratch }}
+      {{ $sourceScratch.Set "page" false }}
+      {{ if $isExternal }}
+        {{ range where site.RegularPages "Params.link" $storyURL }}
+          {{ $sourceScratch.Set "page" . }}
+        {{ end }}
+      {{ else }}
+        {{ with site.GetPage $storyURL }}
+          {{ $sourceScratch.Set "page" . }}
+        {{ end }}
+      {{ end }}
+      {{ $sourcePage := $sourceScratch.Get "page" }}
+      {{ $featureImage := $achievement.feature_image | default "" }}
+      {{ $featureTitle := $achievement.tournament }}
+      {{ $featureSummary := "" }}
+      {{ $featureAlt := printf "%s — %s" $achievement.team $achievement.tournament }}
+      {{ with $sourcePage }}
+        {{ if not $featureImage }}{{ $featureImage = .Params.image | default "" }}{{ end }}
+        {{ $featureTitle = .Title | default $featureTitle }}
+        {{ $featureSummary = .Params.excerpt | default .Params.caption | default "" }}
+        {{ $featureAlt = .Params.image_alt | default .Title | default $featureAlt }}
+      {{ end }}
+      {{ if $featureImage }}
+        {{ $storyLabel := $achievement.story_label | default (cond (ne ($achievement.story_url | default "") "") "Read the story" "View the post") }}
+        {{ $featuredScratch.Add "items" (slice (merge $achievement (dict
+          "feature_image" $featureImage
+          "feature_title" $featureTitle
+          "feature_summary" $featureSummary
+          "feature_alt" $featureAlt
+          "feature_url" $storyURL
+          "feature_external" $isExternal
+          "feature_label" $storyLabel
+        ))) }}
+      {{ end }}
+    {{ end }}
   {{ end }}
 {{ end }}
-{{ $allAchievementTeamNames := $allTeamsScratch.Get "names" }}
+{{ $featuredAchievements := $featuredScratch.Get "items" }}
 
 {{ partial "hero.html" (dict
   "kicker" "Program Results"
@@ -59,276 +96,222 @@
 
 <section class="rt-proof-strip rt-proof-strip--light accolades-proof-strip" aria-label="Accolades quick facts">
   <div class="rt-container rt-proof-grid">
-    <div><strong>Banner Wall</strong><span>Featured Accolades</span></div>
-    <div><strong>Team Accolades</strong><span>Tournament Results</span></div>
+    <div><strong>Featured Achievements</strong><span>Stories + Posts</span></div>
+    <div><strong>Team Accolades</strong><span>Searchable Banners</span></div>
+    <div><strong>Latest Results</strong><span>Newest First</span></div>
     <div><strong>Player Honors</strong><span>Individual Recognition</span></div>
-    <div><strong>Program History</strong><span>Results &amp; Milestones</span></div>
   </div>
 </section>
 
-<section class="rt-section rt-section--cream accolades-wall-section">
+{{ with $featuredAchievements }}
+<section class="rt-section rt-section--white accolades-featured-section">
   <div class="rt-container">
-    <header class="accolades-block-head">
-      <p class="rt-eyebrow rt-eyebrow--dark">Featured Accolades</p>
-      <h2>Banner wall</h2>
+    <header class="accolades-block-head accolades-featured-section__head">
+      <p class="rt-eyebrow rt-eyebrow--dark">On the Field</p>
+      <h2>Featured Achievements</h2>
+      <p>Championship runs, tournament finishes, and defining moments from team news and social posts.</p>
     </header>
 
-    <div class="accolades-banner-wall" aria-label="Featured team accolade banners" data-banner-wall>
-      {{ range $index, $achievement := $achievements }}
-        {{ $template := $achievement.template | default $data.default_template | default "/images/accolades/blank-white-hanging-banner.svg" }}
-        <article class="accolades-overlay-banner" data-banner-card data-banner-index="{{ $index }}">
-          <div class="accolades-overlay-banner__stage">
-            <img class="accolades-overlay-banner__base" src="{{ partial "url.html" $template }}" alt="" aria-hidden="true" loading="lazy">
-            {{ with $achievement.logo }}
-              <figure class="accolades-overlay-banner__logo">
-                <img src="{{ partial "url.html" . }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
-              </figure>
+    <div class="accolades-featured-grid" aria-label="Featured team achievement stories">
+      {{ range . }}
+        <article class="accolades-featured-card">
+          <a href="{{ partial "url.html" .feature_url }}"{{ if .feature_external }} target="_blank" rel="noopener"{{ end }} aria-label="{{ .feature_label }}: {{ .team }} — {{ .tournament }}, {{ .result }}">
+            <figure class="accolades-featured-card__image{{ with .feature_crop }} accolades-featured-card__image--{{ . | urlize }}{{ end }}">
+              <img src="{{ partial "url.html" .feature_image }}" alt="{{ .feature_alt }}" loading="lazy" decoding="async">
+            </figure>
+            <div class="accolades-featured-card__body">
+              <span>{{ .team }} · {{ .result }}</span>
+              <h3>{{ .feature_title }}</h3>
+              {{ with .feature_summary }}<p>{{ . }}</p>{{ end }}
+              <footer>
+                <em>{{ .year }} · {{ .season }}</em>
+                <strong>{{ .feature_label }} <span aria-hidden="true">→</span></strong>
+              </footer>
+            </div>
+          </a>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<section class="rt-section rt-section--cream accolades-team-section">
+  <div class="rt-container">
+    <header class="accolades-block-head">
+      <p class="rt-eyebrow rt-eyebrow--dark">Tournament Results</p>
+      <h2>Team Accolades</h2>
+      <p>Search current and past accomplishments by season, team, tournament, or result. The newest three matching banners are shown first.</p>
+    </header>
+
+    <div class="accolades-filter-panel" data-team-achievement-filter>
+      <div class="accolades-filter-panel__topline">
+        <p>Filter Team Accolades</p>
+        <div class="accolades-filter-panel__status">
+          <p data-filter-count aria-live="polite"></p>
+          <button type="button" data-filter-clear hidden>Clear</button>
+        </div>
+      </div>
+      <div class="accolades-filter-panel__controls">
+        <label>
+          <span>Season</span>
+          <select data-filter-season>
+            <option value="all" selected>All Seasons</option>
+            <option value="current">Current · {{ $currentYear }} Season</option>
+            {{ range $teamsData.seasons }}
+              <option value="{{ .id }}">{{ .label }}</option>
             {{ end }}
-          </div>
-          <div class="accolades-overlay-banner__caption">
-            <strong>{{ $achievement.team }}</strong>
-            <span>{{ $achievement.year }} · {{ $achievement.tournament }}</span>
-            <em>{{ $achievement.result }}</em>
+          </select>
+        </label>
+        <label>
+          <span>Team</span>
+          <select data-filter-team>
+            <option value="">All Teams</option>
+          </select>
+        </label>
+        <label class="accolades-filter-panel__search">
+          <span>Search</span>
+          <span class="accolades-filter-panel__search-field">
+            <input type="search" placeholder="Search tournaments, teams, or results..." data-filter-search autocomplete="off">
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="accolades-banner-wall accolades-banner-results" aria-label="Searchable team accolade banners" data-team-banner-results>
+      {{ range $index, $achievement := $achievements }}
+        {{ $seasonID := string $achievement.season_id }}
+        {{ $seasonLabel := $achievement.season_label | default (printf "%s Season" $seasonID) }}
+        {{ $isCurrentSeason := eq $seasonID $currentYear }}
+        {{ $isCurrentTeam := and $isCurrentSeason (in $currentTeamNames $achievement.team) }}
+        {{ $template := $achievement.template | default $data.default_template | default "/images/accolades/blank-white-hanging-banner.svg" }}
+        {{ $storyURL := $achievement.story_url | default $achievement.social_url | default "" }}
+        {{ $isExternal := or (hasPrefix $storyURL "http://") (hasPrefix $storyURL "https://") }}
+        {{ $storyLabel := $achievement.story_label | default (cond (ne ($achievement.story_url | default "") "") "Read the story" "View the post") }}
+        <article class="accolades-overlay-banner{{ if $storyURL }} accolades-overlay-banner--linked{{ end }}"
+          data-team-banner-result
+          data-banner-index="{{ $index }}"
+          data-season="{{ $seasonID }}"
+          data-season-label="{{ $seasonLabel }}"
+          data-team-key="{{ printf "%s|%s" $seasonID $achievement.team }}"
+          data-team="{{ $achievement.team }}"
+          data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
+          data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
+          data-search="{{ lower (printf "%s %s %s %s %s %s %s" $achievement.team $seasonID $seasonLabel $achievement.year $achievement.tournament $achievement.result $achievement.season) }}">
+          {{ if $storyURL }}
+            <a class="accolades-overlay-banner__link" href="{{ partial "url.html" $storyURL }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }} aria-label="{{ $storyLabel }}: {{ $achievement.team }} — {{ $achievement.tournament }}, {{ $achievement.result }}">
+          {{ else }}
+            <div class="accolades-overlay-banner__link">
+          {{ end }}
+              <div class="accolades-overlay-banner__stage">
+                <img class="accolades-overlay-banner__base" src="{{ partial "url.html" $template }}" alt="" aria-hidden="true" loading="lazy">
+                {{ with $achievement.logo }}
+                  <figure class="accolades-overlay-banner__logo">
+                    <img src="{{ partial "url.html" . }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
+                  </figure>
+                {{ end }}
+              </div>
+              <div class="accolades-overlay-banner__caption">
+                <strong>{{ $achievement.team }}</strong>
+                <span>{{ $achievement.year }} · {{ $achievement.tournament }}</span>
+                <em>{{ $achievement.result }}</em>
+              </div>
+              {{ if $storyURL }}<span class="accolades-overlay-banner__story">{{ $storyLabel }} <span aria-hidden="true">→</span></span>{{ end }}
+          {{ if $storyURL }}</a>{{ else }}</div>{{ end }}
+        </article>
+      {{ end }}
+    </div>
+
+    <div class="accolades-banner-controls accolades-banner-results__controls" data-team-banner-results-controls hidden>
+      <button type="button" data-team-banner-results-prev aria-label="Show previous banners">←</button>
+      <span data-team-banner-results-status aria-live="polite">1–3 of {{ len $achievements }}</span>
+      <button type="button" data-team-banner-results-next aria-label="Show next banners">→</button>
+    </div>
+
+    <p class="accolades-empty" data-team-empty hidden>No team accolade banners match the selected filters.</p>
+  </div>
+</section>
+
+<section class="rt-section rt-section--white accolades-player-section">
+  <div class="rt-container">
+    <header class="accolades-block-head">
+      <p class="rt-eyebrow rt-eyebrow--dark">Player Honors</p>
+      <h2>Hall of Recognition</h2>
+      <p>Explore a rotating mix of recent player honors, balanced across teams. Select a portrait for a larger view.</p>
+    </header>
+
+    <div class="accolades-filter-panel" data-player-achievement-filter>
+      <div class="accolades-filter-panel__topline">
+        <p>Filter Player Honors</p>
+        <div class="accolades-filter-panel__status">
+          <p data-filter-count aria-live="polite"></p>
+          <button type="button" data-filter-clear hidden>Clear</button>
+        </div>
+      </div>
+      <div class="accolades-filter-panel__controls">
+        <label>
+          <span>Season</span>
+          <select data-filter-season>
+            <option value="all" selected>All Seasons</option>
+            <option value="current">Current · {{ $currentYear }} Season</option>
+            {{ range $teamsData.seasons }}
+              <option value="{{ .id }}">{{ .label }}</option>
+            {{ end }}
+          </select>
+        </label>
+        <label>
+          <span>Team</span>
+          <select data-filter-team>
+            <option value="">All Teams</option>
+          </select>
+        </label>
+        <label class="accolades-filter-panel__search">
+          <span>Search</span>
+          <span class="accolades-filter-panel__search-field">
+            <input type="search" placeholder="Search players, teams, or honors..." data-filter-search autocomplete="off">
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="accolades-player-grid accolades-player-results" aria-label="Searchable player honors" data-player-results>
+      {{ range $index, $honor := $playerHonors }}
+        {{ $seasonID := string $honor.season_id }}
+        {{ $seasonLabel := $honor.season_label | default (printf "%s Season" $seasonID) }}
+        {{ $teamName := $honor.team }}
+        {{ $isCurrentSeason := eq $seasonID $currentYear }}
+        {{ $isCurrentTeam := and $isCurrentSeason (in $currentTeamNames $teamName) }}
+        {{ $playerName := $honor.player | default $honor.title }}
+        {{ $honorLabel := $honor.honor | default "Player Honor" }}
+        {{ $honorTermLabel := $honor.term_label | default (printf "%s Season" ($honor.year | default $seasonID)) }}
+        <article class="accolades-player-card"
+          data-player-result
+          data-player-index="{{ $index }}"
+          data-season="{{ $seasonID }}"
+          data-season-label="{{ $seasonLabel }}"
+          data-term="{{ $honor.term_key }}"
+          data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
+          data-team="{{ $teamName }}"
+          data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
+          data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
+          data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName $seasonID $seasonLabel $honorTermLabel $honor.year $playerName $honorLabel $honor.title) }}"
+          hidden>
+          <button class="accolades-player-card__image" type="button" data-player-photo="{{ partial "url.html" $honor.image }}" data-player-name="{{ $playerName }}" data-player-honor="{{ $honorLabel }} · {{ $teamName }}" aria-label="View larger image of {{ $playerName }}">
+            <img src="{{ partial "url.html" $honor.image }}" alt="{{ $honor.title }}" loading="lazy">
+          </button>
+          <div>
+            <em>{{ $honorLabel }}</em>
+            <strong>{{ $playerName }}</strong>
+            <span>{{ $teamName }} · {{ $honorTermLabel }}</span>
           </div>
         </article>
       {{ end }}
     </div>
 
-    {{ if gt (len $achievements) 3 }}
-      <div class="accolades-banner-controls" data-banner-controls>
-        <button type="button" data-banner-prev>Previous</button>
-        <span data-banner-status>Showing 1–3 of {{ len $achievements }}</span>
-        <button type="button" data-banner-next>Next</button>
-      </div>
-    {{ end }}
-  </div>
-</section>
-
-<section class="rt-section rt-section--white accolades-team-section">
-  <div class="rt-container">
-    <header class="accolades-block-head">
-      <p class="rt-eyebrow rt-eyebrow--dark">Team Accolades</p>
-      <h2>Tournament Results</h2>
-      <p>Browse current teams or search past tournament accomplishments.</p>
-    </header>
-
-    <div class="accolades-filter-panel" data-team-achievement-filter>
-      <label>
-        <span>Season</span>
-        <select data-filter-season>
-          <option value="current">Current Season</option>
-          <option value="all">All Seasons</option>
-          {{ range $teamsData.seasons }}
-            <option value="{{ .id }}">{{ .label }}</option>
-          {{ end }}
-        </select>
-      </label>
-      <label>
-        <span>Team</span>
-        <select data-filter-team>
-          <option value="">All Current Teams</option>
-        </select>
-      </label>
-      <label class="accolades-filter-panel__search">
-        <span>Search</span>
-        <input type="search" placeholder="Search team accomplishments..." data-filter-search>
-      </label>
-    </div>
-
-    <div class="accolades-current-team-list" aria-label="Current team achievements">
-      {{ range $season := $teamsData.seasons }}
-        {{ $seasonID := string $season.id }}
-        {{ $seasonLabel := $season.label | default (printf "%s Season" $seasonID) }}
-        {{ $seasonTeamScratch := newScratch }}
-        {{ $seasonTeamScratch.Set "names" (slice) }}
-        {{ range $achievement := $achievements }}
-          {{ if and (eq (string $achievement.season_id) $seasonID) $achievement.team (not (in ($seasonTeamScratch.Get "names") $achievement.team)) }}
-            {{ $seasonTeamScratch.Add "names" (slice $achievement.team) }}
-          {{ end }}
-        {{ end }}
-        {{ range $teamName := ($seasonTeamScratch.Get "names") }}
-          {{ $teamAchievementsScratch := newScratch }}
-          {{ $teamAchievementsScratch.Set "items" (slice) }}
-          {{ range $achievement := $achievements }}
-            {{ if and (eq (string $achievement.season_id) $seasonID) (eq $achievement.team $teamName) }}
-              {{ $teamAchievementsScratch.Add "items" (slice $achievement) }}
-            {{ end }}
-          {{ end }}
-          {{ $teamAchievements := $teamAchievementsScratch.Get "items" }}
-          {{ $isCurrentSeason := eq $seasonID $currentYear }}
-          {{ $isCurrentTeam := and $isCurrentSeason (in $currentTeamNames $teamName) }}
-          {{ with $teamAchievements }}
-            {{ $achievementCount := len . }}
-            <section class="accolades-current-team-card"
-              data-team-group
-              data-season="{{ $seasonID }}"
-              data-season-label="{{ $seasonLabel }}"
-              data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
-              data-team="{{ $teamName }}"
-              data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
-              data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
-              data-team-page="0"
-              data-search="{{ lower (printf "%s %s %s" $teamName $seasonID $seasonLabel) }}">
-              <header>
-                <div class="accolades-current-team-card__heading">
-                  <span class="accolades-current-team-card__status">{{ if $isCurrentTeam }}Current Team{{ else }}Team History{{ end }}</span>
-                  <h3>{{ $teamName }}</h3>
-                  <span class="accolades-current-team-card__season">{{ $seasonLabel }}</span>
-                </div>
-                <strong>{{ $achievementCount }} {{ cond (eq $achievementCount 1) "achievement" "achievements" }}</strong>
-              </header>
-
-              <div class="accolades-team-banner-grid" data-team-carousel-grid>
-                {{ range $index, $achievement := . }}
-                  <article class="accolades-team-banner"
-                    data-team-achievement-item
-                    data-team-carousel-item
-                    data-team-carousel-index="{{ $index }}"
-                    data-season="{{ $seasonID }}"
-                    data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
-                    data-team="{{ $teamName }}"
-                    data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName $seasonID $seasonLabel $achievement.year $achievement.tournament $achievement.result $achievement.season) }}">
-                    <figure>
-                      {{ if $achievement.logo }}
-                        <img src="{{ partial "url.html" $achievement.logo }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
-                      {{ end }}
-                    </figure>
-                    <div>
-                      <span>{{ $achievement.year }} · {{ $achievement.season }}</span>
-                      <strong>{{ $achievement.tournament }}</strong>
-                      <em>{{ $achievement.result }}</em>
-                    </div>
-                  </article>
-                {{ end }}
-              </div>
-
-              <div class="accolades-team-carousel-controls" data-team-carousel-controls hidden>
-                <button type="button" data-team-carousel-prev>Previous</button>
-                <span data-team-carousel-status>Showing 1–3 of {{ $achievementCount }}</span>
-                <button type="button" data-team-carousel-next>Next</button>
-              </div>
-            </section>
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    </div>
-
-    <p class="accolades-empty" data-team-empty hidden>No team achievements match the selected filters.</p>
-  </div>
-</section>
-
-<section class="rt-section rt-section--cream accolades-player-section">
-  <div class="rt-container">
-    <header class="accolades-block-head">
-      <p class="rt-eyebrow rt-eyebrow--dark">Individual Achievements</p>
-      <h2>Player honors</h2>
-      <p>Search player recognition or browse a quick view of current-team honors.</p>
-    </header>
-
-    <div class="accolades-filter-panel" data-player-achievement-filter>
-      <label>
-        <span>Season</span>
-        <select data-filter-season>
-          <option value="current">Current Season</option>
-          <option value="all">All Seasons</option>
-          {{ range $teamsData.seasons }}
-            <option value="{{ .id }}">{{ .label }}</option>
-          {{ end }}
-        </select>
-      </label>
-      <label>
-        <span>Team</span>
-        <select data-filter-team>
-          <option value="">All Current Teams</option>
-        </select>
-      </label>
-      <label class="accolades-filter-panel__search">
-        <span>Search</span>
-        <input type="search" placeholder="Search player honors..." data-filter-search>
-      </label>
-    </div>
-
-    <div class="accolades-player-team-list" aria-label="Searchable player honors by team and season">
-      {{ range $season := $teamsData.seasons }}
-        {{ $seasonID := string $season.id }}
-        {{ $seasonLabel := $season.label | default (printf "%s Season" $seasonID) }}
-        {{ $seasonTeamScratch := newScratch }}
-        {{ $seasonTeamScratch.Set "names" (slice) }}
-        {{ range $honor := $playerHonors }}
-          {{ if and (eq (string $honor.season_id) $seasonID) $honor.team (not (in ($seasonTeamScratch.Get "names") $honor.team)) }}
-            {{ $seasonTeamScratch.Add "names" (slice $honor.team) }}
-          {{ end }}
-        {{ end }}
-        {{ range $teamName := ($seasonTeamScratch.Get "names") }}
-          {{ $teamHonorsScratch := newScratch }}
-          {{ $teamHonorsScratch.Set "items" (slice) }}
-          {{ range $honor := $playerHonors }}
-            {{ if and (eq (string $honor.season_id) $seasonID) (eq $honor.team $teamName) }}
-              {{ $teamHonorsScratch.Add "items" (slice $honor) }}
-            {{ end }}
-          {{ end }}
-          {{ $teamHonors := $teamHonorsScratch.Get "items" }}
-          {{ $isCurrentSeason := eq $seasonID $currentYear }}
-          {{ $isCurrentTeam := and $isCurrentSeason (in $currentTeamNames $teamName) }}
-          {{ with $teamHonors }}
-            {{ $honorCount := len . }}
-            <section class="accolades-player-team-card"
-              data-player-group
-              data-season="{{ $seasonID }}"
-              data-season-label="{{ $seasonLabel }}"
-              data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
-              data-team="{{ $teamName }}"
-              data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
-              data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
-              data-player-page="0"
-              data-search="{{ lower (printf "%s %s %s" $teamName $seasonID $seasonLabel) }}">
-              <header>
-                <div>
-                  <span>{{ if $isCurrentTeam }}Current Team{{ else }}Team History{{ end }}</span>
-                  <h3>{{ $teamName }}</h3>
-                  <em>{{ $seasonLabel }}</em>
-                </div>
-                <strong>{{ $honorCount }} {{ cond (eq $honorCount 1) "honor" "honors" }}</strong>
-              </header>
-
-              <div class="accolades-player-grid accolades-player-grid--free" data-player-carousel-grid>
-                {{ range $index, $honor := . }}
-                  {{ $playerName := $honor.player | default $honor.title }}
-                  {{ $honorLabel := $honor.honor | default "Player Honor" }}
-                  {{ $honorTermLabel := $honor.term_label | default (printf "%s Season" ($honor.year | default $seasonID)) }}
-                  <article class="accolades-player-card"
-                    data-player-achievement-item
-                    data-player-carousel-item
-                    data-player-carousel-index="{{ $index }}"
-                    data-season="{{ $seasonID }}"
-                    data-season-label="{{ $seasonLabel }}"
-                    data-team-key="{{ printf "%s|%s" $seasonID $teamName }}"
-                    data-team="{{ $teamName }}"
-                    data-current-season="{{ if $isCurrentSeason }}true{{ else }}false{{ end }}"
-                    data-current-team="{{ if $isCurrentTeam }}true{{ else }}false{{ end }}"
-                    data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName $seasonID $seasonLabel $honorTermLabel $honor.year $playerName $honorLabel $honor.title) }}">
-                    <figure>
-                      {{ with $honor.link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
-                        <img src="{{ partial "url.html" $honor.image }}" alt="{{ $honor.title }}" loading="lazy">
-                      {{ with $honor.link }}</a>{{ end }}
-                    </figure>
-                    <div>
-                      <strong>{{ $playerName }}</strong>
-                      <span>{{ $teamName }} · {{ $honorTermLabel }}</span>
-                    </div>
-                  </article>
-                {{ end }}
-              </div>
-
-              <div class="accolades-team-carousel-controls" data-player-carousel-controls hidden>
-                <button type="button" data-player-carousel-prev>Previous</button>
-                <span data-player-carousel-status>Showing 1–3 of {{ $honorCount }}</span>
-                <button type="button" data-player-carousel-next>Next</button>
-              </div>
-            </section>
-          {{ end }}
-        {{ end }}
-      {{ end }}
+    <div class="accolades-team-carousel-controls accolades-player-results__controls" data-player-results-controls hidden>
+      <button type="button" data-player-results-prev>Previous</button>
+      <span data-player-results-status aria-live="polite">1–6 of {{ len $playerHonors }}</span>
+      <button type="button" data-player-results-next>Next</button>
     </div>
 
     <p class="accolades-empty" data-player-empty hidden>No individual achievements match the selected filters.</p>
@@ -342,8 +325,20 @@
       <p>See current teams or check tryout opportunities for the next Rawlings Tigers NOVA season.</p>
     </div>
     <div class="rt-action-row">
-      <a class="rt-btn rt-btn--light" href="{{ partial "url.html" "/teams/" }}">Team Central</a>
+      <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" "/teams/" }}">Team Central</a>
       <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" "/tryouts/" }}">Tryouts</a>
     </div>
   </div>
 </section>
+
+<div class="accolades-photo-modal" data-player-photo-modal hidden>
+  <button class="accolades-photo-modal__backdrop" type="button" data-player-photo-close aria-label="Close player image preview"></button>
+  <div class="accolades-photo-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="accolades-photo-modal-name">
+    <button class="accolades-photo-modal__close" type="button" data-player-photo-close aria-label="Close player image preview">×</button>
+    <img class="accolades-photo-modal__image" alt="" data-player-photo-modal-image>
+    <div class="accolades-photo-modal__caption">
+      <strong id="accolades-photo-modal-name" data-player-photo-modal-name></strong>
+      <span data-player-photo-modal-honor></span>
+    </div>
+  </div>
+</div>

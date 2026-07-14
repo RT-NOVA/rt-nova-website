@@ -18,6 +18,7 @@ achievements:
   result: Champions
   logo: /images/accolades/tournament-logos/stafford-mayday.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  story_url: /news/2025-05-18-rawlings-tigers-nova-12u-stay-perfect-capture-stafford-may-day-championship/
 - id: 2025-12u-black-shock-the-world
   date: '2025-04-26'
   year: '2025'
@@ -27,6 +28,7 @@ achievements:
   result: Champions
   logo: /images/accolades/tournament-logos/shock-the-world.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  story_url: /news/2025-04-28-rawlings-tigers-nova-12u-bring-home-shock-the-world-championship/
 - id: 2025-12u-black-stj-frozen-ropes
   date: '2025-03-22'
   year: '2025'
@@ -36,6 +38,7 @@ achievements:
   result: Champions
   logo: /images/accolades/tournament-logos/stj-frozen-ropes.png
   template: /images/accolades/blank-white-hanging-banner.svg
+  story_url: /news/2025-03-21-rawlings-tigers-nova-12u-capture-st-james-frozen-rope-championship/
 - id: 2025-12u-black-body-armor-state-games
   date: '2024-09-06'
   year: '2024'
