@@ -1,7 +1,6 @@
 spring:
   label: Spring 2027
-  empty_text: Coming soon. Additional Spring 2027 team details will be posted as they
-    are available.
+  empty_text: Spring 2027 teams will be added as roster details are finalized.
   teams: []
 fall:
   label: Fall 2026

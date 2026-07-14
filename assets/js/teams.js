@@ -13,6 +13,7 @@
   var archiveRows = Array.prototype.slice.call(root.querySelectorAll('[data-team-archive-row]'));
   var archiveEmpty = root.querySelector('[data-team-archive-empty]');
   var archiveCount = root.querySelector('[data-team-archive-count]');
+  var archiveClear = root.querySelector('[data-team-archive-clear]');
 
   function showSeason(value) {
     panels.forEach(function (panel) {
@@ -192,6 +193,9 @@
       var entryLabel = visibleCount === 1 ? 'season entry' : 'season entries';
       archiveCount.textContent = visibleTeamCount + ' ' + teamLabel + ' · ' + visibleCount + ' ' + entryLabel;
     }
+    if (archiveClear) {
+      archiveClear.hidden = selectedSeason === defaultSeason && selectedTeam === 'all' && !query;
+    }
   }
 
   sortArchiveRows();
@@ -223,6 +227,16 @@
   }
   if (archiveTeam) archiveTeam.addEventListener('change', filterArchiveTeams);
   if (archiveSearch) archiveSearch.addEventListener('input', filterArchiveTeams);
+  if (archiveClear) {
+    archiveClear.addEventListener('click', function () {
+      if (archiveSeason && optionExists(archiveSeason, defaultSeason)) archiveSeason.value = defaultSeason;
+      if (archiveSearch) archiveSearch.value = '';
+      updateArchiveTeamOptions();
+      if (archiveTeam) archiveTeam.value = 'all';
+      filterArchiveTeams();
+      if (archiveSeason) archiveSeason.focus();
+    });
+  }
 })();
 
 (function () {

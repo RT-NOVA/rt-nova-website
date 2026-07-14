@@ -101,34 +101,43 @@
         </header>
 
         <div class="rt-team-archive-filters" data-team-archive-filters>
-          <label class="rt-team-archive-filter">
-            <span>Season</span>
-            <select data-team-archive-season>
-              {{ range $activeSeasons }}
-                <option value="{{ .id }}"{{ if eq .id $defaultSeason }} selected{{ end }}>{{ title .status }} · {{ .label }}</option>
-              {{ end }}
-              {{ range sort $data.seasons "id" "desc" }}
-                {{ if and (ne (lower .status) "current") (ne (lower .status) "upcoming") }}
-                  <option value="{{ .id }}">{{ title .status }} · {{ .label }}</option>
+          <div class="rt-team-archive-filters__topline">
+            <p>Filter Team Archive</p>
+            <div class="rt-team-archive-filters__status">
+              <p class="rt-team-archive-count" data-team-archive-count aria-live="polite"></p>
+              <button type="button" data-team-archive-clear hidden>Clear</button>
+            </div>
+          </div>
+
+          <div class="rt-team-archive-filters__controls">
+            <label class="rt-team-archive-filter">
+              <span>Season</span>
+              <select data-team-archive-season>
+                {{ range $activeSeasons }}
+                  <option value="{{ .id }}"{{ if eq .id $defaultSeason }} selected{{ end }}>{{ title .status }} · {{ .label }}</option>
                 {{ end }}
-              {{ end }}
-            </select>
-          </label>
+                {{ range sort $data.seasons "id" "desc" }}
+                  {{ if and (ne (lower .status) "current") (ne (lower .status) "upcoming") }}
+                    <option value="{{ .id }}">{{ title .status }} · {{ .label }}</option>
+                  {{ end }}
+                {{ end }}
+              </select>
+            </label>
 
-          <label class="rt-team-archive-filter">
-            <span>Team</span>
-            <select data-team-archive-team>
-              <option value="all">All Teams</option>
-            </select>
-          </label>
+            <label class="rt-team-archive-filter">
+              <span>Team</span>
+              <select data-team-archive-team>
+                <option value="all">All Teams</option>
+              </select>
+            </label>
 
-          <label class="rt-team-archive-filter rt-team-archive-filter--search">
-            <span>Search</span>
-            <input type="search" data-team-archive-search placeholder="Search teams, coaches, ages..." autocomplete="off">
-          </label>
+            <label class="rt-team-archive-filter rt-team-archive-filter--search">
+              <span>Search</span>
+              <input type="search" data-team-archive-search placeholder="Search teams, coaches, ages..." autocomplete="off">
+            </label>
+          </div>
         </div>
 
-        <p class="rt-team-archive-count" data-team-archive-count aria-live="polite"></p>
         {{ partial "team-table-columns.html" (dict "class" "rt-team-list-columns--archive" "team_label" "Team / Season") }}
 
         <div class="rt-team-archive-results" data-team-archive-results>
