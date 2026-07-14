@@ -1,223 +1,266 @@
 {{ $teamsData := partial "data/team-seasons.html" . }}
-{{ $events := sort (partial "data/schedule-events.html" .) "date" "asc" }}
+{{ $allEvents := sort (partial "data/schedule-events.html" .) "date" "asc" }}
 
 {{ $seasonScratch := newScratch }}
-{{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
+{{ $seasonScratch.Set "currentYear" ($teamsData.default_season | default "2026") }}
 {{ range $teamsData.seasons }}
   {{ if eq (lower (.status | default "")) "current" }}
-    {{ $seasonScratch.Set "defaultSeason" .id }}
+    {{ $seasonScratch.Set "currentYear" .id }}
+    {{ $seasonScratch.Set "currentSeason" . }}
   {{ end }}
 {{ end }}
-{{ $currentYear := string ($seasonScratch.Get "defaultSeason") }}
+{{ $currentYear := string ($seasonScratch.Get "currentYear") }}
+{{ $currentSeason := $seasonScratch.Get "currentSeason" }}
 
-{{ $currentSeasonScratch := newScratch }}
-{{ range $teamsData.seasons }}
-  {{ if eq (string .id) $currentYear }}
-    {{ $currentSeasonScratch.Set "season" . }}
+{{ if not $currentSeason }}
+  {{ range $teamsData.seasons }}
+    {{ if eq (string .id) $currentYear }}
+      {{ $seasonScratch.Set "currentSeason" . }}
+    {{ end }}
+  {{ end }}
+  {{ $currentSeason = $seasonScratch.Get "currentSeason" }}
+{{ end }}
+
+{{ $eventsScratch := newScratch }}
+{{ $eventsScratch.Set "events" (slice) }}
+{{ range $allEvents }}
+  {{ if eq (string (.season_id | default "")) $currentYear }}
+    {{ $eventsScratch.Add "events" (slice .) }}
   {{ end }}
 {{ end }}
-{{ $currentSeason := $currentSeasonScratch.Get "season" }}
+{{ $events := $eventsScratch.Get "events" }}
 
-{{ $currentTeamsScratch := newScratch }}
-{{ $currentTeamsScratch.Set "names" (slice) }}
+{{ $teamsScratch := newScratch }}
+{{ $teamsScratch.Set "teams" (slice) }}
+{{ $seenTeams := newScratch }}
 {{ with $currentSeason }}
-  {{ with .spring }}
-    {{ range .teams }}
-      {{ if not (in ($currentTeamsScratch.Get "names") .name) }}
-        {{ $currentTeamsScratch.Add "names" (slice .name) }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-  {{ with .fall }}
-    {{ range .teams }}
-      {{ if not (in ($currentTeamsScratch.Get "names") .name) }}
-        {{ $currentTeamsScratch.Add "names" (slice .name) }}
+  {{ range (slice .spring .fall) }}
+    {{ range (.teams | default slice) }}
+      {{ if not ($seenTeams.Get .name) }}
+        {{ $seenTeams.Set .name true }}
+        {{ $teamsScratch.Add "teams" (slice .) }}
       {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
-{{ $currentTeamNames := $currentTeamsScratch.Get "names" }}
-
-{{ $allTeamsScratch := newScratch }}
-{{ $allTeamsScratch.Set "names" (slice) }}
-{{ range $teamName := $currentTeamNames }}
-  {{ if not (in ($allTeamsScratch.Get "names") $teamName) }}
-    {{ $allTeamsScratch.Add "names" (slice $teamName) }}
-  {{ end }}
-{{ end }}
-{{ range $event := $events }}
-  {{ with $event.team }}
-    {{ if not (in ($allTeamsScratch.Get "names") .) }}
-      {{ $allTeamsScratch.Add "names" (slice .) }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-{{ $allTeamNames := $allTeamsScratch.Get "names" }}
+{{ $currentTeams := sort ($teamsScratch.Get "teams") "sort_order" "asc" }}
 
 {{ partial "hero.html" (dict
-  "kicker" "Team Schedules"
+  "kicker" "Games & Tournaments"
   "title" .Title
-  "intro" (.Params.hero_intro | default "Find team game and tournament schedules, including dates, matchups, times, and event locations when available.")
+  "intro" (.Params.hero_intro | default "Find current-season team games and tournaments, including dates, times, matchups, and locations when available.")
   "show_card" false
 ) }}
 
 <section class="rt-proof-strip rt-proof-strip--light schedules-proof-strip" aria-label="Schedule quick facts">
   <div class="rt-container rt-proof-grid">
-    <div><strong>Schedule</strong><span>Dates + matchups</span></div>
-    <div><strong>Times</strong><span>First pitch</span></div>
-    <div><strong>Locations</strong><span>Fields + venues</span></div>
-    <div><strong>Events</strong><span>Games + tournaments</span></div>
+    <div><strong>{{ $currentYear }}</strong><span>Current Season</span></div>
+    <div><strong>All Teams</strong><span>Current Rosters</span></div>
+    <div><strong>Upcoming First</strong><span>Event Order</span></div>
+    <div><strong>Searchable</strong><span>Games + Tournaments</span></div>
   </div>
 </section>
 
 <section class="rt-section rt-section--cream schedules-page">
   <div class="rt-container schedules-page__inner">
     <header class="rt-section-heading schedules-heading">
-      <p class="rt-eyebrow rt-eyebrow--dark">Schedule Hub</p>
-      <h2>Games and tournaments</h2>
-      <p>Browse game and tournament details by team, including dates, matchups, first pitch times, and locations when available.</p>
+      <p class="rt-eyebrow rt-eyebrow--dark">Current Season</p>
+      <h2>Find your team’s next game</h2>
+      <p>Each team shows its next two upcoming events. Choose a team to open its complete current-season schedule.</p>
     </header>
 
-    <div class="schedules-filter-panel" data-schedule-filter>
-      <label>
+    <div class="schedules-filter-panel" data-schedule-filter data-current-season="{{ $currentYear }}">
+      <div class="schedules-filter-panel__topline">
+        <div class="schedules-filter-panel__heading">
+          <p>Browse the {{ $currentYear }} Schedule</p>
+          <span>Choose a team or search current-season events.</span>
+        </div>
+        <div class="schedules-filter-panel__status">
+          <p data-schedule-count aria-live="polite"></p>
+          <button type="button" data-schedule-clear hidden>Clear</button>
+        </div>
+      </div>
+
+      <div class="schedules-filter-panel__teams" role="group" aria-label="Filter schedule by team">
+        <button class="schedules-filter-panel__team is-active" type="button" data-filter-team-tab data-team-value="" aria-pressed="true">All Teams</button>
+        {{ range $currentTeams }}
+          <button class="schedules-filter-panel__team" type="button" data-filter-team-tab data-team-value="{{ urlize .name }}" aria-pressed="false">{{ .name }}</button>
+        {{ end }}
+      </div>
+
+      <label class="schedules-filter-panel__mobile-team">
         <span>Team</span>
         <select data-filter-team>
           <option value="">All Current Teams</option>
+          {{ range $currentTeams }}
+            <option value="{{ urlize .name }}">{{ .name }}</option>
+          {{ end }}
         </select>
       </label>
+
       <label class="schedules-filter-panel__search">
-        <span>Search</span>
-        <input type="search" placeholder="Search team, opponent, location, or event..." data-filter-search>
+        <span class="schedules-filter-panel__visually-hidden">Search schedule</span>
+        <span class="schedules-filter-panel__search-field">
+          <input type="search" placeholder="Search events, opponents, or locations..." data-filter-search autocomplete="off">
+        </span>
       </label>
     </div>
 
-    <div class="schedules-list" aria-label="Searchable team game and tournament schedules" data-schedule-list>
-      {{ range $teamName := $allTeamNames }}
+    <div class="schedules-list" aria-label="Current-season team game and tournament schedules" data-schedule-list>
+      {{ range $team := $currentTeams }}
+        {{ $teamName := $team.name }}
+        {{ $teamSlug := urlize $teamName }}
         {{ $metaScratch := newScratch }}
-        {{ $metaScratch.Set "coach" "" }}
-        {{ $metaScratch.Set "season" "" }}
-        {{ $metaScratch.Set "found" false }}
+        {{ $metaScratch.Set "coach" ($team.head_coach | default "") }}
+        {{ $metaScratch.Set "gameChangerUrl" "" }}
 
         {{ with $currentSeason }}
-          {{ with .spring }}
-            {{ range .teams }}
-              {{ if and (eq .name $teamName) (not ($metaScratch.Get "found")) }}
-                {{ $metaScratch.Set "coach" (.head_coach | default "") }}
-                {{ $metaScratch.Set "season" (printf "%s · %s" ($currentSeason.spring.label | default "Spring") ($currentSeason.label | default $currentYear)) }}
-                {{ $metaScratch.Set "found" true }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-          {{ with .fall }}
-            {{ range .teams }}
-              {{ if and (eq .name $teamName) (not ($metaScratch.Get "found")) }}
-                {{ $metaScratch.Set "coach" (.head_coach | default "") }}
-                {{ $metaScratch.Set "season" (printf "%s · %s" ($currentSeason.fall.label | default "Fall") ($currentSeason.label | default $currentYear)) }}
-                {{ $metaScratch.Set "found" true }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-
-        {{ range $season := $teamsData.seasons }}
-          {{ range $termKey, $term := dict "spring" $season.spring "fall" $season.fall }}
-            {{ with $term }}
-              {{ range .teams }}
-                {{ if and (eq .name $teamName) (not ($metaScratch.Get "found")) }}
-                  {{ $metaScratch.Set "coach" (.head_coach | default "") }}
-                  {{ $metaScratch.Set "season" (printf "%s · %s" ($term.label | default (title $termKey)) ($season.label | default $season.id)) }}
-                  {{ $metaScratch.Set "found" true }}
+          {{ range (slice .spring .fall) }}
+            {{ range (.teams | default slice) }}
+              {{ if eq .name $teamName }}
+                {{ if and (not ($metaScratch.Get "coach")) .head_coach }}
+                  {{ $metaScratch.Set "coach" .head_coach }}
+                {{ end }}
+                {{ range (.links | default slice) }}
+                  {{ $labelLower := lower (.label | default "") }}
+                  {{ if and (in $labelLower "gamechanger") .url (not ($metaScratch.Get "gameChangerUrl")) }}
+                    {{ $metaScratch.Set "gameChangerUrl" .url }}
+                  {{ end }}
                 {{ end }}
               {{ end }}
             {{ end }}
           {{ end }}
         {{ end }}
 
-        {{ $teamIsCurrent := in $currentTeamNames $teamName }}
         {{ $teamEventsScratch := newScratch }}
-        {{ $teamEventsScratch.Set "count" 0 }}
-        {{ range $event := $events }}
-          {{ if eq $event.team $teamName }}
-            {{ $teamEventsScratch.Add "count" 1 }}
+        {{ $teamEventsScratch.Set "events" (slice) }}
+        {{ range $events }}
+          {{ if eq .team $teamName }}
+            {{ $teamEventsScratch.Add "events" (slice .) }}
           {{ end }}
         {{ end }}
-        {{ $teamEventCount := $teamEventsScratch.Get "count" }}
+        {{ $teamEvents := $teamEventsScratch.Get "events" }}
 
         <section class="schedules-team-section"
           data-schedule-team-section
-          data-current-team="{{ if $teamIsCurrent }}true{{ else }}false{{ end }}"
           data-team="{{ $teamName }}"
-          data-search="{{ lower (printf "%s %s %s" $teamName ($metaScratch.Get "coach") ($metaScratch.Get "season")) }}">
+          data-team-slug="{{ $teamSlug }}"
+          data-sort-order="{{ $team.sort_order | default 9999 }}"
+          data-search="{{ lower (printf "%s %s %s" $teamName ($metaScratch.Get "coach") $currentYear) }}">
           <header class="schedules-team-section__header">
-            <div>
+            <div class="schedules-team-section__identity">
+              <p>{{ with $currentSeason }}{{ .label | default (printf "%s Season" $currentYear) }}{{ else }}{{ $currentYear }} Season{{ end }}</p>
               <h3>{{ $teamName }}</h3>
-              {{ with ($metaScratch.Get "season") }}<p>{{ . }}</p>{{ end }}
-              {{ with ($metaScratch.Get "coach") }}<small>Coach: {{ . }}</small>{{ end }}
+              {{ with ($metaScratch.Get "coach") }}<small>Head Coach: {{ . }}</small>{{ end }}
             </div>
-            <strong>{{ $teamEventCount }} {{ if eq $teamEventCount 1 }}event{{ else }}events{{ end }}</strong>
+            <div class="schedules-team-section__summary">
+              <strong data-schedule-upcoming-count>Current Schedule</strong>
+              <span data-schedule-next-date></span>
+              {{ with ($metaScratch.Get "gameChangerUrl") }}
+                <div class="schedules-team-section__links">
+                  <a class="schedules-team-link schedules-team-link--gc" href="{{ partial "url.html" . }}" target="_blank" rel="noopener">
+                    <span class="schedules-gc-badge" aria-hidden="true">GC</span>
+                    <span>GameChanger</span>
+                  </a>
+                </div>
+              {{ end }}
+            </div>
           </header>
 
-          <div class="schedules-events" aria-label="{{ $teamName }} game and tournament schedule">
-            {{ if gt $teamEventCount 0 }}
+          <div class="schedules-events" aria-label="{{ $teamName }} current-season schedule">
+            <div class="schedules-events__head" data-schedule-upcoming-head aria-hidden="true">
+              <span>Date</span>
+              <span>Time</span>
+              <span>Event</span>
+              <span>Location</span>
+            </div>
+
+            <div class="schedules-events__rows" data-schedule-upcoming-events>
+              {{ range $event := $teamEvents }}
+                {{ $typeLower := lower ($event.type | default "") }}
+                {{ $eventTitleScratch := newScratch }}
+                {{ $eventTitleScratch.Set "title" ($event.title | default ($event.type | default "Schedule Event")) }}
+                {{ if isset $event "opponent" }}
+                  {{ if in $typeLower "tournament" }}
+                    {{ $eventTitleScratch.Set "title" $event.opponent }}
+                  {{ else }}
+                    {{ $eventTitleScratch.Set "title" (printf "vs %s" $event.opponent) }}
+                  {{ end }}
+                {{ end }}
+                {{ $eventTitle := $eventTitleScratch.Get "title" }}
+                {{ $timeText := $event.time | default "TBD" }}
+                {{ $locationText := $event.location | default "TBD" }}
+                {{ $timeIsTBD := or (eq (lower $timeText) "tbd") (eq $timeText "—") }}
+                {{ $locationIsTBD := or (eq (lower $locationText) "tbd") (eq $locationText "—") }}
+
+                <article class="schedules-event-row"
+                  data-schedule-event
+                  data-event-date="{{ time.Format "2006-01-02" (time $event.date) }}"
+                  data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle $locationText ($event.date | default "") $timeText ($event.notes | default "")) }}">
+                  <div class="schedules-event-row__date">
+                    <small>Date</small>
+                    <time datetime="{{ $event.date }}">{{ time.Format "Mon, Jan 2" (time $event.date) }}</time>
+                  </div>
+                  <div class="schedules-event-row__time{{ if $timeIsTBD }} is-tbd{{ end }}">
+                    <small>Time</small>
+                    <span>{{ $timeText }}</span>
+                  </div>
+                  <div class="schedules-event-row__event">
+                    <small>Event</small>
+                    <strong>
+                      {{ with $event.type }}<em>{{ . }}</em>{{ end }}
+                      {{ $eventTitle }}
+                      {{ with $event.notes }}<small>{{ . }}</small>{{ end }}
+                    </strong>
+                  </div>
+                  <div class="schedules-event-row__location{{ if $locationIsTBD }} is-tbd{{ end }}">
+                    <small>Location</small>
+                    {{ with $event.location_url }}
+                      <a href="{{ . }}" target="_blank" rel="noopener">{{ $locationText }}</a>
+                    {{ else }}
+                      <span>{{ $locationText }}</span>
+                    {{ end }}
+                  </div>
+                </article>
+              {{ end }}
+            </div>
+
+            <p class="schedules-team-empty" data-schedule-no-upcoming hidden>No upcoming events currently posted.</p>
+            <p class="schedules-team-empty" data-schedule-no-events hidden>Current-season schedule coming soon.</p>
+
+            <details class="schedules-past-events" data-schedule-past hidden>
+              <summary>View Past Events This Season (<span data-schedule-past-count>0</span>)</summary>
               <div class="schedules-events__head" aria-hidden="true">
                 <span>Date</span>
                 <span>Time</span>
                 <span>Event</span>
                 <span>Location</span>
               </div>
-              {{ $eventIndexScratch := newScratch }}
-              {{ $eventIndexScratch.Set "index" 0 }}
-              {{ range $event := $events }}
-                {{ if eq $event.team $teamName }}
-                  {{ $eventIndex := $eventIndexScratch.Get "index" }}
-                  {{ $typeLower := lower ($event.type | default "") }}
-                  {{ $eventTitleScratch := newScratch }}
-                  {{ $eventTitleScratch.Set "title" ($event.title | default ($event.type | default "Schedule Event")) }}
-                  {{ if isset $event "opponent" }}
-                    {{ if in $typeLower "tournament" }}
-                      {{ $eventTitleScratch.Set "title" $event.opponent }}
-                    {{ else }}
-                      {{ $eventTitleScratch.Set "title" (printf "vs %s" $event.opponent) }}
-                    {{ end }}
-                  {{ end }}
-                  {{ $eventTitle := $eventTitleScratch.Get "title" }}
-                  <article class="schedules-event-row"
-                    data-schedule-event
-                    data-event-date="{{ time.Format "2006-01-02" (time $event.date) }}"
-                    data-default-visible="{{ if lt $eventIndex 3 }}true{{ else }}false{{ end }}"
-                    data-search="{{ lower (printf "%s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle ($event.location | default "") ($event.date | default "") ($event.time | default "")) }}">
-                    <time datetime="{{ $event.date }}">{{ time.Format "Jan 2" (time $event.date) }}</time>
-                    <span>{{ $event.time | default "—" }}</span>
-                    <strong>
-                      {{ with $event.type }}<em>{{ . }}</em>{{ end }}
-                      {{ $eventTitle }}
-                      {{ with $event.notes }}<small>{{ . }}</small>{{ end }}
-                    </strong>
-                    <span>{{ $event.location | default "—" }}</span>
-                  </article>
-                  {{ $eventIndexScratch.Set "index" (add $eventIndex 1) }}
-                {{ end }}
-              {{ end }}
-              <p class="schedules-team-empty schedules-team-empty--upcoming" data-schedule-no-upcoming hidden>No upcoming events currently posted. Use “Show all” to view past schedule entries.</p>
-            {{ else }}
-              <p class="schedules-team-empty">Game and tournament schedule coming soon.</p>
-            {{ end }}
+              <div class="schedules-events__rows" data-schedule-past-events></div>
+            </details>
           </div>
 
-          {{ if gt $teamEventCount 3 }}
-            <button class="schedules-show-more" type="button" data-schedule-toggle aria-expanded="false">
-              Show all {{ $teamEventCount }} events
-            </button>
-          {{ end }}
+          <button class="schedules-team-focus" type="button" data-schedule-focus-team>
+            View Full Schedule
+          </button>
         </section>
       {{ end }}
     </div>
 
-    <p class="schedules-empty" data-schedule-empty hidden>No game or tournament schedule entries match the selected filters.</p>
+    <p class="schedules-empty" data-schedule-empty hidden>No current-season schedule entries match those filters.</p>
+  </div>
+</section>
 
-    <aside class="schedules-note" role="note">
-      <strong>Schedule details may change.</strong>
-      <span>By default, each team shows the next three upcoming events. Use “Show all” to view the full schedule, including muted past events.</span>
-    </aside>
+<section class="rt-section rt-section--dark schedules-update-band">
+  <div class="rt-container schedules-update-band__inner">
+    <div>
+      <p class="rt-eyebrow">Stay Current</p>
+      <h2>Schedule details can change</h2>
+      <p>Confirm final times, locations, and tournament information with your coach or official team platform.</p>
+    </div>
+    <div class="rt-action-row">
+      <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" "/teams/" }}">Team Central</a>
+      <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" "/coaches/" }}">Coaching Staff</a>
+    </div>
   </div>
 </section>
