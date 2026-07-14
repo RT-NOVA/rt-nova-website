@@ -1,6 +1,37 @@
 {{ $data := hugo.Data.coaches }}
+{{ $teamsData := partial "data/team-seasons.html" . }}
+{{ $seasonScratch := newScratch }}
+{{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
+{{ $seasonScratch.Set "currentSeason" ($teamsData.default_season | default "2026") }}
+{{ $seasonScratch.Set "upcomingSeason" "" }}
+{{ range $teamsData.seasons }}
+  {{ $status := lower (.status | default "") }}
+  {{ if eq $status "current" }}
+    {{ $seasonScratch.Set "defaultSeason" .id }}
+    {{ $seasonScratch.Set "currentSeason" .id }}
+  {{ else if and (eq $status "upcoming") (not ($seasonScratch.Get "upcomingSeason")) }}
+    {{ $seasonScratch.Set "upcomingSeason" .id }}
+  {{ end }}
+{{ end }}
+{{ $defaultSeason := string ($seasonScratch.Get "defaultSeason") }}
+{{ $currentSeason := string ($seasonScratch.Get "currentSeason") }}
+{{ $upcomingSeason := string ($seasonScratch.Get "upcomingSeason") }}
+{{ $activeSeasonsScratch := newScratch }}
+{{ $activeSeasonsScratch.Set "seasons" (slice) }}
+{{ range $teamsData.seasons }}
+  {{ if eq (lower (.status | default "")) "current" }}
+    {{ $activeSeasonsScratch.Add "seasons" (slice .) }}
+  {{ end }}
+{{ end }}
+{{ range $teamsData.seasons }}
+  {{ if eq (lower (.status | default "")) "upcoming" }}
+    {{ $activeSeasonsScratch.Add "seasons" (slice .) }}
+  {{ end }}
+{{ end }}
+{{ $activeSeasons := $activeSeasonsScratch.Get "seasons" }}
+
 {{ partial "hero.html" (dict
-  "kicker" "Staff & Coaches"
+  "kicker" "Leadership & Development"
   "title" .Title
   "intro" $data.intro
   "show_card" false
@@ -8,12 +39,10 @@
 
 <section class="rt-proof-strip rt-proof-strip--light rt-coaches-proof-strip" aria-label="Coaches quick facts">
   <div class="rt-container rt-proof-grid">
-    {{ range $data.quick_facts }}
-      <div>
-        <strong>{{ .label }}</strong>
-        <span>{{ .value }}</span>
-      </div>
-    {{ end }}
+    <div><strong>{{ $currentSeason }}</strong><span>Current Staff</span></div>
+    <div><strong>{{ if $upcomingSeason }}{{ $upcomingSeason }}{{ else }}Coming Soon{{ end }}</strong><span>Upcoming Staff</span></div>
+    <div><strong>10U–14U</strong><span>Program Age Groups</span></div>
+    <div><strong>Head + Assistant</strong><span>Coaching Roles</span></div>
   </div>
 </section>
 
@@ -21,7 +50,7 @@
   <div class="rt-container">
     <header class="rt-coaches-block-head">
       <p class="rt-eyebrow rt-eyebrow--dark">Program Leadership</p>
-      <h2>Program leadership</h2>
+      <h2>One standard across every team</h2>
       <p>Program-wide direction, shared standards, and team-level coaching support.</p>
     </header>
 
@@ -32,7 +61,7 @@
           {{ with $leader.photo }}
             <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $leader.name }}" data-coach-role="{{ $leader.role }}" aria-label="View larger photo of {{ $leader.name }}">
               <span class="rt-coaches-avatar rt-coaches-avatar--leader">
-                <img src="{{ partial "url.html" . }}" alt="{{ $leader.name }}">
+                <img src="{{ partial "url.html" . }}" alt="{{ $leader.name }}" decoding="async">
               </span>
             </button>
           {{ else }}
@@ -53,19 +82,9 @@
   <div class="rt-container">
     <header class="rt-coaches-block-head">
       <p class="rt-eyebrow rt-eyebrow--dark">Team Coaching Staff</p>
-      <h2>Team coaching staff</h2>
+      <h2>Meet the staff for each season</h2>
       <p>Head coach and assistant coaches by season.</p>
     </header>
-
-    {{ $teamsData := partial "data/team-seasons.html" . }}
-    {{ $seasonScratch := newScratch }}
-    {{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
-    {{ range $teamsData.seasons }}
-      {{ if eq (lower (.status | default "")) "current" }}
-        {{ $seasonScratch.Set "defaultSeason" .id }}
-      {{ end }}
-    {{ end }}
-    {{ $defaultSeason := string ($seasonScratch.Get "defaultSeason") }}
 
     {{ $staffByTeam := newScratch }}
     {{ range $data.team_staff }}
@@ -73,21 +92,17 @@
     {{ end }}
 
     <div class="rt-coaches-season-nav" aria-label="Coaching staff season selector">
-      {{ range $season := $teamsData.seasons }}
-        {{ $status := lower ($season.status | default "") }}
-        {{ if or (eq $status "current") (eq $status "upcoming") }}
-          <button class="rt-coaches-season-nav__button{{ if eq (string $season.id) $defaultSeason }} is-active{{ end }}" type="button" data-coaches-season-button="{{ $season.id }}" aria-pressed="{{ if eq (string $season.id) $defaultSeason }}true{{ else }}false{{ end }}">
-            <span>{{ $season.label | default (printf "%s Season" $season.id) }}</span>
-            <small>{{ $season.status }}</small>
-          </button>
-        {{ end }}
+      {{ range $season := $activeSeasons }}
+        <button class="rt-coaches-season-nav__button{{ if eq (string $season.id) $defaultSeason }} is-active{{ end }}" type="button" data-coaches-season-button="{{ $season.id }}" aria-pressed="{{ if eq (string $season.id) $defaultSeason }}true{{ else }}false{{ end }}">
+          <span>{{ $season.label | default (printf "%s Season" $season.id) }}</span>
+          <small>{{ $season.status }}</small>
+        </button>
       {{ end }}
     </div>
 
-    <div class="rt-coaches-season-panels" data-coaches-season-panels>
-      {{ range $season := $teamsData.seasons }}
+    <div class="rt-coaches-season-panels" data-coaches-season-panels data-default-season="{{ $defaultSeason }}">
+      {{ range $season := $activeSeasons }}
         {{ $status := lower ($season.status | default "") }}
-        {{ if or (eq $status "current") (eq $status "upcoming") }}
           {{ $seasonID := string $season.id }}
           {{ $seasonLabel := $season.label | default (printf "%s Season" $season.id) }}
           {{ $seasonTeams := slice }}
@@ -111,6 +126,11 @@
 
             <div class="rt-coaches-staff-list" aria-label="{{ $seasonLabel }} team coaching staff">
               {{ if gt (len $seasonTeams) 0 }}
+                <div class="rt-coaches-staff-columns" aria-hidden="true">
+                  <span>Team</span>
+                  <span>Head Coach</span>
+                  <span>Assistant Coaches</span>
+                </div>
                 {{ range sort $seasonTeams "sort_order" "asc" }}
                   {{ $team := . }}
                   {{ $staff := $staffByTeam.Get $team.name }}
@@ -134,26 +154,26 @@
 
                     <div class="rt-coaches-staff-row__head">
                       <span>{{ $team.coach_role | default "Head Coach" }}</span>
-                      <details class="rt-coaches-head-details">
-                        <summary>
-                          <span class="rt-coaches-person">
-                            {{ with $headPhoto }}
-                              <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $headName }}" data-coach-role="{{ $team.coach_role | default "Head Coach" }} · {{ $team.name }}" aria-label="View larger photo of {{ $headName }}">
-                                <span class="rt-coaches-avatar rt-coaches-avatar--mini">
-                                  <img src="{{ partial "url.html" . }}" alt="{{ $headName }}">
-                                </span>
-                              </button>
-                            {{ else }}
-                              <span class="rt-coaches-avatar rt-coaches-avatar--mini"><span>{{ substr $headName 0 1 }}</span></span>
-                            {{ end }}
-                            <strong>{{ $headName | default "TBD" }}</strong>
-                            {{ if $headBio }}<span class="rt-coaches-bio-toggle" aria-hidden="true">Bio +</span>{{ end }}
-                          </span>
-                        </summary>
-                        {{ with $headBio }}
-                          <p>{{ . }}</p>
+                      <div class="rt-coaches-head-profile">
+                        {{ with $headPhoto }}
+                          <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $headName }}" data-coach-role="{{ $team.coach_role | default "Head Coach" }} · {{ $team.name }}" aria-label="View larger photo of {{ $headName }}">
+                            <span class="rt-coaches-avatar rt-coaches-avatar--head">
+                              <img src="{{ partial "url.html" . }}" alt="{{ $headName }}" loading="lazy" decoding="async">
+                            </span>
+                          </button>
+                        {{ else }}
+                          <span class="rt-coaches-avatar rt-coaches-avatar--head"><span>{{ substr ($headName | default "T") 0 1 }}</span></span>
                         {{ end }}
-                      </details>
+                        <div class="rt-coaches-head-profile__body">
+                          <strong>{{ $headName | default "TBD" }}</strong>
+                          {{ with $headBio }}
+                            <details class="rt-coaches-head-details">
+                              <summary><span class="rt-coaches-bio-toggle">View Bio +</span></summary>
+                              <p>{{ . }}</p>
+                            </details>
+                          {{ end }}
+                        </div>
+                      </div>
                     </div>
 
                     <div class="rt-coaches-staff-row__assistants">
@@ -165,7 +185,7 @@
                               {{ with $coach.photo }}
                                 <button class="rt-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $coach.name }}" data-coach-role="Assistant Coach · {{ $team.name }}" aria-label="View larger photo of {{ $coach.name }}">
                                   <span class="rt-coaches-avatar rt-coaches-avatar--mini">
-                                    <img src="{{ partial "url.html" . }}" alt="{{ $coach.name }}">
+                                    <img src="{{ partial "url.html" . }}" alt="{{ $coach.name }}" loading="lazy" decoding="async">
                                   </span>
                                 </button>
                               {{ else }}
@@ -186,7 +206,6 @@
               {{ end }}
             </div>
           </section>
-        {{ end }}
       {{ end }}
     </div>
   </div>
@@ -196,7 +215,7 @@
   <div class="rt-container">
     <header class="rt-coaches-block-head">
       <p class="rt-eyebrow rt-eyebrow--dark">Coaching Standards</p>
-      <h2>Shared standards across every team</h2>
+      <h2>What families can expect from every coach</h2>
       <p>Development, communication, culture, and alignment.</p>
     </header>
 
@@ -212,7 +231,7 @@
 </section>
 
 {{ with $data.cta }}
-<section class="rt-section rt-section--white rt-team-join-band rt-team-join-band--compact rt-coaches-join-band">
+<section class="rt-section rt-section--dark rt-team-join-band rt-team-join-band--compact rt-team-join-band--dark rt-coaches-join-band rt-coaches-join-band--dark">
   <div class="rt-container rt-team-join-band__inner">
     <div>
       <p class="rt-eyebrow rt-eyebrow--dark">{{ .eyebrow }}</p>
@@ -221,7 +240,7 @@
     </div>
     <div class="rt-action-row">
       <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" .primary_url }}">{{ .primary_label }}</a>
-      <a class="rt-btn rt-btn--ghost-light rt-btn--dark-outline" href="{{ partial "url.html" .secondary_url }}">{{ .secondary_label }}</a>
+      <a class="rt-btn rt-btn--ghost-light" href="{{ partial "url.html" .secondary_url }}">{{ .secondary_label }}</a>
     </div>
   </div>
 </section>

@@ -1,12 +1,19 @@
 {{ $data := partial "data/team-seasons.html" . }}
 {{ $seasonScratch := newScratch }}
 {{ $seasonScratch.Set "defaultSeason" ($data.default_season | default "2026") }}
+{{ $seasonScratch.Set "currentSeason" ($data.default_season | default "2026") }}
+{{ $seasonScratch.Set "upcomingSeason" "" }}
 {{ range $data.seasons }}
   {{ if eq (lower .status) "current" }}
     {{ $seasonScratch.Set "defaultSeason" .id }}
+    {{ $seasonScratch.Set "currentSeason" .id }}
+  {{ else if and (eq (lower .status) "upcoming") (not ($seasonScratch.Get "upcomingSeason")) }}
+    {{ $seasonScratch.Set "upcomingSeason" .id }}
   {{ end }}
 {{ end }}
 {{ $defaultSeason := $seasonScratch.Get "defaultSeason" }}
+{{ $currentSeason := $seasonScratch.Get "currentSeason" }}
+{{ $upcomingSeason := $seasonScratch.Get "upcomingSeason" }}
 {{ $activeSeasonsScratch := newScratch }}
 {{ $activeSeasonsScratch.Set "seasons" (slice) }}
 {{ range $data.seasons }}
@@ -23,16 +30,16 @@
 
 {{ partial "hero.html" (dict "kicker" "Teams" "title" .Title "intro" $data.intro "show_card" false) }}
 
-<section class="rt-proof-strip rt-proof-strip--light rt-team-proof-strip" aria-label="Team Central quick links">
+<section class="rt-proof-strip rt-proof-strip--light rt-team-proof-strip" aria-label="Team Central quick facts">
   <div class="rt-container rt-proof-grid">
-    <div><strong>Teams</strong><span>Current Rosters</span></div>
-    <div><strong>Coaches</strong><span>Staff Contacts</span></div>
-    <div><strong>Schedules</strong><span>Season Links</span></div>
-    <div><strong>Tryouts</strong><span>Roster Opportunities</span></div>
+    <div><strong>{{ $currentSeason }}</strong><span>Current Season</span></div>
+    <div><strong>{{ if $upcomingSeason }}{{ $upcomingSeason }}{{ else }}Coming Soon{{ end }}</strong><span>Upcoming Season</span></div>
+    <div><strong>10U–14U</strong><span>Program Age Groups</span></div>
+    <div><strong>Searchable</strong><span>Team Archive</span></div>
   </div>
 </section>
 
-<section class="rt-section rt-team-central rt-team-central--open-flow" data-team-central data-default-season="{{ $defaultSeason }}">
+<section class="rt-section rt-team-central rt-team-central--open-flow" id="team-seasons" data-team-central data-default-season="{{ $defaultSeason }}">
   <div class="rt-container">
     <div class="rt-team-season-nav" aria-label="Team season selector">
       {{ range $activeSeasons }}
@@ -153,7 +160,11 @@
                       <p class="rt-team-archive-row__season">{{ $seasonLabel }} · {{ $termLabel }}</p>
                     </div>
                     <div class="rt-team-list-row__coach">
-                      {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $coach }}">{{ end }}
+                      {{ with $team.coach_photo }}
+                        <button class="rt-team-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $coach | default "Coach" }}" data-coach-role="{{ $team.coach_role | default "Head Coach" }} · {{ $team.name }}" aria-label="View larger photo of {{ $coach | default "coach" }}">
+                          <img src="{{ partial "url.html" . }}" alt="{{ $coach }}" loading="lazy" decoding="async">
+                        </button>
+                      {{ end }}
                       <span>
                         <small>{{ $team.coach_role | default "Head Coach" }}</small>
                         <strong>{{ $coach | default "TBA" }}</strong>
@@ -162,7 +173,6 @@
                   </div>
 
                   <div class="rt-team-list-row__meta">
-                    <span class="rt-team-list-row__record">{{ $team.record | default "—" }}</span>
                     <div class="rt-team-icon-links" aria-label="{{ $team.name }} {{ $seasonLabel }} team links">
                       {{ range $team.links }}
                         {{ $label := .label | default "Team Link" }}
@@ -211,6 +221,18 @@
     </div>
   </div>
 </section>
+
+<div class="rt-coach-photo-modal" data-coach-photo-modal hidden>
+  <button class="rt-coach-photo-modal__backdrop" type="button" data-coach-photo-close aria-label="Close coach photo preview"></button>
+  <div class="rt-coach-photo-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="rt-team-coach-photo-modal-name">
+    <button class="rt-coach-photo-modal__close" type="button" data-coach-photo-close aria-label="Close coach photo preview">×</button>
+    <img class="rt-coach-photo-modal__image" alt="" data-coach-photo-modal-image>
+    <div class="rt-coach-photo-modal__caption">
+      <strong id="rt-team-coach-photo-modal-name" data-coach-photo-modal-name></strong>
+      <span data-coach-photo-modal-role></span>
+    </div>
+  </div>
+</div>
 
 <section class="rt-section rt-section--dark rt-team-join-band rt-team-join-band--compact rt-team-join-band--dark">
   <div class="rt-container rt-team-join-band__inner">

@@ -30,6 +30,23 @@
     }
   }
 
+  function hasSeasonButton(value) {
+    return Array.prototype.some.call(buttons, function (button) {
+      return button.getAttribute('data-season-button') === value;
+    });
+  }
+
+  function seasonFromUrl() {
+    return new URL(window.location.href).searchParams.get('season') || '';
+  }
+
+  function updateSeasonUrl(value) {
+    var url = new URL(window.location.href);
+    if (url.searchParams.get('season') === value) return;
+    url.searchParams.set('season', value);
+    window.history.pushState({ season: value }, '', url);
+  }
+
   function optionExists(select, value) {
     return Array.prototype.some.call(select.options, function (option) {
       return option.value === value;
@@ -180,12 +197,22 @@
   sortArchiveRows();
 
   var activeButton = root.querySelector('[data-season-button].is-active') || buttons[0];
-  if (activeButton) showSeason(activeButton.getAttribute('data-season-button'));
+  var fallbackSeason = activeButton ? activeButton.getAttribute('data-season-button') : defaultSeason;
+  var requestedSeason = seasonFromUrl();
+  var initialSeason = hasSeasonButton(requestedSeason) ? requestedSeason : fallbackSeason;
+  if (initialSeason) showSeason(initialSeason);
 
   buttons.forEach(function (button) {
     button.addEventListener('click', function () {
-      showSeason(button.getAttribute('data-season-button'));
+      var value = button.getAttribute('data-season-button');
+      showSeason(value);
+      updateSeasonUrl(value);
     });
+  });
+
+  window.addEventListener('popstate', function () {
+    var requested = seasonFromUrl();
+    showSeason(hasSeasonButton(requested) ? requested : fallbackSeason);
   });
 
   if (archiveSeason) {
@@ -196,4 +223,58 @@
   }
   if (archiveTeam) archiveTeam.addEventListener('change', filterArchiveTeams);
   if (archiveSearch) archiveSearch.addEventListener('input', filterArchiveTeams);
+})();
+
+(function () {
+  var modal = document.querySelector('[data-coach-photo-modal]');
+  if (!modal) return;
+
+  var image = modal.querySelector('[data-coach-photo-modal-image]');
+  var name = modal.querySelector('[data-coach-photo-modal-name]');
+  var role = modal.querySelector('[data-coach-photo-modal-role]');
+  var closeButtons = modal.querySelectorAll('[data-coach-photo-close]');
+  var lastTrigger = null;
+
+  function openModal(trigger) {
+    var src = trigger.getAttribute('data-coach-photo');
+    var coachName = trigger.getAttribute('data-coach-name') || 'Coach';
+    var coachRole = trigger.getAttribute('data-coach-role') || '';
+    if (!src) return;
+
+    lastTrigger = trigger;
+    image.src = src;
+    image.alt = coachName;
+    name.textContent = coachName;
+    role.textContent = coachRole;
+    modal.hidden = false;
+    document.documentElement.classList.add('rt-coach-photo-modal-open');
+
+    var closeButton = modal.querySelector('.rt-coach-photo-modal__close');
+    if (closeButton) closeButton.focus({ preventScroll: true });
+  }
+
+  function closeModal() {
+    if (modal.hidden) return;
+    modal.hidden = true;
+    image.removeAttribute('src');
+    image.alt = '';
+    document.documentElement.classList.remove('rt-coach-photo-modal-open');
+    if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+  }
+
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest('[data-coach-photo]');
+    if (!trigger) return;
+    event.preventDefault();
+    event.stopPropagation();
+    openModal(trigger);
+  });
+
+  closeButtons.forEach(function (button) {
+    button.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') closeModal();
+  });
 })();

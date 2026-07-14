@@ -120,17 +120,24 @@
 }
 
 .rt-coaches-avatar--leader {
-  width: 72px;
-  height: 72px;
-  flex: 0 0 72px;
-  border-radius: 18px;
+  width: 160px;
+  height: 160px;
+  flex: 0 0 160px;
+  border-radius: 22px;
+}
+
+.rt-coaches-avatar--head {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  border-radius: 14px;
 }
 
 .rt-coaches-avatar--mini {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
-  border-radius: 10px;
+  width: 60px;
+  height: 60px;
+  flex: 0 0 60px;
+  border-radius: 12px;
 }
 
 .rt-coaches-avatar img {
@@ -169,12 +176,28 @@
 /* Staff rows: one line per team on desktop, no spreadsheet look. */
 .rt-coaches-staff-list {
   display: grid;
-  gap: .75rem;
+  gap: .65rem;
+}
+
+.rt-coaches-staff-columns {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, .42fr) minmax(18rem, .92fr) minmax(22rem, 1.4fr);
+  gap: clamp(.9rem, 2vw, 1.4rem);
+  padding: 0 1rem .15rem;
+}
+
+.rt-coaches-staff-columns span {
+  color: var(--rt-muted);
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .14em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .rt-coaches-staff-row {
   display: grid;
-  grid-template-columns: minmax(7.5rem, .48fr) minmax(14rem, .74fr) minmax(22rem, 1.4fr);
+  grid-template-columns: minmax(7.5rem, .42fr) minmax(18rem, .92fr) minmax(22rem, 1.4fr);
   align-items: center;
   gap: clamp(.9rem, 2vw, 1.4rem);
   padding: 1rem 1rem;
@@ -216,8 +239,26 @@
   gap: .62rem 1rem;
 }
 
+.rt-coaches-head-profile {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  min-width: 0;
+}
+
+.rt-coaches-head-profile__body {
+  min-width: 0;
+}
+
+.rt-coaches-head-profile__body > strong {
+  display: block;
+  color: #151515;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
 .rt-coaches-head-details {
-  width: 100%;
+  margin-top: .38rem;
 }
 
 .rt-coaches-head-details summary {
@@ -236,7 +277,7 @@
 }
 
 .rt-coaches-head-details p {
-  margin: .65rem 0 0 3.1rem;
+  margin: .55rem 0 0;
   max-width: 42rem;
   color: var(--rt-muted);
   font-size: .85rem;
@@ -246,7 +287,7 @@
 
 /* Subtle inline text action for head coach bio. */
 .rt-coaches-bio-toggle {
-  margin-left: .18rem;
+  margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
@@ -267,7 +308,7 @@
 }
 
 .rt-coaches-head-details[open] .rt-coaches-bio-toggle::before {
-  content: "Bio −";
+  content: "Hide Bio −";
   font-size: .68rem;
 }
 
@@ -311,7 +352,40 @@
 }
 
 .rt-coaches-join-band {
-  border-top: 1px solid rgba(5,5,5,.08);
+  border-top: 0;
+}
+
+.rt-coaches-join-band--dark {
+  border-bottom: 0;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(245,91,32,.14), transparent 34%),
+    linear-gradient(135deg,#050505 0%,#0b0b0d 62%,#171717 100%) !important;
+  color: #fff;
+}
+
+.rt-coaches-join-band--dark h2 {
+  color: #fff;
+}
+
+.rt-coaches-join-band--dark p:not(.rt-eyebrow) {
+  color: rgba(255,255,255,.76);
+}
+
+.rt-coaches-join-band--dark .rt-eyebrow {
+  color: var(--rt-orange);
+}
+
+.rt-coaches-join-band--dark .rt-btn--ghost-light {
+  border-color: rgba(255,255,255,.72);
+  background: transparent;
+  color: #fff;
+}
+
+.rt-coaches-join-band--dark .rt-btn--ghost-light:hover,
+.rt-coaches-join-band--dark .rt-btn--ghost-light:focus-visible {
+  border-color: #fff;
+  background: #fff;
+  color: #050505;
 }
 
 /* Click-to-preview coach photo lightbox. */
@@ -408,6 +482,18 @@
   .rt-coaches-standards-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .rt-coaches-staff-columns {
+    display: none;
+  }
+}
+
+@media (min-width: 981px) {
+  .rt-coaches-staff-row__team > span,
+  .rt-coaches-staff-row__head > span,
+  .rt-coaches-staff-row__assistants > span {
+    display: none;
+  }
 }
 
 @media (max-width: 720px) {
@@ -429,8 +515,22 @@
     padding: 1rem;
   }
 
-  .rt-coaches-head-details p {
-    margin-left: 0;
+  .rt-coaches-avatar--leader {
+    width: 140px;
+    height: 140px;
+    flex-basis: 140px;
+  }
+
+  .rt-coaches-avatar--head {
+    width: 72px;
+    height: 72px;
+    flex-basis: 72px;
+  }
+
+  .rt-coaches-avatar--mini {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
   }
 
   .rt-coach-photo-button:hover .rt-coaches-avatar,

@@ -13,7 +13,11 @@
           <div class="rt-team-list-row__main">
             <h4>{{ $team.name }}</h4>
             <div class="rt-team-list-row__coach">
-              {{ with $team.coach_photo }}<img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}">{{ end }}
+              {{ with $team.coach_photo }}
+                <button class="rt-team-coach-photo-button" type="button" data-coach-photo="{{ partial "url.html" . }}" data-coach-name="{{ $team.head_coach }}" data-coach-role="{{ $team.coach_role | default "Head Coach" }} · {{ $team.name }}" aria-label="View larger photo of {{ $team.head_coach }}">
+                  <img src="{{ partial "url.html" . }}" alt="{{ $team.head_coach }}" loading="lazy" decoding="async">
+                </button>
+              {{ end }}
               <span>
                 <small>{{ $team.coach_role | default "Head Coach" }}</small>
                 <strong>{{ $team.head_coach }}</strong>
@@ -22,7 +26,6 @@
           </div>
 
           <div class="rt-team-list-row__meta">
-            <span class="rt-team-list-row__record">{{ $team.record | default "—" }}</span>
             <div class="rt-team-icon-links" aria-label="{{ $team.name }} team links">
               {{ range $team.links }}
                 {{ $label := .label | default "Team Link" }}

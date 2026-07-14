@@ -186,16 +186,9 @@
 }
 
 .rt-team-list-row__meta {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(12rem, auto);
+  display: flex;
   align-items: center;
-  gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-.rt-team-list-row__record {
-  color: var(--ink, #151515);
-  font-weight: 900;
-  text-align: center;
+  justify-content: flex-end;
 }
 
 .rt-team-icon-links {
@@ -284,10 +277,6 @@
 
   .rt-team-list-row__meta {
     gap: 0.8rem;
-  }
-
-  .rt-team-list-row__record {
-    text-align: left;
   }
 
   .rt-team-icon-links {
@@ -518,25 +507,17 @@
 }
 
 /* Team Central column alignment fix
-   Keeps Record and Team Links aligned across Spring/Fall tables,
+   Keeps Team Links aligned across Spring/Fall tables,
    even when rows have different numbers of icons. */
 @media (min-width: 881px) {
   .rt-team-list-row {
-    grid-template-columns: minmax(0, 1fr) minmax(24rem, 24rem);
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 17rem);
   }
 
   .rt-team-list-row__meta {
-    display: grid;
-    grid-template-columns: 5.25rem minmax(17rem, 17rem);
+    display: flex;
     align-items: center;
     justify-content: end;
-    gap: 1.25rem;
-  }
-
-  .rt-team-list-row__record {
-    width: 5.25rem;
-    text-align: center;
-    justify-self: center;
   }
 
   .rt-team-icon-links {
@@ -727,7 +708,7 @@
 
 .rt-team-list-columns {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(24rem, 24rem);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 17rem);
   align-items: end;
   gap: clamp(1rem, 3vw, 2.5rem);
   padding: 0 0 0.7rem;
@@ -741,9 +722,7 @@
 }
 
 .rt-team-list-columns__meta {
-  display: grid;
-  grid-template-columns: 5.25rem minmax(17rem, 17rem);
-  gap: 1.25rem;
+  display: block;
 }
 
 .rt-team-list-columns span {
@@ -755,11 +734,8 @@
   text-transform: uppercase;
 }
 
-.rt-team-list-columns__meta span:first-child {
-  text-align: center;
-}
-
-.rt-team-list-columns__meta span:last-child {
+.rt-team-list-columns__meta span {
+  display: block;
   text-align: right;
 }
 
@@ -787,6 +763,35 @@
   border-radius: 14px;
   object-position: center top;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.rt-team-coach-photo-button {
+  appearance: none;
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.rt-team-coach-photo-button img {
+  transition: transform 0.16s ease, box-shadow 0.16s ease, outline-color 0.16s ease;
+}
+
+.rt-team-coach-photo-button:hover img,
+.rt-team-coach-photo-button:focus-visible img {
+  transform: scale(1.08);
+  outline: 2px solid var(--brand, #f15a24);
+  outline-offset: 2px;
+  box-shadow: 0 12px 28px rgba(5, 5, 5, 0.24);
+}
+
+.rt-team-coach-photo-button:focus-visible {
+  outline: none;
 }
 
 .rt-team-list-row__coach strong {
@@ -838,6 +843,10 @@
 
   .rt-team-list-row__main {
     grid-template-columns: 1fr;
+  }
+
+  .rt-team-list-row__meta {
+    justify-content: flex-start;
   }
 
   .rt-team-list-row__coach img {
@@ -902,4 +911,99 @@
   border-color: #ffffff;
   background: #ffffff;
   color: #050505;
+}
+
+/* Click-to-preview coach photo modal, matching the Coaches page interaction. */
+.rt-coach-photo-modal[hidden] {
+  display: none;
+}
+
+.rt-coach-photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.rt-coach-photo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(5, 5, 5, 0.72);
+  cursor: zoom-out;
+}
+
+.rt-coach-photo-modal__dialog {
+  position: relative;
+  width: min(90vw, 380px);
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 26px 70px rgba(5, 5, 5, 0.34);
+}
+
+.rt-coach-photo-modal__image {
+  display: block;
+  width: 100%;
+  max-height: min(70vh, 460px);
+  object-fit: cover;
+  background: #151515;
+}
+
+.rt-coach-photo-modal__caption {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.rt-coach-photo-modal__caption strong {
+  color: #151515;
+  font-size: 1.05rem;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rt-coach-photo-modal__caption span {
+  color: var(--rt-orange-dark);
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rt-coach-photo-modal__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(5, 5, 5, 0.78);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.rt-coach-photo-modal__close:hover,
+.rt-coach-photo-modal__close:focus-visible {
+  background: var(--rt-orange);
+}
+
+.rt-coach-photo-modal-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rt-team-coach-photo-button img {
+    transition: none;
+  }
+
+  .rt-team-coach-photo-button:hover img,
+  .rt-team-coach-photo-button:focus-visible img {
+    transform: none;
+  }
 }

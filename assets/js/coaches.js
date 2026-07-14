@@ -3,6 +3,9 @@
     const panels = Array.from(document.querySelectorAll("[data-coaches-season-panel]"));
     if (!buttons.length || !panels.length) return;
 
+    const panelsRoot = document.querySelector("[data-coaches-season-panels]");
+    const defaultSeason = panelsRoot?.getAttribute("data-default-season") || buttons[0].dataset.coachesSeasonButton;
+
     const showSeason = (season) => {
       buttons.forEach((button) => {
         const active = button.dataset.coachesSeasonButton === season;
@@ -15,8 +18,31 @@
       });
     };
 
+    const hasSeason = (season) => buttons.some((button) => button.dataset.coachesSeasonButton === season);
+
+    const seasonFromUrl = () => new URL(window.location.href).searchParams.get("season") || "";
+
+    const updateSeasonUrl = (season) => {
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("season") === season) return;
+      url.searchParams.set("season", season);
+      window.history.pushState({ season }, "", url);
+    };
+
+    const requestedSeason = seasonFromUrl();
+    showSeason(hasSeason(requestedSeason) ? requestedSeason : defaultSeason);
+
     buttons.forEach((button) => {
-      button.addEventListener("click", () => showSeason(button.dataset.coachesSeasonButton));
+      button.addEventListener("click", () => {
+        const season = button.dataset.coachesSeasonButton;
+        showSeason(season);
+        updateSeasonUrl(season);
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      const season = seasonFromUrl();
+      showSeason(hasSeason(season) ? season : defaultSeason);
     });
   })();
 
