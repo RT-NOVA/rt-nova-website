@@ -9,8 +9,7 @@ hero:
   secondary:
     label: Become A Tiger
     url: /become-a-tiger/
-  #image: /images/program-media/homepage-team-hero.png
-  image: /images/program-media/13u-coach-talk.jpg
+  image: /images/program-media/cheshire-and-12u-black.jpeg
   image_position: center 35%
 
 pillars_intro:
@@ -21,18 +20,15 @@ pillars_intro:
 pillars:
   - title: Player Development
     text: Skill work, baseball IQ, confidence, and accountability.
-    #icon: helmet-2-svgrepo-com
     image: /images/program-media/hank-first-base-pick.jpeg
     image_position: center center
   - title: Competitive Teams
     text: Age-level teams built around growth and meaningful competition.
-    #icon: bat-4-svgrepo-com
     image: /images/program-media/main-love-the-game-1600x1200-crop.jpg
     image_position: center center
   - title: Professional Coaching
     text: Clear instruction, organized practices, and development standards.
-    #icon: whistle-1-svgrepo-com
-    image: /images/program-media/cheshire-and-12u-black.jpeg
+    image: /images/program-media/13u-coach-talk.jpg
     image_position: center center
 
 why:
