@@ -3,6 +3,17 @@
   transition: object-position .2s ease;
 }
 
+@media (min-width: 721px) {
+  .home-hero__inner {
+    align-items: flex-end;
+  }
+
+  .home-hero__copy {
+    padding-top: 0;
+    padding-bottom: clamp(2.25rem, 3vw, 3.5rem);
+  }
+}
+
 .home-statement--with-media {
   background:
     radial-gradient(circle at 88% 20%, rgba(245,91,32,.08), transparent 28%),

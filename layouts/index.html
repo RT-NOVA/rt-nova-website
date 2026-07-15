@@ -43,8 +43,9 @@
       <article class="home-pillar-card">
         {{ with $pillar.image }}
         {{ $pillarImagePosition := default "center center" $pillar.image_position }}
+        {{ $pillarImageZoom := default 1 $pillar.image_zoom }}
         <div class="home-pillar-card__media" aria-hidden="true">
-          <img src="{{ partial "url.html" . }}" alt="" style="object-position: {{ $pillarImagePosition }};">
+          <img src="{{ partial "url.html" . }}" alt="" style="object-position: {{ $pillarImagePosition }}; transform: scale({{ $pillarImageZoom }}) !important; transform-origin: {{ $pillarImagePosition }} !important;">
         </div>
         {{ end }}
         <div class="home-pillar-card__body">

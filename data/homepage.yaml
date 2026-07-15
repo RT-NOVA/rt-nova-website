@@ -10,7 +10,7 @@ hero:
     label: Become A Tiger
     url: /become-a-tiger/
   image: /images/program-media/cheshire-and-12u-black.jpeg
-  image_position: center 35%
+  image_position: center 30%
 
 pillars_intro:
   kicker: Development, competition, and coaching.
@@ -29,7 +29,8 @@ pillars:
   - title: Professional Coaching
     text: Clear instruction, organized practices, and development standards.
     image: /images/program-media/13u-coach-talk.jpg
-    image_position: center center
+    image_position: 85% center
+    image_zoom: 1.4
 
 why:
   kicker: Why Rawlings Tigers NOVA?
