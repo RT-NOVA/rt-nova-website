@@ -1,10 +1,28 @@
 {{ define "main" }}
 {{ $home := hugo.Data.homepage }}
+{{ $heroSlides := $home.hero.slides }}
+{{ if not $heroSlides }}
+  {{ $heroSlides = slice (dict "image" $home.hero.image "image_position" $home.hero.image_position "mobile_position" $home.hero.mobile_position) }}
+{{ end }}
 
-<section class="home-hero">
+<section
+  class="home-hero"
+  data-home-hero
+  data-home-hero-interval="{{ default 6000 $home.hero.interval }}"
+  style="--home-hero-transition: {{ default 1600 $home.hero.transition_duration }}ms;">
   <div class="home-hero__media" aria-hidden="true">
-    {{ $heroImagePosition := default "center 42%" $home.hero.image_position }}
-    <img src="{{ partial "url.html" $home.hero.image }}" alt="" style="object-position: {{ $heroImagePosition }};">
+    {{ range $i, $slide := $heroSlides }}
+      {{ $heroImagePosition := default "center 42%" $slide.image_position }}
+      {{ $heroMobilePosition := default $heroImagePosition $slide.mobile_position }}
+      <img
+        class="home-hero__slide{{ if eq $i 0 }} is-active{{ end }}"
+        data-home-hero-slide
+        src="{{ partial "url.html" $slide.image }}"
+        alt=""
+        style="--home-hero-position: {{ $heroImagePosition }}; --home-hero-mobile-position: {{ $heroMobilePosition }};"
+        decoding="async"
+        {{ if eq $i 0 }}fetchpriority="high"{{ else }}loading="lazy"{{ end }}>
+    {{ end }}
   </div>
   <div class="rt-shell home-hero__inner">
     <div class="home-hero__copy">

@@ -1,6 +1,9 @@
 {{- $template := .Params.template | default "" -}}
 {{- $scripts := slice "js/header-nav.js" -}}
 
+{{- if .IsHome -}}
+  {{- $scripts = $scripts | append "js/homepage-hero.js" -}}
+{{- end -}}
 {{- if or .IsHome (eq .Section "social-hub") -}}
   {{- $scripts = $scripts | append "js/social-hub.js" -}}
 {{- end -}}

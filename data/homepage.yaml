@@ -9,8 +9,19 @@ hero:
   secondary:
     label: Become A Tiger
     url: /become-a-tiger/
-  image: /images/program-media/cheshire-and-12u-black.jpeg
-  image_position: center 30%
+  # Hero timing values are in milliseconds: 5000 = 5 seconds, 1600 = 1.6 seconds.
+  interval: 4000
+  transition_duration: 1600
+  # Add another entry under slides to enable crossfading and carousel controls.
+  # Each slide can use a different desktop and mobile focal position.
+  slides:
+    - image: /images/program-media/cheshire-and-12u-black.jpeg
+      image_position: center 30%
+      mobile_position: center 30%
+    - image: /images/program-media/13u-coach-talk.jpg
+      image_position: center 30%
+      mobile_position: center 30%
+
 
 pillars_intro:
   kicker: Development, competition, and coaching.

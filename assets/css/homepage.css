@@ -1,6 +1,18 @@
-/* Homepage photo controls: keep photos inside existing homepage sections. */
-.home-hero__media img {
-  transition: object-position .2s ease;
+/* Homepage hero carousel: one configured slide remains a normal static hero. */
+.home-hero__slide {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:var(--home-hero-position, center 42%);
+  opacity:0;
+  transition:opacity var(--home-hero-transition, 1600ms) cubic-bezier(.45, 0, .2, 1), object-position .2s ease;
+  will-change:opacity;
+}
+
+.home-hero__slide.is-active {
+  opacity:1;
 }
 
 @media (min-width: 721px) {
@@ -11,6 +23,18 @@
   .home-hero__copy {
     padding-top: 0;
     padding-bottom: clamp(2.25rem, 3vw, 3.5rem);
+  }
+}
+
+@media (max-width:720px) {
+  .home-hero__slide {
+    object-position:var(--home-hero-mobile-position, var(--home-hero-position, center center));
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .home-hero__slide {
+    transition:none;
   }
 }
 
