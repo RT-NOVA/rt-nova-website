@@ -1,5 +1,7 @@
 {{ define "main" }}
 {{ $home := hugo.Data.homepage }}
+{{ $featuredData := partial "data/featured-achievements.html" . }}
+{{ $featuredAchievements := $featuredData.featured }}
 {{ $heroSlides := $home.hero.slides }}
 {{ if not $heroSlides }}
   {{ $heroSlides = slice (dict "image" $home.hero.image "image_position" $home.hero.image_position "mobile_position" $home.hero.mobile_position) }}
@@ -116,6 +118,49 @@
     {{ end }}
   </div>
 </section>
+
+{{ with $home.recruiting }}
+<section class="rt-section home-recruiting" aria-labelledby="home-recruiting-title">
+  <div class="rt-shell home-recruiting__inner{{ if not $featuredAchievements }} home-recruiting__inner--solo{{ end }}">
+    <div class="home-recruiting__copy">
+      <p class="rt-kicker">{{ .kicker }}</p>
+      <h2 id="home-recruiting-title">
+        {{ range .title_lines }}<span>{{ . }}</span>{{ end }}
+      </h2>
+      <p class="home-recruiting__body">{{ .body }}</p>
+      <div class="rt-action-row home-recruiting__actions">
+        <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" .primary.url }}">{{ .primary.label }}</a>
+        {{ with .secondary }}
+        <a class="rt-text-link home-recruiting__link" href="{{ partial "url.html" .url }}">
+          {{ .label }} <span aria-hidden="true">→</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ with $featuredAchievements }}
+    <div class="home-recruiting__media" data-random-achievement>
+      {{ range $index, $achievement := . }}
+      <a
+        class="home-recruiting__achievement{{ with $achievement.feature_crop }} home-recruiting__achievement--{{ . | urlize }}{{ end }}"
+        data-random-achievement-item
+        href="{{ partial "url.html" $achievement.feature_url }}"
+        aria-label="{{ $achievement.feature_label }}: {{ $achievement.feature_title }}"
+        {{ if $achievement.feature_external }}target="_blank" rel="noopener"{{ end }}
+        {{ if ne $index 0 }}hidden{{ end }}>
+        <span class="home-recruiting__image-frame">
+          <img
+            src="{{ partial "url.html" $achievement.feature_image }}"
+            alt="{{ $achievement.feature_alt }}"
+            loading="lazy"
+            decoding="async">
+        </span>
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
 
 {{ partial "social-hub.html" . }}
 

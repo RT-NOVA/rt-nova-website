@@ -40,77 +40,8 @@
 
 {{ $achievements := sort ($data.achievements | default slice) "date" "desc" }}
 {{ $playerHonors := sort ($data.player_honors | default slice) "year" "desc" }}
-
-{{ $featureCandidateScratch := newScratch }}
-{{ $featureCandidateScratch.Set "items" (slice) }}
-{{ $featureCandidateScratch.Set "manual" (slice) }}
-{{ range $achievement := $achievements }}
-  {{ $storyURL := $achievement.story_url | default $achievement.social_url | default "" }}
-  {{ if $storyURL }}
-    {{ $isExternal := or (hasPrefix $storyURL "http://") (hasPrefix $storyURL "https://") }}
-    {{ $sourceScratch := newScratch }}
-    {{ $sourceScratch.Set "page" false }}
-    {{ if $isExternal }}
-      {{ range where site.RegularPages "Params.link" $storyURL }}
-        {{ $sourceScratch.Set "page" . }}
-      {{ end }}
-    {{ else }}
-      {{ with site.GetPage $storyURL }}
-        {{ $sourceScratch.Set "page" . }}
-      {{ end }}
-    {{ end }}
-    {{ $sourcePage := $sourceScratch.Get "page" }}
-    {{ $featureImage := $achievement.feature_image | default "" }}
-    {{ $featureTitle := $achievement.tournament }}
-    {{ $featureSummary := "" }}
-    {{ $featureAlt := printf "%s — %s" $achievement.team $achievement.tournament }}
-    {{ with $sourcePage }}
-      {{ if not $featureImage }}{{ $featureImage = .Params.image | default "" }}{{ end }}
-      {{ $featureTitle = .Title | default $featureTitle }}
-      {{ $featureSummary = .Params.excerpt | default .Params.caption | default "" }}
-      {{ $featureAlt = .Params.image_alt | default .Title | default $featureAlt }}
-    {{ end }}
-    {{ if $featureImage }}
-      {{ $storyLabel := $achievement.story_label | default (cond (ne ($achievement.story_url | default "") "") "Read the story" "View the post") }}
-      {{ $candidate := merge $achievement (dict
-        "feature_image" $featureImage
-        "feature_title" $featureTitle
-        "feature_summary" $featureSummary
-        "feature_alt" $featureAlt
-        "feature_url" $storyURL
-        "feature_external" $isExternal
-        "feature_label" $storyLabel
-      ) }}
-      {{ $featureCandidateScratch.Add "items" (slice $candidate) }}
-      {{ if $achievement.featured }}
-        {{ $featureCandidateScratch.Add "manual" (slice $candidate) }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-{{ $featureCandidates := $featureCandidateScratch.Get "items" }}
-{{ $manualFeatured := $featureCandidateScratch.Get "manual" }}
-{{ $featuredScratch := newScratch }}
-{{ $featuredScratch.Set "items" (slice) }}
-{{ if gt (len $manualFeatured) 0 }}
-  {{ range $manualFeatured }}
-    {{ if lt (len ($featuredScratch.Get "items")) 3 }}
-      {{ $featuredScratch.Add "items" (slice .) }}
-    {{ end }}
-  {{ end }}
-  {{ range $featureCandidates }}
-    {{ if and (lt (len ($featuredScratch.Get "items")) 3) (not .featured) }}
-      {{ $featuredScratch.Add "items" (slice .) }}
-    {{ end }}
-  {{ end }}
-{{ else }}
-  {{ range $featureCandidates }}
-    {{ if lt (len ($featuredScratch.Get "items")) 3 }}
-      {{ $featuredScratch.Add "items" (slice .) }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-{{ $featuredAchievements := $featuredScratch.Get "items" }}
+{{ $featuredData := partial "data/featured-achievements.html" . }}
+{{ $featuredAchievements := $featuredData.featured }}
 
 {{ partial "hero.html" (dict
   "kicker" "Program Results"

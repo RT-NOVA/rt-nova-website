@@ -1,6 +1,18 @@
 (() => {
   "use strict";
 
+  document.querySelectorAll("[data-random-achievement]").forEach((gallery) => {
+    const items = Array.from(gallery.querySelectorAll("[data-random-achievement-item]"));
+
+    if (items.length < 2) return;
+
+    const selectedIndex = Math.floor(Math.random() * items.length);
+
+    items.forEach((item, index) => {
+      item.hidden = index !== selectedIndex;
+    });
+  });
+
   document.querySelectorAll("[data-home-hero]").forEach((hero) => {
     const slides = Array.from(hero.querySelectorAll("[data-home-hero-slide]"));
 

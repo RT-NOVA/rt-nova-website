@@ -66,6 +66,16 @@ why:
     #label: NOVA Baseball Family
     #caption: Real players, real teams, and a program built around the day-to-day experience.
 
+recruiting:
+  kicker: Progress in Action
+  title_lines:
+    - Development First.
+    - Competitive by Design.
+  body: Explore team achievements, tournament results, and program milestones shaped by the commitment of our players and coaches.
+  primary:
+    label: View Our Accolades & Player Honors
+    url: /accolades/
+
 proof:
   - value: NORTHERN VIRGINIA
     label: Program Area
