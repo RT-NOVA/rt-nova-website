@@ -43,6 +43,23 @@ pillars:
     image_position: 85% center
     image_zoom: 1.4
 
+pathway:
+  title: Player Development Pathway
+  text: An age-appropriate progression from foundation skills to advanced competition.
+  stages:
+    - age: 10U–11U
+      title: Build the Foundation
+      text: Fundamentals, athleticism, confidence, and strong habits.
+    - age: 12U–13U
+      title: Develop the Complete Player
+      text: Baseball IQ, consistency, and readiness for middle-school competition.
+    - age: 14U–15U
+      title: Compete with Purpose
+      text: Sharpen execution, physical preparation, and readiness for JV baseball.
+    - age: 16U–18U
+      title: Perform at the Next Level
+      text: Compete at varsity pace, lead, and prepare for future playing opportunities.
+
 why:
   kicker: Why Rawlings Tigers NOVA?
   title: Local Roots. National Standards.
@@ -67,13 +84,13 @@ why:
     #caption: Real players, real teams, and a program built around the day-to-day experience.
 
 recruiting:
-  kicker: Progress in Action
-  title_lines:
-    - Development First.
-    - Competitive by Design.
-  body: Explore team achievements, tournament results, and program milestones shaped by the commitment of our players and coaches.
+  kicker: Competitive Teams
+  title: Development Builds Competitive Teams.
+  body: When players grow, teams compete with confidence—and championship moments follow.
+  image: /images/social/black-13u-sweep-championship-victory.jpeg
+  image_alt: Rawlings Tigers NOVA 13U Black players with their championship banner and medals.
   primary:
-    label: View Our Accolades & Player Honors
+    label: View Accolades & Player Honors
     url: /accolades/
 
 proof:

@@ -1,4 +1,4 @@
-{{- $seo := site.Data.site_seo -}}
+{{- $seo := hugo.Data.site_seo -}}
 {{- $siteName := $seo.site_name | default site.Title -}}
 {{- $siteURL := $seo.url | default site.BaseURL -}}
 {{- $logo := $seo.logo | default "/favicon.png" -}}
@@ -32,7 +32,7 @@
   "name" $siteName
   "description" ($seo.description | default $description)
   "publisher" (dict "@id" $orgID)
-  "inLanguage" (site.LanguageCode | default "en-US")
+  "inLanguage" (site.Language.Locale | default "en-US")
 -}}
 {{- $webpage := dict
   "@type" "WebPage"
@@ -43,7 +43,7 @@
   "isPartOf" (dict "@id" $websiteID)
   "about" (dict "@id" $orgID)
   "primaryImageOfPage" (dict "@type" "ImageObject" "url" (absURL $image))
-  "inLanguage" (site.LanguageCode | default "en-US")
+  "inLanguage" (site.Language.Locale | default "en-US")
 -}}
 {{- $graph := slice $org $website $webpage -}}
 {{- if and .IsPage (eq .Section "news") -}}

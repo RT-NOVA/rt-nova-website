@@ -1,4 +1,4 @@
-{{- $seo := site.Data.site_seo -}}
+{{- $seo := hugo.Data.site_seo -}}
 {{- $siteName := $seo.site_name | default site.Title -}}
 {{- $defaultTitle := $seo.primary_title | default site.Title -}}
 {{- $pageTitle := cond .IsHome $defaultTitle (printf "%s | %s" .Title $siteName) -}}

@@ -103,7 +103,7 @@ Root directory: /
 Recommended variable:
 
 ```text
-HUGO_VERSION=0.163.0
+HUGO_VERSION=0.164.0
 ```
 
 The build script should keep production and preview base URLs consistent for `main` and `preview` branch builds.

@@ -5,7 +5,7 @@ set -euo pipefail
 # Cloudflare can also set HUGO_VERSION as an environment variable, but this
 # script will verify the version and install the requested Linux binary when
 # the build image provides an older Hugo.
-HUGO_VERSION="${HUGO_VERSION:-0.163.0}"
+HUGO_VERSION="${HUGO_VERSION:-0.164.0}"
 
 PROJECT_NAME="rt-nova"
 

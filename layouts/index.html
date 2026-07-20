@@ -77,6 +77,67 @@
       {{ end }}
     </div>
   </div>
+
+  <div class="home-program-additions">
+    {{ with $home.pathway }}
+    <section class="home-pathway" aria-labelledby="home-pathway-title">
+      <div class="home-pathway__header">
+        <h3 id="home-pathway-title">{{ .title }}</h3>
+        {{ with .text }}<p>{{ . }}</p>{{ end }}
+      </div>
+      <ol class="home-pathway__steps">
+        {{ range .stages }}
+        <li class="home-pathway__step">
+          <span class="home-pathway__age">{{ .age }}</span>
+          <h4>{{ .title }}</h4>
+          {{ with .text }}<p>{{ . }}</p>{{ end }}
+        </li>
+        {{ end }}
+      </ol>
+    </section>
+    {{ end }}
+
+    {{ with $home.recruiting }}
+    <section
+      class="home-competitive-proof"
+      aria-labelledby="home-competitive-proof-title"
+      {{ if $featuredAchievements }}data-random-achievement data-random-achievement-interval="6500"{{ end }}>
+      <div class="home-competitive-proof__media-set">
+        {{ with $featuredAchievements }}
+          {{ range $index, $achievement := . }}
+          <a
+            class="home-competitive-proof__media-item{{ if eq $index 0 }} is-primary{{ end }}"
+            data-random-achievement-item
+            href="{{ partial "url.html" $achievement.feature_url }}"
+            aria-label="{{ $achievement.feature_label }}: {{ $achievement.feature_title }}"
+            {{ if $achievement.feature_external }}target="_blank" rel="noopener"{{ end }}
+            {{ if ne $index 0 }}hidden{{ end }}>
+            <img
+              src="{{ partial "url.html" $achievement.feature_image }}"
+              alt="{{ $achievement.feature_alt }}"
+              loading="lazy"
+              decoding="async">
+          </a>
+          {{ end }}
+        {{ else }}
+          {{ with .image }}
+          <span class="home-competitive-proof__media-item is-primary">
+            <img src="{{ partial "url.html" . }}" alt="{{ $home.recruiting.image_alt }}" loading="lazy" decoding="async">
+          </span>
+          {{ end }}
+        {{ end }}
+      </div>
+      <div class="home-competitive-proof__copy">
+        <p class="rt-kicker rt-kicker--dark">{{ .kicker }}</p>
+        <h3 id="home-competitive-proof-title">{{ .title }}</h3>
+        <p>{{ .body }}</p>
+        <a class="rt-text-link" href="{{ partial "url.html" .primary.url }}">
+          {{ .primary.label }} <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+    {{ end }}
+  </div>
 </section>
 
 
@@ -118,49 +179,6 @@
     {{ end }}
   </div>
 </section>
-
-{{ with $home.recruiting }}
-<section class="rt-section home-recruiting" aria-labelledby="home-recruiting-title">
-  <div class="rt-shell home-recruiting__inner{{ if not $featuredAchievements }} home-recruiting__inner--solo{{ end }}">
-    <div class="home-recruiting__copy">
-      <p class="rt-kicker">{{ .kicker }}</p>
-      <h2 id="home-recruiting-title">
-        {{ range .title_lines }}<span>{{ . }}</span>{{ end }}
-      </h2>
-      <p class="home-recruiting__body">{{ .body }}</p>
-      <div class="rt-action-row home-recruiting__actions">
-        <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" .primary.url }}">{{ .primary.label }}</a>
-        {{ with .secondary }}
-        <a class="rt-text-link home-recruiting__link" href="{{ partial "url.html" .url }}">
-          {{ .label }} <span aria-hidden="true">→</span>
-        </a>
-        {{ end }}
-      </div>
-    </div>
-    {{ with $featuredAchievements }}
-    <div class="home-recruiting__media" data-random-achievement>
-      {{ range $index, $achievement := . }}
-      <a
-        class="home-recruiting__achievement{{ with $achievement.feature_crop }} home-recruiting__achievement--{{ . | urlize }}{{ end }}"
-        data-random-achievement-item
-        href="{{ partial "url.html" $achievement.feature_url }}"
-        aria-label="{{ $achievement.feature_label }}: {{ $achievement.feature_title }}"
-        {{ if $achievement.feature_external }}target="_blank" rel="noopener"{{ end }}
-        {{ if ne $index 0 }}hidden{{ end }}>
-        <span class="home-recruiting__image-frame">
-          <img
-            src="{{ partial "url.html" $achievement.feature_image }}"
-            alt="{{ $achievement.feature_alt }}"
-            loading="lazy"
-            decoding="async">
-        </span>
-      </a>
-      {{ end }}
-    </div>
-    {{ end }}
-  </div>
-</section>
-{{ end }}
 
 {{ partial "social-hub.html" . }}
 

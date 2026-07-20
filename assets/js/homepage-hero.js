@@ -4,13 +4,52 @@
   document.querySelectorAll("[data-random-achievement]").forEach((gallery) => {
     const items = Array.from(gallery.querySelectorAll("[data-random-achievement-item]"));
 
-    if (items.length < 2) return;
+    if (!items.length) return;
 
-    const selectedIndex = Math.floor(Math.random() * items.length);
+    const requestedInterval = Number.parseInt(gallery.dataset.randomAchievementInterval, 10);
+    const interval = Number.isFinite(requestedInterval) ? Math.max(requestedInterval, 1000) : 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let currentIndex = Math.floor(Math.random() * items.length);
+    let timer = null;
+    let pointerInside = false;
 
-    items.forEach((item, index) => {
-      item.hidden = index !== selectedIndex;
+    const showItem = (index) => {
+      currentIndex = (index + items.length) % items.length;
+      items.forEach((item) => {
+        item.hidden = true;
+        item.classList.remove("is-primary");
+      });
+
+      const item = items[currentIndex];
+      item.hidden = false;
+      item.classList.add("is-primary");
+    };
+
+    const stopTimer = () => {
+      window.clearInterval(timer);
+      timer = null;
+    };
+
+    const startTimer = () => {
+      stopTimer();
+      if (items.length < 2 || !interval || reducedMotion || pointerInside || document.hidden) return;
+      timer = window.setInterval(() => showItem(currentIndex + 1), interval);
+    };
+
+    gallery.addEventListener("mouseenter", () => {
+      pointerInside = true;
+      stopTimer();
     });
+
+    gallery.addEventListener("mouseleave", () => {
+      pointerInside = false;
+      startTimer();
+    });
+
+    document.addEventListener("visibilitychange", startTimer);
+
+    showItem(currentIndex);
+    startTimer();
   });
 
   document.querySelectorAll("[data-home-hero]").forEach((hero) => {
