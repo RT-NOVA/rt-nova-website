@@ -1,100 +1,99 @@
-# Schedules Page
+# Schedules Page Maintenance
 
-Adds a searchable `/schedules/` page using local data only.
+The searchable `/schedules/` page uses local season data.
 
-## Files
+## Source files
 
-- `content/schedules.md`
-- `layouts/partials/page-schedules.html`
-- `assets/css/schedules.css`
-- `data/seasons/<season-id>/schedules.yaml`
-- `layouts/_default/single.html`
+```text
+data/seasons/index.yaml
+data/seasons/<season-id>/teams.yaml
+data/seasons/<season-id>/schedules.yaml
+layouts/partials/page-schedules.html
+layouts/partials/data/schedule-events.html
+assets/js/schedules.js
+assets/css/schedules.css
+```
 
-## Behavior
+For the complete season turnover workflow, see [`SEASON_MAINTENANCE.md`](SEASON_MAINTENANCE.md).
 
-- Current teams are determined from `data/seasons/<season-id>/teams.yaml`.
-- Current teams are shown by default.
-- The team dropdown includes current teams only.
-- Older age groups sort first on the page and in the dropdown.
-- Search can find team names, opponents, locations, and event titles from local schedule data.
-- Each team shows up to three game/tournament entries by default.
-- Selecting a team or searching can reveal additional matching events.
-- No Roster, GameChanger, legacy site, or other external schedule links are rendered.
+## What appears on the page
 
-## Local schedule data
+- The season marked `current` in `data/seasons/index.yaml` supplies the visible events.
+- Enabled teams from that season's `teams.yaml` supply the team tabs and sections.
+- Events for disabled, archived, or upcoming teams can remain in data but are not shown in the default current-season page.
+- The default all-team view shows the next two upcoming events per team.
+- Selecting a team opens its complete upcoming schedule.
+- Past events move into an expandable past-events area.
+- Search checks teams, opponents, tournament names, locations, dates, times, and notes.
+- A `?team=<team-slug>` query can open a specific team.
 
-Schedule events live in `data/seasons/<season-id>/schedules.yaml`.
+## Event format
 
-Supported event fields:
+Events belong under `events:` in `data/seasons/<season-id>/schedules.yaml`.
+
+Game example:
 
 ```yaml
 events:
   - team: 13U Black
-    date: 2026-06-28
-    time: 9:00 AM
+    date: 2026-07-19
+    time: 12:00 PM
     type: Game
-    opponent: Stars Baseball
-    location: VMP Field 4
+    opponent: NOVA Premier
+    location: Woodbridge Middle School
+    location_url: https://maps.example.com/
     notes: Optional note
 ```
 
-For tournaments, use `title` instead of `opponent`:
+Tournament example:
 
 ```yaml
 events:
   - team: 13U Black
-    date: 2026-07-06
+    date: 2026-07-25
+    time: TBD
     type: Tournament
-    title: Summer Showdown
-    location: TBD
+    title: Summer Slugfest
+    location: VMP Field 4
 ```
 
-No `status` field is needed in schedule events. Current team status comes from `data/seasons/<season-id>/teams.yaml`.
+## Field rules
 
-## v3 team order fix
+- `team` must exactly match the team name in that season's `teams.yaml`.
+- `date` must use `YYYY-MM-DD`.
+- `time` may be a confirmed time or `TBD`.
+- Games normally use `opponent`.
+- Tournaments normally use `title`.
+- `location_url`, `notes`, and `opponent` are optional.
+- No event-level `status`, `enabled`, or `draft` field is currently supported. Remove or comment out an event that should not render.
 
-Fixed the JavaScript age-group sort regex so teams correctly sort older-first on the page and in the dropdown. Example order: `13U Black`, `13U Orange`, `11U`, `10U`.
+Team availability is controlled in `teams.yaml`, not schedules. Setting a current-season team to `enabled: false` removes its schedule section while preserving its event data.
 
-## v4 sample schedule data
+## Ordering
 
-Added seven sample game/tournament entries for each current team: `13U Black`, `13U Orange`, `11U`, and `10U`. These are placeholder examples for layout testing and should be replaced with confirmed schedule details before production use.
+Hugo sorts events by date. Browser-side behavior separates upcoming and past events using the visitor's local date. Use real event dates so ordering and status remain predictable.
 
-## v5 search fix
+## Validation
 
-Fixed Schedule page search so it searches both team metadata and local event details. Search now matches team names, opponents, event titles, locations, dates, and times. When a team name matches, the matching team section shows its events instead of hiding them behind the default three-item behavior.
+Run:
 
-## v6 tournament label fix
+```bash
+hugo server -D --disableFastRender
+```
 
-Tournament events no longer prepend `vs` when an `opponent` field is present. Games still render opponents as `vs Opponent`, while tournaments render the event/opponent text directly.
+Review `/schedules/` and check:
 
-## v7 default event limit and expansion
+- all current enabled teams are present;
+- disabled teams are absent;
+- the first two future events appear in the all-team view;
+- selecting a team reveals its full schedule;
+- past events appear in the past-events area;
+- search and location links work; and
+- mobile layouts do not scroll horizontally.
 
-Each team now shows only the first three schedule entries by default. Teams with more than three entries display a `Show all` button below the visible entries; clicking it expands that team only and clicking again collapses it back to three. Search results are not limited to three so matching entries can be found.
+Then run the production checks:
 
-
-## Season data split
-
-Schedule events now live under `data/seasons/<season-id>/schedules.yaml`.
-
-## v8 schedules dispatch fix
-
-Fixed `/schedules/` rendering after later patches overwrote `layouts/_default/single.html` without the schedules template dispatch. The page now routes `template: schedules` to `layouts/partials/page-schedules.html` again.
-
-## v9 upcoming-first default view
-
-The default schedule view now uses browser-side JavaScript to compare each event date to the visitor's current date. Each current team shows up to the next three upcoming events by default instead of the first three events in the YAML file.
-
-Behavior:
-
-- Default view shows the next three upcoming events per current team.
-- Past events are hidden by default.
-- `Show all` expands that team and shows all events, including past events.
-- Past events are muted and labeled `Past` when visible.
-- Search still checks all events so past events can be found when searching.
-- If a team has events but no upcoming events, the page shows `No upcoming events currently posted` and allows the user to show all past entries.
-
-## v10 robust current-date comparison
-
-Improves the upcoming-event logic by rendering each event date as a clean `YYYY-MM-DD` value and comparing date strings in the browser. This avoids browser timezone parsing issues and makes the “next three upcoming events” behavior more reliable.
-
-Note: if today's date is before a listed event, that event is still upcoming and will continue to show by default.
+```bash
+hugo --minify --cleanDestinationDir
+bash scripts/validate-site.sh public
+```

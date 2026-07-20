@@ -1,38 +1,43 @@
-# Watch Now Page
+# Watch Now page
 
-Reworks `/watch-now/` into a current-team live media hub.
-
-## Content source
-
-The older legacy site page positioned Watch Now as a place for live games, highlights, team updates, archived video, and streaming content through GameChanger and program media sources.
-
-## Behavior
-
-- Shows current teams only.
-- Current teams are determined from `data/seasons/index.yaml` and `data/seasons/<season-id>/teams.yaml`.
-- Uses each team's `GameChanger` link when present.
-- Does not show Facebook or Instagram links.
-- Teams without GameChanger links show `Link coming soon`.
-- Adds Watch Now under the Teams dropdown in `data/navigation.yaml`.
+`/watch-now/` is the current-team live media hub.
 
 ## Files
 
 - `content/watch-now.md`
 - `layouts/partials/page-watch-now.html`
 - `assets/css/watch-now.css`
-- `layouts/_default/single.html`
 - `data/navigation.yaml`
+- seasonal team files under `data/seasons/<season-id>/teams.yaml`
 
-## v2 GameChanger URL cleanup
+## Team source and visibility
 
-Watch Now normalizes team GameChanger links by removing a trailing `/team` path segment so buttons open the main team page instead of the roster/team subpage.
+The page selects the season marked `current` in `data/seasons/index.yaml`. It uses enabled Spring teams when populated, otherwise enabled Fall teams.
 
-## v3 header shortcut
+A team appears here only while it is enabled in the current season. This shares the same visibility filtering as Team Central and the Coaches page.
 
-- Ensures `Watch Now` is listed under the Teams dropdown in `data/navigation.yaml`.
-- Adds a small Watch Now video icon shortcut to the desktop header actions.
-- Adds a prominent Watch Now shortcut to the mobile menu actions.
+## GameChanger links
 
-## v4 camera icon
+Add a team link with the exact `GameChanger` label:
 
-Changed the Watch Now header shortcut from the YouTube-style icon to a camera/video icon so it represents live video without looking like a YouTube-specific link.
+```yaml
+links:
+  - label: GameChanger
+    url: https://web.gc.com/teams/example/team
+```
+
+The Watch Now page normalizes a trailing `/team` segment and links to the main team page. Teams without a GameChanger URL display `Link coming soon`.
+
+GameChanger may require a login, team membership, or viewing access. Keep that note on the page.
+
+## Other media
+
+An optional program-level YouTube streams URL can be set in the front matter for `content/watch-now.md`. GameChanger remains the primary current-team source.
+
+Watch Now is linked from:
+
+- the Teams navigation dropdown
+- the desktop header camera shortcut
+- the mobile navigation actions
+
+If the route changes, update all three locations together and verify accessible labels for the icon-only shortcut.

@@ -207,12 +207,6 @@ assets/js/social-hub.js
 layouts/social-hub/list.html
 ```
 
-If a previous patch created misplaced folders, remove them:
-
-```bash
-> Historical note: the one-time migration script referenced here was removed after its changes were applied. The current source and Git history are authoritative.
-```
-
 ## Social Hub images
 
 For Facebook and Instagram cards, use local images under `static/images/social/` instead of direct CDN hotlinks. See `docs/SOCIAL_HUB_IMAGES.md` and run:

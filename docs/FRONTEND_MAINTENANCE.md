@@ -41,6 +41,18 @@ When changing CSS:
 - Do not add `!important` unless the owning component already requires it to preserve the approved cascade.
 - Run `git diff --check`, the Hugo production build, and responsive browser checks before committing.
 
+## Typography and heading hierarchy
+
+Typography should follow a small number of roles instead of being tuned independently on each page:
+
+- **Major page and section headings:** the established heavy uppercase display treatment.
+- **Compact content-block headings:** smaller display headings for cards, feature copy, and supporting sections.
+- **Data and list headings:** readable sans-serif headings for tables, filters, schedules, rosters, and dense information.
+- **Eyebrows and navigation:** small uppercase text with deliberate letter spacing.
+- **Body copy:** the shared readable sans-serif family and line height.
+
+Heading hierarchy and layout alignment are separate decisions. A centered section does not need a larger heading, and a left-aligned data section should not invent a new type family. Check `assets/css/theme-system.css` and the owning component stylesheet before adding a new font size or weight.
+
 ## JavaScript ownership
 
 `layouts/partials/head/scripts.html` is the single script registry. Scripts are deferred, fingerprinted, and loaded only on pages that use them.
@@ -63,8 +75,8 @@ Run:
 
 ```bash
 hugo --minify --cleanDestinationDir
-./scripts/validate-local-assets.sh
-./scripts/validate-site.sh
+bash scripts/validate-local-assets.sh
+bash scripts/validate-site.sh public
 ```
 
 Then inspect the homepage and representative inner pages at phone, tablet, and desktop widths. Verify the mobile menu, transparent-to-solid header transition, Team Central season controls, Social Hub pager, and any page control affected by the change.

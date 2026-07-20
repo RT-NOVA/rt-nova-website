@@ -43,6 +43,8 @@ fall:
     - label: Roster
       url: /rosters/2027-12u/
   - name: 11U
+    # Set to true if this team is able to return during the 2027 season.
+    enabled: false
     sort_order: 890
     head_coach: Jackson Hayes
     coach_role: Head Coach

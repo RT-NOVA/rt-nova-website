@@ -9,9 +9,27 @@
     {{ with .teams }}{{ $teamsData = . }}{{ end }}
   {{ end }}
 
+  {{ $spring := $teamsData.spring | default (dict "label" "Spring" "teams" (slice)) }}
+  {{ $springTeams := slice }}
+  {{ range ($spring.teams | default slice) }}
+    {{ $enabled := true }}
+    {{ if isset . "enabled" }}{{ $enabled = .enabled }}{{ end }}
+    {{ if $enabled }}{{ $springTeams = $springTeams | append . }}{{ end }}
+  {{ end }}
+  {{ $spring = merge $spring (dict "teams" $springTeams) }}
+
+  {{ $fall := $teamsData.fall | default (dict "label" "Fall" "teams" (slice)) }}
+  {{ $fallTeams := slice }}
+  {{ range ($fall.teams | default slice) }}
+    {{ $enabled := true }}
+    {{ if isset . "enabled" }}{{ $enabled = .enabled }}{{ end }}
+    {{ if $enabled }}{{ $fallTeams = $fallTeams | append . }}{{ end }}
+  {{ end }}
+  {{ $fall = merge $fall (dict "teams" $fallTeams) }}
+
   {{ $season := merge $seasonMeta (dict
-    "spring" ($teamsData.spring | default (dict "label" "Spring" "teams" (slice)))
-    "fall" ($teamsData.fall | default (dict "label" "Fall" "teams" (slice)))
+    "spring" $spring
+    "fall" $fall
   ) }}
 
   {{ $scratch.Add "seasons" (slice $season) }}

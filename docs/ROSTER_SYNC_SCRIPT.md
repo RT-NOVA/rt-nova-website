@@ -20,7 +20,7 @@ The sync script lets roster YAML remain the only file you edit manually.
 
 ## Normal workflow
 
-Run the script when adding, renaming, or deleting roster data files, or when changing `route_slug`:
+Run the script when adding, renaming, or deleting roster data files, or when changing `route_slug` or `enabled`:
 
 ```bash
 python3 scripts/sync-roster-pages.py
@@ -28,6 +28,24 @@ hugo server -D --disableFastRender
 ```
 
 You do not need to run the script for normal player/staff edits in an existing roster YAML file.
+
+## enabled and generated draft routes
+
+Roster data is enabled by default. To retain a roster configuration without publishing its route, add:
+
+```yaml
+enabled: false
+```
+
+The generated Markdown route will contain:
+
+```yaml
+draft: true
+```
+
+Remove the field or change it to `true`, then rerun the script, to publish the route again. Never edit the generated `draft` value directly.
+
+`hugo server -D` displays drafts locally. The production Hugo build does not publish them.
 
 ## route_slug
 

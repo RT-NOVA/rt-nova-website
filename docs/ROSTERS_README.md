@@ -73,9 +73,17 @@ staff:
 
 The roster template renders head coaches before assistant coaches in the Coaching Staff table.
 
+The optional top-level `enabled` field controls whether the generated roster route is published:
+
+```yaml
+enabled: false
+```
+
+When omitted, the roster is enabled. After changing this field, run the sync script. A disabled roster produces a generated route with `draft: true`; the production build omits it, although `hugo server -D` still renders it for local review.
+
 ## Generate roster pages
 
-After adding a new roster YAML, renaming a roster YAML, deleting a generated roster page, or changing `route_slug`, run:
+After adding a new roster YAML, renaming one, changing `route_slug`, or changing `enabled`, run:
 
 ```bash
 python3 scripts/sync-roster-pages.py
@@ -88,6 +96,8 @@ hugo server -D --disableFastRender
 ```
 
 Normal player/staff edits in an existing roster YAML do not require the sync script.
+
+Do not edit `draft` in `content/rosters/*.md`. It is generated from the roster YAML's `enabled` value.
 
 ## Check generated files
 
@@ -103,6 +113,8 @@ Roster pages render as open, line-based tables:
 - Coaching Staff: `Name`, `Title`
 
 Player and staff photo fields are intentionally not used by the roster page.
+
+For the complete season workflow, including how team and roster visibility work together, see [`SEASON_MAINTENANCE.md`](SEASON_MAINTENANCE.md).
 
 
 ## Fall 2025 roster data source note

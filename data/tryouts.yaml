@@ -1,11 +1,11 @@
 title: Evaluations & Tryouts
 season: Fall 2026 Tryouts
 intro: Rawlings Tigers NOVA offers competitive travel baseball tryouts for rising
-  10U, 11U, 12U, 13U, and 14U players in Northern Virginia.
+  10U, 12U, 13U, and 14U players in Northern Virginia.
 registration_url: /become-a-tiger/
 quick_facts:
 - label: Ages
-  value: Rising 10U–14U
+  value: Rising 10U, 12U–14U
 - label: Format
   value: Open Evaluations
 - label: Private
@@ -84,6 +84,8 @@ age_chart:
   - age_group: 12U
     birth_window: May 1, 2014 – April 30, 2015
   - age_group: 11U
+    # Keep the age definition ready for a future season without listing it now.
+    enabled: false
     birth_window: May 1, 2015 – April 30, 2016
   - age_group: 10U
     birth_window: May 1, 2016 – April 30, 2017
@@ -93,8 +95,8 @@ faq:
     information. A Rawlings Tigers NOVA coach or program contact will follow up with
     the next steps.
 - question: Who can attend tryouts?
-  answer: Rawlings Tigers NOVA tryouts are typically open to rising 10U, 11U, 12U,
-    13U, and 14U players, depending on roster needs and available openings by season.
+  answer: Rawlings Tigers NOVA tryouts are open to players in the age groups currently
+    listed on this page, depending on roster needs and available openings by season.
 - question: How many sessions does my player need to attend?
   answer: Players only need to attend one open evaluation date. A player may attend
     a make-up session if they are unavailable, if a session is canceled due to weather,
@@ -104,8 +106,8 @@ faq:
     and any position-specific gear they normally use. Catchers should bring catcher’s
     gear when available.
 - question: What ages are eligible?
-  answer: Rawlings Tigers NOVA typically hosts tryouts for rising 10U, 11U, 12U, 13U,
-    and 14U players, depending on roster needs and available openings by season.
+  answer: Eligible ages are shown in the current season age chart and may change with
+    team availability and roster needs from one season to the next.
 - question: How do I determine which age group my player falls into?
   answer: Use the player age chart in the Schedule Dates section to confirm the correct
     rising age group before registering. Age groups are based on the player’s birth
@@ -116,9 +118,9 @@ faq:
     Dale City, Stafford, Manassas, Fairfax, Prince William County, and nearby communities.
 - question: What age groups does Rawlings Tigers NOVA offer travel baseball tryouts
     for?
-  answer: Rawlings Tigers NOVA offers travel baseball tryouts for multiple age groups,
-    typically including rising 10U, 11U, 12U, 13U, and 14U players depending on team
-    openings and roster needs.
+  answer: Rawlings Tigers NOVA offers travel baseball tryouts for the age groups listed
+    for the current season. Available groups may change as teams and roster needs are
+    finalized.
 - question: What makes Rawlings Tigers NOVA different from other Northern Virginia
     travel baseball teams?
   answer: The program emphasizes structured player development, professional coaching,
@@ -136,4 +138,26 @@ faq:
   answer: Players are typically contacted by email within a few days of their tryout.
     Coaches will provide next-step details for roster invitations, follow-up sessions,
     or additional evaluation needs.
+- question: What is the expected team commitment?
+  answer: Team schedules vary by age group and season. Travel baseball includes recurring
+    practices, games, and selected tournaments. Coaches share the team-specific practice
+    frequency, tournament plan, and attendance expectations before a family accepts a
+    roster spot.
+- question: How far do teams travel for games and tournaments?
+  answer: Regular training is based in Northern Virginia. Game and tournament locations
+    vary by team and season, and may include local and regional events. Coaches review
+    the expected travel plan with families before the season begins.
+- question: What costs should families expect?
+  answer: Program fees and inclusions can vary by age group, season, and tournament plan.
+    Families receive team-specific information covering program fees, uniforms, indoor
+    training, tournament charges, and expected travel expenses before accepting a roster
+    spot.
+- question: How are player roles and playing time handled?
+  answer: Player roles and playing time can vary by age group, roster, position, level
+    of competition, and event. Coaches communicate development priorities and team
+    expectations so families can understand the approach before the season.
+- question: What happens after a player receives a roster offer?
+  answer: The coach shares team placement, seasonal expectations, fees, uniform needs,
+    and the next registration steps. Families should review those details and ask any
+    remaining questions before accepting the roster spot.
 schedule: []

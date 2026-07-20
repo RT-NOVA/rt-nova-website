@@ -1,7 +1,45 @@
 {{ define "main" }}
 {{ $home := hugo.Data.homepage }}
+{{ $tryouts := hugo.Data.tryouts }}
 {{ $featuredData := partial "data/featured-achievements.html" . }}
 {{ $featuredAchievements := $featuredData.featured }}
+{{ $teamData := partial "data/team-seasons.html" . }}
+{{ $teamAgeScratch := newScratch }}
+{{ $teamAgeScratch.Set "ages" (slice) }}
+{{ range $season := $teamData.seasons }}
+  {{ if ne $season.status "archived" }}
+    {{ range (slice $season.spring $season.fall) }}
+      {{ range (default (slice) .teams) }}
+        {{ with (findRE "[0-9]+U" (default "" .name) 1) }}
+          {{ $teamAgeScratch.Add "ages" (slice (int (replace (index . 0) "U" ""))) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $teamAges := sort (uniq ($teamAgeScratch.Get "ages")) }}
+{{ $teamAgeRange := "" }}
+{{ if gt (len $teamAges) 0 }}
+  {{ $youngestAge := index $teamAges 0 }}
+  {{ $oldestAge := index $teamAges (sub (len $teamAges) 1) }}
+  {{ $teamAgeRange = cond (eq $youngestAge $oldestAge) (printf "%dU" $youngestAge) (printf "%dU–%dU" $youngestAge $oldestAge) }}
+{{ end }}
+{{ $hasOpenTryouts := gt (len (default (slice) $tryouts.schedule)) 0 }}
+{{ range (default (slice) $tryouts.groups) }}
+  {{ range (default (slice) .sessions) }}
+    {{ $sessionType := lower (default "" .type) }}
+    {{ $sessionDate := default "" .date }}
+    {{ if and (not (in $sessionType "private")) (ne $sessionDate "") (ne $sessionDate "—") }}
+      {{ $hasOpenTryouts = true }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $heroSecondaryLabel := $home.hero.secondary.label }}
+{{ $heroSecondaryURL := $home.hero.secondary.url }}
+{{ if $hasOpenTryouts }}
+  {{ $heroSecondaryLabel = default "Register for Tryouts" $home.hero.secondary.active_label }}
+  {{ $heroSecondaryURL = default $tryouts.registration_url $home.hero.secondary.active_url }}
+{{ end }}
 {{ $heroSlides := $home.hero.slides }}
 {{ if not $heroSlides }}
   {{ $heroSlides = slice (dict "image" $home.hero.image "image_position" $home.hero.image_position "mobile_position" $home.hero.mobile_position) }}
@@ -33,7 +71,7 @@
       {{ with $home.hero.intro }}<p class="home-hero__lead">{{ . }}</p>{{ end }}
       <div class="rt-action-row">
         <a class="rt-btn rt-btn--orange" href="{{ partial "url.html" $home.hero.primary.url }}">{{ $home.hero.primary.label }}</a>
-        <a class="rt-btn rt-btn--ghost" href="{{ partial "url.html" $home.hero.secondary.url }}">{{ $home.hero.secondary.label }}</a>
+        <a class="rt-btn rt-btn--ghost" href="{{ partial "url.html" $heroSecondaryURL }}">{{ $heroSecondaryLabel }}</a>
       </div>
     </div>
   </div>
@@ -41,7 +79,11 @@
 <section class="proof-band proof-band--home">
   <div class="rt-shell proof-band__grid">
     {{ range $home.proof }}
-    <div><strong>{{ .value }}</strong><span>{{ .label }}</span></div>
+    {{ $proofValue := .value }}
+    {{ if eq (default "" .dynamic) "team-age-range" }}
+      {{ with $teamAgeRange }}{{ $proofValue = . }}{{ end }}
+    {{ end }}
+    <div><strong>{{ $proofValue }}</strong><span>{{ .label }}</span></div>
     {{ end }}
   </div>
 </section>
@@ -61,6 +103,9 @@
       {{ range $home.pillars }}
       {{ $pillar := . }}
       <article class="home-pillar-card">
+        {{ with $pillar.url }}
+        <a class="home-pillar-card__link" href="{{ partial "url.html" . }}" aria-label="{{ $pillar.link_label | default $pillar.title }}">
+        {{ end }}
         {{ with $pillar.image }}
         {{ $pillarImagePosition := default "center center" $pillar.image_position }}
         {{ $pillarImageZoom := default 1 $pillar.image_zoom }}
@@ -72,7 +117,11 @@
           {{ with $pillar.icon }}<span class="rt-line-icon" aria-hidden="true">{{ partial "icon.html" . }}</span>{{ end }}
           <h2>{{ $pillar.title }}</h2>
           <p>{{ $pillar.text }}</p>
+          {{ with $pillar.link_label }}
+          <span class="home-pillar-card__cta">{{ . }} <span aria-hidden="true">→</span></span>
+          {{ end }}
         </div>
+        {{ with $pillar.url }}</a>{{ end }}
       </article>
       {{ end }}
     </div>
@@ -84,6 +133,11 @@
       <div class="home-pathway__header">
         <h3 id="home-pathway-title">{{ .title }}</h3>
         {{ with .text }}<p>{{ . }}</p>{{ end }}
+        {{ with .link }}
+        <a class="rt-text-link" href="{{ partial "url.html" .url }}">
+          {{ .label }} <span aria-hidden="true">→</span>
+        </a>
+        {{ end }}
       </div>
       <ol class="home-pathway__steps">
         {{ range .stages }}
@@ -94,6 +148,11 @@
         </li>
         {{ end }}
       </ol>
+      {{ with .note }}
+      <div class="home-pathway__footer">
+        <p>{{ . }}</p>
+      </div>
+      {{ end }}
     </section>
     {{ end }}
 

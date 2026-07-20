@@ -4,7 +4,11 @@ This repository contains the Hugo-based Rawlings Tigers NOVA website.
 
 The site is organized around reusable layouts, Hugo data files, and Markdown content so common updates can be made without editing page HTML.
 
+Start with the [`docs/README.md`](docs/README.md) documentation index to find the current guide for any page or seasonal update.
+
 Front-end stylesheet and script ownership is documented in [`docs/FRONTEND_MAINTENANCE.md`](docs/FRONTEND_MAINTENANCE.md).
+
+Season, team, roster, schedule, and availability maintenance is documented in [`docs/SEASON_MAINTENANCE.md`](docs/SEASON_MAINTENANCE.md).
 
 ## Common update locations
 
@@ -14,6 +18,8 @@ Front-end stylesheet and script ownership is documented in [`docs/FRONTEND_MAINT
 | News | `/news/` | `content/news/*.md` |
 | Social Hub | Homepage section | `content/social-hub/*.md` and selected news articles |
 | Team Central | `/teams/` | `data/seasons/index.yaml`, `data/seasons/<year>/teams.yaml` |
+| Rosters | `/rosters/<season>-<team>/` | `data/seasons/<year>/rosters/*.yaml`, then `scripts/sync-roster-pages.py` |
+| Schedules | `/schedules/` | `data/seasons/<year>/schedules.yaml` |
 | Coaches | `/coaches/` | `data/coaches.yaml` |
 | Tryouts | `/tryouts/` | `data/tryouts.yaml` |
 | Accolades | `/accolades/` | `data/accolades_config.yaml`, `data/seasons/<year>/tournament-results.yaml`, `data/seasons/<year>/player-honors.yaml` |
@@ -34,6 +40,7 @@ The current `/teams/` page is focused on current and upcoming teams only. It use
 For full maintenance instructions, see:
 
 ```text
+docs/SEASON_MAINTENANCE.md
 docs/TEAMS_README.md
 ```
 

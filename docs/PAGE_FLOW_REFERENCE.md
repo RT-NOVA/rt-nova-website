@@ -1,45 +1,66 @@
-# Rawlings Tigers NOVA Page Flow Reference
+# Page flow reference
 
-Use this as a design reference for future page updates.
+Use this guide when adding or refreshing a page. It describes the current visual system; it is not a requirement to make every page identical.
 
-## Shared Structure
+## Global frame
 
-1. **Site Header**
-   - Black navigation bar.
-   - Logo left, primary orange CTA right.
+1. **Header**
+   - Centered Rawlings Tigers NOVA logo on desktop.
+   - Transparent over image/dark heroes at the top of the page.
+   - Transitions to solid black after scrolling.
+   - Compact, scrollable mobile navigation.
 
-2. **Page Hero**
-   - Dark/navy-black background.
-   - Small orange eyebrow.
-   - Large uppercase white page title.
-   - One short intro sentence.
-   - Optional buttons only when they create a clear next step.
+2. **Hero**
+   - Homepage: tall, image-led, emotional, and limited to a strong headline and primary actions.
+   - Program subpages: shorter hero with a clear title and concise lead.
+   - Utility pages: a compact dark or text-led header is acceptable when an image adds no value.
+   - Transparent headers require one safe-area layer on the actual hero component; do not add spacing to arbitrary children of `main`.
 
-3. **Open Body Content**
-   - Cream/off-white page background.
-   - Avoid large wrapper cards unless the content truly needs containment.
-   - Use generous vertical spacing and thin dividers.
+3. **Body sections**
+   - Alternate purposefully between cream, white, dark proof strips, and image-led sections.
+   - Use open rows for schedules, team lists, filters, and operational information.
+   - Use cards for people, rosters, social/news posts, and strongly visual destinations.
+   - Keep homepage copy concise and direct families to the detailed page.
 
-4. **Primary Content Pattern**
-   - Use open rows for team lists, schedules, directories, and operational content.
-   - Use cards for people, rosters, social/news posts, and visual content.
-   - Use minimal form wrappers for embedded forms.
+4. **Footer**
+   - Global footer remains white so it is consistent on every route.
+   - Use subtle structural separation rather than orange gradients or mandatory transition bands.
+   - The copyright strip remains black.
 
-5. **Supporting Notes**
-   - Prefer inline note rows with a small orange label.
-   - Avoid alert-style boxes unless the message is urgent.
+## Section color roles
 
-6. **Footer CTA / Footer**
-   - Use the orange CTA band when the page needs a next action.
-   - Avoid adding a CTA band to pages where the primary action is already the page itself.
+- **Black/charcoal:** header states, proof/stat strips, high-contrast anchors, and the copyright bar.
+- **Cream/white:** the default readable content backgrounds.
+- **Orange:** primary actions, eyebrows, links, small rules, and meaningful highlights.
+- **Images:** emotion, coaching, team culture, competition, and program proof.
 
-## Become A Tiger Page Pattern
+Avoid full orange sections as a default. They should be reserved for a rare urgent announcement or campaign. See [`section-color-pattern.md`](section-color-pattern.md) for more detail.
 
-The page should stay form-focused:
+## Recommended page rhythm
 
-1. Hero: Become A Tiger.
-2. Short readiness/checklist row.
-3. Quiet confirmation email note.
-4. JotForm embed with light border and minimal styling.
+```text
+Image or dark hero
+Short proof/quick-facts strip when useful
+Primary cream or white content
+Image-led or dark feature section
+Supporting details, FAQ, directory, or data rows
+White footer
+Black copyright strip
+```
 
-Avoid extra section headings that repeat the hero or compete with the form.
+Do not add a section solely to satisfy the pattern. Each section should answer a visitor question or provide a next action.
+
+## Calls to action
+
+- Orange is for the page's highest-priority action.
+- Black or outlined buttons support secondary and social actions.
+- Link to detailed pages rather than repeating all team, tryout, location, or family information on the homepage.
+- Do not show a registration CTA when registration is not actually available; use a stable information link instead.
+
+## Responsive checks
+
+- Keep hero text below the transparent-header safe area.
+- Let wide grids step from three columns to two and then one before content becomes cramped.
+- Ensure menus and long pages remain scrollable on mobile.
+- Do not solve one page with generic `main > :first-child` selectors.
+- Verify linked cards, images, and buttons with mouse, keyboard, and touch-sized layouts.

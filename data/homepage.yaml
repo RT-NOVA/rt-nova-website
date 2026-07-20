@@ -7,8 +7,10 @@ hero:
     label: View Teams
     url: /teams/
   secondary:
-    label: Become A Tiger
-    url: /become-a-tiger/
+    label: Tryout Information
+    url: /tryouts/
+    active_label: Register for Tryouts
+    active_url: /become-a-tiger/
   # Hero timing values are in milliseconds: 5000 = 5 seconds, 1600 = 1.6 seconds.
   interval: 4000
   transition_duration: 1600
@@ -33,15 +35,20 @@ pillars:
     text: Skill work, baseball IQ, confidence, and accountability.
     image: /images/program-media/hank-first-base-pick.jpeg
     image_position: center center
+    url: /about/
+    link_label: Learn About Development
   - title: Competitive Teams
     text: Age-level teams built around growth and meaningful competition.
     image: /images/program-media/main-love-the-game-1600x1200-crop.jpg
     image_position: center center
+    url: /teams/
+    link_label: Explore Teams
   - title: Professional Coaching
     text: Clear instruction, organized practices, and development standards.
     image: /images/program-media/13u-coach-talk.jpg
     image_position: 85% center
-    image_zoom: 1.4
+    url: /coaches/
+    link_label: Meet the Coaches
 
 pathway:
   title: Player Development Pathway
@@ -55,10 +62,13 @@ pathway:
       text: Baseball IQ, consistency, and readiness for middle-school competition.
     - age: 14U–15U
       title: Compete with Purpose
-      text: Sharpen execution, physical preparation, and readiness for JV baseball.
+      text: Sharpen execution, physical preparation, and readiness for High-school baseball.
     - age: 16U–18U
       title: Perform at the Next Level
       text: Compete at varsity pace, lead, and prepare for future playing opportunities.
+  link:
+    label: Explore Current & Upcoming Teams
+    url: /teams/
 
 why:
   kicker: Why Rawlings Tigers NOVA?
@@ -99,7 +109,8 @@ proof:
   - value: Outdoor + Indoor
     label: Year-round training footprint
   - value: 10U–14U
-    label: Team age groups
+    label: Current + upcoming team age groups
+    dynamic: team-age-range
   - value: Rawlings Tigers
     label: National brand
 

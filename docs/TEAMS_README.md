@@ -6,7 +6,9 @@ The `/teams/` page is managed from:
 data/seasons/<season-id>/teams.yaml
 ```
 
-The page is intended to be a clean **Team Central dashboard** for current and upcoming Rawlings Tigers NOVA teams. It should stay focused on active and upcoming teams only. Older team history can be handled later with a separate archive solution.
+The page is a season-first **Team Central dashboard** for current and upcoming Rawlings Tigers NOVA teams, with a searchable season archive.
+
+For the complete annual workflow, visibility flags, roster publishing, and related pages, start with [`SEASON_MAINTENANCE.md`](SEASON_MAINTENANCE.md).
 
 ## Current page focus
 
@@ -17,14 +19,13 @@ Current season
 Upcoming season
 Spring and Fall teams grouped under the selected season
 A compact team table
-A Current / Upcoming toggle
+A Current / Upcoming / Archive selector
 A Looking for a team CTA
 ```
 
 Team Central should not currently show:
 
 ```text
-Past season archive cards
 Large duplicate Team Central headings
 Extra status badge columns
 Repeated Active / Past / Upcoming badges
@@ -46,7 +47,7 @@ The season `id` should usually match the spring year of that baseball season.
 
 ## Default season
 
-At the top of `data/seasons/<season-id>/teams.yaml`, keep:
+In `data/seasons/index.yaml`, keep:
 
 ```yaml
 default_season: "2026"
@@ -70,7 +71,7 @@ Use these season-level statuses:
 ```text
 current   The active season shown by default
 upcoming  The next season shown in the toggle
-past      Older seasons, not shown on the main Team Central page for now
+archived  Historical seasons available through archive search
 ```
 
 Recommended setup:
@@ -88,15 +89,15 @@ seasons:
     status: upcoming
 ```
 
-## Current / Upcoming toggle
+## Current / Upcoming / Archive selector
 
-The Team Central page uses a two-option toggle:
+The Team Central page uses season buttons plus Archive:
 
 ```text
-Upcoming 2027 Season | Current 2026 Season
+Current 2026 Season | Upcoming 2027 Season | Archive
 ```
 
-The toggle should live inside the black season header area, inline with the selected season heading. Do not reintroduce a separate white “Select Season” header/card above the black season header.
+Current and upcoming buttons show their team counts. Archive opens season, team, and search filters without rendering every historical season at once.
 
 ## Season header copy
 
@@ -135,19 +136,14 @@ spring:
   label: "Spring 2026"
   teams:
     - name: "13U Black"
-      age: 13
-      division: "Black"
-      coach: "Chris Cheshire"
-      coach_title: "Head Coach"
-      coach_image: "/images/coaches/chris-cheshire.jpg"
+      head_coach: "Chris Cheshire"
+      coach_role: "Head Coach"
+      coach_photo: "/images/program-media/2025_coach_cheshire_crop5.png"
       record: "—"
       sort_order: 870
       links:
-        facebook: ""
-        instagram: ""
-        roster: ""
-        schedule: ""
-        gamechanger: ""
+        - label: Roster
+          url: /rosters/2026-13u-black/
 fall:
   label: "Fall 2025"
   teams: []
@@ -162,7 +158,7 @@ Recommended wording:
 ```yaml
 spring:
   label: "Spring 2027"
-  message: "Coming soon. Additional Spring 2027 team details will be posted as they are available."
+  empty_text: "Coming soon. Additional Spring 2027 team details will be posted as they are available."
   teams: []
 ```
 
@@ -190,22 +186,28 @@ Each team should include:
 
 ```yaml
 - name: "14U Black"
-  age: 14
-  division: "Black"
-  coach: "Chris Cheshire"
-  coach_title: "Head Coach"
-  coach_image: "/images/coaches/chris-cheshire.jpg"
-  record: "—"
   sort_order: 860
+  head_coach: "Chris Cheshire"
+  coach_role: "Head Coach"
+  coach_photo: "/images/program-media/2025_coach_cheshire_crop5.png"
+  record: "—"
   links:
-    facebook: ""
-    instagram: ""
-    roster: ""
-    schedule: ""
-    gamechanger: ""
+    - label: Roster
+      url: /rosters/2027-14u-black/
 ```
 
 Blank links are okay. The page should show available links and avoid broken buttons.
+
+`enabled` is optional and defaults to `true`. Set it to `false` to retain a team configuration without showing it in shared seasonal listings:
+
+```yaml
+- name: 11U
+  enabled: false
+  sort_order: 890
+  head_coach: Jackson Hayes
+```
+
+Disabling a team also removes it from seasonal coaching rows, current-team Schedule/Watch lists, and the homepage current/upcoming age range. It does not delete historical news or accomplishments. Disable the corresponding roster source separately when its direct route should also be unpublished.
 
 ## Team sort order
 
@@ -240,28 +242,46 @@ sort_order: 890  # 11U
 
 ## Team links
 
-Supported link keys:
+Supported link labels:
 
 ```yaml
 links:
-  facebook: ""
-  instagram: ""
-  roster: ""
-  schedule: ""
-  gamechanger: ""
+  - label: Facebook
+    url: https://www.facebook.com/example
+  - label: Instagram
+    url: https://www.instagram.com/example
+  - label: Roster
+    url: /rosters/2027-14u-black/
+  - label: Schedule
+    url: /schedules/?team=14u-black
+  - label: GameChanger
+    url: https://web.gc.com/teams/example/team
 ```
+
+The label controls the compact icon used in Team Central:
+
+```text
+Roster       people icon and orange roster link
+Schedule     calendar icon
+GameChanger  GC mark
+Facebook     Facebook icon
+Instagram    Instagram icon
+```
+
+Use these exact labels so the intended icon and accessible text are rendered. A missing or placeholder URL is displayed as unavailable rather than as a broken link.
 
 Use full URLs for outside sites:
 
 ```yaml
-facebook: "https://www.facebook.com/..."
+- label: Facebook
+  url: "https://www.facebook.com/..."
 ```
 
 Use root-relative URLs for local pages:
 
 ```yaml
-roster: "/teams/13u-black/roster/"
-schedule: "/teams/13u-black/schedule/"
+- label: Roster
+  url: "/rosters/2027-13u-black/"
 ```
 
 ## Coach images
@@ -269,13 +289,13 @@ schedule: "/teams/13u-black/schedule/"
 Coach images should be stored under:
 
 ```text
-static/images/coaches/
+static/images/program-media/
 ```
 
 Reference them with root-relative paths:
 
 ```yaml
-coach_image: "/images/coaches/chris-cheshire.jpg"
+coach_photo: "/images/program-media/2025_coach_cheshire_crop5.png"
 ```
 
 Use square or near-square crops when possible. Keep file sizes web-friendly.
@@ -297,14 +317,14 @@ After:
 
 ```yaml
 - id: "2026"
-  status: past
+  status: archived
 - id: "2027"
   status: current
 - id: "2028"
   status: upcoming
 ```
 
-Then update:
+Then update `default_season` in `data/seasons/index.yaml`:
 
 ```yaml
 default_season: "2027"
@@ -323,7 +343,7 @@ Current / Upcoming toggle inside the black header
 Spring and Fall subsections inside the same dashboard flow
 Banded table rows for readability
 No extra status badges
-No archive section on the main /teams/ page for now
+Searchable Archive selector for historical teams
 ```
 
 Mobile/tablet requirements:
@@ -363,7 +383,7 @@ Test at these widths:
 
 ## Troubleshooting
 
-### Hugo fails after applying a patch
+### Hugo fails after a data edit
 
 Do not leave backup files inside `data/`.
 
@@ -375,12 +395,7 @@ data/seasons/<season-id>/teams.yaml.bak-teamcentral-selector-cleanup
 
 Hugo tries to load files in `data/` and will fail on unknown backup extensions.
 
-Move backups outside Hugo-managed folders:
-
-```bash
-mkdir -p .backups
-find data -type f \( -name "*.bak*" -o -name "*backup*" \) -exec mv {} .backups/ \;
-```
+Move backup files outside Hugo-managed folders or rely on Git history instead.
 
 ### Toggle shows a white cap above the season header
 

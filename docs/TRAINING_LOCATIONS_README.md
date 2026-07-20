@@ -1,37 +1,65 @@
-# Training Locations Specific Facility Update
+# Training Locations page
 
-This update removes generic location language and keys the page around actual Rawlings Tigers NOVA training locations.
+The `/training-locations/` page is driven by `data/training_locations.yaml`.
 
-## Outdoor fields
+## Files
 
-- Veterans Memorial Park — Field 4
-- Eagle Field at Neabsco / Neabsco Eagles Field
+- `data/training_locations.yaml`
+- `layouts/partials/page-training-locations.html`
+- the matching route stylesheet in `assets/css/`
+- facility images in `static/images/training-locations/`
 
-## Winter facilities
+## Page data
 
+The data file contains:
+
+```text
+intro                 page introduction
+proof                 quick facts beneath the hero
+expectation            parent-planning section and feature items
+outdoor.locations      outdoor field cards
+winter.locations       indoor facility cards
+faq.items              common location questions
+cta                    final next actions
+```
+
+## Adding or updating a location
+
+Outdoor and winter locations share these common fields:
+
+```yaml
+- name: Veterans Memorial Park
+  field: Field 4
+  area: Woodbridge, VA
+  address: 14300 Veterans Dr, Woodbridge, VA 22191
+  use: Outdoor practices, tryouts, team workouts, and baseball development sessions
+  season: Spring / Summer / Fall
+  note: Primary Woodbridge outdoor field location when permits and team schedules align.
+  map_url: https://www.google.com/maps/search/?api=1&query=...
+```
+
+Winter facilities may also include:
+
+```yaml
+logo: /images/training-locations/dbat-logo.webp
+website_url: https://www.example.com/
+```
+
+Use a site-root path for local logos. Confirm map and facility links after changing them.
+
+## Current location groups
+
+The page currently documents:
+
+- Veterans Memorial Park, Field 4
+- Eagle Field at Neabsco
+- Dale City Recreation Center / Community Park, Baseball Field 2
 - D-BAT Manassas
 - Metro Baseball Facility
+- Veterans Community Center
 
-## Notes
+Location details can vary by team, permits, season, and weather. Keep that qualification in the parent-planning and FAQ copy rather than promising a permanent assignment.
 
-- The D-BAT logo is included as a local static asset at `static/images/training-locations/dbat-logo.webp`.
-- Location cards now support address, field name, map links, and facility links.
-- The expectation/parent planning feature list is now data-driven from `data/training_locations.yaml`.
+## Related homepage content
 
-## v6 template scope fix
-
-Fixed the Hugo template scope bug in the winter facility logo block. The template now captures each facility as `$facility` before entering `with $facility.logo`, so the image alt text can reference `$facility.name` safely.
-
-## v7 copy and facility card refinement
-
-- Condensed the parent-planning copy and removed specific field names from that intro text.
-- Restored the top proof-strip labels/values requested by the program.
-- Updated Veterans Memorial Park Field 4 address to `14300 Veterans Dr, Woodbridge, VA 22191`.
-- Removed `Facility Info` links from outdoor field cards while keeping map links.
-- Added Veterans Community Center to the winter training facilities using the same Veterans Memorial Park address.
-- Made the D-BAT logo presentation transparent instead of sitting on a white logo card.
-
-## Outdoor field grid
-
-- Outdoor section title is `Outdoor Field Locations`.
-- Outdoor cards use a responsive grid: 3 cards render in one row on desktop; 4 cards render in a 2x2 pattern.
+The homepage Local Roots section is only a short teaser. When locations change, review both `data/training_locations.yaml` and `why.local` in `data/homepage.yaml`, but keep the homepage copy concise and link visitors here for the details.

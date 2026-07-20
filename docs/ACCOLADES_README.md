@@ -13,6 +13,8 @@ data/seasons/<season-id>/player-honors.yaml
 
 Current-season and current-team status comes from `data/seasons/index.yaml` and `data/seasons/<season-id>/teams.yaml`, using the same rules as Team Central.
 
+Accolades are historical records. Disabling a later-season team with `enabled: false` does not remove earlier tournament results, player honors, news stories, or Social Hub posts.
+
 ## Team accolades
 
 Tournament results belong under `achievements:` in the appropriate `tournament-results.yaml` file.

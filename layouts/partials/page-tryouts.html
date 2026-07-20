@@ -1,4 +1,10 @@
 {{ $data := hugo.Data.tryouts }}
+{{ $ageRows := slice }}
+{{ range ($data.age_chart.rows | default slice) }}
+  {{ $enabled := true }}
+  {{ if isset . "enabled" }}{{ $enabled = .enabled }}{{ end }}
+  {{ if $enabled }}{{ $ageRows = $ageRows | append . }}{{ end }}
+{{ end }}
 {{ partial "hero.html" (dict
   "kicker" ($data.season | default "Tryouts")
   "title" ($data.title | default .Title)
@@ -61,7 +67,7 @@
             <span role="columnheader">Age Group</span>
             <span role="columnheader">Birth Date Range</span>
           </div>
-          {{ range .rows }}
+          {{ range $ageRows }}
             <div class="rt-tryout-age-table__row" role="row">
               <strong role="cell">{{ .age_group }}</strong>
               <span role="cell">{{ .birth_window }}</span>
@@ -72,7 +78,7 @@
     {{ end }}
 
     {{ $allAges := slice }}
-    {{ range $data.age_chart.rows }}
+    {{ range $ageRows }}
       {{ $allAges = $allAges | append .age_group }}
     {{ end }}
     {{ range $data.groups }}
@@ -190,7 +196,7 @@
         </section>
       {{ end }}
 
-      {{ range $data.age_chart.rows }}
+      {{ range $ageRows }}
         {{ $age := .age_group }}
         {{ $hasGroup := false }}
         {{ range $data.groups }}

@@ -112,6 +112,16 @@ def date_from(existing_path: Path, scalars: Dict[str, str]) -> str:
     return "2026-06-16"
 
 
+def is_enabled(scalars: Dict[str, str]) -> bool:
+    """Treat roster routes as enabled unless their source explicitly disables them."""
+    return scalars.get("enabled", "true").strip().lower() not in {
+        "false",
+        "no",
+        "0",
+        "off",
+    }
+
+
 def roster_data_files(repo: Path) -> Iterable[Tuple[str, str, Path]]:
     seasons_root = repo / "data" / "seasons"
     if not seasons_root.is_dir():
@@ -165,9 +175,12 @@ def render_route_page(season_id: str, roster_key: str, data_path: Path, existing
         f"roster_key: {yaml_string(roster_key)}",
         f"route_slug: {yaml_string(route_slug)}",
         f"summary: {yaml_string(summary)}",
-        GENERATED_MARKER,
-        "---",
     ]
+
+    if not is_enabled(scalars):
+        front_matter.append("draft: true")
+
+    front_matter.extend([GENERATED_MARKER, "---"])
 
     body = [
         START_MARKER,
