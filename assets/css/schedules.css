@@ -36,7 +36,7 @@
   padding: .2rem 0 clamp(1rem, 2vw, 1.3rem);
   border: 0;
   background: transparent;
-  scroll-margin-top: calc(var(--rt-header-collapsed, 128px) + 1.5rem);
+  scroll-margin-top: calc(var(--rt-header-collapsed, 128px) + var(--rt-announcement-height, 0px) + 1.5rem);
 }
 
 .schedules-filter-panel__topline {

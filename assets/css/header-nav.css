@@ -7,6 +7,14 @@
   --rt-header-expanded: 218px;
   --rt-header-collapsed: 128px;
   --rt-header-mobile: 82px;
+  --rt-announcement-height: 0px;
+  --rt-header-collapsed-offset: calc(var(--rt-header-collapsed) + var(--rt-announcement-height));
+  --rt-header-expanded-offset: calc(var(--rt-header-expanded) + var(--rt-announcement-height));
+  --rt-header-mobile-offset: calc(var(--rt-header-mobile) + var(--rt-announcement-height));
+}
+
+html.rt-announcement-enabled {
+  --rt-announcement-height: 38px;
 }
 
 .rt-header {
@@ -45,6 +53,93 @@ html.rt-has-hero .rt-header:not(.is-scrolled) {
 
 html.rt-has-hero .rt-header:not(.is-scrolled) .rt-header__shell {
   border-bottom: 0;
+}
+
+.rt-announcement {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  height: var(--rt-announcement-height);
+  background: transparent;
+  color: #fff;
+  box-shadow: none;
+}
+
+.rt-announcement__inner {
+  display: flex;
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 .8rem;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  background: rgba(17, 17, 17, .22);
+  border-radius: 3px;
+  backdrop-filter: blur(2px);
+  transition: background .24s ease, box-shadow .24s ease, backdrop-filter .24s ease;
+  white-space: nowrap;
+}
+
+.rt-header.is-scrolled .rt-announcement__inner,
+html:not(.rt-has-hero) .rt-announcement__inner {
+  background: #151515;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.rt-announcement__eyebrow,
+.rt-announcement__message,
+.rt-announcement__link {
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, sans-serif);
+  line-height: 1;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .82);
+  text-transform: uppercase;
+}
+
+.rt-announcement__eyebrow {
+  flex: 0 0 auto;
+  padding: .32rem .55rem .28rem;
+  border-radius: 2px;
+  background: var(--rt-orange, #f65f16);
+  color: #101010;
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .11em;
+  text-shadow: none;
+}
+
+.rt-announcement__message {
+  min-width: 0;
+  overflow: hidden;
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing: .035em;
+  text-overflow: ellipsis;
+}
+
+.rt-announcement__link {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: .35rem;
+  color: var(--rt-orange, #f65f16);
+  font-size: .76rem;
+  font-weight: 950;
+  letter-spacing: .085em;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.rt-announcement__link:hover,
+.rt-announcement__link:focus-visible {
+  color: #fff;
+  outline: 2px solid var(--rt-orange, #f65f16);
+  outline-offset: 3px;
 }
 
 
@@ -531,7 +626,7 @@ html:not(.rt-has-hero) .rt-header__navrow {
 .rt-header-menu { display: none; }
 
 /* Fixed-header compensation for pages without a hero. Hero pages intentionally start underneath the translucent header. */
-html:not(.rt-has-hero) body { padding-top: var(--rt-header-collapsed); }
+html:not(.rt-has-hero) body { padding-top: var(--rt-header-collapsed-offset); }
 
 /* Give common hero blocks room below the overlay header without forcing all sections to change. */
 html.rt-has-hero .home-hero,
@@ -539,7 +634,7 @@ html.rt-has-hero .page-hero,
 html.rt-has-hero .section-hero,
 html.rt-has-hero .hero,
 html.rt-has-hero [data-hero] {
-  padding-top: max(var(--rt-header-expanded), 9.5rem);
+  padding-top: max(var(--rt-header-expanded-offset), 9.5rem);
 }
 
 @media (max-width: 1180px) {
@@ -690,8 +785,8 @@ html.rt-has-hero [data-hero] {
 
   .rt-nav {
     position: fixed;
-    inset: var(--rt-header-collapsed) 0 auto 0;
-    max-height: calc(100vh - var(--rt-header-collapsed));
+    inset: var(--rt-header-collapsed-offset) 0 auto 0;
+    max-height: calc(100vh - var(--rt-header-collapsed-offset));
     overflow: auto;
     display: none;
     align-items: stretch;
@@ -778,6 +873,10 @@ html.rt-has-hero [data-hero] {
     --rt-header-mobile: 108px;
   }
 
+  html.rt-announcement-enabled {
+    --rt-announcement-height: 42px;
+  }
+
   .rt-header__shell {
     min-height: var(--rt-header-mobile);
     padding-left: .72rem;
@@ -806,6 +905,29 @@ html.rt-has-hero [data-hero] {
   html:not(.rt-has-hero) .rt-header-brand__logo {
     width: 58px;
     height: 58px;
+  }
+
+  .rt-announcement__inner {
+    width: fit-content;
+    max-width: calc(100% - 1rem);
+    padding-right: .55rem;
+    padding-left: .55rem;
+    gap: .55rem;
+  }
+
+  .rt-announcement__eyebrow {
+    display: none;
+  }
+
+  .rt-announcement__message {
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .025em;
+  }
+
+  .rt-announcement__link {
+    font-size: .68rem;
+    letter-spacing: .055em;
   }
 }
 
@@ -970,7 +1092,7 @@ html.rt-has-hero [data-hero] {
     max-width: none;
     height: 100vh;
     max-height: none;
-    padding: calc(var(--rt-header-mobile) + .7rem) 1.15rem 1.4rem;
+    padding: calc(var(--rt-header-mobile-offset) + .7rem) 1.15rem 1.4rem;
     overflow-y: auto;
     overflow-x: hidden;
     background: #050505;
@@ -980,7 +1102,7 @@ html.rt-has-hero [data-hero] {
 
   .rt-header.is-scrolled .rt-nav,
   html:not(.rt-has-hero) .rt-nav {
-    padding-top: calc(var(--rt-header-collapsed) + .8rem);
+    padding-top: calc(var(--rt-header-collapsed-offset) + .8rem);
   }
 
   .rt-nav__main,
@@ -1192,7 +1314,7 @@ html.rt-has-hero [data-hero] {
 
   .rt-nav {
     position: fixed;
-    top: var(--rt-header-mobile);
+    top: var(--rt-header-mobile-offset);
     right: 0;
     bottom: auto;
     left: 0;
@@ -1200,7 +1322,7 @@ html.rt-has-hero [data-hero] {
     width: 100vw;
     height: auto;
     min-height: 0;
-    max-height: calc(100dvh - var(--rt-header-mobile));
+    max-height: calc(100dvh - var(--rt-header-mobile-offset));
     padding: 1rem 1.15rem 1.25rem;
     overflow-y: auto;
     overflow-x: hidden;
@@ -1213,8 +1335,8 @@ html.rt-has-hero [data-hero] {
 
   .rt-header.is-scrolled .rt-nav,
   html:not(.rt-has-hero) .rt-nav {
-    top: var(--rt-header-collapsed);
-    max-height: calc(100dvh - var(--rt-header-collapsed));
+    top: var(--rt-header-collapsed-offset);
+    max-height: calc(100dvh - var(--rt-header-collapsed-offset));
     padding-top: 1rem;
   }
 

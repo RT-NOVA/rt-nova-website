@@ -1,5 +1,7 @@
+{{- $announcement := hugo.Data.announcement | default dict -}}
+{{- $announcementEnabled := $announcement.enabled | default false -}}
 <!doctype html>
-<html lang="en">
+<html lang="en"{{ if $announcementEnabled }} class="rt-announcement-enabled"{{ end }}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

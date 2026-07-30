@@ -7,6 +7,8 @@
 {{- $footer := hugo.Data.footer -}}
 {{- $contact := $footer.contact -}}
 {{- $social := default (slice) $footer.social -}}
+{{- $announcement := hugo.Data.announcement | default dict -}}
+{{- $announcementEnabled := $announcement.enabled | default false -}}
 
 <header class="rt-header" data-rt-header>
   <div class="rt-header__shell">
@@ -70,4 +72,21 @@
       </nav>
     </div>
   </div>
+
+  {{- if $announcementEnabled }}
+    <div class="rt-announcement" data-rt-announcement role="region" aria-label="{{ $announcement.aria_label | default "Important announcement" }}">
+      <div class="rt-announcement__inner">
+        {{- with $announcement.eyebrow }}
+          <span class="rt-announcement__eyebrow">{{ . }}</span>
+        {{- end }}
+        <span class="rt-announcement__message">{{ $announcement.message }}</span>
+        {{- with $announcement.url }}
+          <a class="rt-announcement__link" href="{{ partial "url.html" . }}">
+            <span>{{ $announcement.link_label | default "Learn more" }}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        {{- end }}
+      </div>
+    </div>
+  {{- end }}
 </header>

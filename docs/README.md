@@ -26,6 +26,7 @@ This is the starting point for maintaining the Rawlings Tigers NOVA website. The
 
 | Area | Guide |
 |---|---|
+| Global announcement bar | [`ANNOUNCEMENT_BAR_README.md`](ANNOUNCEMENT_BAR_README.md) |
 | Homepage images and media fields | [`HOMEPAGE_MEDIA.md`](HOMEPAGE_MEDIA.md) |
 | Social Hub content and behavior | [`SOCIAL_HUB_README.md`](SOCIAL_HUB_README.md) |
 | Social images and helper tooling | [`SOCIAL_HUB_IMAGES.md`](SOCIAL_HUB_IMAGES.md) and [`SOCIAL_IMAGE_HELPERS.md`](SOCIAL_IMAGE_HELPERS.md) |

@@ -18,7 +18,7 @@ html.rt-force-hero-header:not(.rt-home-page) body {
   html.rt-force-hero-header:not(.rt-home-page) main > :first-child:not(.rt-page-hero) {
     box-sizing: border-box;
     min-height: 390px;
-    padding-top: max(var(--rt-header-expanded, 210px), 13.5rem) !important;
+    padding-top: max(var(--rt-header-expanded-offset, 210px), 13.5rem) !important;
     padding-bottom: 3rem !important;
   }
 }
@@ -27,7 +27,7 @@ html.rt-force-hero-header:not(.rt-home-page) body {
   html.rt-force-hero-header:not(.rt-home-page) main > :first-child:not(.rt-page-hero) {
     box-sizing: border-box;
     min-height: 340px;
-    padding-top: max(var(--rt-header-mobile, 112px), 8rem) !important;
+    padding-top: max(calc(var(--rt-header-mobile, 112px) + var(--rt-announcement-height, 0px)), 8rem) !important;
     padding-bottom: 2.5rem !important;
   }
 }
@@ -36,7 +36,7 @@ html.rt-force-hero-header:not(.rt-home-page) body {
   html.rt-force-hero-header:not(.rt-home-page) main > :first-child:not(.rt-page-hero) {
     box-sizing: border-box;
     min-height: 300px;
-    padding-top: max(var(--rt-header-mobile, 100px), 7rem) !important;
+    padding-top: max(calc(var(--rt-header-mobile, 100px) + var(--rt-announcement-height, 0px)), 7rem) !important;
     padding-bottom: 2.25rem !important;
   }
 }
@@ -58,7 +58,7 @@ html.rt-has-hero .rt-page-hero {
 
 html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
   box-sizing: border-box;
-  padding-top: 260px !important;
+  padding-top: calc(260px + var(--rt-announcement-height, 0px)) !important;
   padding-bottom: 52px !important;
   min-height: 455px !important;
   align-content: end;
@@ -67,7 +67,7 @@ html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
 
 @media (max-width: 1180px) {
   html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
-    padding-top: 205px !important;
+    padding-top: calc(205px + var(--rt-announcement-height, 0px)) !important;
     padding-bottom: 44px !important;
     min-height: 410px !important;
   }
@@ -75,7 +75,7 @@ html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
 
 @media (max-width: 1024px) {
   html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
-    padding-top: 190px !important;
+    padding-top: calc(190px + var(--rt-announcement-height, 0px)) !important;
     padding-bottom: 44px !important;
     min-height: 390px !important;
   }
@@ -83,7 +83,7 @@ html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
 
 @media (max-width: 767px) {
   html.rt-has-hero .rt-page-hero > .rt-page-hero__inner {
-    padding-top: 132px !important;
+    padding-top: calc(132px + var(--rt-announcement-height, 0px)) !important;
     padding-bottom: 36px !important;
     min-height: 320px !important;
     align-items: end;
