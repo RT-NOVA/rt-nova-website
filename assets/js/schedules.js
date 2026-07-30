@@ -10,7 +10,7 @@
   const searchInput = root.querySelector("[data-filter-search]");
   const resultCount = root.querySelector("[data-schedule-count]");
   const clearButton = root.querySelector("[data-schedule-clear]");
-  const previewLimit = 2;
+  let expandedTeam = "";
 
   const pluralize = (count, singular, plural = `${singular}s`) => `${count} ${count === 1 ? singular : plural}`;
 
@@ -89,6 +89,11 @@
     const pastCount = section.querySelector("[data-schedule-past-count]");
     const upcomingCount = section.querySelector("[data-schedule-upcoming-count]");
     const nextDate = section.querySelector("[data-schedule-next-date]");
+    const nextMonth = section.querySelector("[data-schedule-next-month]");
+    const nextDay = section.querySelector("[data-schedule-next-day]");
+    const nextType = section.querySelector("[data-schedule-next-type]");
+    const nextTitle = section.querySelector("[data-schedule-next-title]");
+    const nextMeta = section.querySelector("[data-schedule-next-meta]");
 
     events.forEach((event) => {
       const past = isPastEvent(event);
@@ -106,9 +111,39 @@
         : "No upcoming events";
     }
 
-    if (nextDate) {
-      const firstDate = upcoming[0]?.querySelector("time")?.textContent.trim() || "";
-      nextDate.textContent = firstDate ? `Next: ${firstDate}` : "";
+    const nextEvent = upcoming[0];
+    if (nextEvent) {
+      const dateKey = normalizeDateKey(nextEvent.dataset.eventDate);
+      const date = dateKey ? new Date(`${dateKey}T12:00:00`) : null;
+      const time = nextEvent.dataset.eventTime || "TBD";
+      const location = nextEvent.dataset.eventLocation || "TBD";
+      const eventType = String(nextEvent.dataset.eventType || "").trim();
+
+      if (nextDate) nextDate.hidden = false;
+      if (nextMonth) {
+        nextMonth.textContent = date
+          ? new Intl.DateTimeFormat("en-US", { month: "short" }).format(date).toUpperCase()
+          : "NEXT";
+      }
+      if (nextDay) {
+        nextDay.textContent = date
+          ? new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(date)
+          : "—";
+      }
+      if (nextType) {
+        nextType.hidden = false;
+        nextType.textContent = eventType ? `Up Next · ${eventType}` : "Up Next";
+      }
+      if (nextTitle) nextTitle.textContent = nextEvent.dataset.eventTitle || "Upcoming event";
+      if (nextMeta) nextMeta.textContent = `${time} · ${location}`;
+    } else {
+      if (nextDate) nextDate.hidden = true;
+      if (nextType) {
+        nextType.hidden = true;
+        nextType.textContent = "";
+      }
+      if (nextTitle) nextTitle.textContent = "Schedule coming soon";
+      if (nextMeta) nextMeta.textContent = "Check back for current-season events.";
     }
 
     if (pastCount) pastCount.textContent = String(past.length);
@@ -126,7 +161,6 @@
     const selectedTeam = teamSelect.value;
     const query = searchInput.value.trim().toLowerCase();
     const hasQuery = query.length > 0;
-    const focused = Boolean(selectedTeam) && !hasQuery;
     let visibleSections = 0;
     let matchingEventCount = 0;
     let upcomingEventCount = 0;
@@ -150,28 +184,34 @@
       const noEvents = section.querySelector("[data-schedule-no-events]");
       const pastDetails = section.querySelector("[data-schedule-past]");
       const pastCount = section.querySelector("[data-schedule-past-count]");
-      const focusButton = section.querySelector("[data-schedule-focus-team]");
+      const panel = section.querySelector("[data-schedule-panel]");
+      const toggle = section.querySelector("[data-schedule-toggle]");
+      const toggleLabel = section.querySelector("[data-schedule-toggle-label]");
+      const toggleIcon = section.querySelector(".schedules-team-toggle__icon");
+      const isExpanded = shouldShowSection && (
+        hasQuery ? sectionHasQueryMatch : expandedTeam === slug
+      );
 
-      upcoming.forEach((event, index) => {
+      upcoming.forEach((event) => {
         const matches = !hasQuery || sectionMatchesQuery || (event.dataset.search || "").includes(query);
-        const withinPreview = focused || hasQuery || index < previewLimit;
-        event.hidden = !(shouldShowSection && matches && withinPreview);
+        event.hidden = !(isExpanded && matches);
       });
 
       past.forEach((event) => {
         const matches = !hasQuery || sectionMatchesQuery || (event.dataset.search || "").includes(query);
-        event.hidden = !(shouldShowSection && matches);
+        event.hidden = !(isExpanded && matches);
       });
 
       const visibleUpcomingCount = hasQuery ? matchingUpcoming.length : upcoming.length;
       const visiblePastCount = hasQuery ? matchingPast.length : past.length;
       const totalEvents = events.length;
 
-      if (upcomingHead) upcomingHead.hidden = !shouldShowSection || visibleUpcomingCount === 0;
-      if (noEvents) noEvents.hidden = !(shouldShowSection && totalEvents === 0);
+      if (panel) panel.hidden = !isExpanded;
+      if (upcomingHead) upcomingHead.hidden = !isExpanded || visibleUpcomingCount === 0;
+      if (noEvents) noEvents.hidden = !(isExpanded && totalEvents === 0);
       if (noUpcoming) {
         noUpcoming.hidden = !(
-          shouldShowSection &&
+          isExpanded &&
           totalEvents > 0 &&
           !hasQuery &&
           upcoming.length === 0
@@ -179,13 +219,13 @@
       }
 
       if (pastDetails) {
-        pastDetails.hidden = !shouldShowSection || visiblePastCount === 0;
+        pastDetails.hidden = !isExpanded || visiblePastCount === 0;
         if (pastCount) pastCount.textContent = String(visiblePastCount);
 
         if (hasQuery && visiblePastCount > 0) {
           pastDetails.open = true;
           pastDetails.dataset.openedForSearch = "true";
-        } else if (focused && selectedTeam === slug && upcoming.length === 0 && past.length > 0) {
+        } else if (isExpanded && upcoming.length === 0 && past.length > 0) {
           pastDetails.open = true;
           delete pastDetails.dataset.openedForSearch;
         } else if (!hasQuery && pastDetails.dataset.openedForSearch === "true") {
@@ -194,15 +234,15 @@
         }
       }
 
-      if (focusButton) {
-        focusButton.hidden = !shouldShowSection || hasQuery || (!focused && upcoming.length <= previewLimit && past.length === 0);
-        const isFocusedTeam = selectedTeam === slug;
-        focusButton.textContent = isFocusedTeam ? "Back to All Teams" : "View Full Schedule";
-        focusButton.setAttribute("aria-expanded", isFocusedTeam ? "true" : "false");
+      if (toggle) {
+        toggle.hidden = !shouldShowSection || hasQuery;
+        toggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
       }
+      if (toggleLabel) toggleLabel.textContent = isExpanded ? "Hide Schedule" : "View Full Schedule";
+      if (toggleIcon) toggleIcon.textContent = isExpanded ? "−" : "+";
 
       section.hidden = !shouldShowSection;
-      section.classList.toggle("is-focused", shouldShowSection && selectedTeam === slug);
+      section.classList.toggle("is-expanded", isExpanded);
 
       if (shouldShowSection) {
         visibleSections += 1;
@@ -229,6 +269,7 @@
   teamSelect.addEventListener("change", () => {
     searchInput.value = "";
     closePastEvents();
+    expandedTeam = teamSelect.value;
     updateTeamUrl(teamSelect.value);
     update();
   });
@@ -238,6 +279,7 @@
       teamSelect.value = tab.dataset.teamValue || "";
       searchInput.value = "";
       closePastEvents();
+      expandedTeam = teamSelect.value;
       updateTeamUrl(teamSelect.value);
       update();
     });
@@ -246,24 +288,23 @@
   searchInput.addEventListener("input", update);
 
   sections.forEach((section) => {
-    const focusButton = section.querySelector("[data-schedule-focus-team]");
-    if (!focusButton) return;
+    const toggle = section.querySelector("[data-schedule-toggle]");
+    if (!toggle) return;
 
-    focusButton.addEventListener("click", () => {
+    toggle.addEventListener("click", () => {
       const slug = section.dataset.teamSlug || "";
-      const isFocusedTeam = teamSelect.value === slug;
+      const willExpand = expandedTeam !== slug;
       closePastEvents();
-      teamSelect.value = isFocusedTeam ? "" : slug;
-      searchInput.value = "";
-      updateTeamUrl(teamSelect.value);
+      expandedTeam = willExpand ? slug : "";
       update();
-      scrollBelowHeader(isFocusedTeam ? root : section);
+      if (willExpand) scrollBelowHeader(section);
     });
   });
 
   clearButton?.addEventListener("click", () => {
     teamSelect.value = "";
     searchInput.value = "";
+    expandedTeam = "";
     closePastEvents();
     updateTeamUrl("");
     update();
@@ -278,11 +319,13 @@
     const requestedTeam = teamFromUrl();
     closePastEvents();
     teamSelect.value = hasTeam(requestedTeam) ? requestedTeam : "";
+    expandedTeam = teamSelect.value;
     searchInput.value = "";
     update();
   });
 
   const requestedTeam = teamFromUrl();
   teamSelect.value = hasTeam(requestedTeam) ? requestedTeam : "";
+  expandedTeam = teamSelect.value;
   update();
 })();

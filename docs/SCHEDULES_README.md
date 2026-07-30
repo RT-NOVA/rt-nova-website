@@ -21,10 +21,12 @@ For the complete season turnover workflow, see [`SEASON_MAINTENANCE.md`](SEASON_
 - The season marked `current` in `data/seasons/index.yaml` supplies the visible events.
 - Enabled teams from that season's `teams.yaml` supply the team tabs and sections.
 - Events for disabled, archived, or upcoming teams can remain in data but are not shown in the default current-season page.
-- The default all-team view shows the next two upcoming events per team.
-- Selecting a team opens its complete upcoming schedule.
+- The default all-team view shows one compact accordion row per team with that team's next upcoming event.
+- Scheduled summaries use `Up Next · Game` or `Up Next · Tournament`; teams without an upcoming event show only `Schedule coming soon`.
+- Opening an accordion reveals the team's complete upcoming schedule; only one manually opened team remains expanded at a time.
+- Selecting a team tab or mobile team option filters to that team and opens its schedule.
 - Past events move into an expandable past-events area.
-- Search checks teams, opponents, tournament names, locations, dates, times, and notes.
+- Search checks teams, opponents, tournament names, locations, dates, times, and notes, then automatically opens teams containing matches.
 - A `?team=<team-slug>` query can open a specific team.
 
 ## Event format
@@ -85,10 +87,11 @@ Review `/schedules/` and check:
 
 - all current enabled teams are present;
 - disabled teams are absent;
-- the first two future events appear in the all-team view;
+- every team accordion shows the correct next future event;
+- opening an accordion reveals its full schedule and closes the previously opened team;
 - selecting a team reveals its full schedule;
 - past events appear in the past-events area;
-- search and location links work; and
+- search automatically opens matching team schedules, location links work; and
 - mobile layouts do not scroll horizontally.
 
 Then run the production checks:

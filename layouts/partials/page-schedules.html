@@ -57,7 +57,7 @@
     <header class="rt-section-heading schedules-heading">
       <p class="rt-eyebrow rt-eyebrow--dark">Current Season</p>
       <h2>Find your team’s next game</h2>
-      <p>Each team shows its next two upcoming events. Choose a team to open its complete current-season schedule.</p>
+      <p>Each team shows its next event at a glance. Open a team to view its complete current-season schedule.</p>
     </header>
 
     <div class="schedules-filter-panel" data-schedule-filter data-current-season="{{ $currentYear }}">
@@ -144,9 +144,20 @@
               <h3>{{ $teamName }}</h3>
               {{ with ($metaScratch.Get "coach") }}<small>Head Coach: {{ . }}</small>{{ end }}
             </div>
-            <div class="schedules-team-section__summary">
-              <strong data-schedule-upcoming-count>Current Schedule</strong>
-              <span data-schedule-next-date></span>
+            <div class="schedules-team-section__up-next" data-schedule-up-next>
+              <div class="schedules-team-section__date" data-schedule-next-date aria-hidden="true" hidden>
+                <span data-schedule-next-month>—</span>
+                <strong data-schedule-next-day>—</strong>
+              </div>
+              <div class="schedules-team-section__next-copy">
+                <span data-schedule-next-type hidden></span>
+                <strong data-schedule-next-title>Schedule coming soon</strong>
+                <small data-schedule-next-meta></small>
+              </div>
+            </div>
+
+            <div class="schedules-team-section__actions">
+              <span class="schedules-team-section__count" data-schedule-upcoming-count>Current Schedule</span>
               {{ with ($metaScratch.Get "gameChangerUrl") }}
                 <div class="schedules-team-section__links">
                   <a class="schedules-team-link schedules-team-link--gc" href="{{ partial "url.html" . }}" target="_blank" rel="noopener">
@@ -155,9 +166,23 @@
                   </a>
                 </div>
               {{ end }}
+              <button
+                class="schedules-team-toggle"
+                type="button"
+                data-schedule-toggle
+                aria-controls="schedule-{{ $teamSlug }}"
+                aria-expanded="false">
+                <span data-schedule-toggle-label>View Full Schedule</span>
+                <span class="schedules-team-toggle__icon" aria-hidden="true">+</span>
+              </button>
             </div>
           </header>
 
+          <div
+            class="schedules-team-section__panel"
+            id="schedule-{{ $teamSlug }}"
+            data-schedule-panel
+            hidden>
           <div class="schedules-events" aria-label="{{ $teamName }} current-season schedule">
             <div class="schedules-events__head" data-schedule-upcoming-head aria-hidden="true">
               <span>Date</span>
@@ -187,6 +212,10 @@
                 <article class="schedules-event-row"
                   data-schedule-event
                   data-event-date="{{ time.Format "2006-01-02" (time $event.date) }}"
+                  data-event-type="{{ $event.type | default "Schedule Event" }}"
+                  data-event-title="{{ $eventTitle }}"
+                  data-event-time="{{ $timeText }}"
+                  data-event-location="{{ $locationText }}"
                   data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle $locationText ($event.date | default "") $timeText ($event.notes | default "")) }}">
                   <div class="schedules-event-row__date">
                     <small>Date</small>
@@ -230,10 +259,7 @@
               <div class="schedules-events__rows" data-schedule-past-events></div>
             </details>
           </div>
-
-          <button class="schedules-team-focus" type="button" data-schedule-focus-team>
-            View Full Schedule
-          </button>
+          </div>
         </section>
       {{ end }}
     </div>
