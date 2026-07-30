@@ -1,16 +1,8 @@
 /* Staff & Coaches page
    Scoped to /coaches/ so page updates do not affect Team Central, Social Hub, or roster pages. */
 
-.rt-coaches-proof-strip .rt-proof-grid strong {
-  color: #151515;
-}
-
-.rt-coaches-proof-strip .rt-proof-grid span {
-  color: var(--rt-muted);
-}
-
 .rt-coaches-page {
-  background: var(--bg, #f4f1eb);
+  background: #fff;
 }
 
 .rt-coaches-page--white {

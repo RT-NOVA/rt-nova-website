@@ -15,7 +15,6 @@ The data file contains:
 
 ```text
 intro                 page introduction
-proof                 quick facts beneath the hero
 expectation            parent-planning section and feature items
 outdoor.locations      outdoor field cards
 winter.locations       indoor facility cards

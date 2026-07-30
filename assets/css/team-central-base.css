@@ -9,7 +9,7 @@
   font-weight:650;
 }
 .rt-team-central{
-  background:var(--rt-bg);
+  background:#fff;
 }
 .rt-season-selector-card{
   display:grid;
@@ -441,4 +441,3 @@ body:has(.rt-team-central) .rt-page-hero__inner {
     flex-direction: column;
   }
 }
-

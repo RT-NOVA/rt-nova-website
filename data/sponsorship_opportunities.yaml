@@ -4,15 +4,6 @@ contact:
   phone: "(540) 748-5300"
   phone_url: "tel:+15407485300"
   email: novatigersboosterclub@gmail.com
-proof:
-  - label: Organization
-    value: NOVA Tigers Booster Club
-  - label: Status
-    value: 501(c)(3) Non-Profit
-  - label: Support
-    value: Player Development
-  - label: Region
-    value: Northern Virginia
 why:
   - title: Reach Local Baseball Families
     text: Amplify your brand with families across the NOVA baseball community, local events, and tournament circuits.

@@ -30,6 +30,10 @@ The Watch Now page normalizes a trailing `/team` segment and links to the main t
 
 GameChanger may require a login, team membership, or viewing access. Keep that note on the page.
 
+## Page flow
+
+The page moves directly from its hero into the white Current Team Links section. The final Team Media section uses a dark background so the page does not end on the same white background as the global footer.
+
 ## Other media
 
 An optional program-level YouTube streams URL can be set in the front matter for `content/watch-now.md`. GameChanger remains the primary current-team source.

@@ -8,16 +8,8 @@
   "show_card" false
 ) }}
 
-<section class="rt-proof-strip rt-proof-strip--light training-proof-strip" aria-label="Training locations quick facts">
-  <div class="rt-container rt-proof-grid">
-    {{ range $data.proof }}
-      <div><strong>{{ .label }}</strong><span>{{ .value }}</span></div>
-    {{ end }}
-  </div>
-</section>
-
 {{ with $data.expectation }}
-<section class="rt-section">
+<section class="rt-section rt-section--white">
   <div class="rt-container split-feature training-split-feature">
     <div>
       <p class="rt-eyebrow rt-eyebrow--dark">{{ .eyebrow }}</p>

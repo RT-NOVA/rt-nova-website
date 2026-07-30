@@ -2,11 +2,6 @@
    Scoped to /coaching-opportunities/ and intentionally aligned with the newer Hugo page rhythm:
    clean section heads, compact cards/rows, no old-site split-feature blocks, and no orange side bars. */
 
-.coaching-proof-strip .rt-proof-grid strong,
-.coaching-proof-strip .rt-proof-grid span {
-  color:#151515 !important;
-}
-
 .coaching-section .rt-container {
   max-width:1180px;
 }

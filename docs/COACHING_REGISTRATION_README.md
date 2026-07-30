@@ -10,6 +10,7 @@ Adds a modern `/coaching-registration/` page styled to match the existing `becom
 ## Notes
 
 - Reuses `assets/css/become-a-tiger.css` so the page visually matches the Become A Tiger registration flow.
+- Both registration routes use a white preparation/checklist section followed by a cream form section, keeping the white embedded form distinct from the global white footer.
 - Uses the legacy Coaching Registration copy for the intro, three-step checklist, and confirmation note.
 - Embeds the coaching registration Jotform configured in front matter:
   - `jotform_id: "253625311709152"`

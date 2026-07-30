@@ -61,7 +61,7 @@ To retain an age definition without listing it for the current tryout cycle, set
   birth_window: May 1, 2015 – April 30, 2016
 ```
 
-When an age is unavailable, also update the page intro/Ages quick fact and remove or comment out any active `groups` schedule block for that age. Remove `enabled` or change it to `true` when the age returns.
+When an age is unavailable, also update the page intro and remove or comment out any active `groups` schedule block for that age. Remove `enabled` or change it to `true` when the age returns.
 
 ## Update FAQ
 

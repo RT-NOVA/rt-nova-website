@@ -1,5 +1,5 @@
 .rt-roster-page {
-  background: #f5f1ea;
+  background: #fff;
 }
 
 .rt-roster-page--open {
@@ -24,6 +24,38 @@
 
 .rt-roster-back-row a:hover {
   text-decoration: underline;
+}
+
+.rt-roster-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  padding: 0 0 clamp(1.25rem, 2.5vw, 1.75rem);
+  border-bottom: 1px solid rgba(7, 16, 29, .12);
+}
+
+.rt-roster-meta div {
+  display: grid;
+  gap: .35rem;
+}
+
+.rt-roster-meta dt {
+  color: #a84220;
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.rt-roster-meta dd {
+  margin: 0;
+  color: #07101d;
+  font-family: var(--rt-display, "Oswald", "Bebas Neue", "Arial Narrow", Impact, "Arial Black", sans-serif);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .rt-roster-eyebrow {
@@ -176,6 +208,10 @@
   .rt-roster-table--players th:nth-child(3),
   .rt-roster-table--players td:nth-child(3) {
     min-width: 7.5rem;
+  }
+
+  .rt-roster-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

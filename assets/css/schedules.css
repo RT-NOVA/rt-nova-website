@@ -1,15 +1,7 @@
 /* Current-season Schedules page */
 
-.schedules-proof-strip .rt-proof-grid strong {
-  color: #151515;
-}
-
-.schedules-proof-strip .rt-proof-grid span {
-  color: var(--rt-muted);
-}
-
 .schedules-page {
-  background: var(--rt-cream, #f4f1ea);
+  background: #fff;
 }
 
 .schedules-page__inner {
@@ -654,10 +646,6 @@
 }
 
 @media (max-width: 720px) {
-  .schedules-proof-strip .rt-proof-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .schedules-heading {
     margin-inline: 0;
     text-align: left;

@@ -17,10 +17,12 @@ Use this guide when adding or refreshing a page. It describes the current visual
    - Transparent headers require one safe-area layer on the actual hero component; do not add spacing to arbitrary children of `main`.
 
 3. **Body sections**
-   - Alternate purposefully between cream, white, dark proof strips, and image-led sections.
+   - Inner pages move directly from the hero into a white primary content section; do not place a proof strip between them.
+   - Alternate purposefully between white, cream, dark, orange, and image-led sections after that opening section.
    - Use open rows for schedules, team lists, filters, and operational information.
    - Use cards for people, rosters, social/news posts, and strongly visual destinations.
    - Keep homepage copy concise and direct families to the detailed page.
+   - End page content on a non-white section so the global white footer remains visually distinct.
 
 4. **Footer**
    - Global footer remains white so it is consistent on every route.
@@ -29,7 +31,7 @@ Use this guide when adding or refreshing a page. It describes the current visual
 
 ## Section color roles
 
-- **Black/charcoal:** header states, proof/stat strips, high-contrast anchors, and the copyright bar.
+- **Black/charcoal:** header states, the homepage proof band, high-contrast anchors, and the copyright bar.
 - **Cream/white:** the default readable content backgrounds.
 - **Orange:** primary actions, eyebrows, links, small rules, and meaningful highlights.
 - **Images:** emotion, coaching, team culture, competition, and program proof.
@@ -40,15 +42,16 @@ Avoid full orange sections as a default. They should be reserved for a rare urge
 
 ```text
 Image or dark hero
-Short proof/quick-facts strip when useful
-Primary cream or white content
+Primary white content
 Image-led or dark feature section
 Supporting details, FAQ, directory, or data rows
+Non-white final section (cream, dark, orange, or image-led)
 White footer
 Black copyright strip
 ```
 
 Do not add a section solely to satisfy the pattern. Each section should answer a visitor question or provide a next action.
+The homepage intentionally keeps its dark proof band; this inner-page rule does not apply to it.
 
 ## Calls to action
 

@@ -1,18 +1,30 @@
 /* Watch Now page */
 
-.watch-proof-strip .rt-proof-grid strong {
-  color: #151515;
-}
-
-.watch-proof-strip .rt-proof-grid span {
-  color: var(--rt-muted);
-}
-
 .watch-page {
   background: var(--bg, #f4f1eb);
 }
 
 .watch-page--white {
+  background: #fff;
+}
+
+.watch-page--dark {
+  background: #0b0c0e;
+}
+
+.watch-page--dark .watch-media-split h2 {
+  color: #fff;
+}
+
+.watch-page--dark .watch-media-split > div > p:not(.rt-eyebrow) {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.watch-page--dark .rt-eyebrow {
+  color: var(--rt-orange);
+}
+
+.watch-page--dark .watch-media-card {
   background: #fff;
 }
 

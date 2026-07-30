@@ -1,13 +1,5 @@
 /* Accolades page */
 
-.accolades-proof-strip .rt-proof-grid strong {
-  color: #151515;
-}
-
-.accolades-proof-strip .rt-proof-grid span {
-  color: var(--rt-muted);
-}
-
 .accolades-wall-section .rt-container,
 .accolades-featured-section .rt-container,
 .accolades-team-section .rt-container,

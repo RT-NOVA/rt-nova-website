@@ -143,8 +143,6 @@ h1, h2, h3,
 .rt-section-heading h2,
 .rt-page-hero__card,
 .rt-page-hero__card strong,
-.rt-team-proof-strip .rt-proof-grid strong,
-.rt-roster-proof-strip .rt-proof-grid strong,
 .proof-band strong,
 .feature-list strong,
 .image-card__body h3 {
@@ -344,4 +342,3 @@ h1, h2, h3,
   letter-spacing: var(--rt-heading-letter-tight);
   line-height: 0.92;
 }
-

@@ -173,19 +173,6 @@
   }
 }
 
-/* Team Central light consistency pass */
-.rt-team-proof-strip {
-  background: #fff;
-}
-
-.rt-team-proof-strip .rt-proof-grid strong {
-  color: var(--rt-navy);
-}
-
-.rt-team-proof-strip .rt-proof-grid span {
-  color: var(--rt-muted);
-}
-
 .rt-team-central--open-flow {
   padding-top: clamp(2.25rem, 4vw, 3.25rem);
 }
@@ -199,25 +186,7 @@
   margin-bottom: clamp(2.1rem, 4vw, 3rem);
 }
 
-@media (max-width: 720px) {
-  .rt-team-proof-strip .rt-proof-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 /* Roster page consistency pass */
-.rt-roster-proof-strip {
-  background: #fff;
-}
-
-.rt-roster-proof-strip .rt-proof-grid strong {
-  color: var(--rt-navy);
-}
-
-.rt-roster-proof-strip .rt-proof-grid span {
-  color: var(--rt-muted);
-}
-
 .rt-roster-page-heading {
   max-width: 860px;
   margin: 0 auto clamp(2rem, 4vw, 3.5rem);
@@ -277,10 +246,6 @@
 }
 
 @media (max-width: 720px) {
-  .rt-roster-proof-strip .rt-proof-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .rt-roster-page-heading {
     text-align: left;
   }
@@ -293,4 +258,3 @@
     justify-content: flex-start;
   }
 }
-

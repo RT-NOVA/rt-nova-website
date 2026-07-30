@@ -2,7 +2,7 @@
    Purpose: match the open roster/social-hub feel without the heavy dashboard card. */
 
 .rt-team-central--open-flow {
-  background: var(--bg, #f4f1eb);
+  background: #fff;
   padding-top: clamp(3rem, 6vw, 5rem);
 }
 

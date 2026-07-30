@@ -33,6 +33,8 @@ Global component styles follow the core bundle. Page-only styles are selected in
 
 `design-lock.css` is intentionally a compact preservation layer captured from the approved design. Avoid editing it for routine component work. Prefer the component stylesheet that owns the element.
 
+Inner pages do not use proof or quick-facts strips between the hero and body. Their first content section is white, and their final content section is cream, dark, orange, or image-led so it remains distinct from the global white footer. The homepage proof band is intentionally preserved as an exception. Rehome any essential facts in the body section where visitors use them.
+
 When changing CSS:
 
 - Edit the existing owning rule instead of adding a new override at the end of another file.

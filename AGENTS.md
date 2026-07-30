@@ -29,6 +29,14 @@ Do not reset, clean, restore, pull, switch branches, or replace files with an ol
 - Treat `assets/css/design-lock.css` as a preservation layer, not a routine editing target.
 - Explain the root cause before making a visual fix and verify the rendered result afterward.
 
+## Inner-page flow
+
+- Preserve the homepage proof band.
+- Do not place proof or quick-facts strips between inner-page heroes and their body content.
+- Begin inner-page body content with a white primary section.
+- End inner-page content on a non-white section (cream, dark, orange, or image-led) so it remains distinct from the global white footer.
+- Put essential page facts in the section where visitors use them instead of repeating them in a separate strip.
+
 ## Hugo and validation
 
 Local and Cloudflare builds use Hugo Extended `0.164.0`.

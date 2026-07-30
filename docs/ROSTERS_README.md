@@ -109,10 +109,11 @@ python3 scripts/sync-roster-pages.py --check
 
 Roster pages render as open, line-based tables:
 
+- Team metadata: `Season`, `Age Group`, `Division`, `Record`
 - Roster: `#`, `Name`, `Positions`
 - Coaching Staff: `Name`, `Title`
 
-Player and staff photo fields are intentionally not used by the roster page.
+The team metadata is integrated into the opening white roster section rather than displayed in a separate proof strip. The final join section uses a dark treatment so it remains distinct from the global white footer. Player and staff photo fields are intentionally not used by the roster page.
 
 For the complete season workflow, including how team and roster visibility work together, see [`SEASON_MAINTENANCE.md`](SEASON_MAINTENANCE.md).
 

@@ -47,20 +47,18 @@
     "show_card" false
   ) }}
 
-  <section class="rt-proof-strip rt-proof-strip--light rt-roster-proof-strip" aria-label="Roster quick facts">
-    <div class="rt-container rt-proof-grid">
-      <div><strong>Season</strong><span>{{ $season }}</span></div>
-      <div><strong>Age Group</strong><span>{{ $age }}</span></div>
-      <div><strong>Division</strong><span>{{ if $division }}{{ $division }}{{ else }}—{{ end }}</span></div>
-      <div><strong>Record</strong><span>{{ $record }}</span></div>
-    </div>
-  </section>
-
-  <section class="rt-section rt-roster-page rt-roster-page--open">
+  <section class="rt-section rt-section--white rt-roster-page rt-roster-page--open">
     <div class="rt-container">
       <div class="rt-roster-back-row">
         <a href="{{ partial "url.html" "/teams/" }}">← Back to Team Central</a>
       </div>
+
+      <dl class="rt-roster-meta" aria-label="Roster details">
+        <div><dt>Season</dt><dd>{{ $season }}</dd></div>
+        <div><dt>Age Group</dt><dd>{{ $age }}</dd></div>
+        <div><dt>Division</dt><dd>{{ if $division }}{{ $division }}{{ else }}—{{ end }}</dd></div>
+        <div><dt>Record</dt><dd>{{ $record }}</dd></div>
+      </dl>
 
       {{ with .Params.note }}
         <div class="rt-roster-note">{{ . }}</div>
@@ -148,7 +146,7 @@
     </div>
   </section>
 
-  <section class="rt-section rt-section--white rt-team-join-band rt-team-join-band--compact">
+  <section class="rt-section rt-section--dark rt-team-join-band rt-team-join-band--compact rt-team-join-band--dark">
     <div class="rt-container rt-team-join-band__inner">
       <div>
         <p class="rt-eyebrow rt-eyebrow--dark">Looking for a team?</p>

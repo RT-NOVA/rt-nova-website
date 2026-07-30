@@ -2,20 +2,13 @@
 {{ $teamsData := partial "data/team-seasons.html" . }}
 {{ $seasonScratch := newScratch }}
 {{ $seasonScratch.Set "defaultSeason" ($teamsData.default_season | default "2026") }}
-{{ $seasonScratch.Set "currentSeason" ($teamsData.default_season | default "2026") }}
-{{ $seasonScratch.Set "upcomingSeason" "" }}
 {{ range $teamsData.seasons }}
   {{ $status := lower (.status | default "") }}
   {{ if eq $status "current" }}
     {{ $seasonScratch.Set "defaultSeason" .id }}
-    {{ $seasonScratch.Set "currentSeason" .id }}
-  {{ else if and (eq $status "upcoming") (not ($seasonScratch.Get "upcomingSeason")) }}
-    {{ $seasonScratch.Set "upcomingSeason" .id }}
   {{ end }}
 {{ end }}
 {{ $defaultSeason := string ($seasonScratch.Get "defaultSeason") }}
-{{ $currentSeason := string ($seasonScratch.Get "currentSeason") }}
-{{ $upcomingSeason := string ($seasonScratch.Get "upcomingSeason") }}
 {{ $activeSeasonsScratch := newScratch }}
 {{ $activeSeasonsScratch.Set "seasons" (slice) }}
 {{ range $teamsData.seasons }}
@@ -37,16 +30,7 @@
   "show_card" false
 ) }}
 
-<section class="rt-proof-strip rt-proof-strip--light rt-coaches-proof-strip" aria-label="Coaches quick facts">
-  <div class="rt-container rt-proof-grid">
-    <div><strong>{{ $currentSeason }}</strong><span>Current Staff</span></div>
-    <div><strong>{{ if $upcomingSeason }}{{ $upcomingSeason }}{{ else }}Coming Soon{{ end }}</strong><span>Upcoming Staff</span></div>
-    <div><strong>10U–14U</strong><span>Program Age Groups</span></div>
-    <div><strong>Head + Assistant</strong><span>Coaching Roles</span></div>
-  </div>
-</section>
-
-<section class="rt-section rt-coaches-page">
+<section class="rt-section rt-section--white rt-coaches-page">
   <div class="rt-container">
     <header class="rt-coaches-block-head">
       <p class="rt-eyebrow rt-eyebrow--dark">Program Leadership</p>

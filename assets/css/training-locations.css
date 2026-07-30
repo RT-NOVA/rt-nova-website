@@ -1,9 +1,5 @@
 /* Training Locations page: aligned with About page layout patterns */
 
-.training-proof-strip .rt-proof-grid div {
-  min-height: 5.6rem;
-}
-
 .training-split-feature h2 {
   margin: 0;
   color: var(--ink, #07101d);

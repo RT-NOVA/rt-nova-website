@@ -3,16 +3,6 @@ apply_url: "/coaching-registration/"
 contact_email: "rawlingstigersnova@gmail.com"
 contact_email_url: "mailto:rawlingstigersnova@gmail.com"
 
-proof:
-  - label: Location
-    value: Woodbridge / Dumfries / Montclair
-  - label: Roles
-    value: Head + Assistant Coaches
-  - label: Compensation
-    value: Paid Positions
-  - label: Commitment
-    value: In-Season + Off-Season
-
 roles:
   - title: Head Coach
     short_label: Head

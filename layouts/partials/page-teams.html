@@ -1,19 +1,12 @@
 {{ $data := partial "data/team-seasons.html" . }}
 {{ $seasonScratch := newScratch }}
 {{ $seasonScratch.Set "defaultSeason" ($data.default_season | default "2026") }}
-{{ $seasonScratch.Set "currentSeason" ($data.default_season | default "2026") }}
-{{ $seasonScratch.Set "upcomingSeason" "" }}
 {{ range $data.seasons }}
   {{ if eq (lower .status) "current" }}
     {{ $seasonScratch.Set "defaultSeason" .id }}
-    {{ $seasonScratch.Set "currentSeason" .id }}
-  {{ else if and (eq (lower .status) "upcoming") (not ($seasonScratch.Get "upcomingSeason")) }}
-    {{ $seasonScratch.Set "upcomingSeason" .id }}
   {{ end }}
 {{ end }}
 {{ $defaultSeason := $seasonScratch.Get "defaultSeason" }}
-{{ $currentSeason := $seasonScratch.Get "currentSeason" }}
-{{ $upcomingSeason := $seasonScratch.Get "upcomingSeason" }}
 {{ $activeSeasonsScratch := newScratch }}
 {{ $activeSeasonsScratch.Set "seasons" (slice) }}
 {{ range $data.seasons }}
@@ -30,16 +23,7 @@
 
 {{ partial "hero.html" (dict "kicker" "Teams" "title" .Title "intro" $data.intro "show_card" false) }}
 
-<section class="rt-proof-strip rt-proof-strip--light rt-team-proof-strip" aria-label="Team Central quick facts">
-  <div class="rt-container rt-proof-grid">
-    <div><strong>{{ $currentSeason }}</strong><span>Current Season</span></div>
-    <div><strong>{{ if $upcomingSeason }}{{ $upcomingSeason }}{{ else }}Coming Soon{{ end }}</strong><span>Upcoming Season</span></div>
-    <div><strong>10U–14U</strong><span>Program Age Groups</span></div>
-    <div><strong>Searchable</strong><span>Team Archive</span></div>
-  </div>
-</section>
-
-<section class="rt-section rt-team-central rt-team-central--open-flow" id="team-seasons" data-team-central data-default-season="{{ $defaultSeason }}">
+<section class="rt-section rt-section--white rt-team-central rt-team-central--open-flow" id="team-seasons" data-team-central data-default-season="{{ $defaultSeason }}">
   <div class="rt-container">
     <div class="rt-team-season-nav" aria-label="Team season selector">
       {{ range $activeSeasons }}

@@ -46,7 +46,7 @@
 .social-feed__pager-status{min-width:6.5rem;text-align:center;color:var(--rt-muted);font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;}
 .social-hub__empty{background:#fff;border:1px solid var(--rt-line);box-shadow:var(--rt-shadow-soft);padding:1.4rem;color:var(--rt-muted);font-weight:700;max-width:760px;margin:0 auto;}
 
-.social-hub-page{background:#fff;}
+.social-hub-page{background:var(--bg,#f4f1eb);}
 .social-hub-page__intro h1{font-family:var(--rt-display);font-size:clamp(2.8rem,7vw,6rem);line-height:.95;text-transform:uppercase;color:var(--rt-charcoal);margin-bottom:.75rem;}
 .social-hub-tabs{display:flex;justify-content:center;align-items:center;gap:.85rem;flex-wrap:wrap;margin:0 auto 2.2rem;}
 .social-hub-tabs__button{appearance:none;border:0;background:transparent;color:var(--rt-burgundy, #5d0a1f);cursor:pointer;min-height:62px;padding:0 1.35rem;font-size:.78rem;font-weight:950;letter-spacing:.08em;text-transform:uppercase;}

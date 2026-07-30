@@ -4,7 +4,7 @@ Use this as a planning guide for future page redesigns so the site feels consist
 
 ## Core roles
 
-- **Black / charcoal**: structure, contrast, anchors, high-impact bands, navigation, footer copyright, stat strips, and important section breaks.
+- **Black / charcoal**: structure, contrast, anchors, high-impact bands, navigation, the homepage proof band, footer copyright, and important section breaks.
 - **Cream / warm white**: default content background for readable parent-facing information, cards, forms, bios, FAQs, and footer content.
 - **Rawlings orange**: actions and emphasis. Use for primary buttons, small labels, hover states, thin accents, highlighted text links, and warm transitions. Avoid large full-orange sections unless the message is urgent or temporary.
 - **Images**: emotion and proof. Use for heroes, Program Focus cards, team pages, player highlights, accolades, and social previews.
@@ -14,11 +14,11 @@ Use this as a planning guide for future page redesigns so the site feels consist
 1. **Image hero**  
    Large photo, white headline, minimal copy, clear primary action.
 
-2. **Dark proof or context strip**  
-   Short facts, stats, or key navigation. This creates separation after the hero.
+2. **White primary section**
+   Inner pages move directly into their main task or explanation. Relevant facts belong with the section that explains them rather than in a separate proof strip.
 
 3. **Cream information section**  
-   Main explanation, intro copy, family/program details, or cards.
+   Supporting explanation, family/program details, or cards.
 
 4. **Image/card section**  
    Visual navigation, program highlights, team images, coach photos, or accolade previews.
@@ -26,8 +26,8 @@ Use this as a planning guide for future page redesigns so the site feels consist
 5. **Cream detail section**  
    Supporting information, FAQs, locations, rosters, schedules, or forms.
 
-6. **Clean white footer transition**  
-   A warm fade into the footer instead of a hard line or black divider.
+6. **Non-white final section**
+   End page content on cream, dark, orange, or an image-led treatment so it remains distinct from the footer.
 
 7. **White footer**  
    Contact, resources, logo, and social links.
@@ -39,7 +39,7 @@ Use this as a planning guide for future page redesigns so the site feels consist
 
 Use black or charcoal when the section needs strength or contrast:
 
-- Proof/stat strips under heroes
+- The homepage proof band
 - Tryout registration highlights
 - Tournament/accolade feature bands
 - Schedule or result emphasis blocks
@@ -55,7 +55,6 @@ Use orange as an accent, not the default background:
 - Important hover states
 - Small badges
 - Text links that need emphasis
-- Warm footer transition glow
 
 Large orange blocks should be rare and reserved for urgent tryout deadlines, registration alerts, or special announcements.
 
@@ -78,16 +77,29 @@ Current homepage target pattern:
 1. Transparent-header image hero
 2. Dark proof strip
 3. Program Focus image cards
-4. Centered Local Roots cream section
-5. Social Hub cream section
-6. Orange-to-cream footer fade
-7. Cream Brick-style footer
+4. Player Development Pathway and competitive-team proof
+5. Centered Local Roots section
+6. Social Hub cream section
+7. White Brick-style footer
 8. Black copyright bar
 
 
 ## Footer Baseline
 
-Use a clean white footer on every page. Do not use a full orange footer, an orange divider band, or an orange-to-cream fade. The footer should separate from the preceding section through a subtle charcoal top border, a soft upward shadow, clear vertical spacing, and the black copyright bar. Orange should remain a link/button accent only.
+Use a clean white footer on every page. Do not use a full orange footer, an orange divider band, or an orange-to-cream fade. The page's final content section should be non-white, while the footer uses its subtle charcoal top border, soft upward shadow, clear vertical spacing, and black copyright bar. Orange should remain a link/button accent only.
+
+## Inner-page baseline
+
+Inner pages use this shared rhythm:
+
+1. Transparent-header hero where appropriate
+2. White primary content section
+3. Alternating supporting sections chosen for content and contrast
+4. Non-white final content section
+5. White footer
+6. Black copyright bar
+
+Do not add a proof or quick-facts strip between an inner-page hero and its primary content. If a fact is important, place it in the section where visitors act on or understand it. The homepage dark proof band is an intentional exception.
 
 ## Inner Page Transparent Header Routes
 

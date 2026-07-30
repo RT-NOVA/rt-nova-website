@@ -17,7 +17,7 @@ The page uses the shared Hugo site components already used by About, Sponsors, T
 
 ```text
 hero
-proof strip
+white opening mission section
 split feature sections
 feature cards
 dark contact section

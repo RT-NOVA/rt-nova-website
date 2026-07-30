@@ -1,8 +1,17 @@
 /* Become A Tiger page: form-focused open flow aligned with main, Team Central, and roster pages */
 
 .rt-become-page {
-  background: var(--rt-cream, #f4f1ea);
   padding-top: clamp(3.25rem, 5vw, 5rem);
+}
+
+.rt-become-page--intro {
+  background: #fff;
+  padding-bottom: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.rt-become-page--form {
+  background: var(--rt-cream, #f4f1ea);
+  padding-top: clamp(2.5rem, 4vw, 3.75rem);
 }
 
 .rt-become-page__inner {
@@ -158,6 +167,14 @@
 @media (max-width: 560px) {
   .rt-become-page {
     padding-top: 2.4rem;
+  }
+
+  .rt-become-page--intro {
+    padding-bottom: 2rem;
+  }
+
+  .rt-become-page--form {
+    padding-top: 2rem;
   }
 
   .rt-become-checklist li,

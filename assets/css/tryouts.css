@@ -483,46 +483,6 @@
 
 /* Highlight Private quick fact */
 
-.rt-tryout-quick-facts strong,
-
-.rt-tryout-quick-facts span {
-
-  transition: color .18s ease;
-
-}
-
-.rt-tryout-quick-facts div:nth-child(3) strong,
-
-.rt-tryout-quick-facts div:nth-child(3) span {
-
-  color: var(--rt-orange);
-
-}
-
-
-/* Highlight Private quick fact */
-.rt-tryout-fact-private strong,
-.rt-tryout-fact-private span {
-  color: var(--rt-orange) !important;
-}
-
-/* Highlight Private quick fact in Tryouts proof strip */
-
-.rt-proof-strip .rt-proof-strip__inner .rt-tryout-fact-private strong,
-
-.rt-proof-strip .rt-proof-strip__inner .rt-tryout-fact-private span {
-
-  color: var(--rt-orange) !important;
-
-}
-
-
-/* Highlight Private quick fact */
-.rt-tryout-fact-private strong,
-.rt-tryout-fact-private span {
-  color: var(--rt-orange) !important;
-}
-
 
 /* FAQ now uses shared rt-faq component; keep old tryout FAQ classes neutral for backward compatibility. */
 .rt-tryout-faq-list,
