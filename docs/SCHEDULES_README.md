@@ -25,6 +25,7 @@ For the complete season turnover workflow, see [`SEASON_MAINTENANCE.md`](SEASON_
 - Scheduled summaries use `Up Next · Game` or `Up Next · Tournament`; teams without an upcoming event show only `Schedule coming soon`.
 - Opening an accordion reveals the team's complete upcoming schedule; only one manually opened team remains expanded at a time.
 - Selecting a team tab or mobile team option filters to that team and opens its schedule.
+- Team Central can link directly to an expanded team schedule with `/schedules/?team=<team-slug>#team-<team-slug>`.
 - Past events move into an expandable past-events area.
 - Search checks teams, opponents, tournament names, locations, dates, times, and notes, then automatically opens teams containing matches.
 - A `?team=<team-slug>` query can open a specific team.

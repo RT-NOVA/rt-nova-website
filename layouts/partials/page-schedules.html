@@ -133,6 +133,7 @@
         {{ $teamEvents := $teamEventsScratch.Get "events" }}
 
         <section class="schedules-team-section"
+          id="team-{{ $teamSlug }}"
           data-schedule-team-section
           data-team="{{ $teamName }}"
           data-team-slug="{{ $teamSlug }}"

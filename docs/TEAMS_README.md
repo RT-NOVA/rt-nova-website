@@ -253,7 +253,7 @@ links:
   - label: Roster
     url: /rosters/2027-14u-black/
   - label: Schedule
-    url: /schedules/?team=14u-black
+    url: /schedules/?team=14u-black#team-14u-black
   - label: GameChanger
     url: https://web.gc.com/teams/example/team
 ```
@@ -269,6 +269,8 @@ Instagram    Instagram icon
 ```
 
 Use these exact labels so the intended icon and accessible text are rendered. A missing or placeholder URL is displayed as unavailable rather than as a broken link.
+
+Current-team schedule links should include both the `team` query value and matching `team-<slug>` anchor. The query selects and expands that team's schedule, while the anchor moves the visitor directly to the expanded team section. Do not use legacy `/leagues/team/` schedule URLs.
 
 Use full URLs for outside sites:
 

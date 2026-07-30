@@ -16,7 +16,7 @@ spring:
     - label: Roster
       url: /rosters/2026-13u-black/
     - label: Schedule
-      url: https://rawlingstigersnova.com/leagues/team/28092/781690#schedule
+      url: /schedules/?team=13u-black#team-13u-black
     - label: GameChanger
       url: https://web.gc.com/teams/0mbDOjSNrKd5/2025-winter-rawlings-tigers-nova---black-13u/team
   - name: 13U Orange
@@ -33,7 +33,7 @@ spring:
     - label: Roster
       url: /rosters/2026-13u-orange/
     - label: Schedule
-      url: https://rawlingstigersnova.com/leagues/team/28092/781692#schedule
+      url: /schedules/?team=13u-orange#team-13u-orange
     - label: GameChanger
       url: https://web.gc.com/teams/xOTiFoRztVOZ/2025-winter-rawlings-tigers-nova---orange-13u/team
   - name: 11U
@@ -50,7 +50,7 @@ spring:
     - label: Roster
       url: /rosters/2026-11u/
     - label: Schedule
-      url: https://rawlingstigersnova.com/leagues/team/28092/781691#schedule
+      url: /schedules/?team=11u#team-11u
     - label: GameChanger
       url: https://web.gc.com/teams/i57MoYP9I6Sn/2026-spring-rawlings-tigers-nova-11u/team
 fall:

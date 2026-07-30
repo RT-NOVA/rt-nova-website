@@ -185,8 +185,14 @@ Important rules:
 - The `team` value must exactly match a team name in that season's `teams.yaml`.
 - Only events from the season marked `current` are shown on `/schedules/`.
 - The team list comes from enabled current-season teams. Events left in YAML for a disabled team are retained but not displayed.
-- The default view shows the next two upcoming events per team. Selecting a team shows its complete schedule, and past events remain available in the past-events area.
+- The default view shows one compact accordion summary per current team, including its next upcoming event or `Schedule coming soon`.
+- Scheduled events use the label `Up Next · Game` or `Up Next · Tournament`.
+- Opening a team reveals its complete upcoming schedule; selecting a team filters to that team and opens its schedule automatically.
+- Team Central schedule links use `/schedules/?team=<team-slug>#team-<team-slug>` to open and position the matching team section.
+- Past events remain available in the expandable past-events area.
 - There is no event-level `enabled` or `draft` option. Remove or comment out an event that should not be rendered.
+
+See [`SCHEDULES_README.md`](SCHEDULES_README.md) for the complete schedule-page behavior and validation checklist.
 
 ## Coaches
 
