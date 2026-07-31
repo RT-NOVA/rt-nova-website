@@ -1,6 +1,6 @@
 enabled: true
 aria_label: Important tryout information
-eyebrow: 2027 Tryouts
-message: Dates & details are now available
-link_label: View tryouts
+eyebrow: Tryouts
+message: 2027 dates & details are available
+mobile_message: 2027 details are available
 url: /tryouts/
