@@ -41,7 +41,20 @@ The announcement is a centered, content-width panel inside the fixed header. It 
 - When `url` is omitted, the notice remains informational and does not show link behavior or an arrow.
 - On tablet and mobile, the category badge remains visible while the message wraps within the available width.
 - The mobile notice is slightly taller than the desktop notice so longer messages remain readable without overlapping the page hero.
-- The panel is lightly translucent over a hero and becomes solid charcoal after scrolling or on a non-hero page.
+- Over a hero, the panel uses a semi-opaque burnt-orange surface with a subtle orange border, blur, and shadow so it remains branded and distinct from busy photography without becoming a bright orange block. It becomes solid charcoal after scrolling or on a non-hero page.
+
+## Expanded and compact states
+
+On hero pages, the notice starts slightly larger so time-sensitive information is prominent when the page first loads. After the visitor scrolls, it transitions to a compact height and remains attached beneath the condensed header. Non-hero pages use the compact state immediately.
+
+| Viewport | Initial hero state | Scrolled or non-hero state |
+|---|---:|---:|
+| Desktop | 54px | 38px |
+| Tablet and narrow desktop | 60px | 44px |
+| Small tablet | 64px | 58px |
+| Mobile | 68px | 58px |
+
+The shared height variables also control header offsets, hero safe areas, and mobile-menu placement. When adjusting these sizes, update the owning variables in `assets/css/header-nav.css` rather than adding a separate page override.
 
 ## Writing guidance
 
