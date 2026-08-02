@@ -489,6 +489,7 @@
 .home-competitive-proof__media-item {
   position:relative;
   display:block;
+  grid-column:1;
   grid-row:1;
   width:100%;
   aspect-ratio:4 / 3;
@@ -496,10 +497,19 @@
   overflow:hidden;
   color:inherit;
   background:#e8e1d6;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 650ms cubic-bezier(.45, 0, .2, 1), visibility 0s linear 650ms;
+  will-change:opacity;
 }
 
 .home-competitive-proof__media-item.is-primary {
-  grid-column:1;
+  z-index:1;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition-delay:0s;
 }
 
 .home-competitive-proof__media-item[hidden] {
@@ -584,7 +594,7 @@
     grid-template-columns:1fr;
   }
 
-  .home-competitive-proof__media-item.is-primary {
+  .home-competitive-proof__media-item {
     grid-column:1;
     width:min(100%,760px);
     justify-self:center;
@@ -596,6 +606,12 @@
     width:min(100%,760px);
     justify-self:center;
     padding-block:clamp(1.75rem,4vw,2.75rem);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .home-competitive-proof__media-item {
+    transition:none;
   }
 }
 

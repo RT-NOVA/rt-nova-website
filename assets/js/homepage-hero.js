@@ -15,14 +15,16 @@
 
     const showItem = (index) => {
       currentIndex = (index + items.length) % items.length;
-      items.forEach((item) => {
-        item.hidden = true;
-        item.classList.remove("is-primary");
+      items.forEach((item, itemIndex) => {
+        const isCurrent = itemIndex === currentIndex;
+        item.classList.toggle("is-primary", isCurrent);
+        item.setAttribute("aria-hidden", String(!isCurrent));
+        if (isCurrent) {
+          item.removeAttribute("tabindex");
+        } else {
+          item.setAttribute("tabindex", "-1");
+        }
       });
-
-      const item = items[currentIndex];
-      item.hidden = false;
-      item.classList.add("is-primary");
     };
 
     const stopTimer = () => {
@@ -48,6 +50,9 @@
 
     document.addEventListener("visibilitychange", startTimer);
 
+    items.forEach((item) => {
+      item.hidden = false;
+    });
     showItem(currentIndex);
     startTimer();
   });
