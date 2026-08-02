@@ -67,7 +67,7 @@ Selection behavior:
 6. If more than three items are marked, the newest three marked items are displayed.
 7. A marked item without a destination link or usable image is ignored and does not create a broken card.
 
-The homepage recruiting section uses the same three selected Featured Achievements as its image pool. One is chosen randomly on each page load and remains still for that visit.
+The homepage recruiting section uses the same three selected Featured Achievements as its image pool. The newest selected achievement appears first, then the section rotates through the remaining images.
 
 Optional fields:
 

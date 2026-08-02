@@ -9,7 +9,7 @@
     const requestedInterval = Number.parseInt(gallery.dataset.randomAchievementInterval, 10);
     const interval = Number.isFinite(requestedInterval) ? Math.max(requestedInterval, 1000) : 0;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let currentIndex = Math.floor(Math.random() * items.length);
+    let currentIndex = 0;
     let timer = null;
     let pointerInside = false;
 
