@@ -37,6 +37,8 @@ Use a real event completion `date` in `YYYY-MM-DD` format. Team Accolades uses t
 
 Tournament logos are stored in `static/images/accolades/tournament-logos/`. The default hanging-banner artwork is `static/images/accolades/blank-white-hanging-banner.svg`.
 
+Tournament logos use the shared banner position by default. When artwork has unusual internal padding, add `logo_position_y` (for example, `47%`) to adjust that achievement vertically without resizing the logo or affecting other banners.
+
 The searchable banner gallery defaults to All Seasons and shows three matching banners per page. Filters support season, team, tournament, result, and free-text searching.
 
 ## Manually selecting Featured Achievements

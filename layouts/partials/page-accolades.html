@@ -153,7 +153,7 @@
               <div class="accolades-overlay-banner__stage">
                 <img class="accolades-overlay-banner__base" src="{{ partial "url.html" $template }}" alt="" aria-hidden="true" loading="lazy">
                 {{ with $achievement.logo }}
-                  <figure class="accolades-overlay-banner__logo">
+                  <figure class="accolades-overlay-banner__logo"{{ with $achievement.logo_position_y }} style="--accolades-logo-position-y: {{ . }};"{{ end }}>
                     <img src="{{ partial "url.html" . }}" alt="{{ $achievement.tournament }} logo" loading="lazy">
                   </figure>
                 {{ end }}

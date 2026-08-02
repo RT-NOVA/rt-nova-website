@@ -273,7 +273,7 @@
 
 .accolades-overlay-banner__logo {
   position: absolute;
-  top: 44%;
+  top: var(--accolades-logo-position-y, 44%);
   left: 50%;
   display: grid;
   width: 34%;
