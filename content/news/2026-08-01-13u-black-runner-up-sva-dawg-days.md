@@ -7,7 +7,8 @@ badge: "Runner-Up"
 team: "13U Black"
 image: "/images/social/13u-black-dawg-days-runner-up.jpg"
 image_alt: "Rawlings Tigers NOVA 13U Black players wearing medals and holding their Shenandoah Valley Athletics runner-up banner"
-image_fit: contain
+image_fit: cover
+image_position: "center 52%"
 excerpt: "13U Black earned a runner-up finish at the 2026 Shenandoah Valley Athletics Dawg Days Tournament."
 ---
 

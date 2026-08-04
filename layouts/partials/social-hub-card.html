@@ -25,7 +25,8 @@
 {{ if in $platformKey "facebook" }}{{ $platformIcon = "facebook" }}{{ end }}
 
 {{ $image := $post.Params.image }}
-{{ $imageFit := $post.Params.image_fit | default "contain" }}
+{{ $imageFit := $post.Params.image_fit | default "cover" }}
+{{ $imagePosition := $post.Params.image_position | default "center center" }}
 {{ $fallbackImage := $post.Params.fallback_image | default "" }}
 {{ $imgSrc := "" }}
 {{ $imgExternal := false }}
@@ -67,7 +68,7 @@
     </div>
 
     {{ if $imgSrc }}
-    <div class="social-feed-card__image social-feed-card__image--fit-{{ $imageFit }} social-feed-card__image--{{ $imageFit }}">
+    <div class="social-feed-card__image social-feed-card__image--fit-{{ $imageFit }} social-feed-card__image--{{ $imageFit }}" style="--social-image-position: {{ $imagePosition }};">
       <img loading="lazy" decoding="async" src="{{ if $imgExternal }}{{ $imgSrc | safeURL }}{{ else }}{{ $imgSrc }}{{ end }}" alt="{{ with $post.Params.image_alt }}{{ . }}{{ else }}{{ $post.Title }}{{ end }}"{{ if $imgExternal }} referrerpolicy="no-referrer"{{ end }}>
     </div>
     {{ else }}

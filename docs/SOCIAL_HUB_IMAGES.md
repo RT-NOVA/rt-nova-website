@@ -20,6 +20,7 @@ Use a local image for the card:
 image: "/images/social/2026-06-15-facebook-11u-team-photo.jpg"
 image_alt: "Rawlings Tigers NOVA 11U team photo"
 image_fit: "cover"
+image_position: "center center"
 ```
 
 Optionally keep the original remote image URL for one-time syncing only:
@@ -70,4 +71,5 @@ For every new Facebook or Instagram card:
 - Write useful `image_alt:`.
 - Use `image_fit: "cover"` for normal photo cards.
 - Use `image_fit: "contain"` for graphics/posters that should not crop.
+- Use `image_position` to keep the important subject visible when a photo is cropped into the card's standard media frame. Values such as `"center 55%"` shift the focal point lower.
 - Avoid direct CDN URLs as the final `image:` value.

@@ -14,7 +14,7 @@ html:has(.home-hero) .social-hub .social-feed-grid {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: clamp(1.25rem, 1.8vw, 1.75rem) !important;
-  align-items: start !important;
+  align-items: stretch !important;
   justify-items: stretch !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -27,8 +27,8 @@ html:has(.home-hero) .social-hub .social-feed-card {
   max-width: none !important;
   min-width: 0 !important;
   min-height: 0 !important;
-  height: auto !important;
-  align-self: start !important;
+  height: 100% !important;
+  align-self: stretch !important;
   display: block !important;
   background: #fff !important;
   border-radius: 8px !important;
@@ -40,7 +40,7 @@ html:has(.home-hero) .social-hub .social-feed-card {
 html:has(.home-hero) .social-hub .social-feed-card__link {
   display: flex !important;
   flex-direction: column !important;
-  height: auto !important;
+  height: 100% !important;
   min-height: 0 !important;
   background: #fff !important;
   color: inherit !important;
@@ -78,13 +78,18 @@ html:has(.home-hero) .social-hub .social-feed-card__platform svg {
 }
 
 html:has(.home-hero) .social-hub .social-feed-card__caption {
-  min-height: calc(2.56em + 1.2rem) !important;
+  display: -webkit-box !important;
+  height: calc(3.84em + 1.2rem) !important;
+  min-height: calc(3.84em + 1.2rem) !important;
+  overflow: hidden !important;
   padding: 0.35rem 1.05rem 0.85rem !important;
   background: #fff !important;
   color: #101014 !important;
   font-size: clamp(0.98rem, 0.95vw, 1.06rem) !important;
   font-weight: 750 !important;
   line-height: 1.28 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 html:has(.home-hero) .social-hub .social-feed-card__image {
@@ -121,7 +126,7 @@ html:has(.home-hero) .social-hub .social-feed-card__image--fit-cover img {
 }
 
 html:has(.home-hero) .social-hub .social-feed-card__footer {
-  margin-top: 0 !important;
+  margin-top: auto !important;
   min-height: 0 !important;
   padding: 0.82rem 1.05rem !important;
   background: #fff !important;
@@ -176,9 +181,13 @@ html:has(.home-hero) .social-hub .social-feed-card:focus-within :where(.social-f
   }
 
   html:has(.home-hero) .social-hub .social-feed-card__caption {
+    display: block !important;
+    height: auto !important;
     min-height: 0 !important;
+    overflow: visible !important;
     padding: 0.35rem 0.95rem 0.75rem !important;
     font-size: 0.98rem !important;
+    -webkit-line-clamp: unset;
   }
 
   html:has(.home-hero) .social-hub .social-feed-card__footer {
@@ -186,4 +195,3 @@ html:has(.home-hero) .social-hub .social-feed-card:focus-within :where(.social-f
   }
 }
 /* RT NOVA SOCIAL HUB CARD CLEANUP END */
-
