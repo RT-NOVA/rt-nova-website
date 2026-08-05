@@ -223,3 +223,15 @@
   line-height: .92 !important;
   text-transform: uppercase !important;
 }
+
+.rt-team-join-band--dark h2 {
+  color: #fff;
+}
+
+.rt-team-join-band--dark p:not(.rt-eyebrow) {
+  color: rgba(255, 255, 255, .76);
+}
+
+.rt-team-join-band--dark .rt-eyebrow {
+  color: var(--rt-orange, #f15a24);
+}
