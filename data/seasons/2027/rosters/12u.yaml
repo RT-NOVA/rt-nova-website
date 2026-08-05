@@ -4,8 +4,30 @@ term: Fall 2026
 age_group: 12U
 division: ''
 record: —
-summary: Rawlings Tigers NOVA 12U upcoming roster.
-players: []
+summary: Rawlings Tigers NOVA 12U fall roster and staff.
+players:
+  - number: '35'
+    name: Benjamin G
+  - number: '8'
+    name: Blake B
+  - number: '42'
+    name: Brody H
+  - number: '12'
+    name: Christian T
+  - number: '29'
+    name: Cohen P
+  - number: '99'
+    name: Eli W
+  - number: '2'
+    name: Logan M
+  - number: '4'
+    name: Micah C
+  - number: '23'
+    name: Miles A
+  - number: '11'
+    name: Oaklee I
+  - number: '7'
+    name: Ryan H
 staff:
 - name: Ken Torres
   title: Head Coach

@@ -4,8 +4,28 @@ term: Fall 2026
 age_group: 13U
 division: ''
 record: —
-summary: Rawlings Tigers NOVA 13U upcoming roster.
-players: []
+summary: Rawlings Tigers NOVA 13U fall roster and staff.
+players:
+  - number: '13'
+    name: Brayden P
+  - number: '6'
+    name: Charlie H
+  - number: '21'
+    name: Elijah J
+  - number: '11'
+    name: Jacob B
+  - number: '2'
+    name: Jasper L
+  - number: ''
+    name: Jordan K
+  - number: '17'
+    name: MJ C
+  - number: ''
+    name: Owen B
+  - number: '99'
+    name: Paul B
+  - number: ''
+    name: Ronan P
 staff:
 - name: Jose Acosta
   title: Head Coach

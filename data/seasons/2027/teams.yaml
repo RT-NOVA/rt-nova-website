@@ -13,8 +13,16 @@ fall:
     coach_photo: /images/program-media/2025_coach_cheshire_crop5.png
     record: —
     links:
+    - label: Facebook
+      url: https://www.facebook.com/profile.php?id=61579359848084
+    - label: Instagram
+      url: https://www.instagram.com/rawlingstigersnova13ublack/
     - label: Roster
       url: /rosters/2027-14u-black/
+    - label: Schedule
+      url: /schedules/?team=14u-black#team-14u-black
+    - label: GameChanger
+      url: https://web.gc.com/teams/j3xAFR5V91CE/2026-fall-rawlings-tigers-nova---black-14u
   - name: 14U Orange
     sort_order: 861
     head_coach: Tim Jacoby
@@ -22,8 +30,16 @@ fall:
     coach_photo: /images/program-media/2025_coach_jacoby_crop2.jpg
     record: —
     links:
+    - label: Facebook
+      url: https://www.facebook.com/profile.php?id=61579307445767
+    - label: Instagram
+      url: https://www.instagram.com/rawlingstigersnova13uorange/
     - label: Roster
       url: /rosters/2027-14u-orange/
+    - label: Schedule
+      url: /schedules/?team=14u-orange#team-14u-orange
+    - label: GameChanger
+      url: ''
   - name: 13U
     sort_order: 872
     head_coach: Jose Acosta
@@ -31,8 +47,16 @@ fall:
     coach_photo: /images/program-media/jose-acosta-temp.jpg
     record: —
     links:
+    - label: Facebook
+      url: ''
+    - label: Instagram
+      url: ''
     - label: Roster
       url: /rosters/2027-13u/
+    - label: Schedule
+      url: /schedules/?team=13u#team-13u
+    - label: GameChanger
+      url: https://web.gc.com/teams/rOs5c6pVgVPl/2026-fall-rawlings-tigers-nova-13u
   - name: 12U
     sort_order: 880
     head_coach: Ken Torres
@@ -40,8 +64,16 @@ fall:
     coach_photo: /images/program-media/2025-coach-torres-crop2.jpg
     record: —
     links:
+    - label: Facebook
+      url: https://www.facebook.com/profile.php?id=61585826469120
+    - label: Instagram
+      url: https://www.instagram.com/rawlingstigersnova11u/
     - label: Roster
       url: /rosters/2027-12u/
+    - label: Schedule
+      url: /schedules/?team=12u#team-12u
+    - label: GameChanger
+      url: https://web.gc.com/teams/BWovWDDImIxN/2026-fall-rawlings-tigers-nova-12u
   - name: 11U
     # Set to true if this team is able to return during the 2027 season.
     enabled: false
@@ -60,5 +92,13 @@ fall:
     coach_photo: /images/program-media/coach-cleveland-temp.png
     record: —
     links:
+    - label: Facebook
+      url: ''
+    - label: Instagram
+      url: ''
     - label: Roster
       url: /rosters/2027-10u/
+    - label: Schedule
+      url: /schedules/?team=10u#team-10u
+    - label: GameChanger
+      url: ''

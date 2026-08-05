@@ -6,13 +6,13 @@ seasons:
 - id: '2027'
   label: 2027 Season
   cycle: Fall 2026 – Summer 2027
-  status: upcoming
+  status: current
   start_date: '2026-08-01'
   end_date: '2027-08-01'
 - id: '2026'
   label: 2026 Season
   cycle: Fall 2025 – Summer 2026
-  status: current
+  status: archived
   start_date: '2025-08-12'
   end_date: '2026-08-01'
 - id: '2025'
