@@ -5,7 +5,33 @@ age_group: 14U
 division: Orange
 record: —
 summary: Rawlings Tigers NOVA 14U Orange upcoming roster.
-players: []
+players:
+  - number: '13'
+    name: A Biddle
+  - number: '35'
+    name: A Girard
+  - number: '20'
+    name: A Garcia
+  - number: '11'
+    name: B Holderread
+  - number: '55'
+    name: C Sherwood
+  - number: '45'
+    name: C Branham
+  - number: '12'
+    name: C Bresnahan
+  - number: '42'
+    name: D Dadras
+  - number: '2'
+    name: D DeLancey
+  - number: '21'
+    name: D Yizar
+  - number: '5'
+    name: M Jacoby
+  - number: '14'
+    name: N Sembarski
+  - number: '7'
+    name: O Ferguson
 staff:
 - name: Tim Jacoby
   title: Head Coach

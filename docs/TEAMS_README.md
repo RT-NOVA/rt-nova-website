@@ -149,11 +149,11 @@ fall:
   teams: []
 ```
 
-## Coming soon sections
+## Terms without teams
 
-If a term does not have team details yet, keep the message simple and avoid implying that coaches are not set.
+The active Team Central view only renders Spring or Fall when that term contains at least one enabled team. An empty term may remain in the season data as a placeholder, but it is not listed on the page until team details are added.
 
-Recommended wording:
+Example placeholder:
 
 ```yaml
 spring:
@@ -162,7 +162,7 @@ spring:
   teams: []
 ```
 
-Avoid wording like:
+When teams are added, keep any fallback wording simple and avoid wording like:
 
 ```text
 teams will be added once rosters, coaches, and schedules are finalized

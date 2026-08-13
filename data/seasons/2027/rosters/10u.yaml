@@ -5,7 +5,28 @@ age_group: 10U
 division: ''
 record: —
 summary: Rawlings Tigers NOVA 10U upcoming roster.
-players: []
+players:
+  - number: '4'
+    name: Charles B
+  - number: '42'
+    name: Elijah S
+  - number: '7'
+    name: Jaxson M
+  - number: '18'
+    name: Jett E
+  - number: '8'
+    name: Julius B
+  - number: '14'
+    name: Max H
+  - number: '77'
+    name: Noah H
+  - number: '29'
+    name: Noah M
+  - number: '2'
+    name: Trevor E
+  - number: '9'
+    name: Zaine W
+
 staff:
 - name: Brandon Cleveland
   title: Head Coach

@@ -39,7 +39,7 @@ fall:
     - label: Schedule
       url: /schedules/?team=14u-orange#team-14u-orange
     - label: GameChanger
-      url: ''
+      url: https://web.gc.com/teams/aFNyl9b7xg5Y/2026-fall-rawlings-tigers-nova---orange-14u
   - name: 13U
     sort_order: 872
     head_coach: Jose Acosta
@@ -101,4 +101,4 @@ fall:
     - label: Schedule
       url: /schedules/?team=10u#team-10u
     - label: GameChanger
-      url: ''
+      url: https://web.gc.com/teams/82bi8jIOzAFv/2026-fall-rawlings-tigers-nova-10u

@@ -64,11 +64,15 @@
 
             <div class="rt-team-terms-open">
               {{ with .spring }}
-                {{ partial "team-table-term.html" (dict "term" .) }}
+                {{ if gt (len (.teams | default slice)) 0 }}
+                  {{ partial "team-table-term.html" (dict "term" .) }}
+                {{ end }}
               {{ end }}
 
               {{ with .fall }}
-                {{ partial "team-table-term.html" (dict "term" .) }}
+                {{ if gt (len (.teams | default slice)) 0 }}
+                  {{ partial "team-table-term.html" (dict "term" .) }}
+                {{ end }}
               {{ end }}
             </div>
           </section>
