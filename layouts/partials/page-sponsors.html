@@ -1,0 +1,55 @@
+{{ $data := hugo.Data.sponsors }}
+{{ partial "hero.html" (dict
+  "kicker" "Community Partners"
+  "title" .Title
+  "intro" $data.intro
+  "actions" (slice
+    (dict "label" "Become a Sponsor" "url" "/sponsorship-opportunities/" "class" "rt-btn-primary")
+  )
+) }}
+
+<section class="rt-section rt-section--white sponsors-page" aria-labelledby="current-sponsors-title">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Proudly Supporting the Tigers</p>
+    <h2 id="current-sponsors-title">Our Community Sponsors</h2>
+    <p>We are grateful to the organizations that invest in player development, team resources, and a stronger baseball community.</p>
+  </div>
+  <div class="rt-container sponsors-levels">
+    {{ range $level := $data.levels }}
+      {{ $levelSponsors := where $data.current "level" $level.name }}
+      {{ if $levelSponsors }}
+      <section class="sponsor-tier sponsor-tier--{{ $level.slug }}" aria-labelledby="sponsor-tier-{{ $level.slug }}">
+        <header class="sponsor-tier__heading">
+          <p class="rt-eyebrow rt-eyebrow--dark">Sponsorship Level</p>
+          <h3 id="sponsor-tier-{{ $level.slug }}">{{ $level.name }} Sponsors</h3>
+        </header>
+        <div class="sponsors-grid">
+          {{ range $levelSponsors }}
+          <article class="sponsor-card">
+            <span class="rt-badge rt-badge--active">{{ $level.name }} Sponsor</span>
+            <a class="sponsor-card__art" href="{{ .website }}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ .name }}">
+              <img src="{{ partial "url.html" .image }}" alt="{{ .image_alt }}" loading="lazy" decoding="async">
+            </a>
+            {{ if ne .show_name false }}
+            <h4><a href="{{ .website }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a></h4>
+            {{ end }}
+            {{ with .tagline }}<p>{{ . }}</p>{{ end }}
+          </article>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+    {{ end }}
+  </div>
+</section>
+
+<section class="rt-section rt-section--dark sponsors-cta">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow">Support Local Baseball</p>
+    <h2>Join the Teams Behind Our Teams.</h2>
+    <p>Explore sponsorship options that recognize your organization while supporting Rawlings Tigers NOVA players and families.</p>
+    <div class="rt-action-row sponsors-cta__actions">
+      <a class="rt-btn rt-btn--light" href="{{ partial "url.html" "/sponsorship-opportunities/" }}">View Sponsorship Opportunities</a>
+    </div>
+  </div>
+</section>

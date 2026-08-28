@@ -43,6 +43,7 @@
         '/training-locations/',
         '/family-hub/',
         '/booster-club/',
+        '/sponsors/',
         '/sponsorship-opportunities/'
       ];
       return overlayHeroPaths.indexOf(path) !== -1;

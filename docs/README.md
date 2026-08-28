@@ -36,6 +36,7 @@ This is the starting point for maintaining the Rawlings Tigers NOVA website. The
 | Family Hub | [`FAMILY_HUB_README.md`](FAMILY_HUB_README.md) |
 | Booster Club | [`BOOSTER_CLUB_README.md`](BOOSTER_CLUB_README.md) |
 | Sponsorship opportunities | [`SPONSORSHIP_OPPORTUNITIES_README.md`](SPONSORSHIP_OPPORTUNITIES_README.md) |
+| Current sponsors | [`SPONSORS_README.md`](SPONSORS_README.md) |
 | Coaching opportunities | [`COACHING_OPPORTUNITIES_README.md`](COACHING_OPPORTUNITIES_README.md) |
 | Coaching registration | [`COACHING_REGISTRATION_README.md`](COACHING_REGISTRATION_README.md) |
 | Shared FAQ data | [`SHARED_FAQ_README.md`](SHARED_FAQ_README.md) |

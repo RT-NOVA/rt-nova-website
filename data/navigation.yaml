@@ -11,6 +11,8 @@ main:
         url: /family-hub/
       - name: Booster Club
         url: /booster-club/
+      - name: Sponsors
+        url: /sponsors/
       - name: Sponsorship Opportunities
         url: /sponsorship-opportunities/
   - name: Teams

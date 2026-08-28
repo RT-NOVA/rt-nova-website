@@ -1,0 +1,21 @@
+intro: Local organizations help Rawlings Tigers NOVA create stronger opportunities and experiences for players, teams, and families throughout Northern Virginia.
+levels:
+  - name: Grand Slam
+    slug: grand-slam
+  - name: Home Run
+    slug: home-run
+  - name: Triple
+    slug: triple
+  - name: Double
+    slug: double
+  - name: Single
+    slug: single
+current:
+  - name: Dale City Moose Lodge 2165
+    level: Single
+    website: https://www.dalecitymoose2165.com/
+    image: /images/sponsors/dale-city-moose-lodge-2165-logo-dark.png
+    homepage_image: /images/sponsors/dale-city-moose-lodge-2165-logo-light.png
+    image_alt: Dale City Moose Lodge 2165
+    show_name: false
+    tagline: Community-centered service supporting local players and families.
