@@ -242,16 +242,20 @@
 {{ partial "social-hub.html" . }}
 
 {{ $sponsors := hugo.Data.sponsors }}
-{{ with index $sponsors.current 0 }}
+{{ with $sponsors.current }}
 <aside class="home-sponsor-band" aria-labelledby="home-sponsor-band-title">
   <div class="rt-shell home-sponsor-band__inner">
     <div class="home-sponsor-band__copy">
       <p class="rt-kicker">Community Partners</p>
       <h2 id="home-sponsor-band-title">Proudly Supported&nbsp;By</h2>
     </div>
-    <a class="home-sponsor-band__brand" href="{{ .website }}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ .name }}">
-      <img src="{{ partial "url.html" (.homepage_image | default .image) }}" alt="{{ .image_alt }}" loading="lazy" decoding="async">
-    </a>
+    <div class="home-sponsor-band__brands" aria-label="Current sponsors">
+      {{ range . }}
+      <a class="home-sponsor-band__brand" href="{{ .website }}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ .name }}">
+        <img src="{{ partial "url.html" (.homepage_image | default .image) }}" alt="{{ .image_alt }}" loading="lazy" decoding="async">
+      </a>
+      {{ end }}
+    </div>
     <div class="home-sponsor-band__links" aria-label="Sponsor links">
       <a href="{{ partial "url.html" "/sponsors/" }}">Meet Our Sponsors <span aria-hidden="true">→</span></a>
     </div>

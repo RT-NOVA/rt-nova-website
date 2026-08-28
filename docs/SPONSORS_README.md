@@ -49,7 +49,7 @@ current:
 4. Keep the tagline brief and omit dates, donation amounts, and long descriptions.
 5. Build and validate the site before publishing.
 
-The first entry under `current` is featured in the homepage sponsor band. Reorder the list when a different sponsor should be featured.
+Every entry under `current` appears in the homepage sponsor rail. The list order controls the left-to-right logo order; keep higher sponsorship levels first and group sponsors at the same level together.
 
 ## Managing sponsorship levels
 

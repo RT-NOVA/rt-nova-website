@@ -11,6 +11,14 @@ levels:
   - name: Single
     slug: single
 current:
+  - name: Vamonos IT
+    level: Home Run
+    website: https://vamonosit.com/about/
+    image: /images/sponsors/vamonos-it-logo-dark.png
+    homepage_image: /images/sponsors/vamonos-it-logo-light.png
+    image_alt: Vamonos IT
+    show_name: false
+    tagline: Mission-focused IT solutions with people and relationships at the center.
   - name: Dale City Moose Lodge 2165
     level: Single
     website: https://www.dalecitymoose2165.com/
