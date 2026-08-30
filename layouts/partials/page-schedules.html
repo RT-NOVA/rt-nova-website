@@ -54,11 +54,14 @@
 
 <section class="rt-section rt-section--white schedules-page">
   <div class="rt-container schedules-page__inner">
-    <header class="rt-section-heading schedules-heading">
-      <p class="rt-eyebrow rt-eyebrow--dark">Current Season</p>
-      <h2>Find your team’s next game</h2>
-      <p>Each team shows its next event at a glance. Open a team to view its complete current-season schedule.</p>
-    </header>
+    <section class="schedules-spotlight" data-schedule-spotlight hidden aria-labelledby="schedule-spotlight-title">
+      <header class="schedules-spotlight__header">
+        <p class="rt-eyebrow rt-eyebrow--dark">Current Events</p>
+        <h2 id="schedule-spotlight-title">Now &amp; This Weekend</h2>
+        <p class="schedules-spotlight__intro">Games and tournaments happening today or coming up this weekend.</p>
+      </header>
+      <div class="schedules-spotlight__grid" data-schedule-spotlight-list></div>
+    </section>
 
     <div class="schedules-filter-panel" data-schedule-filter data-current-season="{{ $currentYear }}">
       <div class="schedules-filter-panel__topline">
@@ -77,6 +80,12 @@
         {{ range $currentTeams }}
           <button class="schedules-filter-panel__team" type="button" data-filter-team-tab data-team-value="{{ urlize .name }}" aria-pressed="false">{{ .name }}</button>
         {{ end }}
+      </div>
+
+      <div class="schedules-filter-panel__views" role="group" aria-label="Filter schedule by event timing or type">
+        <button class="schedules-filter-panel__view is-active" type="button" data-filter-view data-view-value="all" aria-pressed="true">All Events</button>
+        <button class="schedules-filter-panel__view" type="button" data-filter-view data-view-value="tournament" aria-pressed="false">Tournaments</button>
+        <button class="schedules-filter-panel__view" type="button" data-filter-view data-view-value="game" aria-pressed="false">Games</button>
       </div>
 
       <label class="schedules-filter-panel__mobile-team">
@@ -142,7 +151,7 @@
           <header class="schedules-team-section__header">
             <div class="schedules-team-section__identity">
               <p>{{ with $currentSeason }}{{ .label | default (printf "%s Season" $currentYear) }}{{ else }}{{ $currentYear }} Season{{ end }}</p>
-              <h3>{{ $teamName }}</h3>
+              <h3><a href="?team={{ $teamSlug }}#team-{{ $teamSlug }}" data-filter-team-card data-team-value="{{ $teamSlug }}" aria-label="Show the {{ $teamName }} schedule">{{ $teamName }}</a></h3>
               {{ with ($metaScratch.Get "coach") }}<small>Head Coach: {{ . }}</small>{{ end }}
             </div>
             <div class="schedules-team-section__up-next" data-schedule-up-next>
@@ -209,40 +218,71 @@
                 {{ $locationText := $event.location | default "TBD" }}
                 {{ $timeIsTBD := or (eq (lower $timeText) "tbd") (eq $timeText "—") }}
                 {{ $locationIsTBD := or (eq (lower $locationText) "tbd") (eq $locationText "—") }}
+                {{ $startTime := time $event.date }}
+                {{ $endDate := $event.end_date | default $event.date }}
+                {{ $endTime := time $endDate }}
+                {{ $dateLabel := time.Format "Mon, Jan 2" $startTime }}
+                {{ if ne (time.Format "2006-01-02" $startTime) (time.Format "2006-01-02" $endTime) }}
+                  {{ if eq (time.Format "2006-01" $startTime) (time.Format "2006-01" $endTime) }}
+                    {{ $dateLabel = printf "%s–%s" (time.Format "Jan 2" $startTime) (time.Format "2, 2006" $endTime) }}
+                  {{ else if eq (time.Format "2006" $startTime) (time.Format "2006" $endTime) }}
+                    {{ $dateLabel = printf "%s–%s" (time.Format "Jan 2" $startTime) (time.Format "Jan 2, 2006" $endTime) }}
+                  {{ else }}
+                    {{ $dateLabel = printf "%s–%s" (time.Format "Jan 2, 2006" $startTime) (time.Format "Jan 2, 2006" $endTime) }}
+                  {{ end }}
+                {{ end }}
 
-                <article class="schedules-event-row"
+                <details class="schedules-event-row"
                   data-schedule-event
                   data-event-date="{{ time.Format "2006-01-02" (time $event.date) }}"
+                  data-event-end-date="{{ time.Format "2006-01-02" $endTime }}"
                   data-event-type="{{ $event.type | default "Schedule Event" }}"
                   data-event-title="{{ $eventTitle }}"
                   data-event-time="{{ $timeText }}"
                   data-event-location="{{ $locationText }}"
-                  data-search="{{ lower (printf "%s %s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle $locationText ($event.date | default "") $timeText ($event.notes | default "")) }}">
-                  <div class="schedules-event-row__date">
-                    <small>Date</small>
-                    <time datetime="{{ $event.date }}">{{ time.Format "Mon, Jan 2" (time $event.date) }}</time>
-                  </div>
-                  <div class="schedules-event-row__time{{ if $timeIsTBD }} is-tbd{{ end }}">
-                    <small>Time</small>
-                    <span>{{ $timeText }}</span>
-                  </div>
-                  <div class="schedules-event-row__event">
-                    <small>Event</small>
-                    <strong>
-                      {{ with $event.type }}<em>{{ . }}</em>{{ end }}
-                      {{ $eventTitle }}
-                      {{ with $event.notes }}<small>{{ . }}</small>{{ end }}
-                    </strong>
-                  </div>
-                  <div class="schedules-event-row__location{{ if $locationIsTBD }} is-tbd{{ end }}">
-                    <small>Location</small>
-                    {{ with $event.location_url }}
-                      <a href="{{ . }}" target="_blank" rel="noopener">{{ $locationText }}</a>
-                    {{ else }}
+                  data-event-date-label="{{ $dateLabel }}"
+                  data-event-team="{{ $teamName }}"
+                  data-event-team-slug="{{ $teamSlug }}"
+                  data-search="{{ lower (printf "%s %s %s %s %s %s %s %s" $teamName ($event.type | default "") $eventTitle $locationText ($event.date | default "") $endDate $timeText ($event.notes | default "")) }}">
+                  <summary class="schedules-event-row__summary">
+                    <span class="schedules-event-row__date">
+                      <small>Date</small>
+                      <time datetime="{{ $event.date }}">{{ $dateLabel }}</time>
+                    </span>
+                    <span class="schedules-event-row__time{{ if $timeIsTBD }} is-tbd{{ end }}">
+                      <small>Time</small>
+                      <span>{{ $timeText }}</span>
+                    </span>
+                    <span class="schedules-event-row__event">
+                      <small>Event</small>
+                      <strong>
+                        {{ with $event.type }}<em>{{ . }}</em>{{ end }}
+                        {{ $eventTitle }}
+                        <span class="schedules-event-status" data-event-status-label></span>
+                      </strong>
+                    </span>
+                    <span class="schedules-event-row__location{{ if $locationIsTBD }} is-tbd{{ end }}">
+                      <small>Location</small>
                       <span>{{ $locationText }}</span>
-                    {{ end }}
+                    </span>
+                  </summary>
+                  <div class="schedules-event-row__details">
+                    <div class="schedules-event-row__detail-copy">
+                      <span>{{ $teamName }}</span>
+                      <strong>{{ $dateLabel }}{{ if not $timeIsTBD }} · {{ $timeText }}{{ end }}</strong>
+                      {{ with $event.notes }}<p>{{ . }}</p>{{ end }}
+                    </div>
+                    <div class="schedules-event-row__resources" data-event-resource-links>
+                      {{ with $event.info_url }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener">Tournament Information</a>{{ end }}
+                      {{ with $event.schedule_url }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener">Schedule / Live Scores</a>{{ end }}
+                      {{ with $event.standings_url }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener">Standings</a>{{ end }}
+                      {{ with $event.bracket_url }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener">Bracket</a>{{ end }}
+                      {{ with $event.rules_url }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener">Rules</a>{{ end }}
+                      {{ with $event.location_url }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener">Location Details</a>{{ end }}
+                      {{ with ($metaScratch.Get "gameChangerUrl") }}<a href="{{ partial "url.html" . }}" target="_blank" rel="noopener" data-event-team-link>GameChanger</a>{{ end }}
+                    </div>
                   </div>
-                </article>
+                </details>
               {{ end }}
             </div>
 

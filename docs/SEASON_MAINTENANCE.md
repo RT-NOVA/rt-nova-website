@@ -173,21 +173,28 @@ For a tournament, use `title`:
 ```yaml
 - team: 13U Black
   date: 2026-07-25
+  end_date: 2026-07-27
   time: TBD
   type: Tournament
   title: Summer Slugfest
   location: VMP Field 4
+  info_url: https://example.com/tournament
+  standings_url: https://example.com/events/summer-slugfest/13u
+  bracket_url: https://example.com/bracket
 ```
 
 Important rules:
 
 - Use `YYYY-MM-DD` dates.
+- Add a verified `end_date` for multi-day tournaments so they remain current through the final day.
+- Tournament resource fields include `info_url`, `schedule_url`, `standings_url`, `bracket_url`, and `rules_url`; omit any link that is not available.
+- Set `standings_url` to the exact division page used by that team, not the event's general schedule. Verify the organizer-generated route for every team entry because formats vary by platform and division. If no division page is published yet, leave the field out until it is available.
 - The `team` value must exactly match a team name in that season's `teams.yaml`.
 - Only events from the season marked `current` are shown on `/schedules/`.
 - The team list comes from enabled current-season teams. Events left in YAML for a disabled team are retained but not displayed.
-- The default view shows one compact accordion summary per current team, including its next upcoming event or `Schedule coming soon`.
-- Scheduled events use the label `Up Next · Game` or `Up Next · Tournament`.
-- Opening a team reveals its complete upcoming schedule; selecting a team filters to that team and opens its schedule automatically.
+- The default view shows one compact accordion summary per current team, including its current or next upcoming event or `Schedule coming soon`.
+- Event labels are calculated from the start date, end date, and visitor's local date.
+- Opening a team reveals its complete upcoming schedule; selecting a team filter or displayed team name filters to that team and opens its schedule automatically.
 - Team Central schedule links use `/schedules/?team=<team-slug>#team-<team-slug>` to open and position the matching team section.
 - Past events remain available in the expandable past-events area.
 - There is no event-level `enabled` or `draft` option. Remove or comment out an event that should not be rendered.

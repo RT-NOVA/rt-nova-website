@@ -9,10 +9,14 @@ events:
 
   - team: 14U Black
     date: 2026-08-28
+    end_date: 2026-08-30
     time: TBD
     type: Tournament
     title: RVA Fall Kickoff
     location: Richmond, VA Area
+    info_url: https://tournaments.prepbaseballreport.com/events/rva-fall-kickoff-richmond-va-08-28-2026
+    standings_url: https://tournaments.prepbaseballreport.com/events/rva-fall-kickoff-richmond-va-08-28-2026/14u
+    rules_url: https://tournaments.prepbaseballreport.com/page/rules
 
   - team: 14U Black
     date: 2026-09-05
@@ -30,10 +34,14 @@ events:
 
   - team: 14U Black
     date: 2026-09-18
+    end_date: 2026-09-20
     time: TBD
     type: Tournament
     title: DMV Fall Classic
     location: Patriot Park North
+    info_url: https://play.ps-baseball.com/events/dmv-fall-classic-fairfax-va-09-18-2026
+    standings_url: https://play.ps-baseball.com/events/dmv-fall-classic-fairfax-va-09-18-2026/14u
+    rules_url: https://www.ps-baseball.com/tournament-rules
 
   - team: 14U Black
     date: 2026-09-27
@@ -44,24 +52,36 @@ events:
 
   - team: 14U Black
     date: 2026-10-02
+    end_date: 2026-10-04
     time: TBD
     type: Tournament
     title: 2026 PG Maryland Fall Finale
     location: Clinton, MD Area
+    info_url: https://www.perfectgame.org/Events/Default.aspx?event=161544
+    standings_url: https://www.perfectgame.org/events/TournamentPoolStandings.aspx?event=161544
+    rules_url: https://www.perfectgame.org/Events/tournaments/rules.aspx?event=161544
 
   - team: 14U Black
     date: 2026-10-16
+    end_date: 2026-10-18
     time: TBD
     type: Tournament
     title: PBT Virginia Fall Open
     location: Richmond, VA Area
+    info_url: https://tournaments.prepbaseballreport.com/events/pbt-virginia-fall-open-richmond-va-10-16-2026
+    standings_url: https://tournaments.prepbaseballreport.com/events/pbt-virginia-fall-open-richmond-va-10-16-2026/14u
+    rules_url: https://tournaments.prepbaseballreport.com/page/rules
 
   - team: 14U Black
     date: 2026-10-23
+    end_date: 2026-10-25
     time: TBD
     type: Tournament
     title: Capital Invite
     location: Patriot Park North
+    info_url: https://play.maplezonesportsinstitute.com/events/copy-of-capital-invite-at-patriot-park-north-fairfax-va-10-24-2025/teams
+    standings_url: https://play.maplezonesportsinstitute.com/events/copy-of-capital-invite-at-patriot-park-north-fairfax-va-10-24-2025/14u-open-
+    rules_url: https://maplezonesportsinstitute.com/wp-content/uploads/2025/04/MSI-Official-Tournament-Rules-4.2.25.pdf
 
   - team: 14U Black
     date: 2026-10-31
@@ -79,11 +99,13 @@ events:
     location: TBD
 
   - team: 14U Orange
-    date: 2026-09-10
+    date: 2026-09-11
+    end_date: 2026-09-13
     time: TBD
     type: Tournament
     title: Back to School
-    location: TBD
+    location: Patriot Park North and Satellite Fields
+    info_url: https://www.atballiance.org/dmv-tournaments.html
 
   - team: 14U Orange
     date: 2026-09-19
@@ -100,11 +122,13 @@ events:
     location: TBD
 
   - team: 14U Orange
-    date: 2026-10-08
+    date: 2026-10-09
+    end_date: 2026-10-11
     time: TBD
     type: Tournament
     title: Batten Down the Hatches
-    location: TBD
+    location: Olney, MD Area
+    info_url: https://obgc.com/tournaments-events/
 
   - team: 14U Orange
     date: 2026-10-17
@@ -114,18 +138,22 @@ events:
     location: TBD
 
   - team: 14U Orange
-    date: 2026-10-22
+    date: 2026-10-23
+    end_date: 2026-10-25
     time: TBD
     type: Tournament
     title: Halloween Havoc
-    location: TBD
+    location: Manassas, VA Area
+    info_url: https://www.usssa.com/baseball/event_home/?eventID=417330
 
   - team: 14U Orange
     date: 2026-10-30
+    end_date: 2026-11-01
     time: TBD
     type: Tournament
     title: Monster Mash
-    location: TBD
+    location: Patriot Park North and Satellite Fields
+    info_url: https://www.atballiance.org/dmv-tournaments.html
 
   - team: 14U Orange
     date: 2026-11-07
@@ -214,11 +242,12 @@ events:
     location: TBD
 
   - team: 12U
-    date: 2026-09-12
+    date: 2026-09-13
     time: TBD
     type: Tournament
     title: Back to School Tourney
-    location: TBD
+    location: Patriot Park North and Satellite Fields
+    info_url: https://www.atballiance.org/dmv-tournaments.html
 
   - team: 12U
     date: 2026-09-19
@@ -236,10 +265,12 @@ events:
 
   - team: 12U
     date: 2026-10-03
+    end_date: 2026-10-04
     time: TBD
     type: Tournament
     title: Zombie Apocalypse Slugfest
-    location: TBD
+    location: Frederick, MD Area
+    info_url: https://www.leaguelineup.com/zombie
 
   - team: 12U
     date: 2026-10-09
@@ -257,17 +288,21 @@ events:
 
   - team: 12U
     date: 2026-10-23
+    end_date: 2026-10-25
     time: TBD
     type: Tournament
     title: Halloween Havoc
-    location: TBD
+    location: Manassas, VA Area
+    info_url: https://www.usssa.com/baseball/event_home/?eventID=417330
 
   - team: 12U
-    date: 2026-10-30
+    date: 2026-10-31
+    end_date: 2026-11-01
     time: TBD
     type: Tournament
     title: Pumpkin Smash
-    location: TBD
+    location: Richmond, VA Area
+    info_url: https://www.usssa.com/baseball/event_home/?eventID=416528
 # 12U }}}
 # {{{ 10U
   - team: 10U
@@ -320,11 +355,15 @@ events:
     location: TBD
 
   - team: 10U
-    date: 2026-10-16
+    date: 2026-10-17
+    end_date: 2026-10-18
     time: TBD
     type: Tournament
-    title: TBD
-    location: TBD
+    title: 2026 10U PG Ark Fall Championships
+    location: The Ark, Quinton, VA
+    info_url: https://www.perfectgame.org/Events/Default.aspx?event=166699
+    standings_url: https://www.perfectgame.org/events/TournamentPoolStandings.aspx?event=166699
+    rules_url: https://www.perfectgame.org/Events/tournaments/rules.aspx?event=166699
 
   - team: 10U
     date: 2026-10-31

@@ -37,6 +37,9 @@ check_pattern "wrong org GitHub Pages project URLs" 'https://rt-nova\.github\.io
 check_pattern "TeamLinkt CDN dependency" 'cdn-app\.teamlinkt\.com'
 check_pattern "external Iconify dependency" 'api\.iconify\.design|code\.iconify\.design|cdn\.iconify\.design'
 
+# A standings action should land on the team's division, not the event-wide schedule.
+check_pattern "generic event schedule linked as Standings" 'href=["]?[^ >"]*/schedule["]?[^>]*>Standings</a>'
+
 if [[ "${ERRORS}" -gt 0 ]]; then
   echo "Validation failed with ${ERRORS} issue group(s)." >&2
   exit 1
