@@ -214,6 +214,13 @@ events:
 # 13U }}}
 # {{{ 12U
   - team: 12U
+    date: 2026-08-21
+    time: TBD
+    type: Game
+    title: vs. Spotsy Regulators
+    location: ''
+
+  - team: 12U
     date: 2026-08-23
     time: 9:00 AM
     type: Game
@@ -231,8 +238,9 @@ events:
     date: 2026-09-05
     time: TBD
     type: Tournament
-    title: Fire and Ice
+    title: Batter Up Blast
     location: TBD
+    info_url: https://vabaseball.usssa.com/event/fire-ice-sat-1214-sun-89101113/
 
   - team: 12U
     date: 2026-09-13
@@ -316,14 +324,14 @@ events:
     date: 2026-09-12
     time: TBD
     type: Game
-    title: vs. TBD
+    title: vs. Loudoun South Travel Baseball Tribe
     location: TBD
 
   - team: 10U
-    date: 2026-09-19
+    date: 2026-09-20
     time: TBD
     type: Game
-    title: vs. TBD
+    title: Double Header vs. Va Bombers 10U
     location: TBD
 
   - team: 10U
@@ -334,10 +342,10 @@ events:
     location: TBD
 
   - team: 10U
-    date: 2026-10-03
+    date: 2026-10-04
     time: TBD
     type: Game
-    title: vs. TBD
+    title: Double Header vs. Primary Lead panthers 10U
     location: TBD
 
   - team: 10U
