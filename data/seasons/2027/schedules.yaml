@@ -19,13 +19,6 @@ events:
     rules_url: https://tournaments.prepbaseballreport.com/page/rules
 
   - team: 14U Black
-    date: 2026-09-05
-    time: TBD
-    type: Game
-    title: Double Header vs. TBD
-    location: TBD
-
-  - team: 14U Black
     date: 2026-09-12
     time: TBD
     type: Tournament
