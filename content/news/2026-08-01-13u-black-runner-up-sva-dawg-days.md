@@ -1,6 +1,5 @@
 ---
 show_on_home_social: true
-pin_to_home_social: true
 title: "Rawlings Tigers NOVA 13U Black Earns Runner-Up at SVA Dawg Days"
 date: 2026-08-01
 badge: "Runner-Up"

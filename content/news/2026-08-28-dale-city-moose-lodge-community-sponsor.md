@@ -1,6 +1,5 @@
 ---
 show_on_home_social: true
-pin_to_home_social: true
 title: "Rawlings Tigers NOVA Welcomes Dale City Moose Lodge 2165 as a Community Sponsor"
 date: 2026-08-28
 badge: "Community Sponsor"

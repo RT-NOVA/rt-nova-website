@@ -1,6 +1,5 @@
 ---
 show_on_home_social: true
-pin_to_home_social: true
 title: "Vamonos IT Joins Rawlings Tigers NOVA as a Home Run Sponsor"
 date: 2026-08-28
 badge: "Home Run Sponsor"
