@@ -1,1 +1,13 @@
-achievements: []
+achievements:
+- id: 2026-12u-batter-up-blast-champions
+  date: '2026-09-06'
+  year: '2026'
+  season: Fall
+  team: 12U
+  tournament: USSSA Batter-Up Blast
+  result: Champions
+  logo: /images/accolades/tournament-logos/batter-up-blast-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+  social_url: https://www.facebook.com/share/p/1BMGB9gwvQ/
+  story_label: View on Facebook
+  feature_image: /images/social/12u-batter-up-blast-champions.jpg
