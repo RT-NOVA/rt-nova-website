@@ -10,6 +10,8 @@ assets/css/tryouts.css
 
 ## Current page behavior
 
+The age chart is expanded on page load. Its disclosure control says “Hide Chart” while expanded and “Show Chart” while collapsed.
+
 The page combines the published age chart and scheduled `groups` into one age-group selector:
 
 - The all-ages view shows only real published evaluation sessions.

@@ -84,6 +84,11 @@
   text-transform: uppercase;
 }
 
+.rt-tryout-age-chart[open] .rt-tryout-age-chart__show,
+.rt-tryout-age-chart:not([open]) .rt-tryout-age-chart__hide {
+  display: none;
+}
+
 .rt-tryout-age-table {
   border-top: 1px solid rgba(5,5,5, .1);
 }

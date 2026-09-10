@@ -1,7 +1,7 @@
 title: Evaluations & Tryouts
 season: Fall 2026 Tryouts
 intro: Rawlings Tigers NOVA offers competitive travel baseball tryouts for rising
-  10U, 12U, 13U, and 14U players in Northern Virginia.
+  10U, 11U, 12U, 13U, and 14U players in Northern Virginia.
 registration_url: /become-a-tiger/
 evaluation_areas:
 - title: Throwing
@@ -75,8 +75,6 @@ age_chart:
   - age_group: 12U
     birth_window: May 1, 2014 – April 30, 2015
   - age_group: 11U
-    # Keep the age definition ready for a future season without listing it now.
-    enabled: false
     birth_window: May 1, 2015 – April 30, 2016
   - age_group: 10U
     birth_window: May 1, 2016 – April 30, 2017

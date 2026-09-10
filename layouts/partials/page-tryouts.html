@@ -40,13 +40,14 @@
 
   <div class="rt-container">
     {{ with $data.age_chart }}
-      <details class="rt-tryout-age-chart">
+      <details class="rt-tryout-age-chart" open>
         <summary>
           <span>
             <strong>Find your player’s age group</strong>
             <em>{{ .note | default "Confirm the correct rising age group before registering." }}</em>
           </span>
-          <b>View Chart</b>
+          <b class="rt-tryout-age-chart__hide">Hide Chart</b>
+          <b class="rt-tryout-age-chart__show">Show Chart</b>
         </summary>
 
         <div class="rt-tryout-age-table" role="table" aria-label="{{ .title | default "Baseball age chart" }}">
@@ -213,6 +214,7 @@
       <div>
         <strong>Private Tryouts Upon Request</strong>
         <span>Don’t see your player’s age group listed? Private tryouts may be available upon request.</span>
+        <a class="rt-btn rt-btn--light" href="{{ partial "url.html" ($data.registration_url | default "/become-a-tiger/") }}">Request a Tryout</a>
       </div>
     </aside>
 
