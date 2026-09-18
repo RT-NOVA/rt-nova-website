@@ -50,13 +50,13 @@ groups:
 #    date: —
 #    time: —
 #    location: —
-#- age_group: 11U
-#  coach: Jackson Hayes
-#  sessions:
-#  - type: Private Tryouts Upon Request
-#    date: —
-#    time: —
-#    location: —
+- age_group: 11U
+  coach: Jackson Hayes
+  sessions:
+  - type: Open Evaluations
+    date: 09/23/2026
+    time: 6:00 PM
+    location: Cloverdale Park
 #- age_group: 10U
 #  coach: Brandon Cleveland
 #  sessions:

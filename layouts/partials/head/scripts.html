@@ -19,6 +19,10 @@
   {{- $scripts = $scripts | append "js/schedules.js" -}}
 {{- end -}}
 
+{{- if eq .Layout "become-a-tiger" -}}
+  {{- $scripts = $scripts | append "js/player-registration.js" -}}
+{{- end -}}
+
 {{- range $scripts -}}
   {{- with resources.Get . -}}
     {{- $script := . | minify | fingerprint -}}

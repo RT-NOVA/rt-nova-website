@@ -1,4 +1,20 @@
 /* Tryouts page scoped layout */
+.rt-tryout-registration {
+  margin-top: 1.25rem;
+}
+
+.rt-tryout-registration .rt-btn {
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.rt-tryout-registration p {
+  max-width: 680px;
+  margin: .75rem 0 0;
+  color: var(--rt-muted);
+}
+
 .rt-tryout-review-section .rt-section-heading {
   margin-bottom: clamp(1.75rem, 4vw, 3rem);
 }
@@ -498,7 +514,7 @@
 
 /* Tryout age-group schedule tables: aligned with the open Schedules page rhythm */
 .rt-tryout-schedule-section {
-  background: var(--rt-cream, #f4f1ea);
+  background: #fff;
 }
 
 .rt-tryout-schedule-section .rt-section-heading {
@@ -739,7 +755,7 @@
 
 /* v3: make Tryout age-group tables visually match the Schedules page */
 .rt-tryout-schedule-section {
-  background: var(--rt-cream, #f4f1ea) !important;
+  background: #fff !important;
 }
 
 .rt-tryout-schedule-section > .rt-container,

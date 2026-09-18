@@ -43,6 +43,30 @@ If a value includes a colon, quote it:
 coach: "Black: Chris Cheshire · Orange: Tim Jacoby"
 ```
 
+## Set the location and map link
+
+Each session supports two location fields:
+
+- `location`: the text displayed in the schedule. Include the city/state or full address when needed to identify the correct park or field.
+- `directions_url` (optional): the exact URL opened by the map icon. Use a verified map or directions link for the correct venue, entrance, or field.
+
+For example:
+
+```yaml
+sessions:
+  - type: Open Evaluations
+    date: 09/23/2026
+    time: 6:00 PM
+    location: Cloverdale Park, Dale City, VA
+    directions_url: "https://www.google.com/maps/search/?api=1&query=Cloverdale+Park+Dale+City+VA"
+```
+
+The example uses a Google Maps search URL; you can replace it with the share link copied from the verified venue in Google Maps.
+
+The page uses `directions_url` when supplied. If it is omitted or blank, the page creates a Google Maps search URL using the `location` text exactly as entered; it does not automatically add a city or state. If neither a map URL nor a usable location is supplied (the location is missing, blank, or `—`), the Map column shows `—` instead of a link.
+
+Set these fields separately for each session when dates use different venues.
+
 ## Update the age chart
 
 Edit `age_chart.rows` in `data/tryouts.yaml`.

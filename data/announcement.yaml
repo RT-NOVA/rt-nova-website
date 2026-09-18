@@ -1,6 +1,12 @@
-enabled: false
+#enabled: false
+#aria_label: Important tryout information
+#eyebrow: Tryouts
+#message: 2027 dates & details are available
+#mobile_message: 2027 details are available
+#url: /tryouts/
+enabled: true
 aria_label: Important tryout information
-eyebrow: Tryouts
-message: 2027 dates & details are available
-mobile_message: 2027 details are available
+eyebrow: Tryout
+message: 11U Open Evaluations
+mobile_message: 11U Open Evaluations
 url: /tryouts/

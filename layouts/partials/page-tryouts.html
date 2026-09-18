@@ -12,27 +12,10 @@
   "show_card" false
 ) }}
 
-<section class="rt-section rt-section--white rt-tryout-review-section">
-  <div class="rt-container rt-section-heading rt-section-heading--center">
-    <p class="rt-eyebrow rt-eyebrow--dark">Tryout Overview</p>
-    <h2>What coaches review.</h2>
-    <p>Coaches review baseball skills, athletic movement, coachability, effort, communication, and how players compete in a team setting.</p>
-  </div>
-
-  <div class="rt-container rt-tryout-review-grid rt-tryout-review-grid--full" aria-label="Tryout evaluation areas">
-    {{ range $data.evaluation_areas }}
-      <article class="rt-tryout-eval-card">
-        <h3>{{ .title }}</h3>
-        <p>{{ .text }}</p>
-      </article>
-    {{ end }}
-  </div>
-</section>
-
 <section class="rt-section rt-section--white rt-tryout-schedule-section">
   <div class="rt-container rt-section-heading rt-section-heading--center">
     <p class="rt-eyebrow rt-eyebrow--dark">Tryout / Evaluation</p>
-    <h2>Schedule Dates</h2>
+    <h2>SCHEDULE / DATES</h2>
     <p class="tryout-schedule-intro">
       Players only need to attend one evaluation or tryout unless otherwise noted
     </p>
@@ -181,6 +164,12 @@
               </article>
             {{ end }}
           </div>
+          {{ if $hasPostedSessions }}
+            <div class="rt-tryout-registration">
+              <a class="rt-btn rt-btn-primary" href="{{ partial "url.html" (printf "%s?%s" ($data.registration_url | default "/become-a-tiger/") (querify "age" $group.age_group)) }}">REGISTER FOR {{ $group.age_group }}</a>
+              <p>Completing the form registers your interest in this age group. The coaching staff will contact your family with evaluation or tryout details.</p>
+            </div>
+          {{ end }}
         </section>
       {{ end }}
 
@@ -223,6 +212,23 @@
 </section>
 
 
+
+<section class="rt-section rt-section--white rt-tryout-review-section">
+  <div class="rt-container rt-section-heading rt-section-heading--center">
+    <p class="rt-eyebrow rt-eyebrow--dark">Tryout Overview</p>
+    <h2>What coaches review.</h2>
+    <p>Coaches review baseball skills, athletic movement, coachability, effort, communication, and how players compete in a team setting.</p>
+  </div>
+
+  <div class="rt-container rt-tryout-review-grid rt-tryout-review-grid--full" aria-label="Tryout evaluation areas">
+    {{ range $data.evaluation_areas }}
+      <article class="rt-tryout-eval-card">
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
+      </article>
+    {{ end }}
+  </div>
+</section>
 
 {{ partial "faq-list.html" (dict
   "id" "tryout-faq"
