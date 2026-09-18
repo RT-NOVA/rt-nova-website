@@ -11,3 +11,17 @@ achievements:
   social_url: https://www.facebook.com/share/p/1BMGB9gwvQ/
   story_label: View on Facebook
   feature_image: /images/social/12u-batter-up-blast-champions.jpg
+
+- id: 2026-12u-nvtbl-back-to-school-runner-up
+  date: '2026-09-13'
+  year: '2027'
+  season: Fall
+  team: 12U
+  tournament: NVTBL Back To School
+  result: Runner-Up
+  logo: /images/accolades/tournament-logos/nvtbl-back-to-school-fall-2026.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+  social_url: https://www.facebook.com/share/p/17wgyosiot/
+  story_label: View on Facebook
+  feature_image: /images/social/12u-nvtbl-back-to-school-runner-up.jpg
+  hide_from_home_featured: true
