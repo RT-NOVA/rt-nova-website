@@ -66,6 +66,7 @@ Heading hierarchy and layout alignment are separate decisions. A centered sectio
 | Team season/archive controls | `assets/js/teams.js` |
 | Coach season controls and photo modal | `assets/js/coaches.js` |
 | Tryout filtering | `assets/js/tryouts.js` |
+| Player registration age preselection in Jotform | `assets/js/player-registration.js` |
 | Accolade filters and paging | `assets/js/accolades.js` |
 | Schedule filtering and expansion | `assets/js/schedules.js` |
 

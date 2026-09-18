@@ -39,6 +39,7 @@ This is the starting point for maintaining the Rawlings Tigers NOVA website. The
 | Current sponsors | [`SPONSORS_README.md`](SPONSORS_README.md) |
 | Coaching opportunities | [`COACHING_OPPORTUNITIES_README.md`](COACHING_OPPORTUNITIES_README.md) |
 | Coaching registration | [`COACHING_REGISTRATION_README.md`](COACHING_REGISTRATION_README.md) |
+| Player registration, Jotform embed, and age preselection | [`PLAYER_REGISTRATION_README.md`](PLAYER_REGISTRATION_README.md) |
 | Shared FAQ data | [`SHARED_FAQ_README.md`](SHARED_FAQ_README.md) |
 | SEO and search metadata | [`SEO_README.md`](SEO_README.md) |
 

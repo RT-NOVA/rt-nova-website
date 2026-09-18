@@ -6,6 +6,7 @@ The Tryouts page is rendered from:
 data/tryouts.yaml
 layouts/partials/page-tryouts.html
 assets/css/tryouts.css
+assets/js/tryouts.js
 ```
 
 ## Current page behavior
@@ -17,7 +18,7 @@ The page combines the published age chart and scheduled `groups` into one age-gr
 - The all-ages view shows only real published evaluation sessions.
 - Choosing an age shows its sessions or the configured fallback when dates are not posted.
 - Private evaluations remain behind the page's private-evaluation notice rather than appearing as public dates.
-- Session rows present the evaluation type, date, time, location, and registration action in a consistent table.
+- Session rows present the evaluation type, date, time, location, and map link in a consistent table. Groups with posted sessions have one registration button below the table.
 
 When hiding an age, update both the age-chart availability and any scheduled group for that age so the selector and sessions remain consistent.
 
@@ -28,7 +29,7 @@ Edit `data/tryouts.yaml` under `groups:`.
 Example:
 
 ```yaml
-- age_group: Rising 12U
+- age_group: 12U
   coach: Ken Torres
   sessions:
     - type: Open Evaluation
@@ -88,6 +89,16 @@ To retain an age definition without listing it for the current tryout cycle, set
 ```
 
 When an age is unavailable, also update the page intro and remove or comment out any active `groups` schedule block for that age. Remove `enabled` or change it to `true` when the age returns.
+
+## Registration links
+
+`registration_url` in `data/tryouts.yaml` points to `/become-a-tiger/`. Keep it a plain page path without a query string: group registration buttons append `?age=<age_group>`.
+
+A group with posted sessions displays `REGISTER FOR <age_group>`. For example, `11U` links to `/become-a-tiger/?age=11U`, which preselects that age in the embedded Jotform. Use the exact age values `10U`, `11U`, `12U`, `13U`, or `14U`; labels such as `Rising 12U` do not match the registration script's allowlist.
+
+The orange global private-tryout notice has a **Request a Tryout** link to the same registration page without an age parameter. The page's final **Become a Tiger** link also leaves age selection to the visitor. Registration records interest in an age group; it does not select or reserve a particular evaluation date.
+
+See [`PLAYER_REGISTRATION_README.md`](PLAYER_REGISTRATION_README.md) for the Jotform field mapping and verification steps. When promoting an evaluation through the global announcement bar, maintain its message separately in `data/announcement.yaml` and disable or update it after the event; see [`ANNOUNCEMENT_BAR_README.md`](ANNOUNCEMENT_BAR_README.md).
 
 ## Update FAQ
 

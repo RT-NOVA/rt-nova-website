@@ -189,6 +189,10 @@ show_on_home_social: false
 
 ---
 
+## Social Hub visibility versus featured achievements
+
+The visibility flags above control Social Hub cards only. Tournament achievements have a separate `hide_from_home_featured` flag in `data/seasons/<season-id>/tournament-results.yaml`, controlling the shared homepage recruiting image pool and Accolades Featured Achievements. It does not hide a Social Hub card or remove the tournament banner. See [`ACCOLADES_README.md`](ACCOLADES_README.md).
+
 ## Do not place assets/layouts under content
 
 Global Hugo files should not live under `content/`.

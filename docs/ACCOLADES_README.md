@@ -35,6 +35,8 @@ achievements:
 
 Use a real event completion `date` in `YYYY-MM-DD` format. Team Accolades uses that field to sort tournament results newest first.
 
+The season directory and `year` identify the baseball season, which can differ from the event's calendar year. For example, the September 2026 fall results belong in `data/seasons/2027/tournament-results.yaml` with `year: "2027"`, `season: Fall`, and their actual September 2026 dates.
+
 Tournament logos are stored in `static/images/accolades/tournament-logos/`. The default hanging-banner artwork is `static/images/accolades/blank-white-hanging-banner.svg`.
 
 Tournament logos use the shared banner position by default. When artwork has unusual internal padding, add `logo_position_y` (for example, `47%`) to adjust that achievement vertically without resizing the logo or affecting other banners.
@@ -73,9 +75,12 @@ The homepage recruiting section uses the same three selected Featured Achievemen
 
 Optional fields:
 
+- `hide_from_home_featured: true`: excludes the achievement before featured selection, even when `featured: true`. Despite its name, this removes it from both the homepage recruiting image rotation and the Accolades page's Featured Achievements because they share `layouts/partials/data/featured-achievements.html`. It remains in the Team Accolades banner gallery, and its Social Hub card is unaffected. Remove the flag or set it to `false` to restore eligibility.
 - `feature_image`: overrides the image inherited from the linked page.
 - `story_label`: overrides `Read the story` or `View the post`.
 - `feature_crop`: retains compatibility with existing content metadata, although Featured Achievement images are displayed without cropping by default.
+
+For a Facebook tournament recap, create a card under `content/social-hub/` and a separate achievement in the season data. Use the same exact URL in the card's `link` and the achievement's `social_url` so featured selection can find the card's title, caption, and image. A direct `feature_image` can override the image. Set `story_label: View on Facebook` for a clear destination label. See [`SOCIAL_HUB_README.md`](SOCIAL_HUB_README.md) for card visibility and homepage pinning; these controls are independent of achievement priority.
 
 ## Hall of Recognition
 
