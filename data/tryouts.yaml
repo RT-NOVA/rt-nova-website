@@ -23,19 +23,20 @@ evaluation_areas:
   text: Players who are eager to improve, compete with energy, support their teammates,
     and are prepared to play at a high level.
 groups:
-#- age_group: 14U
-#  coach: 'Black: Chris Cheshire · Orange: Tim Jacoby'
-#  sessions:
+- age_group: 14U
+  #coach: 'Black: Chris Cheshire · Orange: Tim Jacoby'
+  coach: 'Black: Chris Cheshire'
+  sessions:
 #  - type: Formal Tryout
 #    date: —
 #    time: —
 #    location: —
 #    directions_url:
-#  - type: Open Evaluations
-#    date: —
-#    time: —
-#    location: —
-#    directions_url:
+  - type: Open Tryout ( Catcher )
+    date: 10/20, 10/27, 11/3
+    time: 6:00 - 8:00 PM
+    location: Veterans Memorial Park, Baseball Field 4
+    directions_url: "https://www.google.com/maps/search/?api=1&query=Veterans%20Memorial%20Park%20Baseball%20Field%204"
 #- age_group: 13U
 #  coach: Jose Acosta
 #  sessions:
