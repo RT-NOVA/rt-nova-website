@@ -1,4 +1,17 @@
 achievements:
+- id: 2026-12u-halloween-havoc-silver-bracket-champions
+  date: '2026-10-25'
+  year: '2027'
+  season: Fall
+  team: 12U
+  tournament: Halloween Havoc
+  result: Silver Bracket Champions
+  logo: /images/accolades/tournament-logos/halloween-havoc-logo.png
+  template: /images/accolades/blank-white-hanging-banner.svg
+  social_url: https://www.facebook.com/share/p/1MFDFubkza/
+  story_label: View on Facebook
+  feature_image: /images/social/12u-halloween-havoc-silver-bracket-champions.jpg
+
 - id: 2026-12u-batter-up-blast-champions
   date: '2026-09-06'
   year: '2027'
